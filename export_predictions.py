@@ -328,6 +328,20 @@ def export_predictions(target_date: date) -> Path:
                     if ir_info["roi"] is not None:
                         integrated_roi_str = f"{ir_info['roi']:.0f}%"
 
+                # 推定ROI: フォールバック（パターン→蓄積→5走→前走）
+                estimated_roi_str = "-"
+                roi_source = ""
+                for _roi_str, _src in [
+                    (pattern_roi_str, "パターン"),
+                    (accumulation_roi_str, "蓄積"),
+                    (roll5_roi_str, "5走"),
+                    (last_race_roi_str, "前走"),
+                ]:
+                    if _roi_str != "-":
+                        estimated_roi_str = _roi_str
+                        roi_source = _src
+                        break
+
                 # 血統
                 bi = blood_info_map.get(hn, {})
                 sire_name = bi.get("sire_name", "")
@@ -355,6 +369,8 @@ def export_predictions(target_date: date) -> Path:
                     "odds": round(odds_val, 1) if odds_val else None,
                     "recommendation": recommendation,
                     "composite_score": display_score,
+                    "estimated_roi": estimated_roi_str,
+                    "roi_source": roi_source,
                     "pattern_roi": pattern_roi_str,
                     "accumulation_roi": accumulation_roi_str,
                     "roll5_roi": roll5_roi_str,
