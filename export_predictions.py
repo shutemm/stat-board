@@ -292,9 +292,38 @@ def export_predictions(target_date: date) -> Path:
                                         tags.append(f"有利:{signal_name}")
                                 signal_tags = ", ".join(tags)
 
-                # 統合ROI
+                # 各ROIソースを個別取得
+                pattern_roi_str = "-"
+                accumulation_roi_str = "-"
+                roll5_roi_str = "-"
+                last_race_roi_str = "-"
                 integrated_roi_str = "-"
+
                 if horse_id:
+                    # 1. パターンROI（複合条件パターン）
+                    matched_pats = raw_scorer.check_highlight_patterns(horse_id, ct)
+                    if matched_pats:
+                        best_pat = max(matched_pats, key=lambda p: p["oos_roi"])
+                        pattern_roi_str = f"{best_pat['oos_roi']:.0f}%"
+
+                    # 2. 蓄積SIG ROI
+                    accum_pats = raw_scorer.check_accumulation_patterns(horse_id, ct)
+                    if accum_pats:
+                        best_acc = max(accum_pats, key=lambda p: p["oos_roi"])
+                        accumulation_roi_str = f"{best_acc['oos_roi']:.0f}%"
+
+                    # 3. 5走平均rank_dev ROI
+                    mr_info = raw_scorer.get_horse_multi_race_features(horse_id, ct)
+                    if mr_info and mr_info.get("roll5_roi") is not None:
+                        roll5_roi_str = f"{mr_info['roll5_roi']:.0f}%"
+
+                    # 4. 前走rank_dev ROI
+                    raw_feats = raw_scorer.get_horse_raw_features(horse_id, ct)
+                    rd_info = raw_feats.get("rank_dev")
+                    if rd_info and rd_info.get("oos_roi") is not None:
+                        last_race_roi_str = f"{rd_info['oos_roi']:.0f}%"
+
+                    # 統合ROI（後方互換）
                     ir_info = raw_scorer.get_integrated_roi(horse_id, ct)
                     if ir_info["roi"] is not None:
                         integrated_roi_str = f"{ir_info['roi']:.0f}%"
@@ -326,6 +355,10 @@ def export_predictions(target_date: date) -> Path:
                     "odds": round(odds_val, 1) if odds_val else None,
                     "recommendation": recommendation,
                     "composite_score": display_score,
+                    "pattern_roi": pattern_roi_str,
+                    "accumulation_roi": accumulation_roi_str,
+                    "roll5_roi": roll5_roi_str,
+                    "last_race_roi": last_race_roi_str,
                     "integrated_roi": integrated_roi_str,
                     "blood_roi": blood_roi_str,
                     "sire_name": sire_name,
