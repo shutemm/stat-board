@@ -322,6 +322,25 @@ def export_predictions(target_date: date) -> Path:
                     rd_info = raw_feats.get("rank_dev")
                     if rd_info and rd_info.get("oos_roi") is not None:
                         last_race_roi_str = f"{rd_info['oos_roi']:.0f}%"
+                    else:
+                        # 同一馬場のデータなし → 別馬場の前走ROIを参考表示
+                        other_ct = "芝" if ct == "ダート" else "ダート"
+                        raw_other = raw_scorer.get_horse_raw_features(
+                            horse_id, other_ct)
+                        rd_other = raw_other.get("rank_dev")
+                        if rd_other and rd_other.get("oos_roi") is not None:
+                            last_race_roi_str = (
+                                f"({rd_other['oos_roi']:.0f}%"
+                                f"{'芝' if other_ct == '芝' else 'ダ'})")
+
+                        # 別馬場の5走ROIも取得
+                        if roll5_roi_str == "-":
+                            mr_other = raw_scorer.get_horse_multi_race_features(
+                                horse_id, other_ct)
+                            if mr_other and mr_other.get("roll5_roi") is not None:
+                                ct_label = "芝" if other_ct == "芝" else "ダ"
+                                roll5_roi_str = (
+                                    f"({mr_other['roll5_roi']:.0f}%{ct_label})")
 
                     # 統合ROI（後方互換）
                     ir_info = raw_scorer.get_integrated_roi(horse_id, ct)

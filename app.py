@@ -100,13 +100,26 @@ def load_prediction_data(file_path: str):
 # ヘルパー
 # ============================================================
 
+def _extract_roi_number(val_str: str) -> float | None:
+    """ROI文字列から数値部分を抽出する。
+
+    対応フォーマット: "120%", "~120%(3走)", "(82%芝)", "(120%ダ)"
+    """
+    if not val_str or val_str == "-" or "%" not in val_str:
+        return None
+    try:
+        s = val_str.replace("~", "").replace("(", "").replace(")", "")
+        s = s.replace("芝", "").replace("ダ", "")
+        s = s.split("走")[0]
+        return float(s.replace("%", ""))
+    except (ValueError, TypeError):
+        return None
+
+
 def roi_style(val_str: str) -> str:
     """ROI文字列からセルスタイルを返す"""
-    if val_str == "-" or "%" not in val_str:
-        return ""
-    try:
-        v = float(val_str.replace("%", "").split("(")[0])
-    except (ValueError, TypeError):
+    v = _extract_roi_number(val_str)
+    if v is None:
         return ""
     if v >= 150:
         return f"background-color: {BG_GREEN_STRONG}; color: {TEXT_GREEN}; font-weight: bold"
@@ -123,12 +136,7 @@ def roi_style(val_str: str) -> str:
 
 def parse_roi_value(val_str) -> float | None:
     """ROI文字列から数値を抽出する。パース失敗時はNoneを返す。"""
-    if val_str == "-" or not val_str or "%" not in str(val_str):
-        return None
-    try:
-        return float(str(val_str).replace("%", "").split("(")[0])
-    except (ValueError, TypeError):
-        return None
+    return _extract_roi_number(str(val_str) if val_str else "")
 
 
 def get_estimated_roi(horse: dict) -> str:
