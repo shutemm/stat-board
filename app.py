@@ -121,8 +121,18 @@ def roi_style(val_str: str) -> str:
     return f"background-color: {BG_RED_STRONG}; color: {TEXT_RED}"
 
 
+def parse_roi_value(val_str) -> float | None:
+    """ROI文字列から数値を抽出する。パース失敗時はNoneを返す。"""
+    if val_str == "-" or not val_str or "%" not in str(val_str):
+        return None
+    try:
+        return float(str(val_str).replace("%", "").split("(")[0])
+    except (ValueError, TypeError):
+        return None
+
+
 def highlight_row(row):
-    """テーブル行のハイライト"""
+    """テーブル行のハイライト（ROIベース）"""
     styles = [""] * len(row)
     cols = list(row.index)
 
@@ -153,18 +163,6 @@ def highlight_row(row):
             s = roi_style(str(row[roi_col]))
             if s:
                 styles[idx] = s
-
-    # スコアハイライト
-    if "スコア" in cols:
-        idx = cols.index("スコア")
-        try:
-            v = float(row["スコア"])
-            if v >= 70:
-                styles[idx] = f"background-color: {BG_GREEN_STRONG}; color: {TEXT_GREEN}; font-weight: bold"
-            elif v >= 55:
-                styles[idx] = f"background-color: {BG_GREEN_LIGHT}; color: {TEXT_GREEN_MED}"
-        except (ValueError, TypeError):
-            pass
 
     return styles
 
@@ -241,21 +239,32 @@ def main():
         except ValueError:
             pass
 
-    # 注目レースランキング（全会場横断でスコア上位）
+    # 注目レースランキング（全会場横断で統合ROI上位）
     all_races = []
     for venue_name, venue_data in venues_data.items():
         for race in venue_data.get("races", []):
             horses = race.get("horses", [])
             buy_horses = [h for h in horses if h.get("recommendation") == "買"]
-            top3_scores = sorted(
-                [h.get("composite_score", 0) for h in horses],
-                reverse=True,
-            )[:3]
-            avg_top3 = sum(top3_scores) / len(top3_scores) if top3_scores else 0
+
+            # 各馬の統合ROIを数値化し、上位3頭の平均ROIで評価
+            roi_values = []
+            for h in horses:
+                rv = parse_roi_value(h.get("integrated_roi", "-"))
+                if rv is not None:
+                    roi_values.append(rv)
+            roi_values.sort(reverse=True)
+            top3_roi = roi_values[:3]
+            avg_top3_roi = sum(top3_roi) / len(top3_roi) if top3_roi else 0
+
+            # 統合ROI順で上位3頭の馬名
+            horses_with_roi = [
+                (h, parse_roi_value(h.get("integrated_roi", "-")) or 0)
+                for h in horses
+            ]
+            horses_with_roi.sort(key=lambda x: x[1], reverse=True)
             top3_names = ", ".join(
                 f"{h['horse_number']}{h['horse_name']}"
-                for h in sorted(horses, key=lambda x: x.get("composite_score", 0),
-                                reverse=True)[:3]
+                for h, _ in horses_with_roi[:3]
             )
 
             all_races.append({
@@ -264,16 +273,16 @@ def main():
                 "race_name": race["race_name"],
                 "course": race["course"],
                 "head_count": race.get("head_count", len(horses)),
-                "avg_top3": avg_top3,
+                "avg_top3_roi": avg_top3_roi,
                 "top3_names": top3_names,
                 "n_buy": len(buy_horses),
                 "race_data": race,
             })
 
-    all_races.sort(key=lambda x: x["avg_top3"], reverse=True)
+    all_races.sort(key=lambda x: x["avg_top3_roi"], reverse=True)
 
     # 注目レーストップ5
-    st.markdown("### 注目レース（スコア順）")
+    st.markdown("### 注目レース（回収率順）")
     ranking_rows = []
     for i, r in enumerate(all_races[:5]):
         ranking_rows.append({
@@ -283,7 +292,7 @@ def main():
             "レース名": r["race_name"],
             "コース": r["course"],
             "頭数": r["head_count"],
-            "Top3スコア": f"{r['avg_top3']:.1f}",
+            "Top3 ROI": f"{r['avg_top3_roi']:.0f}%",
             "注目馬": r["top3_names"],
         })
 
@@ -293,20 +302,11 @@ def main():
         def highlight_ranking(row):
             styles = [""] * len(row)
             cols = list(row.index)
-            if "Top3スコア" in cols:
-                idx = cols.index("Top3スコア")
-                try:
-                    v = float(row["Top3スコア"])
-                    if v >= 70:
-                        styles[idx] = (f"background-color: {BG_GREEN_STRONG}; "
-                                       f"color: {TEXT_GREEN}; font-weight: bold")
-                    elif v >= 55:
-                        styles[idx] = (f"background-color: {BG_GREEN_LIGHT}; "
-                                       f"color: {TEXT_GREEN_MED}")
-                    elif v >= 40:
-                        styles[idx] = f"background-color: #2a3d2a; color: {TEXT_LIGHT}"
-                except (ValueError, TypeError):
-                    pass
+            if "Top3 ROI" in cols:
+                idx = cols.index("Top3 ROI")
+                s = roi_style(str(row["Top3 ROI"]))
+                if s:
+                    styles[idx] = s
             return styles
 
         st.dataframe(
@@ -344,13 +344,18 @@ def main():
                 if avoid_count > 0:
                     count_str += f" 避:{avoid_count}"
 
-                top_score = max(
-                    (h.get("composite_score", 0) for h in horses), default=0)
+                # 最高統合ROIを取得
+                top_roi_vals = [
+                    parse_roi_value(h.get("integrated_roi", "-"))
+                    for h in horses
+                ]
+                top_roi_vals = [v for v in top_roi_vals if v is not None]
+                top_roi = max(top_roi_vals) if top_roi_vals else 0
 
                 header = (
                     f"{race_num}R **{race_name}** "
                     f"({course} {track_cond}) "
-                    f"Top:{top_score:.0f}{count_str}"
+                    f"Top ROI:{top_roi:.0f}%{count_str}"
                 )
 
                 with st.expander(header, expanded=(buy_count > 0)):
@@ -379,7 +384,6 @@ def main():
                             "推奨": h.get("recommendation", ""),
                             "番": h.get("horse_number", ""),
                             "馬名": h.get("horse_name", ""),
-                            "スコア": h.get("composite_score", 0),
                             "統合ROI": h.get("integrated_roi", "-"),
                             "血統ROI": h.get("blood_roi", "-"),
                             "父": h.get("sire_name", ""),
@@ -391,7 +395,7 @@ def main():
 
                     tdf = pd.DataFrame(table_rows)
 
-                    # 推奨順にソート: 買 > 避 > その他、同じカテゴリ内はスコア降順
+                    # 推奨順にソート: 買 > 避 > その他、同じカテゴリ内はRank順
                     sort_key = tdf["推奨"].map({"買": 0, "避": 2, "": 1})
                     tdf = (tdf.assign(_sort=sort_key)
                            .sort_values(["_sort", "Rank"])
@@ -399,7 +403,7 @@ def main():
                            .reset_index(drop=True))
 
                     display_cols = [
-                        "Rank", "推奨", "番", "馬名", "スコア",
+                        "Rank", "推奨", "番", "馬名",
                         "統合ROI", "血統ROI",
                         "父", "脚質", "騎手", "オッズ", "シグナル",
                     ]
