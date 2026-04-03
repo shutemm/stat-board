@@ -175,12 +175,13 @@ def highlight_row(row):
         if s:
             styles[idx] = s + "; font-weight: bold; font-size: 1.05em"
 
-    # 血統ROI列ハイライト
-    if "血統ROI" in cols:
-        idx = cols.index("血統ROI")
-        s = roi_style(str(row["血統ROI"]))
-        if s:
-            styles[idx] = s
+    # 個別ROI列ハイライト
+    for roi_col in ("パターン", "蓄積", "5走", "前走", "血統ROI"):
+        if roi_col in cols:
+            idx = cols.index(roi_col)
+            s = roi_style(str(row[roi_col]))
+            if s:
+                styles[idx] = s
 
     return styles
 
@@ -400,22 +401,17 @@ def main():
                         # 推定ROI: JSONに含まれていればそれを使用、
                         # なければ後方互換でフォールバック計算
                         est_roi = h.get("estimated_roi", "")
-                        est_src = h.get("roi_source", "")
                         if not est_roi or est_roi == "-":
-                            for _key, _src in [
-                                ("pattern_roi", "パターン"),
-                                ("accumulation_roi", "蓄積"),
-                                ("roll5_roi", "5走"),
-                                ("last_race_roi", "前走"),
-                            ]:
+                            for _key in (
+                                "pattern_roi", "accumulation_roi",
+                                "roll5_roi", "last_race_roi",
+                            ):
                                 v = h.get(_key, "-")
                                 if v and v != "-":
                                     est_roi = v
-                                    est_src = _src
                                     break
                             else:
                                 est_roi = "-"
-                                est_src = ""
 
                         table_rows.append({
                             "Rank": h.get("rank", 0),
@@ -423,7 +419,10 @@ def main():
                             "番": h.get("horse_number", ""),
                             "馬名": h.get("horse_name", ""),
                             "推定ROI": est_roi,
-                            "ソース": est_src,
+                            "パターン": h.get("pattern_roi", "-") or "-",
+                            "蓄積": h.get("accumulation_roi", "-") or "-",
+                            "5走": h.get("roll5_roi", "-") or "-",
+                            "前走": h.get("last_race_roi", "-") or "-",
                             "血統ROI": h.get("blood_roi", "-"),
                             "父": h.get("sire_name", ""),
                             "脚質": h.get("running_style", ""),
@@ -443,8 +442,8 @@ def main():
 
                     display_cols = [
                         "Rank", "推奨", "番", "馬名",
-                        "推定ROI", "ソース", "血統ROI",
-                        "父", "脚質", "騎手", "オッズ", "シグナル",
+                        "推定ROI", "パターン", "蓄積", "5走", "前走",
+                        "血統ROI", "父", "脚質", "騎手", "オッズ", "シグナル",
                     ]
                     display_cols = [c for c in display_cols if c in tdf.columns]
 
