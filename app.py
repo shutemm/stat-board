@@ -139,18 +139,6 @@ def parse_roi_value(val_str) -> float | None:
     return _extract_roi_number(str(val_str) if val_str else "")
 
 
-def get_estimated_roi(horse: dict) -> str:
-    """馬データから推定ROIを取得（フォールバック付き後方互換）。"""
-    est = horse.get("estimated_roi", "")
-    if est and est != "-":
-        return est
-    for key in ("pattern_roi", "accumulation_roi", "roll5_roi", "last_race_roi"):
-        v = horse.get(key, "-")
-        if v and v != "-":
-            return v
-    return "-"
-
-
 def highlight_row(row):
     """テーブル行のハイライト（ROIベース）"""
     styles = [""] * len(row)
@@ -176,15 +164,15 @@ def highlight_row(row):
         elif rank <= 3:
             styles[idx] = f"background-color: {BG_GREEN_LIGHT}; color: {TEXT_LIGHT}"
 
-    # 推定ROI列ハイライト（メイン）
-    if "推定ROI" in cols:
-        idx = cols.index("推定ROI")
-        s = roi_style(str(row["推定ROI"]))
+    # パターンROI列ハイライト（メイン）
+    if "パターンROI" in cols:
+        idx = cols.index("パターンROI")
+        s = roi_style(str(row["パターンROI"]))
         if s:
             styles[idx] = s + "; font-weight: bold; font-size: 1.05em"
 
     # 個別ROI列ハイライト
-    for roi_col in ("パターン", "蓄積", "5走", "前走", "血統ROI"):
+    for roi_col in ("蓄積", "5走", "前走", "血統ROI"):
         if roi_col in cols:
             idx = cols.index(roi_col)
             s = roi_style(str(row[roi_col]))
@@ -266,26 +254,26 @@ def main():
         except ValueError:
             pass
 
-    # 注目レースランキング（全会場横断で推定ROI上位）
+    # 注目レースランキング（全会場横断でパターンROI上位）
     all_races = []
     for venue_name, venue_data in venues_data.items():
         for race in venue_data.get("races", []):
             horses = race.get("horses", [])
             buy_horses = [h for h in horses if h.get("recommendation") == "買"]
 
-            # 各馬の推定ROIを数値化し、上位3頭の平均ROIで評価
+            # 各馬のパターンROIを数値化し、上位3頭の平均ROIで評価
             roi_values = []
             for h in horses:
-                rv = parse_roi_value(get_estimated_roi(h))
+                rv = parse_roi_value(h.get("pattern_roi", "-"))
                 if rv is not None:
                     roi_values.append(rv)
             roi_values.sort(reverse=True)
             top3_roi = roi_values[:3]
             avg_top3_roi = sum(top3_roi) / len(top3_roi) if top3_roi else 0
 
-            # 推定ROI順で上位3頭の馬名
+            # パターンROI順で上位3頭の馬名
             horses_with_roi = [
-                (h, parse_roi_value(get_estimated_roi(h)) or 0)
+                (h, parse_roi_value(h.get("pattern_roi", "-")) or 0)
                 for h in horses
             ]
             horses_with_roi.sort(key=lambda x: x[1], reverse=True)
@@ -309,7 +297,7 @@ def main():
     all_races.sort(key=lambda x: x["avg_top3_roi"], reverse=True)
 
     # 注目レーストップ5
-    st.markdown("### 注目レース（推定ROI順）")
+    st.markdown("### 注目レース（パターンROI順）")
     ranking_rows = []
     for i, r in enumerate(all_races[:5]):
         ranking_rows.append({
@@ -371,9 +359,9 @@ def main():
                 if avoid_count > 0:
                     count_str += f" 避:{avoid_count}"
 
-                # 最高推定ROIを取得
+                # 最高パターンROIを取得
                 top_roi_vals = [
-                    parse_roi_value(get_estimated_roi(h))
+                    parse_roi_value(h.get("pattern_roi", "-"))
                     for h in horses
                 ]
                 top_roi_vals = [v for v in top_roi_vals if v is not None]
@@ -406,28 +394,12 @@ def main():
 
                     table_rows = []
                     for h in horses:
-                        # 推定ROI: JSONに含まれていればそれを使用、
-                        # なければ後方互換でフォールバック計算
-                        est_roi = h.get("estimated_roi", "")
-                        if not est_roi or est_roi == "-":
-                            for _key in (
-                                "pattern_roi", "accumulation_roi",
-                                "roll5_roi", "last_race_roi",
-                            ):
-                                v = h.get(_key, "-")
-                                if v and v != "-":
-                                    est_roi = v
-                                    break
-                            else:
-                                est_roi = "-"
-
                         table_rows.append({
                             "Rank": h.get("rank", 0),
                             "推奨": h.get("recommendation", ""),
                             "番": h.get("horse_number", ""),
                             "馬名": h.get("horse_name", ""),
-                            "推定ROI": est_roi,
-                            "パターン": h.get("pattern_roi", "-") or "-",
+                            "パターンROI": h.get("pattern_roi", "-") or "-",
                             "蓄積": h.get("accumulation_roi", "-") or "-",
                             "5走": h.get("roll5_roi", "-") or "-",
                             "前走": h.get("last_race_roi", "-") or "-",
@@ -450,7 +422,7 @@ def main():
 
                     display_cols = [
                         "Rank", "推奨", "番", "馬名",
-                        "推定ROI", "パターン", "蓄積", "5走", "前走",
+                        "パターンROI", "蓄積", "5走", "前走",
                         "血統ROI", "父", "脚質", "騎手", "オッズ", "シグナル",
                     ]
                     display_cols = [c for c in display_cols if c in tdf.columns]
