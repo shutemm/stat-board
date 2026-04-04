@@ -164,15 +164,15 @@ def highlight_row(row):
         elif rank <= 3:
             styles[idx] = f"background-color: {BG_GREEN_LIGHT}; color: {TEXT_LIGHT}"
 
-    # パターンROI列ハイライト（メイン）
-    if "パターンROI" in cols:
-        idx = cols.index("パターンROI")
-        s = roi_style(str(row["パターンROI"]))
+    # ROI列ハイライト（メイン — 太字）
+    if "ROI" in cols:
+        idx = cols.index("ROI")
+        s = roi_style(str(row["ROI"]))
         if s:
             styles[idx] = s + "; font-weight: bold; font-size: 1.05em"
 
     # 個別ROI列ハイライト
-    for roi_col in ("蓄積", "5走", "前走", "血統ROI"):
+    for roi_col in ("5走ROI", "血統ROI", "パターン", "蓄積"):
         if roi_col in cols:
             idx = cols.index(roi_col)
             s = roi_style(str(row[roi_col]))
@@ -254,26 +254,26 @@ def main():
         except ValueError:
             pass
 
-    # 注目レースランキング（全会場横断でパターンROI上位）
+    # 注目レースランキング（全会場横断でベースROI上位）
     all_races = []
     for venue_name, venue_data in venues_data.items():
         for race in venue_data.get("races", []):
             horses = race.get("horses", [])
             buy_horses = [h for h in horses if h.get("recommendation") == "買"]
 
-            # 各馬のパターンROIを数値化し、上位3頭の平均ROIで評価
+            # 各馬のベースROIを数値化し、上位3頭の平均ROIで評価
             roi_values = []
             for h in horses:
-                rv = parse_roi_value(h.get("pattern_roi", "-"))
+                rv = parse_roi_value(h.get("base_roi", "-"))
                 if rv is not None:
                     roi_values.append(rv)
             roi_values.sort(reverse=True)
             top3_roi = roi_values[:3]
             avg_top3_roi = sum(top3_roi) / len(top3_roi) if top3_roi else 0
 
-            # パターンROI順で上位3頭の馬名
+            # ベースROI順で上位3頭の馬名
             horses_with_roi = [
-                (h, parse_roi_value(h.get("pattern_roi", "-")) or 0)
+                (h, parse_roi_value(h.get("base_roi", "-")) or 0)
                 for h in horses
             ]
             horses_with_roi.sort(key=lambda x: x[1], reverse=True)
@@ -297,7 +297,7 @@ def main():
     all_races.sort(key=lambda x: x["avg_top3_roi"], reverse=True)
 
     # 注目レーストップ5
-    st.markdown("### 注目レース（パターンROI順）")
+    st.markdown("### 注目レース（ROI順）")
     ranking_rows = []
     for i, r in enumerate(all_races[:5]):
         ranking_rows.append({
@@ -359,9 +359,9 @@ def main():
                 if avoid_count > 0:
                     count_str += f" 避:{avoid_count}"
 
-                # 最高パターンROIを取得
+                # 最高ベースROIを取得
                 top_roi_vals = [
-                    parse_roi_value(h.get("pattern_roi", "-"))
+                    parse_roi_value(h.get("base_roi", "-"))
                     for h in horses
                 ]
                 top_roi_vals = [v for v in top_roi_vals if v is not None]
@@ -399,11 +399,11 @@ def main():
                             "推奨": h.get("recommendation", ""),
                             "番": h.get("horse_number", ""),
                             "馬名": h.get("horse_name", ""),
-                            "パターンROI": h.get("pattern_roi", "-") or "-",
-                            "蓄積": h.get("accumulation_roi", "-") or "-",
-                            "5走": h.get("roll5_roi", "-") or "-",
-                            "前走": h.get("last_race_roi", "-") or "-",
+                            "ROI": h.get("base_roi", "-") or "-",
+                            "5走ROI": h.get("roll5_roi", "-") or "-",
                             "血統ROI": h.get("blood_roi", "-"),
+                            "パターン": h.get("pattern_roi", "-") or "-",
+                            "蓄積": h.get("accumulation_roi", "-") or "-",
                             "父": h.get("sire_name", ""),
                             "脚質": h.get("running_style", ""),
                             "騎手": h.get("jockey_name", ""),
@@ -422,8 +422,8 @@ def main():
 
                     display_cols = [
                         "Rank", "推奨", "番", "馬名",
-                        "パターンROI", "蓄積", "5走", "前走",
-                        "血統ROI", "父", "脚質", "騎手", "オッズ", "シグナル",
+                        "ROI", "5走ROI", "血統ROI", "パターン", "蓄積",
+                        "父", "脚質", "騎手", "オッズ", "シグナル",
                     ]
                     display_cols = [c for c in display_cols if c in tdf.columns]
 

@@ -293,13 +293,29 @@ def export_predictions(target_date: date) -> Path:
                                 signal_tags = ", ".join(tags)
 
                 # 各ROIソースを個別取得
+                base_roi_str = "-"
                 pattern_roi_str = "-"
                 accumulation_roi_str = "-"
                 roll5_roi_str = "-"
-                last_race_roi_str = "-"
                 integrated_roi_str = "-"
 
                 if horse_id:
+                    # 0. ベースROI（前走rank_devデシルOOS ROI — 全馬に値が出る）
+                    raw_feats = raw_scorer.get_horse_raw_features(horse_id, ct)
+                    rd_info = raw_feats.get("rank_dev")
+                    if rd_info and rd_info.get("oos_roi") is not None:
+                        base_roi_str = f"{rd_info['oos_roi']:.0f}%"
+                    else:
+                        # 同一馬場のデータなし → 別馬場からフォールバック
+                        other_ct = "芝" if ct == "ダート" else "ダート"
+                        raw_other = raw_scorer.get_horse_raw_features(
+                            horse_id, other_ct)
+                        rd_other = raw_other.get("rank_dev")
+                        if rd_other and rd_other.get("oos_roi") is not None:
+                            ct_label = "芝" if other_ct == "芝" else "ダ"
+                            base_roi_str = (
+                                f"({rd_other['oos_roi']:.0f}%{ct_label})")
+
                     # 1. パターンROI（複合条件パターン）
                     matched_pats = raw_scorer.check_highlight_patterns(horse_id, ct)
                     if matched_pats:
@@ -316,50 +332,20 @@ def export_predictions(target_date: date) -> Path:
                     mr_info = raw_scorer.get_horse_multi_race_features(horse_id, ct)
                     if mr_info and mr_info.get("roll5_roi") is not None:
                         roll5_roi_str = f"{mr_info['roll5_roi']:.0f}%"
-
-                    # 4. 前走rank_dev ROI
-                    raw_feats = raw_scorer.get_horse_raw_features(horse_id, ct)
-                    rd_info = raw_feats.get("rank_dev")
-                    if rd_info and rd_info.get("oos_roi") is not None:
-                        last_race_roi_str = f"{rd_info['oos_roi']:.0f}%"
                     else:
-                        # 同一馬場のデータなし → 別馬場の前走ROIを参考表示
-                        other_ct = "芝" if ct == "ダート" else "ダート"
-                        raw_other = raw_scorer.get_horse_raw_features(
-                            horse_id, other_ct)
-                        rd_other = raw_other.get("rank_dev")
-                        if rd_other and rd_other.get("oos_roi") is not None:
-                            last_race_roi_str = (
-                                f"({rd_other['oos_roi']:.0f}%"
-                                f"{'芝' if other_ct == '芝' else 'ダ'})")
-
                         # 別馬場の5走ROIも取得
-                        if roll5_roi_str == "-":
-                            mr_other = raw_scorer.get_horse_multi_race_features(
-                                horse_id, other_ct)
-                            if mr_other and mr_other.get("roll5_roi") is not None:
-                                ct_label = "芝" if other_ct == "芝" else "ダ"
-                                roll5_roi_str = (
-                                    f"({mr_other['roll5_roi']:.0f}%{ct_label})")
+                        other_ct = "芝" if ct == "ダート" else "ダート"
+                        mr_other = raw_scorer.get_horse_multi_race_features(
+                            horse_id, other_ct)
+                        if mr_other and mr_other.get("roll5_roi") is not None:
+                            ct_label = "芝" if other_ct == "芝" else "ダ"
+                            roll5_roi_str = (
+                                f"({mr_other['roll5_roi']:.0f}%{ct_label})")
 
-                    # 統合ROI（後方互換）
+                    # 4. 統合ROI（後方互換）
                     ir_info = raw_scorer.get_integrated_roi(horse_id, ct)
                     if ir_info["roi"] is not None:
                         integrated_roi_str = f"{ir_info['roi']:.0f}%"
-
-                # 推定ROI: フォールバック（パターン→蓄積→5走→前走）
-                estimated_roi_str = "-"
-                roi_source = ""
-                for _roi_str, _src in [
-                    (pattern_roi_str, "パターン"),
-                    (accumulation_roi_str, "蓄積"),
-                    (roll5_roi_str, "5走"),
-                    (last_race_roi_str, "前走"),
-                ]:
-                    if _roi_str != "-":
-                        estimated_roi_str = _roi_str
-                        roi_source = _src
-                        break
 
                 # 血統
                 bi = blood_info_map.get(hn, {})
@@ -388,12 +374,10 @@ def export_predictions(target_date: date) -> Path:
                     "odds": round(odds_val, 1) if odds_val else None,
                     "recommendation": recommendation,
                     "composite_score": display_score,
-                    "estimated_roi": estimated_roi_str,
-                    "roi_source": roi_source,
+                    "base_roi": base_roi_str,
                     "pattern_roi": pattern_roi_str,
                     "accumulation_roi": accumulation_roi_str,
                     "roll5_roi": roll5_roi_str,
-                    "last_race_roi": last_race_roi_str,
                     "integrated_roi": integrated_roi_str,
                     "blood_roi": blood_roi_str,
                     "sire_name": sire_name,
