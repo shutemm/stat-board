@@ -156,6 +156,39 @@ def roi_style(val_str: str) -> str:
     return f"background-color: {BG_RED_STRONG}; color: {TEXT_RED}"
 
 
+def dsgs_style(val_str: str) -> str:
+    """DSGS dims_passed 表示 (X/Y形式) からセルスタイルを返す。
+
+    フォーマット: "3/4", "0/4", "120%(4/4)", "-"
+    """
+    if not val_str or val_str == "-":
+        return ""
+    # ROI付き形式 (例: "120%(4/4)")
+    if "%" in val_str:
+        return roi_style(val_str)
+    # X/Y 形式
+    try:
+        parts = val_str.split("/")
+        if len(parts) == 2:
+            passed = int(parts[0])
+            total = int(parts[1])
+            if total == 0:
+                return ""
+            ratio = passed / total
+            if ratio >= 1.0:
+                return f"background-color: {BG_GREEN_STRONG}; color: {TEXT_GREEN}; font-weight: bold"
+            if ratio >= 0.75:
+                return f"background-color: {BG_GREEN_MEDIUM}; color: {TEXT_GREEN_MED}; font-weight: bold"
+            if ratio >= 0.5:
+                return f"background-color: {BG_GREEN_LIGHT}; color: {TEXT_GREEN_MED}"
+            if ratio >= 0.25:
+                return f"color: {TEXT_LIGHT}"
+            return f"color: {TEXT_MUTED}"
+    except (ValueError, TypeError):
+        pass
+    return ""
+
+
 def parse_roi_value(val_str) -> float | None:
     """ROI文字列から数値を抽出する。パース失敗時はNoneを返す。"""
     return _extract_roi_number(str(val_str) if val_str else "")
@@ -197,7 +230,10 @@ def highlight_row(row):
     for roi_col in GROUP_A_ROI_COLS:
         if roi_col in cols:
             idx = cols.index(roi_col)
-            s = roi_style(str(row[roi_col]))
+            if roi_col == "DSGS":
+                s = dsgs_style(str(row[roi_col]))
+            else:
+                s = roi_style(str(row[roi_col]))
             if s:
                 styles[idx] = s
 

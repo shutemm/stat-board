@@ -381,25 +381,32 @@ def export_predictions(target_date: date) -> Path:
                         if cush_result and cush_result.get("roi") is not None:
                             cushion_roi_str = f"{cush_result['roi']:.0f}%"
 
-                    # 9. DSGS ROI
+                    # 9. DSGS ROI (dims_passed ベース表示)
                     if ct in ("ダート", "芝"):
                         dsgs_roi_info = dsgs_scorer.get_horse_dsgs_roi(
                             horse_id, race_id, ct, combo_chains_df)
-                        if dsgs_roi_info.get("max_roi") is not None:
-                            dsgs_roi_str = f"{dsgs_roi_info['max_roi']:.0f}%"
+                        if dsgs_roi_info:
+                            dims_passed = dsgs_roi_info.get("dims_passed", 0)
+                            total_dims = len([
+                                d for d in dsgs_roi_info.get(
+                                    "dim_details", {}).values()
+                                if d.get("threshold", 100) < 100
+                            ])
+                            if total_dims == 0:
+                                total_dims = 4  # fallback
+                            if dsgs_roi_info.get("max_roi") is not None:
+                                # 全次元パス: CSV実績ROIを表示
+                                dsgs_roi_str = (
+                                    f"{dsgs_roi_info['max_roi']:.0f}%"
+                                    f"({dims_passed}/{total_dims})"
+                                )
+                            elif dims_passed > 0:
+                                # 部分パス: パス数/全次元数を表示
+                                dsgs_roi_str = f"{dims_passed}/{total_dims}"
+                            else:
+                                dsgs_roi_str = f"0/{total_dims}"
                         else:
-                            # 閾値ベースROIが出ない場合、五分位ROIを使用
-                            dsgs_dims = dsgs_scorer.get_horse_dsgs(
-                                horse_id, race_id, ct, combo_chains_df)
-                            if dsgs_dims:
-                                q_rois = [
-                                    d["quintile_roi"]
-                                    for d in dsgs_dims.values()
-                                    if d.get("quintile_roi") is not None
-                                ]
-                                if q_rois:
-                                    avg_q_roi = sum(q_rois) / len(q_rois)
-                                    dsgs_roi_str = f"~{avg_q_roi:.0f}%"
+                            dsgs_roi_str = "-"
 
                 # 展開適性
                 pace_advantage_str = pf_info.get("advantage", "")
