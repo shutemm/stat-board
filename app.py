@@ -48,9 +48,9 @@ GROUP_A_HEADER_TEXT = "#64b5f6"  # 青テキスト
 GROUP_B_HEADER_TEXT = "#ffb74d"  # 橙テキスト
 
 # Group A (rank_dev系) の列名リスト
-GROUP_A_ROI_COLS = ("ROI", "5走ROI", "パターン", "蓄積")
+GROUP_A_ROI_COLS = ("ROI", "5走ROI", "パターン", "蓄積", "DSGS")
 # Group B (レース条件系) の列名リスト
-GROUP_B_ROI_COLS = ("速度ROI", "着差ROI", "血統ROI", "加速ROI", "馬場ROI", "DSGS")
+GROUP_B_ROI_COLS = ("速度ROI", "着差ROI", "血統ROI", "加速ROI", "馬場ROI")
 
 # ============================================================
 # CSS注入
@@ -441,17 +441,17 @@ def main():
                             "推奨": h.get("recommendation", ""),
                             "番": h.get("horse_number", ""),
                             "馬名": h.get("horse_name", ""),
-                            # Group A: 馬の力 (rank_dev系)
+                            # Group A: 馬の力 (rank_dev系) + シグナル
                             "ROI": h.get("base_roi", "-") or "-",
                             "5走ROI": h.get("roll5_roi", "-") or "-",
                             "パターン": h.get("pattern_roi", "-") or "-",
                             "蓄積": h.get("accumulation_roi", "-") or "-",
+                            "DSGS": h.get("dsgs_roi", "-") or "-",
                             # Group B: レース条件系
                             "速度ROI": h.get("rel_lap_roi", "-") or "-",
                             "着差ROI": h.get("margin_roi", "-") or "-",
                             "血統ROI": h.get("blood_roi", "-") or "-",
                             "加速ROI": h.get("accel_roi", "-") or "-",
-                            "DSGS": h.get("dsgs_roi", "-") or "-",
                             "展開": h.get("pace_advantage", ""),
                             # 共通
                             "父": h.get("sire_name", ""),
@@ -474,10 +474,10 @@ def main():
                            .reset_index(drop=True))
 
                     # Group A列 + Group B列を視覚的に分ける
-                    group_a_cols = ["ROI", "5走ROI", "パターン", "蓄積"]
+                    group_a_cols = ["ROI", "5走ROI", "パターン", "蓄積", "DSGS"]
                     group_b_cols = [
                         "速度ROI", "着差ROI", "血統ROI", "加速ROI",
-                        "DSGS", "展開",
+                        "展開",
                     ]
                     if is_turf:
                         group_b_cols.insert(4, "馬場ROI")
@@ -498,10 +498,10 @@ def main():
                     # グループ凡例を表示
                     st.markdown(
                         '<div class="group-legend">'
-                        '<span class="group-legend-a">馬の力: ROI / 5走ROI / パターン / 蓄積</span>'
+                        '<span class="group-legend-a">馬の力: ROI / 5走ROI / パターン / 蓄積 / DSGS</span>'
                         '<span class="group-legend-b">レース条件: 速度ROI / 着差ROI / 血統ROI / 加速ROI'
                         + (' / 馬場ROI' if is_turf else '')
-                        + ' / DSGS / 展開</span>'
+                        + ' / 展開</span>'
                         '</div>',
                         unsafe_allow_html=True,
                     )

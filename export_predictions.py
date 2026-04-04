@@ -387,6 +387,19 @@ def export_predictions(target_date: date) -> Path:
                             horse_id, race_id, ct, combo_chains_df)
                         if dsgs_roi_info.get("max_roi") is not None:
                             dsgs_roi_str = f"{dsgs_roi_info['max_roi']:.0f}%"
+                        else:
+                            # 閾値ベースROIが出ない場合、五分位ROIを使用
+                            dsgs_dims = dsgs_scorer.get_horse_dsgs(
+                                horse_id, race_id, ct, combo_chains_df)
+                            if dsgs_dims:
+                                q_rois = [
+                                    d["quintile_roi"]
+                                    for d in dsgs_dims.values()
+                                    if d.get("quintile_roi") is not None
+                                ]
+                                if q_rois:
+                                    avg_q_roi = sum(q_rois) / len(q_rois)
+                                    dsgs_roi_str = f"~{avg_q_roi:.0f}%"
 
                 # 展開適性
                 pace_advantage_str = pf_info.get("advantage", "")
