@@ -41,6 +41,17 @@ TEXT_LIGHT = "#e0e0e0"
 TEXT_MUTED = "#b0b0b0"
 PACE_COLORS = {"H": "#ef5350", "M": "#ffa726", "S": "#42a5f5"}
 
+# グループ別ヘッダー色
+GROUP_A_HEADER_BG = "#1a3352"   # 青系 — 馬の力
+GROUP_B_HEADER_BG = "#3d2e1a"   # 橙系 — レース条件
+GROUP_A_HEADER_TEXT = "#64b5f6"  # 青テキスト
+GROUP_B_HEADER_TEXT = "#ffb74d"  # 橙テキスト
+
+# Group A (rank_dev系) の列名リスト
+GROUP_A_ROI_COLS = ("ROI", "5走ROI", "パターン", "蓄積")
+# Group B (レース条件系) の列名リスト
+GROUP_B_ROI_COLS = ("速度ROI", "着差ROI", "血統ROI", "加速ROI", "馬場ROI", "DSGS")
+
 # ============================================================
 # CSS注入
 # ============================================================
@@ -61,6 +72,17 @@ st.markdown("""
     }
     .update-info {
         color: #888888; font-size: 0.85em; text-align: right;
+    }
+    .group-legend {
+        display: flex; gap: 16px; margin-bottom: 4px; font-size: 0.85em;
+    }
+    .group-legend-a {
+        color: #64b5f6; font-weight: bold;
+        border-left: 3px solid #64b5f6; padding-left: 6px;
+    }
+    .group-legend-b {
+        color: #ffb74d; font-weight: bold;
+        border-left: 3px solid #ffb74d; padding-left: 6px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -171,13 +193,30 @@ def highlight_row(row):
         if s:
             styles[idx] = s + "; font-weight: bold; font-size: 1.05em"
 
-    # 個別ROI列ハイライト
-    for roi_col in ("5走ROI", "血統ROI", "パターン", "蓄積"):
+    # 個別ROI列ハイライト — Group A (rank_dev系)
+    for roi_col in GROUP_A_ROI_COLS:
         if roi_col in cols:
             idx = cols.index(roi_col)
             s = roi_style(str(row[roi_col]))
             if s:
                 styles[idx] = s
+
+    # 個別ROI列ハイライト — Group B (レース条件系)
+    for roi_col in GROUP_B_ROI_COLS:
+        if roi_col in cols:
+            idx = cols.index(roi_col)
+            s = roi_style(str(row[roi_col]))
+            if s:
+                styles[idx] = s
+
+    # 展開列ハイライト
+    if "展開" in cols:
+        idx = cols.index("展開")
+        v = row["展開"]
+        if v == "有利":
+            styles[idx] = f"background-color: {BG_GREEN_LIGHT}; color: {TEXT_GREEN_MED}"
+        elif v == "不利":
+            styles[idx] = f"background-color: {BG_RED_LIGHT}; color: {TEXT_RED}"
 
     return styles
 
@@ -392,24 +431,38 @@ def main():
                         st.warning("馬データなし")
                         continue
 
+                    # 芝レースかどうかで馬場ROI列の有無を判定
+                    is_turf = race.get("course", "").startswith("芝")
+
                     table_rows = []
                     for h in horses:
-                        table_rows.append({
+                        row_data = {
                             "Rank": h.get("rank", 0),
                             "推奨": h.get("recommendation", ""),
                             "番": h.get("horse_number", ""),
                             "馬名": h.get("horse_name", ""),
+                            # Group A: 馬の力 (rank_dev系)
                             "ROI": h.get("base_roi", "-") or "-",
                             "5走ROI": h.get("roll5_roi", "-") or "-",
-                            "血統ROI": h.get("blood_roi", "-"),
                             "パターン": h.get("pattern_roi", "-") or "-",
                             "蓄積": h.get("accumulation_roi", "-") or "-",
+                            # Group B: レース条件系
+                            "速度ROI": h.get("rel_lap_roi", "-") or "-",
+                            "着差ROI": h.get("margin_roi", "-") or "-",
+                            "血統ROI": h.get("blood_roi", "-") or "-",
+                            "加速ROI": h.get("accel_roi", "-") or "-",
+                            "DSGS": h.get("dsgs_roi", "-") or "-",
+                            "展開": h.get("pace_advantage", ""),
+                            # 共通
                             "父": h.get("sire_name", ""),
                             "脚質": h.get("running_style", ""),
                             "騎手": h.get("jockey_name", ""),
                             "オッズ": h.get("odds") or "-",
                             "シグナル": h.get("signal_tags", ""),
-                        })
+                        }
+                        if is_turf:
+                            row_data["馬場ROI"] = h.get("cushion_roi", "-") or "-"
+                        table_rows.append(row_data)
 
                     tdf = pd.DataFrame(table_rows)
 
@@ -420,15 +473,82 @@ def main():
                            .drop(columns="_sort")
                            .reset_index(drop=True))
 
-                    display_cols = [
-                        "Rank", "推奨", "番", "馬名",
-                        "ROI", "5走ROI", "血統ROI", "パターン", "蓄積",
-                        "父", "脚質", "騎手", "オッズ", "シグナル",
+                    # Group A列 + Group B列を視覚的に分ける
+                    group_a_cols = ["ROI", "5走ROI", "パターン", "蓄積"]
+                    group_b_cols = [
+                        "速度ROI", "着差ROI", "血統ROI", "加速ROI",
+                        "DSGS", "展開",
                     ]
-                    display_cols = [c for c in display_cols if c in tdf.columns]
+                    if is_turf:
+                        group_b_cols.insert(4, "馬場ROI")
+
+                    display_cols = (
+                        ["Rank", "推奨", "番", "馬名"]
+                        + group_a_cols
+                        + ["|"]  # セパレータ（後で除去）
+                        + group_b_cols
+                        + ["父", "脚質", "騎手", "オッズ", "シグナル"]
+                    )
+                    # セパレータ列を除去（実際にはDataFrameに存在しない）
+                    display_cols = [
+                        c for c in display_cols
+                        if c != "|" and c in tdf.columns
+                    ]
+
+                    # グループ凡例を表示
+                    st.markdown(
+                        '<div class="group-legend">'
+                        '<span class="group-legend-a">馬の力: ROI / 5走ROI / パターン / 蓄積</span>'
+                        '<span class="group-legend-b">レース条件: 速度ROI / 着差ROI / 血統ROI / 加速ROI'
+                        + (' / 馬場ROI' if is_turf else '')
+                        + ' / DSGS / 展開</span>'
+                        '</div>',
+                        unsafe_allow_html=True,
+                    )
+
+                    # ヘッダー色分け用スタイル関数
+                    def _col_header_style(col_name: str) -> dict:
+                        """列名に基づくヘッダー装飾用dict（styler.set_table_styles用）"""
+                        if col_name in GROUP_A_ROI_COLS:
+                            return {
+                                "selector": "th",
+                                "props": [
+                                    ("background-color", GROUP_A_HEADER_BG),
+                                    ("color", GROUP_A_HEADER_TEXT),
+                                    ("font-weight", "bold"),
+                                    ("border-bottom", f"2px solid {GROUP_A_HEADER_TEXT}"),
+                                ],
+                            }
+                        if col_name in GROUP_B_ROI_COLS or col_name == "展開":
+                            return {
+                                "selector": "th",
+                                "props": [
+                                    ("background-color", GROUP_B_HEADER_BG),
+                                    ("color", GROUP_B_HEADER_TEXT),
+                                    ("font-weight", "bold"),
+                                    ("border-bottom", f"2px solid {GROUP_B_HEADER_TEXT}"),
+                                ],
+                            }
+                        return None
+
+                    # table_styles を構築
+                    table_styles = []
+                    for i, col in enumerate(display_cols):
+                        hdr = _col_header_style(col)
+                        if hdr:
+                            table_styles.append({
+                                "selector": f"th.col{i}",
+                                "props": hdr["props"],
+                            })
+
+                    styled = (
+                        tdf[display_cols]
+                        .style.apply(highlight_row, axis=1)
+                        .set_table_styles(table_styles)
+                    )
 
                     st.dataframe(
-                        tdf[display_cols].style.apply(highlight_row, axis=1),
+                        styled,
                         use_container_width=True,
                         hide_index=True,
                         height=min(len(tdf) * 38 + 40, 600),

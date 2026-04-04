@@ -293,11 +293,20 @@ def export_predictions(target_date: date) -> Path:
                                 signal_tags = ", ".join(tags)
 
                 # 各ROIソースを個別取得
+                # === Group A: 馬の力 (rank_dev系) ===
                 base_roi_str = "-"
                 pattern_roi_str = "-"
                 accumulation_roi_str = "-"
                 roll5_roi_str = "-"
                 integrated_roi_str = "-"
+
+                # === Group B: レース条件系 ===
+                rel_lap_roi_str = "-"
+                margin_roi_str = "-"
+                accel_roi_str = "-"
+                cushion_roi_str = "-"
+                dsgs_roi_str = "-"
+                pace_advantage_str = ""
 
                 if horse_id:
                     # 0. ベースROI（前走rank_devデシルOOS ROI — 全馬に値が出る）
@@ -347,6 +356,41 @@ def export_predictions(target_date: date) -> Path:
                     if ir_info["roi"] is not None:
                         integrated_roi_str = f"{ir_info['roi']:.0f}%"
 
+                    # === レース条件系ROI ===
+                    # raw_feats は上で既に取得済み
+
+                    # 5. 相対速度ROI (rel_lap)
+                    rl_info = raw_feats.get("rel_lap")
+                    if rl_info and rl_info.get("oos_roi") is not None:
+                        rel_lap_roi_str = f"{rl_info['oos_roi']:.0f}%"
+
+                    # 6. 着差率ROI (margin)
+                    mg_info = raw_feats.get("margin")
+                    if mg_info and mg_info.get("oos_roi") is not None:
+                        margin_roi_str = f"{mg_info['oos_roi']:.0f}%"
+
+                    # 7. 加減速ROI (accel_raw)
+                    ac_info = raw_feats.get("accel_raw")
+                    if ac_info and ac_info.get("oos_roi") is not None:
+                        accel_roi_str = f"{ac_info['oos_roi']:.0f}%"
+
+                    # 8. クッション値適性ROI（芝のみ）
+                    if ct == "芝" and race_cushion_cv is not None:
+                        cush_result = cushion_analyzer.compute_cushion_roi(
+                            horse_id, race_cushion_cv)
+                        if cush_result and cush_result.get("roi") is not None:
+                            cushion_roi_str = f"{cush_result['roi']:.0f}%"
+
+                    # 9. DSGS ROI
+                    if ct in ("ダート", "芝"):
+                        dsgs_roi_info = dsgs_scorer.get_horse_dsgs_roi(
+                            horse_id, race_id, ct, combo_chains_df)
+                        if dsgs_roi_info.get("max_roi") is not None:
+                            dsgs_roi_str = f"{dsgs_roi_info['max_roi']:.0f}%"
+
+                # 展開適性
+                pace_advantage_str = pf_info.get("advantage", "")
+
                 # 血統
                 bi = blood_info_map.get(hn, {})
                 sire_name = bi.get("sire_name", "")
@@ -374,12 +418,21 @@ def export_predictions(target_date: date) -> Path:
                     "odds": round(odds_val, 1) if odds_val else None,
                     "recommendation": recommendation,
                     "composite_score": display_score,
+                    # Group A: 馬の力 (rank_dev系)
                     "base_roi": base_roi_str,
                     "pattern_roi": pattern_roi_str,
                     "accumulation_roi": accumulation_roi_str,
                     "roll5_roi": roll5_roi_str,
                     "integrated_roi": integrated_roi_str,
+                    # Group B: レース条件系
                     "blood_roi": blood_roi_str,
+                    "rel_lap_roi": rel_lap_roi_str,
+                    "margin_roi": margin_roi_str,
+                    "accel_roi": accel_roi_str,
+                    "cushion_roi": cushion_roi_str,
+                    "dsgs_roi": dsgs_roi_str,
+                    "pace_advantage": pace_advantage_str,
+                    # 共通
                     "sire_name": sire_name,
                     "running_style": pf_info.get("running_style",
                                                   e.get("running_style", "")),
