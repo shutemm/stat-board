@@ -277,6 +277,40 @@ def highlight_row(row):
         if s:
             styles[idx] = s
 
+    # 勝率ハイライト
+    if "勝率" in cols:
+        idx = cols.index("勝率")
+        v = _extract_roi_number(str(row["勝率"]).replace("%", "% "))
+        # _extract_roi_number expects "%" — workaround: parse directly
+        win_str = str(row["勝率"])
+        try:
+            win_val = float(win_str.replace("%", "")) if "%" in win_str else None
+        except (ValueError, TypeError):
+            win_val = None
+        if win_val is not None:
+            if win_val >= 20:
+                styles[idx] = f"background-color: {BG_GREEN_STRONG}; color: {TEXT_GREEN}; font-weight: bold"
+            elif win_val >= 10:
+                styles[idx] = f"background-color: {BG_GREEN_LIGHT}; color: {TEXT_GREEN_MED}"
+            elif win_val < 5:
+                styles[idx] = f"color: {TEXT_MUTED}"
+
+    # 複勝率ハイライト
+    if "複勝率" in cols:
+        idx = cols.index("複勝率")
+        place_str = str(row["複勝率"])
+        try:
+            place_val = float(place_str.replace("%", "")) if "%" in place_str else None
+        except (ValueError, TypeError):
+            place_val = None
+        if place_val is not None:
+            if place_val >= 50:
+                styles[idx] = f"background-color: {BG_GREEN_STRONG}; color: {TEXT_GREEN}; font-weight: bold"
+            elif place_val >= 30:
+                styles[idx] = f"background-color: {BG_GREEN_LIGHT}; color: {TEXT_GREEN_MED}"
+            elif place_val < 15:
+                styles[idx] = f"color: {TEXT_MUTED}"
+
     # 展開列ハイライト
     if "展開" in cols:
         idx = cols.index("展開")
@@ -389,11 +423,17 @@ def main():
                 for h in horses
             ]
             tier_horses.sort(key=lambda x: (x[1], x[0].get("rank", 999)))
-            top3_names = ", ".join(
-                f"{h['horse_number']}{h['horse_name']}({h.get('and_filter_tier', '-')})"
-                for h, _ in tier_horses[:3]
-                if h.get("and_filter_tier")
-            )
+            top3_parts = []
+            for h, _ in tier_horses[:3]:
+                if not h.get("and_filter_tier"):
+                    continue
+                wp = h.get("win_prob")
+                wp_str = f" {wp * 100:.0f}%" if wp else ""
+                top3_parts.append(
+                    f"{h['horse_number']}{h['horse_name']}"
+                    f"({h.get('and_filter_tier', '-')}{wp_str})"
+                )
+            top3_names = ", ".join(top3_parts)
 
             # ティアサマリー文字列（高ティアと低ティア両方表示）
             tier_summary_parts = []
@@ -519,12 +559,20 @@ def main():
                         else:
                             cushion_roi_val = "-"
 
+                        # 勝率・複勝率
+                        wp = h.get("win_prob")
+                        pp = h.get("place_prob")
+                        win_prob_str = f"{wp * 100:.1f}%" if wp else "-"
+                        place_prob_str = f"{pp * 100:.1f}%" if pp else "-"
+
                         row_data = {
                             "Rank": h.get("rank", 0),
                             "推奨": h.get("recommendation", ""),
                             "番": h.get("horse_number", ""),
                             "馬名": h.get("horse_name", ""),
                             "ROIティア": tier_val,
+                            "勝率": win_prob_str,
+                            "複勝率": place_prob_str,
                             "馬場ROI": cushion_roi_val,
                             "血統ROI": h.get("blood_roi", "-") or "-",
                             "父": h.get("sire_name", ""),
@@ -546,7 +594,8 @@ def main():
 
                     display_cols = [
                         "Rank", "推奨", "番", "馬名",
-                        "ROIティア", "馬場ROI", "血統ROI",
+                        "ROIティア", "勝率", "複勝率",
+                        "馬場ROI", "血統ROI",
                         "父", "脚質", "騎手", "オッズ", "シグナル",
                     ]
                     display_cols = [c for c in display_cols if c in tdf.columns]
