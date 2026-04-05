@@ -318,6 +318,24 @@ def highlight_row(row):
             elif place_val < 15:
                 styles[idx] = f"color: {TEXT_MUTED}"
 
+    # オッズ勝率ハイライト（サブ表示: オッズベース勝率）
+    if "オッズ勝率" in cols:
+        idx = cols.index("オッズ勝率")
+        odds_win_str = str(row["オッズ勝率"])
+        try:
+            odds_win_val = float(odds_win_str.replace("%", "")) if "%" in odds_win_str else None
+        except (ValueError, TypeError):
+            odds_win_val = None
+        if odds_win_val is not None:
+            if odds_win_val >= 20:
+                styles[idx] = f"color: {TEXT_GREEN_MED}"
+            elif odds_win_val >= 10:
+                styles[idx] = f"color: {TEXT_LIGHT}"
+            elif odds_win_val >= 5:
+                styles[idx] = f"color: {TEXT_MUTED}"
+            else:
+                styles[idx] = f"color: {TEXT_MUTED}"
+
     # 展開列ハイライト
     if "展開" in cols:
         idx = cols.index("展開")
@@ -584,11 +602,15 @@ def main():
                         else:
                             cushion_roi_val = "-"
 
-                        # 勝率・複勝率
+                        # 勝率・複勝率（TrueSkill/PLベース = メイン）
                         wp = h.get("win_prob")
                         pp = h.get("place_prob")
                         win_prob_str = f"{wp * 100:.1f}%" if wp else "-"
                         place_prob_str = f"{pp * 100:.1f}%" if pp else "-"
+
+                        # オッズベース勝率（サブ表示）
+                        owp = h.get("odds_win_prob")
+                        odds_win_prob_str = f"{owp * 100:.1f}%" if owp else "-"
 
                         # 含水率×血統ROI
                         moisture_blood_roi_val = h.get("moisture_blood_roi", "-") or "-"
@@ -604,6 +626,7 @@ def main():
                             "ROIティア": tier_val,
                             "勝率": win_prob_str,
                             "複勝率": place_prob_str,
+                            "オッズ勝率": odds_win_prob_str,
                             "条件バイアス": context_bias_val,
                             "馬場ROI": cushion_roi_val,
                             "含水率×血統ROI": moisture_blood_roi_val,
@@ -627,7 +650,7 @@ def main():
 
                     display_cols = [
                         "Rank", "推奨", "番", "馬名",
-                        "ROIティア", "勝率", "複勝率",
+                        "ROIティア", "勝率", "複勝率", "オッズ勝率",
                         "条件バイアス",
                         "馬場ROI", "含水率×血統ROI", "血統ROI",
                         "父", "脚質", "騎手", "オッズ", "シグナル",
