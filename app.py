@@ -327,6 +327,24 @@ def highlight_row(row):
         elif v == "不利":
             styles[idx] = f"background-color: {BG_RED_LIGHT}; color: {TEXT_RED}"
 
+    # 条件バイアス列ハイライト
+    if "条件バイアス" in cols:
+        idx = cols.index("条件バイアス")
+        v = str(row["条件バイアス"])
+        if "有利転換" in v:
+            styles[idx] = f"background-color: {BG_GREEN_MEDIUM}; color: {TEXT_GREEN}; font-weight: bold"
+        elif "不利転換" in v:
+            styles[idx] = f"background-color: {BG_RED_MEDIUM}; color: {TEXT_RED}; font-weight: bold"
+        elif v != "-":
+            try:
+                cb_val = float(v.split()[0])
+                if cb_val > 1.05:
+                    styles[idx] = f"color: {TEXT_GREEN_MED}"
+                elif cb_val < 0.95:
+                    styles[idx] = f"color: {TEXT_ORANGE}"
+            except (ValueError, IndexError):
+                pass
+
     return styles
 
 
@@ -575,6 +593,9 @@ def main():
                         # 含水率×血統ROI
                         moisture_blood_roi_val = h.get("moisture_blood_roi", "-") or "-"
 
+                        # 条件バイアス（前走→今走の条件変化）
+                        context_bias_val = h.get("context_bias", "-") or "-"
+
                         row_data = {
                             "Rank": h.get("rank", 0),
                             "推奨": h.get("recommendation", ""),
@@ -583,6 +604,7 @@ def main():
                             "ROIティア": tier_val,
                             "勝率": win_prob_str,
                             "複勝率": place_prob_str,
+                            "条件バイアス": context_bias_val,
                             "馬場ROI": cushion_roi_val,
                             "含水率×血統ROI": moisture_blood_roi_val,
                             "血統ROI": h.get("blood_roi", "-") or "-",
@@ -606,6 +628,7 @@ def main():
                     display_cols = [
                         "Rank", "推奨", "番", "馬名",
                         "ROIティア", "勝率", "複勝率",
+                        "条件バイアス",
                         "馬場ROI", "含水率×血統ROI", "血統ROI",
                         "父", "脚質", "騎手", "オッズ", "シグナル",
                     ]

@@ -34,12 +34,14 @@ def _load_win_prob_adjustments():
         return json.load(f)
 
 
-def _compute_race_win_probs(horses_data, win_adj, heatmap_scorer_obj, course_type, distance, track_condition, quintile_edges=None):
+def _compute_race_win_probs(horses_data, win_adj, heatmap_scorer_obj, course_type, distance, track_condition, quintile_edges=None,
+                            cushion_roi_map=None, moisture_blood_roi_map=None,
+                            cushion_quintile_edges=None, moisture_blood_quintile_edges=None):
     """レース内の全馬について補正済み勝率・複勝率を計算する。
 
     Bradley-Terry model:
       base_gamma = 1 / odds
-      adjusted_gamma = base_gamma * tier_adj * heatmap_adj
+      adjusted_gamma = base_gamma * tier_adj * heatmap_adj * cushion_adj * moisture_blood_adj
       win_prob = adjusted_gamma / sum(adjusted_gamma for all horses in race)
 
     複勝率は上位3頭に入る確率を近似計算する:
@@ -52,6 +54,10 @@ def _compute_race_win_probs(horses_data, win_adj, heatmap_scorer_obj, course_typ
 
     tier_adj = win_adj.get("tier_adjustments", {})
     heatmap_adj = win_adj.get("heatmap_roi_adjustments", {})
+    cushion_adj = win_adj.get("cushion_roi_adjustments", {})
+    moisture_blood_adj = win_adj.get("moisture_blood_roi_adjustments", {})
+
+    import numpy as np
 
     # 各馬のadjusted_gammaを計算
     gamma_list = []
@@ -59,7 +65,8 @@ def _compute_race_win_probs(horses_data, win_adj, heatmap_scorer_obj, course_typ
         odds = h.get("odds")
         if not odds or odds <= 0:
             gamma_list.append({"hn": h["horse_number"], "gamma": 0.0,
-                               "base_gamma": 0.0, "tier_m": 1.0, "hm_m": 1.0})
+                               "base_gamma": 0.0, "tier_m": 1.0, "hm_m": 1.0,
+                               "cush_m": 1.0, "mb_m": 1.0})
             continue
 
         base_gamma = 1.0 / odds
@@ -80,20 +87,45 @@ def _compute_race_win_probs(horses_data, win_adj, heatmap_scorer_obj, course_typ
                 horse_id, course_type, distance, track_condition)
             uroi = unified.get("unified_roi")
             if uroi is not None:
-                import numpy as np
                 qi = int(np.digitize(uroi, quintile_edges)) + 1
                 qi = max(1, min(5, qi))
                 q_labels = ["Q1", "Q2", "Q3", "Q4", "Q5"]
                 q = q_labels[qi - 1]
                 hm_adj = heatmap_adj.get(q, 1.0)
 
-        adjusted_gamma = base_gamma * t_adj * hm_adj
+        # クッション値ROI五分位調整
+        cush_m = 1.0
+        if cushion_adj and cushion_roi_map and cushion_quintile_edges:
+            hn_key = h["horse_number"]
+            cush_roi = cushion_roi_map.get(hn_key)
+            if cush_roi is not None:
+                qi = int(np.digitize(cush_roi, cushion_quintile_edges)) + 1
+                qi = max(1, min(5, qi))
+                q_labels = ["Q1", "Q2", "Q3", "Q4", "Q5"]
+                q = q_labels[qi - 1]
+                cush_m = cushion_adj.get(q, 1.0)
+
+        # 含水率x血統ROI五分位調整
+        mb_m = 1.0
+        if moisture_blood_adj and moisture_blood_roi_map and moisture_blood_quintile_edges:
+            hn_key = h["horse_number"]
+            mb_roi = moisture_blood_roi_map.get(hn_key)
+            if mb_roi is not None:
+                qi = int(np.digitize(mb_roi, moisture_blood_quintile_edges)) + 1
+                qi = max(1, min(5, qi))
+                q_labels = ["Q1", "Q2", "Q3", "Q4", "Q5"]
+                q = q_labels[qi - 1]
+                mb_m = moisture_blood_adj.get(q, 1.0)
+
+        adjusted_gamma = base_gamma * t_adj * hm_adj * cush_m * mb_m
         gamma_list.append({
             "hn": h["horse_number"],
             "gamma": adjusted_gamma,
             "base_gamma": base_gamma,
             "tier_m": t_adj,
             "hm_m": hm_adj,
+            "cush_m": cush_m,
+            "mb_m": mb_m,
         })
 
     # レース内正規化 → 勝率
@@ -284,6 +316,134 @@ def export_predictions(target_date: date) -> Path:
     cushion_analyzer = CushionAnalyzer()
     cushion_analyzer.load()
 
+    # --- 前走条件バイアス計算用 ---
+    import sqlite3 as _sqlite3_ctx
+    _db_path_ctx = KEIBA_AI_DIR / "keiba.db"
+
+    # 含水率ゾーン定義
+    _TURF_MOISTURE_ZONES = {"low": (0, 10.5), "mid": (10.5, 13.7), "high": (13.7, 100)}
+    _DIRT_MOISTURE_ZONES = {"low": (0, 3.1), "mid": (3.1, 8.85), "high": (8.85, 100)}
+
+    def _classify_mz(raw_m, ct):
+        zones = _TURF_MOISTURE_ZONES if ct == "芝" else _DIRT_MOISTURE_ZONES
+        for zn, (lo, hi) in zones.items():
+            if lo <= raw_m < hi:
+                return zn
+        return list(zones.keys())[-1]
+
+    def _get_prev_race_info(horse_id, current_race_date):
+        """馬の前走情報（race_id, venue_code, race_date, course_type）を取得"""
+        conn = _sqlite3_ctx.connect(str(_db_path_ctx))
+        try:
+            row = conn.execute("""
+                SELECT r.race_id, r.venue_code, r.race_date, r.course_type
+                FROM race_results rr
+                JOIN races r ON rr.race_id = r.race_id
+                WHERE rr.horse_id = ? AND r.race_date < ?
+                ORDER BY r.race_date DESC, r.race_id DESC
+                LIMIT 1
+            """, (horse_id, str(current_race_date))).fetchone()
+            if row:
+                return {"race_id": row[0], "venue_code": row[1],
+                        "race_date": row[2], "course_type": row[3]}
+        finally:
+            conn.close()
+        return None
+
+    def _get_cv_data(venue_code, race_date_str):
+        """cushion_valuesテーブルからクッション値・含水率を取得"""
+        date_nd = str(race_date_str).replace("-", "")
+        conn = _sqlite3_ctx.connect(str(_db_path_ctx))
+        try:
+            row = conn.execute(
+                "SELECT cushion_value, turf_moisture_goal, turf_moisture_corner, "
+                "dirt_moisture_goal, dirt_moisture_corner "
+                "FROM cushion_values WHERE venue_code=? AND race_date=?",
+                (venue_code, date_nd)).fetchone()
+            if row:
+                return {"cushion": row[0],
+                        "turf_moisture_goal": row[1], "turf_moisture_corner": row[2],
+                        "dirt_moisture_goal": row[3], "dirt_moisture_corner": row[4]}
+        finally:
+            conn.close()
+        return None
+
+    def _compute_context_bias_ratio(horse_id, sire_id, ct, venue_code, target_date):
+        """前走条件バイアス比率を計算する。
+        Returns: dict with moisture_ratio, cushion_ratio, combined, prev_info or None
+        """
+        if not horse_id or not sire_id:
+            return None
+
+        prev = _get_prev_race_info(horse_id, target_date)
+        if not prev:
+            return None
+
+        prev_cv = _get_cv_data(prev["venue_code"], prev["race_date"])
+        curr_cv = _get_cv_data(venue_code, str(target_date))
+        if not prev_cv or not curr_cv:
+            return None
+
+        prev_ct = prev.get("course_type", ct)
+
+        # 含水率比率
+        moisture_ratio = 1.0
+        prev_mz_label = None
+        curr_mz_label = None
+
+        if prev_ct == "芝":
+            pg, pc = prev_cv.get("turf_moisture_goal"), prev_cv.get("turf_moisture_corner")
+        else:
+            pg, pc = prev_cv.get("dirt_moisture_goal"), prev_cv.get("dirt_moisture_corner")
+
+        if ct == "芝":
+            cg, cc = curr_cv.get("turf_moisture_goal"), curr_cv.get("turf_moisture_corner")
+        else:
+            cg, cc = curr_cv.get("dirt_moisture_goal"), curr_cv.get("dirt_moisture_corner")
+
+        if (pg is not None or pc is not None) and (cg is not None or cc is not None):
+            prev_raw = ((pg or 0) + (pc or 0)) / (2 if pg is not None and pc is not None else 1)
+            curr_raw = ((cg or 0) + (cc or 0)) / (2 if cg is not None and cc is not None else 1)
+            prev_mz = _classify_mz(prev_raw, prev_ct)
+            curr_mz = _classify_mz(curr_raw, ct)
+            prev_mz_label = prev_mz
+            curr_mz_label = curr_mz
+
+            if moisture_blood_roi_data:
+                from scripts.moisture_blood_roi import lookup_moisture_blood_roi
+                prev_mb = lookup_moisture_blood_roi(moisture_blood_roi_data, sire_id, prev_ct, prev_raw)
+                curr_mb = lookup_moisture_blood_roi(moisture_blood_roi_data, sire_id, ct, curr_raw)
+                prev_roi = (prev_mb["roi"] if prev_mb and prev_mb.get("roi") else None) or 100.0
+                curr_roi = (curr_mb["roi"] if curr_mb and curr_mb.get("roi") else None) or 100.0
+                if prev_roi > 0:
+                    moisture_ratio = curr_roi / prev_roi
+
+        # クッション比率（芝→芝のみ）
+        cushion_ratio = 1.0
+        if ct == "芝" and prev_ct == "芝":
+            prev_cush = prev_cv.get("cushion")
+            curr_cush = curr_cv.get("cushion")
+            if prev_cush is not None and curr_cush is not None:
+                prev_cush_res = cushion_analyzer.compute_cushion_roi(horse_id, prev_cush)
+                curr_cush_res = cushion_analyzer.compute_cushion_roi(horse_id, curr_cush)
+                prev_c_roi = (prev_cush_res.get("roi") if prev_cush_res else None) or 100.0
+                curr_c_roi = (curr_cush_res.get("roi") if curr_cush_res else None) or 100.0
+                if prev_c_roi > 0 and curr_c_roi is not None:
+                    cushion_ratio = curr_c_roi / prev_c_roi
+
+        combined = moisture_ratio * cushion_ratio
+        # クリップ
+        combined = max(0.5, min(2.0, combined))
+
+        return {
+            "moisture_ratio": round(moisture_ratio, 3),
+            "cushion_ratio": round(cushion_ratio, 3),
+            "combined": round(combined, 3),
+            "prev_race_date": str(prev["race_date"]),
+            "prev_moisture_zone": prev_mz_label,
+            "curr_moisture_zone": curr_mz_label,
+        }
+
     from analysis.heatmap_scorer import HeatmapScorer
     heatmap_scorer = HeatmapScorer()
     heatmap_scorer.load()
@@ -419,6 +579,95 @@ def export_predictions(target_date: date) -> Path:
         except Exception as e:
             print(f"  WARNING: heatmap quintile edges computation failed: {e}")
             heatmap_quintile_edges = None
+
+    # クッション値ROI / 含水率×血統ROI の五分位境界を事前計算
+    # 過去データのROI分布から境界を取得
+    _cushion_quintile_edges = None
+    _mb_quintile_edges = None
+    if win_adj:
+        import numpy as np
+        import sqlite3 as _sqlite3
+        _db_path = KEIBA_AI_DIR / "keiba.db"
+        try:
+            _conn = _sqlite3.connect(str(_db_path))
+            # クッション値: sire x zone 統計のROI分布からedges
+            _cush_q = _conn.execute("""
+                SELECT cv.cushion_value, h.sire_id
+                FROM cushion_values cv
+                JOIN races r ON cv.venue_code = r.venue_code
+                            AND cv.race_date = REPLACE(r.race_date, '-', '')
+                JOIN race_results rr ON r.race_id = rr.race_id
+                JOIN horses h ON rr.horse_id = h.horse_id
+                WHERE r.course_type = '芝'
+                  AND rr.finish_order IS NOT NULL AND rr.finish_order > 0
+                  AND h.sire_id IS NOT NULL
+                  AND r.race_date >= '2024-01-01'
+            """).fetchall()
+
+            if _cush_q:
+                # 三分位境界
+                _cv_vals = [r[0] for r in _cush_q if r[0] is not None]
+                if len(_cv_vals) > 100:
+                    _tercile = [np.percentile(_cv_vals, 33.3), np.percentile(_cv_vals, 66.7)]
+
+                    def _cz(cv):
+                        if cv <= _tercile[0]: return "hard"
+                        elif cv <= _tercile[1]: return "mid"
+                        else: return "soft"
+
+                    # sire x zone ROI 統計
+                    _pay_q = _conn.execute(
+                        "SELECT race_id, horse_numbers, payout FROM payoffs WHERE bet_type='複勝'"
+                    ).fetchall()
+                    _pay_map = {}
+                    for _pr in _pay_q:
+                        try: _pay_map[(_pr[0], int(_pr[1]))] = _pr[2]
+                        except: pass
+
+                    _sire_zone_acc = {}
+                    for _row in _cush_q:
+                        _cv, _sid = _row
+                        if _cv is None or _sid is None: continue
+                        _z = _cz(_cv)
+                        _k = (_sid, _z)
+                        if _k not in _sire_zone_acc:
+                            _sire_zone_acc[_k] = {"n": 0, "p": 0}
+                        _sire_zone_acc[_k]["n"] += 1
+
+                    # sire x zone ROI 分布
+                    _cush_rois = []
+                    for _k, _v in _sire_zone_acc.items():
+                        if _v["n"] >= 30:
+                            _cush_rois.append(_v["n"])  # placeholder - use actual from calibration
+
+                    # fallback: 直接calibrationのROI分布を使う
+                    # cushion_analysis の統計からROI値を取得
+                    _cush_stats = cushion_analyzer._sire_stats
+                    if _cush_stats:
+                        _cush_rois = [s["roi"] for s in _cush_stats.values()]
+                    if len(_cush_rois) >= 20:
+                        _cushion_quintile_edges = [
+                            float(np.percentile(_cush_rois, q)) for q in [20, 40, 60, 80]
+                        ]
+                        print(f"  cushion ROI quintile edges: {_cushion_quintile_edges}")
+
+            # 含水率x血統ROI: moisture_blood_roi.json のROI分布
+            if moisture_blood_roi_data:
+                _mb_rois = []
+                for _ct_key in ["芝", "ダート"]:
+                    _ct_data = moisture_blood_roi_data.get(_ct_key, {})
+                    for _entry in _ct_data.values():
+                        if isinstance(_entry, dict) and "roi" in _entry:
+                            _mb_rois.append(_entry["roi"])
+                if len(_mb_rois) >= 20:
+                    _mb_quintile_edges = [
+                        float(np.percentile(_mb_rois, q)) for q in [20, 40, 60, 80]
+                    ]
+                    print(f"  moisture_blood ROI quintile edges: {_mb_quintile_edges}")
+
+            _conn.close()
+        except Exception as e:
+            print(f"  WARNING: quintile edges computation failed: {e}")
 
     # 会場ごとに整理
     venues = {}
@@ -615,6 +864,8 @@ def export_predictions(target_date: date) -> Path:
                 cushion_roi_str = "-"
                 dsgs_roi_str = "-"
                 pace_advantage_str = ""
+                _cushion_roi_val = None
+                _moisture_blood_roi_val = None
 
                 if horse_id:
                     # 0. ベースROI（前走rank_devデシルOOS ROI — 全馬に値が出る）
@@ -688,6 +939,7 @@ def export_predictions(target_date: date) -> Path:
                             horse_id, race_cushion_cv)
                         if cush_result and cush_result.get("roi") is not None:
                             cushion_roi_str = f"{cush_result['roi']:.0f}%"
+                            _cushion_roi_val = cush_result["roi"]
 
                     # 9. DSGS ROI (dims_passed ベース表示)
                     if ct in ("ダート", "芝"):
@@ -740,6 +992,41 @@ def export_predictions(target_date: date) -> Path:
                         venue_code, str(target_date), ct, horse_id)
                     if mb_result:
                         moisture_blood_roi_str = f"{mb_result['roi']:.0f}%"
+                        _moisture_blood_roi_val = mb_result["roi"]
+
+                # 前走条件バイアス比率
+                context_bias_str = "-"
+                context_bias_detail = None
+                if horse_id:
+                    # sire_id取得
+                    _sire_id_for_ctx = None
+                    try:
+                        from database.models import Horse as _HorseCtx
+                        with get_session() as _s_ctx:
+                            _h_ctx = _s_ctx.query(_HorseCtx.sire_id).filter_by(
+                                horse_id=horse_id).first()
+                            if _h_ctx:
+                                _sire_id_for_ctx = _h_ctx.sire_id
+                    except Exception:
+                        pass
+
+                    if _sire_id_for_ctx:
+                        ctx_result = _compute_context_bias_ratio(
+                            horse_id, _sire_id_for_ctx, ct, venue_code, target_date)
+                        if ctx_result:
+                            cb = ctx_result["combined"]
+                            if cb < 0.85:
+                                context_bias_str = f"{cb:.2f} (不利転換)"
+                            elif cb > 1.15:
+                                context_bias_str = f"{cb:.2f} (有利転換)"
+                            elif cb != 1.0:
+                                context_bias_str = f"{cb:.2f}"
+                            context_bias_detail = {
+                                "combined": ctx_result["combined"],
+                                "moisture_ratio": ctx_result["moisture_ratio"],
+                                "cushion_ratio": ctx_result["cushion_ratio"],
+                                "prev_race_date": ctx_result["prev_race_date"],
+                            }
 
                 odds_val = e.get("odds")
 
@@ -771,6 +1058,8 @@ def export_predictions(target_date: date) -> Path:
                     "cushion_roi": cushion_roi_str,
                     "moisture_blood_roi": moisture_blood_roi_str,
                     "dsgs_roi": dsgs_roi_str,
+                    "context_bias": context_bias_str,
+                    "context_bias_detail": context_bias_detail,
                     "pace_advantage": pace_advantage_str,
                     # 共通
                     "sire_name": sire_name,
@@ -778,27 +1067,47 @@ def export_predictions(target_date: date) -> Path:
                                                   e.get("running_style", "")),
                     "jockey_name": e.get("jockey_name", ""),
                     "signal_tags": signal_tags,
-                    # 勝率計算用（内部用、_horse_id は出力時に削除）
+                    # 勝率計算用（内部用、出力時に削除）
                     "_horse_id": horse_id,
+                    "_cushion_roi_val": _cushion_roi_val,
+                    "_moisture_blood_roi_val": _moisture_blood_roi_val,
                 }
                 horses_output.append(horse_data)
 
             # 勝率・複勝率を計算してマージ
             if win_adj and horses_output:
+                # cushion_roi / moisture_blood_roi の馬番別マップ
+                _cush_map = {}
+                _mb_map = {}
+                for h in horses_output:
+                    _hn = h["horse_number"]
+                    if h.get("_cushion_roi_val") is not None:
+                        _cush_map[_hn] = h["_cushion_roi_val"]
+                    if h.get("_moisture_blood_roi_val") is not None:
+                        _mb_map[_hn] = h["_moisture_blood_roi_val"]
+
                 win_probs = _compute_race_win_probs(
                     horses_output, win_adj, heatmap_scorer,
-                    ct, dist, track_cond, heatmap_quintile_edges)
+                    ct, dist, track_cond, heatmap_quintile_edges,
+                    cushion_roi_map=_cush_map,
+                    moisture_blood_roi_map=_mb_map,
+                    cushion_quintile_edges=_cushion_quintile_edges,
+                    moisture_blood_quintile_edges=_mb_quintile_edges)
                 for h in horses_output:
                     hn_key = h["horse_number"]
                     wp = win_probs.get(hn_key, {})
                     h["win_prob"] = wp.get("win_prob", 0.0)
                     h["place_prob"] = wp.get("place_prob", 0.0)
                     h["odds_win_prob"] = wp.get("odds_win_prob", 0.0)
-                    # _horse_id を削除（公開データに含めない）
+                    # 内部フィールドを削除（公開データに含めない）
                     h.pop("_horse_id", None)
+                    h.pop("_cushion_roi_val", None)
+                    h.pop("_moisture_blood_roi_val", None)
             else:
                 for h in horses_output:
                     h.pop("_horse_id", None)
+                    h.pop("_cushion_roi_val", None)
+                    h.pop("_moisture_blood_roi_val", None)
 
             race_output = {
                 "race_number": race["race_number"],

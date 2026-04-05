@@ -1,5 +1,5 @@
 {
-  "exported_at": "2026-04-05T16:56:28",
+  "exported_at": "2026-04-06T05:03:17",
   "race_date": "2026-04-05",
   "venues": {
     "中山": {
@@ -33,6 +33,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "80%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.93",
+              "context_bias_detail": {
+                "combined": 0.928,
+                "moisture_ratio": 0.928,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "普通",
               "sire_name": "ルヴァンスレーヴ",
               "running_style": "不明",
@@ -63,6 +70,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "70%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.77 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.765,
+                "moisture_ratio": 0.765,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "ルーラーシップ",
               "running_style": "不明",
@@ -93,6 +107,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "104%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.20 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.198,
+                "moisture_ratio": 1.198,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "サトノダイヤモンド",
               "running_style": "不明",
@@ -123,6 +144,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "78%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.84 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.837,
+                "moisture_ratio": 0.837,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "ロードカナロア",
               "running_style": "不明",
@@ -153,6 +181,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "-",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "普通",
               "sire_name": "",
               "running_style": "不明",
@@ -183,6 +213,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "-",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "普通",
               "sire_name": "",
               "running_style": "不明",
@@ -213,6 +245,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "-",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "普通",
               "sire_name": "",
               "running_style": "不明",
@@ -243,6 +277,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "99%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.25 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.246,
+                "moisture_ratio": 1.246,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-12-27"
+              },
               "pace_advantage": "普通",
               "sire_name": "ドレフォン",
               "running_style": "不明",
@@ -273,6 +314,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "54%",
               "dsgs_roi": "2/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "普通",
               "sire_name": "ベストウォーリア",
               "running_style": "不明",
@@ -303,6 +351,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "40%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.52 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.515,
+                "moisture_ratio": 0.515,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "シュヴァルグラン",
               "running_style": "不明",
@@ -333,6 +388,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "71%",
               "dsgs_roi": "-",
+              "context_bias": "0.87",
+              "context_bias_detail": {
+                "combined": 0.873,
+                "moisture_ratio": 0.873,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-28"
+              },
               "pace_advantage": "普通",
               "sire_name": "シルバーステート",
               "running_style": "不明",
@@ -363,6 +425,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "50%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.71 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.706,
+                "moisture_ratio": 0.706,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "普通",
               "sire_name": "マクフィ",
               "running_style": "不明",
@@ -393,6 +462,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "62%",
               "dsgs_roi": "1/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "普通",
               "sire_name": "ヘンリーバローズ",
               "running_style": "不明",
@@ -423,6 +499,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "78%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.84 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.837,
+                "moisture_ratio": 0.837,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "ロードカナロア",
               "running_style": "不明",
@@ -453,6 +536,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "52%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.62 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.617,
+                "moisture_ratio": 1.617,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "ゴールドアクター",
               "running_style": "不明",
@@ -483,6 +573,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "87%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.04",
+              "context_bias_detail": {
+                "combined": 1.043,
+                "moisture_ratio": 1.043,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-10"
+              },
               "pace_advantage": "普通",
               "sire_name": "サンダースノー",
               "running_style": "不明",
@@ -536,6 +633,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "104%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.02",
+              "context_bias_detail": {
+                "combined": 1.023,
+                "moisture_ratio": 1.023,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "シニスターミニスター",
               "running_style": "不明",
@@ -566,6 +670,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "77%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.68 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.683,
+                "moisture_ratio": 0.683,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "不利",
               "sire_name": "エスポワールシチー",
               "running_style": "不明",
@@ -596,6 +707,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "102%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.22 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.223,
+                "moisture_ratio": 1.223,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "ダノンレジェンド",
               "running_style": "不明",
@@ -626,6 +744,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "84%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.06",
+              "context_bias_detail": {
+                "combined": 1.065,
+                "moisture_ratio": 1.065,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-07"
+              },
               "pace_advantage": "不利",
               "sire_name": "Known Agenda",
               "running_style": "不明",
@@ -656,6 +781,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "84%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.06",
+              "context_bias_detail": {
+                "combined": 1.065,
+                "moisture_ratio": 1.065,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "ハッピースプリント",
               "running_style": "不明",
@@ -686,6 +818,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "1/4",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "不利",
               "sire_name": "",
               "running_style": "不明",
@@ -716,6 +850,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "71%",
               "dsgs_roi": "-",
+              "context_bias": "0.87",
+              "context_bias_detail": {
+                "combined": 0.873,
+                "moisture_ratio": 0.873,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-18"
+              },
               "pace_advantage": "不利",
               "sire_name": "シルバーステート",
               "running_style": "不明",
@@ -746,6 +887,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "3/4",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "不利",
               "sire_name": "",
               "running_style": "不明",
@@ -776,6 +919,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "2/4",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "不利",
               "sire_name": "",
               "running_style": "不明",
@@ -806,6 +951,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "60%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.77 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.774,
+                "moisture_ratio": 0.774,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-10"
+              },
               "pace_advantage": "不利",
               "sire_name": "フォーウィールドライブ",
               "running_style": "不明",
@@ -836,6 +988,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "71%",
               "dsgs_roi": "-",
+              "context_bias": "0.87",
+              "context_bias_detail": {
+                "combined": 0.873,
+                "moisture_ratio": 0.873,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "シルバーステート",
               "running_style": "不明",
@@ -866,6 +1025,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "84%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.06",
+              "context_bias_detail": {
+                "combined": 1.065,
+                "moisture_ratio": 1.065,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "Mo Town",
               "running_style": "不明",
@@ -896,6 +1062,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "90%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.22 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.222,
+                "moisture_ratio": 1.222,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-12"
+              },
               "pace_advantage": "不利",
               "sire_name": "エピファネイア",
               "running_style": "不明",
@@ -926,6 +1099,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "84%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.04",
+              "context_bias_detail": {
+                "combined": 1.04,
+                "moisture_ratio": 1.04,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "不利",
               "sire_name": "セイウンコウセイ",
               "running_style": "不明",
@@ -956,6 +1136,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "33%",
               "dsgs_roi": "-",
+              "context_bias": "0.59 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.59,
+                "moisture_ratio": 0.59,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "アルアイン",
               "running_style": "不明",
@@ -986,6 +1173,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "62%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.84 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.841,
+                "moisture_ratio": 0.841,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "不利",
               "sire_name": "アメリカンペイトリオット",
               "running_style": "不明",
@@ -1039,6 +1233,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "2/4",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "普通",
               "sire_name": "",
               "running_style": "不明",
@@ -1069,6 +1265,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "-",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "普通",
               "sire_name": "",
               "running_style": "不明",
@@ -1099,6 +1297,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "-",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "普通",
               "sire_name": "",
               "running_style": "不明",
@@ -1129,6 +1329,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "-",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "普通",
               "sire_name": "",
               "running_style": "不明",
@@ -1159,6 +1361,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "-",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "普通",
               "sire_name": "",
               "running_style": "不明",
@@ -1189,6 +1393,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "107%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.31 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.312,
+                "moisture_ratio": 1.312,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "普通",
               "sire_name": "マジェスティックウォリアー",
               "running_style": "不明",
@@ -1219,6 +1430,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "41%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.55 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.551,
+                "moisture_ratio": 0.551,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "普通",
               "sire_name": "ゴールドシップ",
               "running_style": "不明",
@@ -1249,6 +1467,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "26%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.50 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.5,
+                "moisture_ratio": 0.343,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "ストロングリターン",
               "running_style": "不明",
@@ -1279,6 +1504,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "35%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.50 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.5,
+                "moisture_ratio": 0.396,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "クリソベリル",
               "running_style": "不明",
@@ -1309,6 +1541,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "74%",
               "dsgs_roi": "3/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-29"
+              },
               "pace_advantage": "普通",
               "sire_name": "アジアエクスプレス",
               "running_style": "不明",
@@ -1339,6 +1578,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "35%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.73 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.729,
+                "moisture_ratio": 0.729,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "普通",
               "sire_name": "クリソベリル",
               "running_style": "不明",
@@ -1369,6 +1615,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "40%",
               "dsgs_roi": "3/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-29"
+              },
               "pace_advantage": "普通",
               "sire_name": "ファインニードル",
               "running_style": "不明",
@@ -1399,6 +1652,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "48%",
               "dsgs_roi": "-",
+              "context_bias": "0.70 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.697,
+                "moisture_ratio": 0.697,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "普通",
               "sire_name": "タリスマニック",
               "running_style": "不明",
@@ -1429,6 +1689,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "55%",
               "dsgs_roi": "-",
+              "context_bias": "0.87",
+              "context_bias_detail": {
+                "combined": 0.871,
+                "moisture_ratio": 0.871,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-29"
+              },
               "pace_advantage": "普通",
               "sire_name": "ロジャーバローズ",
               "running_style": "不明",
@@ -1459,6 +1726,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "44%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.57 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.566,
+                "moisture_ratio": 0.566,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "インカンテーション",
               "running_style": "不明",
@@ -1489,6 +1763,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "34%",
               "dsgs_roi": "2/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "普通",
               "sire_name": "ダノンスマッシュ",
               "running_style": "不明",
@@ -1542,6 +1823,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "27%",
               "dsgs_roi": "-",
+              "context_bias": "0.50 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.5,
+                "moisture_ratio": 0.272,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-08-30"
+              },
               "pace_advantage": "普通",
               "sire_name": "ラニ",
               "running_style": "不明",
@@ -1572,6 +1860,13 @@
               "cushion_roi": "80%",
               "moisture_blood_roi": "62%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.61 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.607,
+                "moisture_ratio": 0.759,
+                "cushion_ratio": 0.8,
+                "prev_race_date": "2026-01-31"
+              },
               "pace_advantage": "普通",
               "sire_name": "ディーマジェスティ",
               "running_style": "不明",
@@ -1602,6 +1897,13 @@
               "cushion_roi": "85%",
               "moisture_blood_roi": "74%",
               "dsgs_roi": "-",
+              "context_bias": "1.06",
+              "context_bias_detail": {
+                "combined": 1.061,
+                "moisture_ratio": 0.972,
+                "cushion_ratio": 1.091,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "普通",
               "sire_name": "ゴールドシップ",
               "running_style": "不明",
@@ -1632,6 +1934,13 @@
               "cushion_roi": "95%",
               "moisture_blood_roi": "100%",
               "dsgs_roi": "0/4",
+              "context_bias": "1.13",
+              "context_bias_detail": {
+                "combined": 1.126,
+                "moisture_ratio": 1.445,
+                "cushion_ratio": 0.78,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "普通",
               "sire_name": "サトノダイヤモンド",
               "running_style": "不明",
@@ -1662,6 +1971,13 @@
               "cushion_roi": "79%",
               "moisture_blood_roi": "72%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.99",
+              "context_bias_detail": {
+                "combined": 0.994,
+                "moisture_ratio": 0.878,
+                "cushion_ratio": 1.132,
+                "prev_race_date": "2025-08-31"
+              },
               "pace_advantage": "普通",
               "sire_name": "シルバーステート",
               "running_style": "不明",
@@ -1692,6 +2008,13 @@
               "cushion_roi": "77%",
               "moisture_blood_roi": "58%",
               "dsgs_roi": "1/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-08-23"
+              },
               "pace_advantage": "普通",
               "sire_name": "リオンディーズ",
               "running_style": "不明",
@@ -1722,6 +2045,13 @@
               "cushion_roi": "71%",
               "moisture_blood_roi": "89%",
               "dsgs_roi": "-",
+              "context_bias": "1.12",
+              "context_bias_detail": {
+                "combined": 1.116,
+                "moisture_ratio": 1.365,
+                "cushion_ratio": 0.818,
+                "prev_race_date": "2026-03-01"
+              },
               "pace_advantage": "普通",
               "sire_name": "レイデオロ",
               "running_style": "不明",
@@ -1752,6 +2082,13 @@
               "cushion_roi": "74%",
               "moisture_blood_roi": "85%",
               "dsgs_roi": "-",
+              "context_bias": "1.25 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.255,
+                "moisture_ratio": 1.497,
+                "cushion_ratio": 0.838,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "普通",
               "sire_name": "リアルインパクト",
               "running_style": "不明",
@@ -1782,6 +2119,13 @@
               "cushion_roi": "0%",
               "moisture_blood_roi": "64%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.78 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.779,
+                "moisture_ratio": 0.779,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "普通",
               "sire_name": "ドレフォン",
               "running_style": "不明",
@@ -1812,6 +2156,13 @@
               "cushion_roi": "86%",
               "moisture_blood_roi": "90%",
               "dsgs_roi": "-",
+              "context_bias": "0.87",
+              "context_bias_detail": {
+                "combined": 0.873,
+                "moisture_ratio": 0.914,
+                "cushion_ratio": 0.955,
+                "prev_race_date": "2026-02-07"
+              },
               "pace_advantage": "普通",
               "sire_name": "キタサンブラック",
               "running_style": "不明",
@@ -1842,6 +2193,13 @@
               "cushion_roi": "100%",
               "moisture_blood_roi": "108%",
               "dsgs_roi": "-",
+              "context_bias": "2.00 (有利転換)",
+              "context_bias_detail": {
+                "combined": 2.0,
+                "moisture_ratio": 1.747,
+                "cushion_ratio": 2.272,
+                "prev_race_date": "2026-02-01"
+              },
               "pace_advantage": "普通",
               "sire_name": "ヘニーヒューズ",
               "running_style": "不明",
@@ -1872,6 +2230,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "98%",
               "dsgs_roi": "-",
+              "context_bias": "1.62 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.625,
+                "moisture_ratio": 1.625,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-18"
+              },
               "pace_advantage": "普通",
               "sire_name": "マインドユアビスケッツ",
               "running_style": "不明",
@@ -1902,6 +2267,13 @@
               "cushion_roi": "39%",
               "moisture_blood_roi": "33%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.71 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.713,
+                "moisture_ratio": 0.713,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-28"
+              },
               "pace_advantage": "普通",
               "sire_name": "マジェスティックウォリアー",
               "running_style": "不明",
@@ -1932,6 +2304,13 @@
               "cushion_roi": "98%",
               "moisture_blood_roi": "135%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.90 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.896,
+                "moisture_ratio": 1.785,
+                "cushion_ratio": 1.062,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "普通",
               "sire_name": "ダノンバラード",
               "running_style": "不明",
@@ -1986,6 +2365,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "104%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.74 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.739,
+                "moisture_ratio": 0.999,
+                "cushion_ratio": 0.74,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "不利",
               "sire_name": "ベンバトル",
               "running_style": "不明",
@@ -2016,6 +2402,13 @@
               "cushion_roi": "86%",
               "moisture_blood_roi": "90%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.65 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.653,
+                "moisture_ratio": 0.928,
+                "cushion_ratio": 0.703,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "不利",
               "sire_name": "イスラボニータ",
               "running_style": "不明",
@@ -2046,6 +2439,13 @@
               "cushion_roi": "117%",
               "moisture_blood_roi": "169%",
               "dsgs_roi": "1/4",
+              "context_bias": "2.00 (有利転換)",
+              "context_bias_detail": {
+                "combined": 2.0,
+                "moisture_ratio": 2.889,
+                "cushion_ratio": 2.61,
+                "prev_race_date": "2026-01-24"
+              },
               "pace_advantage": "不利",
               "sire_name": "アジアエクスプレス",
               "running_style": "不明",
@@ -2076,6 +2476,13 @@
               "cushion_roi": "76%",
               "moisture_blood_roi": "89%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.08",
+              "context_bias_detail": {
+                "combined": 1.082,
+                "moisture_ratio": 1.223,
+                "cushion_ratio": 0.884,
+                "prev_race_date": "2026-02-28"
+              },
               "pace_advantage": "不利",
               "sire_name": "フィエールマン",
               "running_style": "不明",
@@ -2106,6 +2513,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "1/4",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "不利",
               "sire_name": "",
               "running_style": "不明",
@@ -2136,6 +2545,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "97%",
               "dsgs_roi": "-",
+              "context_bias": "0.73 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.727,
+                "moisture_ratio": 0.727,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-28"
+              },
               "pace_advantage": "不利",
               "sire_name": "フォーウィールドライブ",
               "running_style": "不明",
@@ -2166,6 +2582,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "1/4",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "不利",
               "sire_name": "",
               "running_style": "不明",
@@ -2196,6 +2614,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "0/4",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "不利",
               "sire_name": "",
               "running_style": "不明",
@@ -2226,6 +2646,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "1/4",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "不利",
               "sire_name": "",
               "running_style": "不明",
@@ -2256,6 +2678,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "-",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "不利",
               "sire_name": "",
               "running_style": "不明",
@@ -2286,6 +2710,13 @@
               "cushion_roi": "76%",
               "moisture_blood_roi": "80%",
               "dsgs_roi": "0/4",
+              "context_bias": "1.08",
+              "context_bias_detail": {
+                "combined": 1.085,
+                "moisture_ratio": 1.118,
+                "cushion_ratio": 0.971,
+                "prev_race_date": "2026-01-17"
+              },
               "pace_advantage": "不利",
               "sire_name": "エピファネイア",
               "running_style": "不明",
@@ -2316,6 +2747,13 @@
               "cushion_roi": "76%",
               "moisture_blood_roi": "80%",
               "dsgs_roi": "1/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-07"
+              },
               "pace_advantage": "不利",
               "sire_name": "エピファネイア",
               "running_style": "不明",
@@ -2346,6 +2784,13 @@
               "cushion_roi": "76%",
               "moisture_blood_roi": "64%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.74 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.742,
+                "moisture_ratio": 0.779,
+                "cushion_ratio": 0.953,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "不利",
               "sire_name": "ドレフォン",
               "running_style": "不明",
@@ -2376,6 +2821,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "81%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.04",
+              "context_bias_detail": {
+                "combined": 1.036,
+                "moisture_ratio": 1.036,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-25"
+              },
               "pace_advantage": "不利",
               "sire_name": "クラウンレガーロ",
               "running_style": "不明",
@@ -2406,6 +2858,13 @@
               "cushion_roi": "98%",
               "moisture_blood_roi": "135%",
               "dsgs_roi": "1/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-07"
+              },
               "pace_advantage": "不利",
               "sire_name": "ダノンバラード",
               "running_style": "不明",
@@ -2436,6 +2895,13 @@
               "cushion_roi": "90%",
               "moisture_blood_roi": "86%",
               "dsgs_roi": "2/4",
+              "context_bias": "2.00 (有利転換)",
+              "context_bias_detail": {
+                "combined": 2.0,
+                "moisture_ratio": 2.145,
+                "cushion_ratio": 1.418,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "不利",
               "sire_name": "タリスマニック",
               "running_style": "不明",
@@ -2489,6 +2955,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "80%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.93",
+              "context_bias_detail": {
+                "combined": 0.928,
+                "moisture_ratio": 0.928,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-17"
+              },
               "pace_advantage": "普通",
               "sire_name": "ルヴァンスレーヴ",
               "running_style": "不明",
@@ -2519,6 +2992,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "87%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.07",
+              "context_bias_detail": {
+                "combined": 1.074,
+                "moisture_ratio": 1.074,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "ホッコータルマエ",
               "running_style": "不明",
@@ -2549,6 +3029,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "101%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.77 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.766,
+                "moisture_ratio": 0.766,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-12-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "ミスチヴィアスアレックス",
               "running_style": "不明",
@@ -2579,6 +3066,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "104%",
               "dsgs_roi": "3/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-11-30"
+              },
               "pace_advantage": "普通",
               "sire_name": "ガルボ",
               "running_style": "不明",
@@ -2609,6 +3103,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "84%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.06",
+              "context_bias_detail": {
+                "combined": 1.065,
+                "moisture_ratio": 1.065,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "ポエティックフレア",
               "running_style": "不明",
@@ -2639,6 +3140,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "-",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "普通",
               "sire_name": "",
               "running_style": "不明",
@@ -2669,6 +3172,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "46%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.67 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.671,
+                "moisture_ratio": 0.671,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-10"
+              },
               "pace_advantage": "普通",
               "sire_name": "ゴールドドリーム",
               "running_style": "不明",
@@ -2699,6 +3209,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "137%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.70 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.701,
+                "moisture_ratio": 1.701,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-31"
+              },
               "pace_advantage": "普通",
               "sire_name": "ジャスタウェイ",
               "running_style": "不明",
@@ -2729,6 +3246,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "53%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.60 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.603,
+                "moisture_ratio": 0.603,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "ナダル",
               "running_style": "不明",
@@ -2759,6 +3283,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "1/4",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "普通",
               "sire_name": "",
               "running_style": "不明",
@@ -2789,6 +3315,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "84%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.06",
+              "context_bias_detail": {
+                "combined": 1.065,
+                "moisture_ratio": 1.065,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-31"
+              },
               "pace_advantage": "普通",
               "sire_name": "ポエティックフレア",
               "running_style": "不明",
@@ -2819,6 +3352,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "35%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.50 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.5,
+                "moisture_ratio": 0.396,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "普通",
               "sire_name": "クリソベリル",
               "running_style": "不明",
@@ -2849,6 +3389,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "73%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.55 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.555,
+                "moisture_ratio": 1.555,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-12"
+              },
               "pace_advantage": "普通",
               "sire_name": "デクラレーションオブウォー",
               "running_style": "不明",
@@ -2879,6 +3426,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "128%",
               "dsgs_roi": "3/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-25"
+              },
               "pace_advantage": "普通",
               "sire_name": "ベンバトル",
               "running_style": "不明",
@@ -2909,6 +3463,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "73%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.95",
+              "context_bias_detail": {
+                "combined": 0.948,
+                "moisture_ratio": 0.948,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-15"
+              },
               "pace_advantage": "普通",
               "sire_name": "デクラレーションオブウォー",
               "running_style": "不明",
@@ -2939,6 +3500,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "50%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.71 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.706,
+                "moisture_ratio": 0.706,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-21"
+              },
               "pace_advantage": "普通",
               "sire_name": "マクフィ",
               "running_style": "不明",
@@ -2992,6 +3560,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "104%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.28 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.282,
+                "moisture_ratio": 0.999,
+                "cushion_ratio": 1.284,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "普通",
               "sire_name": "ベンバトル",
               "running_style": "不明",
@@ -3022,6 +3597,13 @@
               "cushion_roi": "82%",
               "moisture_blood_roi": "105%",
               "dsgs_roi": "0/4",
+              "context_bias": "0.90",
+              "context_bias_detail": {
+                "combined": 0.903,
+                "moisture_ratio": 1.022,
+                "cushion_ratio": 0.883,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "普通",
               "sire_name": "モーリス",
               "running_style": "不明",
@@ -3052,6 +3634,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "57%",
               "dsgs_roi": "-",
+              "context_bias": "0.66 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.662,
+                "moisture_ratio": 0.662,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-07"
+              },
               "pace_advantage": "普通",
               "sire_name": "モズアスコット",
               "running_style": "不明",
@@ -3082,6 +3671,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "104%",
               "dsgs_roi": "1/4",
+              "context_bias": "2.00 (有利転換)",
+              "context_bias_detail": {
+                "combined": 2.0,
+                "moisture_ratio": 3.741,
+                "cushion_ratio": 0.74,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "普通",
               "sire_name": "ベンバトル",
               "running_style": "不明",
@@ -3112,6 +3708,13 @@
               "cushion_roi": "82%",
               "moisture_blood_roi": "105%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.51 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.511,
+                "moisture_ratio": 1.535,
+                "cushion_ratio": 0.984,
+                "prev_race_date": "2026-02-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "モーリス",
               "running_style": "不明",
@@ -3142,6 +3745,13 @@
               "cushion_roi": "79%",
               "moisture_blood_roi": "62%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.50 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.5,
+                "moisture_ratio": 0.618,
+                "cushion_ratio": 0.684,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "普通",
               "sire_name": "ディーマジェスティ",
               "running_style": "不明",
@@ -3172,6 +3782,13 @@
               "cushion_roi": "86%",
               "moisture_blood_roi": "90%",
               "dsgs_roi": "0/4",
+              "context_bias": "1.18 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.183,
+                "moisture_ratio": 1.239,
+                "cushion_ratio": 0.955,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "普通",
               "sire_name": "キタサンブラック",
               "running_style": "不明",
@@ -3202,6 +3819,13 @@
               "cushion_roi": "102%",
               "moisture_blood_roi": "79%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.83 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.833,
+                "moisture_ratio": 0.879,
+                "cushion_ratio": 0.947,
+                "prev_race_date": "2026-01-12"
+              },
               "pace_advantage": "普通",
               "sire_name": "ファインニードル",
               "running_style": "不明",
@@ -3232,6 +3856,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "49%",
               "dsgs_roi": "-",
+              "context_bias": "1.45 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.453,
+                "moisture_ratio": 1.453,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-11"
+              },
               "pace_advantage": "普通",
               "sire_name": "フィレンツェファイア",
               "running_style": "不明",
@@ -3262,6 +3893,13 @@
               "cushion_roi": "140%",
               "moisture_blood_roi": "97%",
               "dsgs_roi": "3/4",
+              "context_bias": "2.00 (有利転換)",
+              "context_bias_detail": {
+                "combined": 2.0,
+                "moisture_ratio": 2.636,
+                "cushion_ratio": 2.569,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "普通",
               "sire_name": "フォーウィールドライブ",
               "running_style": "不明",
@@ -3292,6 +3930,13 @@
               "cushion_roi": "87%",
               "moisture_blood_roi": "96%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.73 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.725,
+                "moisture_ratio": 1.447,
+                "cushion_ratio": 1.192,
+                "prev_race_date": "2026-01-12"
+              },
               "pace_advantage": "普通",
               "sire_name": "サートゥルナーリア",
               "running_style": "不明",
@@ -3322,6 +3967,13 @@
               "cushion_roi": "63%",
               "moisture_blood_roi": "68%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.26 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.265,
+                "moisture_ratio": 1.217,
+                "cushion_ratio": 1.04,
+                "prev_race_date": "2026-02-21"
+              },
               "pace_advantage": "普通",
               "sire_name": "アルアイン",
               "running_style": "不明",
@@ -3352,6 +4004,13 @@
               "cushion_roi": "72%",
               "moisture_blood_roi": "53%",
               "dsgs_roi": "0/4",
+              "context_bias": "1.54 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.541,
+                "moisture_ratio": 0.924,
+                "cushion_ratio": 1.667,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "普通",
               "sire_name": "ウインブライト",
               "running_style": "不明",
@@ -3382,6 +4041,13 @@
               "cushion_roi": "67%",
               "moisture_blood_roi": "71%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.96",
+              "context_bias_detail": {
+                "combined": 0.965,
+                "moisture_ratio": 1.444,
+                "cushion_ratio": 0.668,
+                "prev_race_date": "2025-11-16"
+              },
               "pace_advantage": "普通",
               "sire_name": "パドトロワ",
               "running_style": "不明",
@@ -3435,6 +4101,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "137%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.70 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.701,
+                "moisture_ratio": 1.701,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "ジャスタウェイ",
               "running_style": "不明",
@@ -3465,6 +4138,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "80%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.92",
+              "context_bias_detail": {
+                "combined": 0.919,
+                "moisture_ratio": 0.919,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "不利",
               "sire_name": "ルヴァンスレーヴ",
               "running_style": "不明",
@@ -3495,6 +4175,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "107%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.31 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.312,
+                "moisture_ratio": 1.312,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "マジェスティックウォリアー",
               "running_style": "不明",
@@ -3525,6 +4212,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "70%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.79 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.785,
+                "moisture_ratio": 0.785,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-24"
+              },
               "pace_advantage": "不利",
               "sire_name": "ルーラーシップ",
               "running_style": "不明",
@@ -3555,6 +4249,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "115%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.03",
+              "context_bias_detail": {
+                "combined": 1.034,
+                "moisture_ratio": 1.034,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-10"
+              },
               "pace_advantage": "不利",
               "sire_name": "レッドファルクス",
               "running_style": "不明",
@@ -3585,6 +4286,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "84%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.04",
+              "context_bias_detail": {
+                "combined": 1.04,
+                "moisture_ratio": 1.04,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "不利",
               "sire_name": "Global Campaign",
               "running_style": "不明",
@@ -3615,6 +4323,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "54%",
               "dsgs_roi": "2/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-09-13"
+              },
               "pace_advantage": "不利",
               "sire_name": "サトノアラジン",
               "running_style": "不明",
@@ -3645,6 +4360,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "84%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.04",
+              "context_bias_detail": {
+                "combined": 1.04,
+                "moisture_ratio": 1.04,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "アルバート",
               "running_style": "不明",
@@ -3675,6 +4397,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "89%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.02",
+              "context_bias_detail": {
+                "combined": 1.024,
+                "moisture_ratio": 1.024,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "不利",
               "sire_name": "ニューイヤーズデイ",
               "running_style": "不明",
@@ -3705,6 +4434,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "87%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.07",
+              "context_bias_detail": {
+                "combined": 1.074,
+                "moisture_ratio": 1.074,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "ホッコータルマエ",
               "running_style": "不明",
@@ -3735,6 +4471,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "92%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.51 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.513,
+                "moisture_ratio": 1.513,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-11-16"
+              },
               "pace_advantage": "不利",
               "sire_name": "ヴィクトワールピサ",
               "running_style": "不明",
@@ -3765,6 +4508,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "84%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.39 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.386,
+                "moisture_ratio": 1.386,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-10"
+              },
               "pace_advantage": "不利",
               "sire_name": "アドマイヤマーズ",
               "running_style": "不明",
@@ -3795,6 +4545,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "63%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.14",
+              "context_bias_detail": {
+                "combined": 1.14,
+                "moisture_ratio": 1.14,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "不利",
               "sire_name": "シャンハイボビー",
               "running_style": "不明",
@@ -3825,6 +4582,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "89%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.02",
+              "context_bias_detail": {
+                "combined": 1.024,
+                "moisture_ratio": 1.024,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-10-04"
+              },
               "pace_advantage": "不利",
               "sire_name": "ニューイヤーズデイ",
               "running_style": "不明",
@@ -3855,6 +4619,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "46%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.24 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.24,
+                "moisture_ratio": 1.24,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-05"
+              },
               "pace_advantage": "不利",
               "sire_name": "ミスターメロディ",
               "running_style": "不明",
@@ -3885,6 +4656,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "54%",
               "dsgs_roi": "-",
+              "context_bias": "0.71 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.71,
+                "moisture_ratio": 0.71,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "不利",
               "sire_name": "ビッグアーサー",
               "running_style": "不明",
@@ -3938,6 +4716,13 @@
               "cushion_roi": "63%",
               "moisture_blood_roi": "58%",
               "dsgs_roi": "0/4",
+              "context_bias": "0.50 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.5,
+                "moisture_ratio": 0.673,
+                "cushion_ratio": 0.728,
+                "prev_race_date": "2026-02-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "シュヴァルグラン",
               "running_style": "不明",
@@ -3968,6 +4753,13 @@
               "cushion_roi": "71%",
               "moisture_blood_roi": "89%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.39 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.393,
+                "moisture_ratio": 1.234,
+                "cushion_ratio": 1.129,
+                "prev_race_date": "2026-01-18"
+              },
               "pace_advantage": "普通",
               "sire_name": "レイデオロ",
               "running_style": "不明",
@@ -3998,6 +4790,13 @@
               "cushion_roi": "96%",
               "moisture_blood_roi": "126%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.27 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.272,
+                "moisture_ratio": 1.404,
+                "cushion_ratio": 0.906,
+                "prev_race_date": "2026-01-18"
+              },
               "pace_advantage": "普通",
               "sire_name": "スクリーンヒーロー",
               "running_style": "不明",
@@ -4028,6 +4827,13 @@
               "cushion_roi": "95%",
               "moisture_blood_roi": "100%",
               "dsgs_roi": "1/4",
+              "context_bias": "2.00 (有利転換)",
+              "context_bias_detail": {
+                "combined": 2.0,
+                "moisture_ratio": 1.445,
+                "cushion_ratio": 1.559,
+                "prev_race_date": "2025-11-24"
+              },
               "pace_advantage": "普通",
               "sire_name": "サトノダイヤモンド",
               "running_style": "不明",
@@ -4058,6 +4864,13 @@
               "cushion_roi": "96%",
               "moisture_blood_roi": "98%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.20 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.195,
+                "moisture_ratio": 1.084,
+                "cushion_ratio": 1.102,
+                "prev_race_date": "2025-12-28"
+              },
               "pace_advantage": "普通",
               "sire_name": "キズナ",
               "running_style": "不明",
@@ -4088,6 +4901,13 @@
               "cushion_roi": "68%",
               "moisture_blood_roi": "60%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.37 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.366,
+                "moisture_ratio": 0.802,
+                "cushion_ratio": 1.702,
+                "prev_race_date": "2026-03-01"
+              },
               "pace_advantage": "普通",
               "sire_name": "ハービンジャー",
               "running_style": "不明",
@@ -4118,6 +4938,13 @@
               "cushion_roi": "76%",
               "moisture_blood_roi": "80%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.93",
+              "context_bias_detail": {
+                "combined": 0.931,
+                "moisture_ratio": 0.959,
+                "cushion_ratio": 0.971,
+                "prev_race_date": "2026-01-11"
+              },
               "pace_advantage": "普通",
               "sire_name": "エピファネイア",
               "running_style": "不明",
@@ -4148,6 +4975,13 @@
               "cushion_roi": "71%",
               "moisture_blood_roi": "89%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.07",
+              "context_bias_detail": {
+                "combined": 1.071,
+                "moisture_ratio": 1.234,
+                "cushion_ratio": 0.868,
+                "prev_race_date": "2026-03-01"
+              },
               "pace_advantage": "普通",
               "sire_name": "レイデオロ",
               "running_style": "不明",
@@ -4202,6 +5036,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "67%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.81 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.805,
+                "moisture_ratio": 0.805,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-07"
+              },
               "pace_advantage": "普通",
               "sire_name": "キンシャサノキセキ",
               "running_style": "不明",
@@ -4232,6 +5073,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "310%",
               "dsgs_roi": "2/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "普通",
               "sire_name": "クリエイターII",
               "running_style": "不明",
@@ -4262,6 +5110,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "121%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.60 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.596,
+                "moisture_ratio": 1.596,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "トーセンジョーダン",
               "running_style": "不明",
@@ -4292,6 +5147,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "121%",
               "dsgs_roi": "3/4",
+              "context_bias": "2.00 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.998,
+                "moisture_ratio": 1.998,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-01"
+              },
               "pace_advantage": "普通",
               "sire_name": "トーセンジョーダン",
               "running_style": "不明",
@@ -4322,6 +5184,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "211%",
               "dsgs_roi": "2/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-21"
+              },
               "pace_advantage": "普通",
               "sire_name": "Runhappy",
               "running_style": "不明",
@@ -4352,6 +5221,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "111%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.26 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.26,
+                "moisture_ratio": 1.26,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-11-24"
+              },
               "pace_advantage": "普通",
               "sire_name": "イスラボニータ",
               "running_style": "不明",
@@ -4382,6 +5258,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "80%",
               "dsgs_roi": "2/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-28"
+              },
               "pace_advantage": "普通",
               "sire_name": "ルヴァンスレーヴ",
               "running_style": "不明",
@@ -4412,6 +5295,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "76%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.82 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.821,
+                "moisture_ratio": 0.821,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-17"
+              },
               "pace_advantage": "普通",
               "sire_name": "サウスヴィグラス",
               "running_style": "不明",
@@ -4442,6 +5332,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "77%",
               "dsgs_roi": "-",
+              "context_bias": "0.84 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.844,
+                "moisture_ratio": 0.844,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-22"
+              },
               "pace_advantage": "普通",
               "sire_name": "キタサンブラック",
               "running_style": "不明",
@@ -4472,6 +5369,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "60%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.70 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.701,
+                "moisture_ratio": 0.701,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-17"
+              },
               "pace_advantage": "普通",
               "sire_name": "モズアスコット",
               "running_style": "不明",
@@ -4502,6 +5406,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "111%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.26 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.26,
+                "moisture_ratio": 1.26,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-24"
+              },
               "pace_advantage": "普通",
               "sire_name": "イスラボニータ",
               "running_style": "不明",
@@ -4532,6 +5443,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "91%",
               "dsgs_roi": "120%(4/4)",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-07"
+              },
               "pace_advantage": "普通",
               "sire_name": "パイロ",
               "running_style": "不明",
@@ -4562,6 +5480,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "87%",
               "dsgs_roi": "2/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-12-21"
+              },
               "pace_advantage": "普通",
               "sire_name": "ホッコータルマエ",
               "running_style": "不明",
@@ -4592,6 +5517,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "54%",
               "dsgs_roi": "2/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-12"
+              },
               "pace_advantage": "普通",
               "sire_name": "Frankel",
               "running_style": "不明",
@@ -4622,6 +5554,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "113%",
               "dsgs_roi": "-",
+              "context_bias": "1.50 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.5,
+                "moisture_ratio": 1.5,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-01"
+              },
               "pace_advantage": "普通",
               "sire_name": "ハービンジャー",
               "running_style": "不明",
@@ -4652,6 +5591,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "77%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.59 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.592,
+                "moisture_ratio": 0.592,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "普通",
               "sire_name": "ニシケンモノノフ",
               "running_style": "不明",
@@ -4705,6 +5651,13 @@
               "cushion_roi": "95%",
               "moisture_blood_roi": "126%",
               "dsgs_roi": "-",
+              "context_bias": "1.58 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.585,
+                "moisture_ratio": 1.585,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "スクリーンヒーロー",
               "running_style": "不明",
@@ -4735,6 +5688,13 @@
               "cushion_roi": "88%",
               "moisture_blood_roi": "83%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.13",
+              "context_bias_detail": {
+                "combined": 1.126,
+                "moisture_ratio": 0.988,
+                "cushion_ratio": 1.14,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "不利",
               "sire_name": "ドゥラメンテ",
               "running_style": "不明",
@@ -4765,6 +5725,13 @@
               "cushion_roi": "110%",
               "moisture_blood_roi": "106%",
               "dsgs_roi": "0/4",
+              "context_bias": "1.43 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.429,
+                "moisture_ratio": 1.259,
+                "cushion_ratio": 1.135,
+                "prev_race_date": "2026-01-05"
+              },
               "pace_advantage": "不利",
               "sire_name": "ニューイヤーズデイ",
               "running_style": "不明",
@@ -4795,6 +5762,13 @@
               "cushion_roi": "64%",
               "moisture_blood_roi": "63%",
               "dsgs_roi": "0/4",
+              "context_bias": "0.87",
+              "context_bias_detail": {
+                "combined": 0.873,
+                "moisture_ratio": 0.873,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-07"
+              },
               "pace_advantage": "不利",
               "sire_name": "ブラックタイド",
               "running_style": "不明",
@@ -4825,6 +5799,13 @@
               "cushion_roi": "92%",
               "moisture_blood_roi": "83%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.99",
+              "context_bias_detail": {
+                "combined": 0.99,
+                "moisture_ratio": 0.866,
+                "cushion_ratio": 1.144,
+                "prev_race_date": "2026-01-24"
+              },
               "pace_advantage": "不利",
               "sire_name": "オルフェーヴル",
               "running_style": "不明",
@@ -4855,6 +5836,13 @@
               "cushion_roi": "82%",
               "moisture_blood_roi": "105%",
               "dsgs_roi": "0/4",
+              "context_bias": "0.63 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.632,
+                "moisture_ratio": 1.022,
+                "cushion_ratio": 0.618,
+                "prev_race_date": "2026-01-24"
+              },
               "pace_advantage": "不利",
               "sire_name": "モーリス",
               "running_style": "不明",
@@ -4885,6 +5873,13 @@
               "cushion_roi": "142%",
               "moisture_blood_roi": "70%",
               "dsgs_roi": "3/4",
+              "context_bias": "2.00 (有利転換)",
+              "context_bias_detail": {
+                "combined": 2.0,
+                "moisture_ratio": 1.013,
+                "cushion_ratio": 2.185,
+                "prev_race_date": "2026-03-01"
+              },
               "pace_advantage": "不利",
               "sire_name": "ハーツクライ",
               "running_style": "不明",
@@ -4915,6 +5910,13 @@
               "cushion_roi": "86%",
               "moisture_blood_roi": "90%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.59 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.595,
+                "moisture_ratio": 1.239,
+                "cushion_ratio": 0.48,
+                "prev_race_date": "2025-07-26"
+              },
               "pace_advantage": "不利",
               "sire_name": "キタサンブラック",
               "running_style": "不明",
@@ -4945,6 +5947,13 @@
               "cushion_roi": "100%",
               "moisture_blood_roi": "127%",
               "dsgs_roi": "0/4",
+              "context_bias": "1.32 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.323,
+                "moisture_ratio": 1.71,
+                "cushion_ratio": 0.774,
+                "prev_race_date": "2026-03-01"
+              },
               "pace_advantage": "不利",
               "sire_name": "ノヴェリスト",
               "running_style": "不明",
@@ -4975,6 +5984,13 @@
               "cushion_roi": "0%",
               "moisture_blood_roi": "92%",
               "dsgs_roi": "0/4",
+              "context_bias": "1.84 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.841,
+                "moisture_ratio": 1.202,
+                "cushion_ratio": 1.531,
+                "prev_race_date": "2026-03-01"
+              },
               "pace_advantage": "不利",
               "sire_name": "キングカメハメハ",
               "running_style": "不明",
@@ -5005,6 +6021,13 @@
               "cushion_roi": "0%",
               "moisture_blood_roi": "105%",
               "dsgs_roi": "0/4",
+              "context_bias": "1.25 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.251,
+                "moisture_ratio": 1.535,
+                "cushion_ratio": 0.815,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "不利",
               "sire_name": "モーリス",
               "running_style": "不明",
@@ -5035,6 +6058,13 @@
               "cushion_roi": "70%",
               "moisture_blood_roi": "85%",
               "dsgs_roi": "0/4",
+              "context_bias": "0.88",
+              "context_bias_detail": {
+                "combined": 0.878,
+                "moisture_ratio": 1.251,
+                "cushion_ratio": 0.702,
+                "prev_race_date": "2026-03-01"
+              },
               "pace_advantage": "不利",
               "sire_name": "スワーヴリチャード",
               "running_style": "不明",
@@ -5065,6 +6095,13 @@
               "cushion_roi": "116%",
               "moisture_blood_roi": "98%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.50 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.5,
+                "moisture_ratio": 1.071,
+                "cushion_ratio": 0.195,
+                "prev_race_date": "2026-03-01"
+              },
               "pace_advantage": "不利",
               "sire_name": "マインドユアビスケッツ",
               "running_style": "不明",
@@ -5095,6 +6132,13 @@
               "cushion_roi": "72%",
               "moisture_blood_roi": "53%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.82 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.82,
+                "moisture_ratio": 0.924,
+                "cushion_ratio": 0.887,
+                "prev_race_date": "2026-01-04"
+              },
               "pace_advantage": "不利",
               "sire_name": "ウインブライト",
               "running_style": "不明",
@@ -5125,6 +6169,13 @@
               "cushion_roi": "71%",
               "moisture_blood_roi": "89%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.57 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.571,
+                "moisture_ratio": 1.234,
+                "cushion_ratio": 0.462,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "不利",
               "sire_name": "レイデオロ",
               "running_style": "不明",
@@ -5155,6 +6206,13 @@
               "cushion_roi": "164%",
               "moisture_blood_roi": "135%",
               "dsgs_roi": "2/4",
+              "context_bias": "2.00 (有利転換)",
+              "context_bias_detail": {
+                "combined": 2.0,
+                "moisture_ratio": 1.785,
+                "cushion_ratio": 2.312,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "不利",
               "sire_name": "ダノンバラード",
               "running_style": "不明",
@@ -5208,6 +6266,13 @@
               "cushion_roi": "86%",
               "moisture_blood_roi": "90%",
               "dsgs_roi": "0/4",
+              "context_bias": "0.70 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.703,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 0.703,
+                "prev_race_date": "2026-02-10"
+              },
               "pace_advantage": "不利",
               "sire_name": "イスラボニータ",
               "running_style": "不明",
@@ -5238,6 +6303,13 @@
               "cushion_roi": "36%",
               "moisture_blood_roi": "90%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.50 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.5,
+                "moisture_ratio": 0.928,
+                "cushion_ratio": 0.196,
+                "prev_race_date": "2026-02-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "イスラボニータ",
               "running_style": "不明",
@@ -5268,6 +6340,13 @@
               "cushion_roi": "96%",
               "moisture_blood_roi": "126%",
               "dsgs_roi": "0/4",
+              "context_bias": "1.32 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.319,
+                "moisture_ratio": 1.456,
+                "cushion_ratio": 0.906,
+                "prev_race_date": "2026-02-07"
+              },
               "pace_advantage": "不利",
               "sire_name": "スクリーンヒーロー",
               "running_style": "不明",
@@ -5298,6 +6377,13 @@
               "cushion_roi": "96%",
               "moisture_blood_roi": "98%",
               "dsgs_roi": "0/4",
+              "context_bias": "1.30 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.301,
+                "moisture_ratio": 1.139,
+                "cushion_ratio": 1.142,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "キズナ",
               "running_style": "不明",
@@ -5328,6 +6414,13 @@
               "cushion_roi": "24%",
               "moisture_blood_roi": "72%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.50 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.5,
+                "moisture_ratio": 0.91,
+                "cushion_ratio": 0.27,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "シルバーステート",
               "running_style": "不明",
@@ -5358,6 +6451,13 @@
               "cushion_roi": "86%",
               "moisture_blood_roi": "90%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.54 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.545,
+                "moisture_ratio": 1.239,
+                "cushion_ratio": 1.247,
+                "prev_race_date": "2025-11-29"
+              },
               "pace_advantage": "不利",
               "sire_name": "キタサンブラック",
               "running_style": "不明",
@@ -5388,6 +6488,13 @@
               "cushion_roi": "71%",
               "moisture_blood_roi": "100%",
               "dsgs_roi": "0/4",
+              "context_bias": "1.31 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.309,
+                "moisture_ratio": 1.557,
+                "cushion_ratio": 0.841,
+                "prev_race_date": "2026-02-28"
+              },
               "pace_advantage": "不利",
               "sire_name": "ブリックスアンドモルタル",
               "running_style": "不明",
@@ -5418,6 +6525,13 @@
               "cushion_roi": "145%",
               "moisture_blood_roi": "135%",
               "dsgs_roi": "-",
+              "context_bias": "1.51 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.511,
+                "moisture_ratio": 1.511,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-28"
+              },
               "pace_advantage": "不利",
               "sire_name": "ダノンバラード",
               "running_style": "不明",
@@ -5448,6 +6562,13 @@
               "cushion_roi": "70%",
               "moisture_blood_roi": "85%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.12",
+              "context_bias_detail": {
+                "combined": 1.116,
+                "moisture_ratio": 1.251,
+                "cushion_ratio": 0.892,
+                "prev_race_date": "2026-02-28"
+              },
               "pace_advantage": "不利",
               "sire_name": "スワーヴリチャード",
               "running_style": "不明",
@@ -5478,6 +6599,13 @@
               "cushion_roi": "97%",
               "moisture_blood_roi": "98%",
               "dsgs_roi": "0/4",
+              "context_bias": "2.00 (有利転換)",
+              "context_bias_detail": {
+                "combined": 2.0,
+                "moisture_ratio": 1.44,
+                "cushion_ratio": 1.417,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "マインドユアビスケッツ",
               "running_style": "不明",
@@ -5508,6 +6636,13 @@
               "cushion_roi": "37%",
               "moisture_blood_roi": "74%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.50 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.5,
+                "moisture_ratio": 0.972,
+                "cushion_ratio": 0.476,
+                "prev_race_date": "2026-01-18"
+              },
               "pace_advantage": "不利",
               "sire_name": "ゴールドシップ",
               "running_style": "不明",
@@ -5538,6 +6673,13 @@
               "cushion_roi": "0%",
               "moisture_blood_roi": "69%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.91",
+              "context_bias_detail": {
+                "combined": 0.912,
+                "moisture_ratio": 0.912,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "ビッグアーサー",
               "running_style": "不明",
@@ -5595,6 +6737,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "101%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.77 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.766,
+                "moisture_ratio": 0.766,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "不利",
               "sire_name": "ミスチヴィアスアレックス",
               "running_style": "不明",
@@ -5625,6 +6774,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "78%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.84 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.837,
+                "moisture_ratio": 0.837,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "ロードカナロア",
               "running_style": "不明",
@@ -5655,6 +6811,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "99%",
               "dsgs_roi": "2/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "ドレフォン",
               "running_style": "不明",
@@ -5685,6 +6848,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "99%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.01",
+              "context_bias_detail": {
+                "combined": 1.009,
+                "moisture_ratio": 1.009,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-12"
+              },
               "pace_advantage": "不利",
               "sire_name": "ドレフォン",
               "running_style": "不明",
@@ -5715,6 +6885,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "82%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.38 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.379,
+                "moisture_ratio": 1.379,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "不利",
               "sire_name": "オルフェーヴル",
               "running_style": "不明",
@@ -5745,6 +6922,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "90%",
               "dsgs_roi": "2/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "フィレンツェファイア",
               "running_style": "不明",
@@ -5775,6 +6959,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "3/4",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "不利",
               "sire_name": "",
               "running_style": "不明",
@@ -5805,6 +6991,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "90%",
               "dsgs_roi": "-",
+              "context_bias": "1.08",
+              "context_bias_detail": {
+                "combined": 1.08,
+                "moisture_ratio": 1.08,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-11-02"
+              },
               "pace_advantage": "不利",
               "sire_name": "エピファネイア",
               "running_style": "不明",
@@ -5835,6 +7028,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "-",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "不利",
               "sire_name": "",
               "running_style": "不明",
@@ -5865,6 +7060,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "-",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "不利",
               "sire_name": "",
               "running_style": "不明",
@@ -5895,6 +7092,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "-",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "不利",
               "sire_name": "",
               "running_style": "不明",
@@ -5925,6 +7124,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "120%(4/4)",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "不利",
               "sire_name": "",
               "running_style": "不明",
@@ -5955,6 +7156,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "50%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.78 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.779,
+                "moisture_ratio": 0.779,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "不利",
               "sire_name": "ダイワメジャー",
               "running_style": "不明",
@@ -5985,6 +7193,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "90%",
               "dsgs_roi": "2/4",
+              "context_bias": "2.00 (有利転換)",
+              "context_bias_detail": {
+                "combined": 2.0,
+                "moisture_ratio": 2.663,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "不利",
               "sire_name": "フィレンツェファイア",
               "running_style": "不明",
@@ -6015,6 +7230,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "50%",
               "dsgs_roi": "-",
+              "context_bias": "0.64 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.637,
+                "moisture_ratio": 0.637,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-05"
+              },
               "pace_advantage": "不利",
               "sire_name": "コントレイル",
               "running_style": "不明",
@@ -6068,6 +7290,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "52%",
               "dsgs_roi": "3/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-29"
+              },
               "pace_advantage": "普通",
               "sire_name": "City of Light",
               "running_style": "不明",
@@ -6098,6 +7327,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "77%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.68 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.683,
+                "moisture_ratio": 0.683,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "普通",
               "sire_name": "エスポワールシチー",
               "running_style": "不明",
@@ -6128,6 +7364,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "137%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.64 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.64,
+                "moisture_ratio": 1.64,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "普通",
               "sire_name": "ジャスタウェイ",
               "running_style": "不明",
@@ -6158,6 +7401,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "79%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.85 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.846,
+                "moisture_ratio": 0.846,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "カレンブラックヒル",
               "running_style": "不明",
@@ -6188,6 +7438,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "99%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.25 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.246,
+                "moisture_ratio": 1.246,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "普通",
               "sire_name": "ドレフォン",
               "running_style": "不明",
@@ -6218,6 +7475,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "104%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.09",
+              "context_bias_detail": {
+                "combined": 1.088,
+                "moisture_ratio": 1.088,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "普通",
               "sire_name": "シニスターミニスター",
               "running_style": "不明",
@@ -6248,6 +7512,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "107%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.60 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.602,
+                "moisture_ratio": 1.602,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-10"
+              },
               "pace_advantage": "普通",
               "sire_name": "マジェスティックウォリアー",
               "running_style": "不明",
@@ -6278,6 +7549,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "2/4",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "普通",
               "sire_name": "",
               "running_style": "不明",
@@ -6308,6 +7581,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "-",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "普通",
               "sire_name": "",
               "running_style": "不明",
@@ -6338,6 +7613,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "104%",
               "dsgs_roi": "-",
+              "context_bias": "1.51 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.509,
+                "moisture_ratio": 1.509,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-29"
+              },
               "pace_advantage": "普通",
               "sire_name": "サトノダイヤモンド",
               "running_style": "不明",
@@ -6368,6 +7650,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "57%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.68 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.679,
+                "moisture_ratio": 0.679,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-10"
+              },
               "pace_advantage": "普通",
               "sire_name": "リアルスティール",
               "running_style": "不明",
@@ -6398,6 +7687,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "55%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.87",
+              "context_bias_detail": {
+                "combined": 0.871,
+                "moisture_ratio": 0.871,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-12-07"
+              },
               "pace_advantage": "普通",
               "sire_name": "ロジャーバローズ",
               "running_style": "不明",
@@ -6428,6 +7724,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "27%",
               "dsgs_roi": "2/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "普通",
               "sire_name": "キセキ",
               "running_style": "不明",
@@ -6481,6 +7784,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "79%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.94",
+              "context_bias_detail": {
+                "combined": 0.938,
+                "moisture_ratio": 0.938,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-12"
+              },
               "pace_advantage": "不利",
               "sire_name": "カリフォルニアクローム",
               "running_style": "不明",
@@ -6511,6 +7821,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "90%",
               "dsgs_roi": "3/4",
+              "context_bias": "2.00 (有利転換)",
+              "context_bias_detail": {
+                "combined": 2.0,
+                "moisture_ratio": 2.663,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "不利",
               "sire_name": "フィレンツェファイア",
               "running_style": "不明",
@@ -6541,6 +7858,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "2/4",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "不利",
               "sire_name": "",
               "running_style": "不明",
@@ -6571,6 +7890,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "101%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.77 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.766,
+                "moisture_ratio": 0.766,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "不利",
               "sire_name": "ミスチヴィアスアレックス",
               "running_style": "不明",
@@ -6601,6 +7927,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "1/4",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "不利",
               "sire_name": "",
               "running_style": "不明",
@@ -6631,6 +7959,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "62%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.84 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.841,
+                "moisture_ratio": 0.841,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "不利",
               "sire_name": "アメリカンペイトリオット",
               "running_style": "不明",
@@ -6661,6 +7996,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "3/4",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "不利",
               "sire_name": "",
               "running_style": "不明",
@@ -6691,6 +8028,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "2/4",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "不利",
               "sire_name": "",
               "running_style": "不明",
@@ -6721,6 +8060,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "55%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.11",
+              "context_bias_detail": {
+                "combined": 1.111,
+                "moisture_ratio": 1.111,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-01"
+              },
               "pace_advantage": "不利",
               "sire_name": "ロジャーバローズ",
               "running_style": "不明",
@@ -6751,6 +8097,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "104%",
               "dsgs_roi": "3/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "サトノダイヤモンド",
               "running_style": "不明",
@@ -6781,6 +8134,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "62%",
               "dsgs_roi": "-",
+              "context_bias": "0.67 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.667,
+                "moisture_ratio": 0.667,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-09-28"
+              },
               "pace_advantage": "不利",
               "sire_name": "アメリカンペイトリオット",
               "running_style": "不明",
@@ -6811,6 +8171,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "88%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.21 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.209,
+                "moisture_ratio": 1.209,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "不利",
               "sire_name": "マインドユアビスケッツ",
               "running_style": "不明",
@@ -6841,6 +8208,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "80%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.92",
+              "context_bias_detail": {
+                "combined": 0.919,
+                "moisture_ratio": 0.919,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-28"
+              },
               "pace_advantage": "不利",
               "sire_name": "ルヴァンスレーヴ",
               "running_style": "不明",
@@ -6871,6 +8245,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "71%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.08",
+              "context_bias_detail": {
+                "combined": 1.079,
+                "moisture_ratio": 1.079,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-17"
+              },
               "pace_advantage": "不利",
               "sire_name": "シルバーステート",
               "running_style": "不明",
@@ -6901,6 +8282,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "51%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.62 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.62,
+                "moisture_ratio": 0.62,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-01"
+              },
               "pace_advantage": "不利",
               "sire_name": "ダノンプレミアム",
               "running_style": "不明",
@@ -6931,6 +8319,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "61%",
               "dsgs_roi": "3/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-10-05"
+              },
               "pace_advantage": "不利",
               "sire_name": "インディチャンプ",
               "running_style": "不明",
@@ -6984,6 +8379,13 @@
               "cushion_roi": "86%",
               "moisture_blood_roi": "72%",
               "dsgs_roi": "1/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-07"
+              },
               "pace_advantage": "普通",
               "sire_name": "キタサンブラック",
               "running_style": "不明",
@@ -7014,6 +8416,13 @@
               "cushion_roi": "71%",
               "moisture_blood_roi": "64%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.84 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.841,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 0.841,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "普通",
               "sire_name": "ブリックスアンドモルタル",
               "running_style": "不明",
@@ -7044,6 +8453,13 @@
               "cushion_roi": "76%",
               "moisture_blood_roi": "71%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.83 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.833,
+                "moisture_ratio": 0.858,
+                "cushion_ratio": 0.971,
+                "prev_race_date": "2026-01-10"
+              },
               "pace_advantage": "普通",
               "sire_name": "エピファネイア",
               "running_style": "不明",
@@ -7074,6 +8490,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "-",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "普通",
               "sire_name": "",
               "running_style": "不明",
@@ -7104,6 +8522,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "79%",
               "dsgs_roi": "0/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "ワールドプレミア",
               "running_style": "不明",
@@ -7134,6 +8559,13 @@
               "cushion_roi": "86%",
               "moisture_blood_roi": "72%",
               "dsgs_roi": "0/4",
+              "context_bias": "0.70 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.704,
+                "moisture_ratio": 0.738,
+                "cushion_ratio": 0.955,
+                "prev_race_date": "2026-02-10"
+              },
               "pace_advantage": "普通",
               "sire_name": "キタサンブラック",
               "running_style": "不明",
@@ -7164,6 +8596,13 @@
               "cushion_roi": "95%",
               "moisture_blood_roi": "69%",
               "dsgs_roi": "1/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-21"
+              },
               "pace_advantage": "普通",
               "sire_name": "サトノダイヤモンド",
               "running_style": "不明",
@@ -7194,6 +8633,13 @@
               "cushion_roi": "71%",
               "moisture_blood_roi": "72%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.23 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.229,
+                "moisture_ratio": 1.229,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "普通",
               "sire_name": "レイデオロ",
               "running_style": "不明",
@@ -7224,6 +8670,13 @@
               "cushion_roi": "85%",
               "moisture_blood_roi": "76%",
               "dsgs_roi": "0/4",
+              "context_bias": "1.09",
+              "context_bias_detail": {
+                "combined": 1.094,
+                "moisture_ratio": 0.871,
+                "cushion_ratio": 1.256,
+                "prev_race_date": "2026-01-10"
+              },
               "pace_advantage": "普通",
               "sire_name": "ゴールドシップ",
               "running_style": "不明",
@@ -7254,6 +8707,13 @@
               "cushion_roi": "79%",
               "moisture_blood_roi": "82%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.13",
+              "context_bias_detail": {
+                "combined": 1.132,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.132,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "普通",
               "sire_name": "シルバーステート",
               "running_style": "不明",
@@ -7284,6 +8744,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "69%",
               "dsgs_roi": "-",
+              "context_bias": "0.71 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.706,
+                "moisture_ratio": 0.706,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-05"
+              },
               "pace_advantage": "普通",
               "sire_name": "サトノダイヤモンド",
               "running_style": "不明",
@@ -7314,6 +8781,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "119%",
               "dsgs_roi": "-",
+              "context_bias": "1.18 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.182,
+                "moisture_ratio": 1.182,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-29"
+              },
               "pace_advantage": "普通",
               "sire_name": "モズアスコット",
               "running_style": "不明",
@@ -7344,6 +8818,13 @@
               "cushion_roi": "72%",
               "moisture_blood_roi": "54%",
               "dsgs_roi": "0/4",
+              "context_bias": "1.28 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.28,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.28,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "普通",
               "sire_name": "コントレイル",
               "running_style": "不明",
@@ -7374,6 +8855,13 @@
               "cushion_roi": "68%",
               "moisture_blood_roi": "64%",
               "dsgs_roi": "0/4",
+              "context_bias": "0.76 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.761,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 0.761,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "普通",
               "sire_name": "ディープブリランテ",
               "running_style": "不明",
@@ -7404,6 +8892,13 @@
               "cushion_roi": "72%",
               "moisture_blood_roi": "54%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.01",
+              "context_bias_detail": {
+                "combined": 1.007,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.007,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "普通",
               "sire_name": "コントレイル",
               "running_style": "不明",
@@ -7458,6 +8953,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "80%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.93",
+              "context_bias_detail": {
+                "combined": 0.928,
+                "moisture_ratio": 0.928,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-31"
+              },
               "pace_advantage": "普通",
               "sire_name": "ルヴァンスレーヴ",
               "running_style": "不明",
@@ -7488,6 +8990,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "88%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.47 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.465,
+                "moisture_ratio": 1.465,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-31"
+              },
               "pace_advantage": "普通",
               "sire_name": "マインドユアビスケッツ",
               "running_style": "不明",
@@ -7518,6 +9027,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "99%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.01",
+              "context_bias_detail": {
+                "combined": 1.009,
+                "moisture_ratio": 1.009,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-01"
+              },
               "pace_advantage": "普通",
               "sire_name": "ドレフォン",
               "running_style": "不明",
@@ -7548,6 +9064,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "92%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.20 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.195,
+                "moisture_ratio": 1.195,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "普通",
               "sire_name": "ヘニーヒューズ",
               "running_style": "不明",
@@ -7578,6 +9101,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "105%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.42 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.42,
+                "moisture_ratio": 1.42,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-25"
+              },
               "pace_advantage": "普通",
               "sire_name": "リオンディーズ",
               "running_style": "不明",
@@ -7608,6 +9138,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "51%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.77 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.771,
+                "moisture_ratio": 0.771,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-31"
+              },
               "pace_advantage": "普通",
               "sire_name": "ブリックスアンドモルタル",
               "running_style": "不明",
@@ -7638,6 +9175,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "88%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.47 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.465,
+                "moisture_ratio": 1.465,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "マインドユアビスケッツ",
               "running_style": "不明",
@@ -7668,6 +9212,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "50%",
               "dsgs_roi": "3/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-05"
+              },
               "pace_advantage": "普通",
               "sire_name": "コントレイル",
               "running_style": "不明",
@@ -7698,6 +9249,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "35%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.50 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.5,
+                "moisture_ratio": 0.396,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-01"
+              },
               "pace_advantage": "普通",
               "sire_name": "クリソベリル",
               "running_style": "不明",
@@ -7728,6 +9286,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "50%",
               "dsgs_roi": "3/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "コントレイル",
               "running_style": "不明",
@@ -7758,6 +9323,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "45%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.24 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.244,
+                "moisture_ratio": 1.244,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "普通",
               "sire_name": "サートゥルナーリア",
               "running_style": "不明",
@@ -7788,6 +9360,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "35%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.73 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.729,
+                "moisture_ratio": 0.729,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-17"
+              },
               "pace_advantage": "普通",
               "sire_name": "クリソベリル",
               "running_style": "不明",
@@ -7818,6 +9397,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "27%",
               "dsgs_roi": "2/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "普通",
               "sire_name": "キセキ",
               "running_style": "不明",
@@ -7871,6 +9457,13 @@
               "cushion_roi": "77%",
               "moisture_blood_roi": "78%",
               "dsgs_roi": "3/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-12-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "ハーツクライ",
               "running_style": "不明",
@@ -7901,6 +9494,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "31%",
               "dsgs_roi": "-",
+              "context_bias": "0.50 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.5,
+                "moisture_ratio": 0.297,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-10-13"
+              },
               "pace_advantage": "不利",
               "sire_name": "ダノンレジェンド",
               "running_style": "不明",
@@ -7931,6 +9531,13 @@
               "cushion_roi": "85%",
               "moisture_blood_roi": "76%",
               "dsgs_roi": "3/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "不利",
               "sire_name": "ゴールドシップ",
               "running_style": "不明",
@@ -7961,6 +9568,13 @@
               "cushion_roi": "76%",
               "moisture_blood_roi": "71%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.97",
+              "context_bias_detail": {
+                "combined": 0.971,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 0.971,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "エピファネイア",
               "running_style": "不明",
@@ -7991,6 +9605,13 @@
               "cushion_roi": "68%",
               "moisture_blood_roi": "75%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.50 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.5,
+                "moisture_ratio": 0.759,
+                "cushion_ratio": 0.556,
+                "prev_race_date": "2026-02-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "ハービンジャー",
               "running_style": "不明",
@@ -8021,6 +9642,13 @@
               "cushion_roi": "77%",
               "moisture_blood_roi": "78%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.12",
+              "context_bias_detail": {
+                "combined": 1.119,
+                "moisture_ratio": 1.119,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2024-07-14"
+              },
               "pace_advantage": "不利",
               "sire_name": "ハーツクライ",
               "running_style": "不明",
@@ -8051,6 +9679,13 @@
               "cushion_roi": "71%",
               "moisture_blood_roi": "72%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.56 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.565,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.565,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "レイデオロ",
               "running_style": "不明",
@@ -8081,6 +9716,13 @@
               "cushion_roi": "71%",
               "moisture_blood_roi": "72%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.13",
+              "context_bias_detail": {
+                "combined": 1.129,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.129,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "レイデオロ",
               "running_style": "不明",
@@ -8111,6 +9753,13 @@
               "cushion_roi": "64%",
               "moisture_blood_roi": "53%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.01",
+              "context_bias_detail": {
+                "combined": 1.006,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.006,
+                "prev_race_date": "2025-12-06"
+              },
               "pace_advantage": "不利",
               "sire_name": "アドマイヤマーズ",
               "running_style": "不明",
@@ -8164,6 +9813,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "104%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.09",
+              "context_bias_detail": {
+                "combined": 1.088,
+                "moisture_ratio": 1.088,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "普通",
               "sire_name": "シニスターミニスター",
               "running_style": "不明",
@@ -8194,6 +9850,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "118%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.31 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.311,
+                "moisture_ratio": 1.311,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-10-25"
+              },
               "pace_advantage": "普通",
               "sire_name": "ディープインパクト",
               "running_style": "不明",
@@ -8224,6 +9887,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "134%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.83 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.829,
+                "moisture_ratio": 1.829,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "Into Mischief",
               "running_style": "不明",
@@ -8254,6 +9924,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "40%",
               "dsgs_roi": "2/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "普通",
               "sire_name": "メイショウボーラー",
               "running_style": "不明",
@@ -8284,6 +9961,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "91%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.12",
+              "context_bias_detail": {
+                "combined": 1.123,
+                "moisture_ratio": 1.123,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "普通",
               "sire_name": "パイロ",
               "running_style": "不明",
@@ -8314,6 +9998,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "99%",
               "dsgs_roi": "-",
+              "context_bias": "1.01",
+              "context_bias_detail": {
+                "combined": 1.009,
+                "moisture_ratio": 1.009,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "ドレフォン",
               "running_style": "不明",
@@ -8344,6 +10035,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "57%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.68 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.679,
+                "moisture_ratio": 0.679,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "普通",
               "sire_name": "リアルスティール",
               "running_style": "不明",
@@ -8374,6 +10072,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "99%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.25 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.246,
+                "moisture_ratio": 1.246,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "普通",
               "sire_name": "ドレフォン",
               "running_style": "不明",
@@ -8404,6 +10109,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "90%",
               "dsgs_roi": "-",
+              "context_bias": "1.26 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.258,
+                "moisture_ratio": 1.258,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-22"
+              },
               "pace_advantage": "普通",
               "sire_name": "エピファネイア",
               "running_style": "不明",
@@ -8434,6 +10146,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "136%",
               "dsgs_roi": "3/4",
+              "context_bias": "2.00 (有利転換)",
+              "context_bias_detail": {
+                "combined": 2.0,
+                "moisture_ratio": 2.07,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-11-29"
+              },
               "pace_advantage": "普通",
               "sire_name": "ダンカーク",
               "running_style": "不明",
@@ -8464,6 +10183,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "91%",
               "dsgs_roi": "0/4",
+              "context_bias": "1.22 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.224,
+                "moisture_ratio": 1.224,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-18"
+              },
               "pace_advantage": "普通",
               "sire_name": "フリオーソ",
               "running_style": "不明",
@@ -8494,6 +10220,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "51%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.73 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.731,
+                "moisture_ratio": 0.731,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "普通",
               "sire_name": "ブリックスアンドモルタル",
               "running_style": "不明",
@@ -8524,6 +10257,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "73%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.55 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.555,
+                "moisture_ratio": 1.555,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-22"
+              },
               "pace_advantage": "普通",
               "sire_name": "デクラレーションオブウォー",
               "running_style": "不明",
@@ -8554,6 +10294,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "64%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.33 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.326,
+                "moisture_ratio": 1.326,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-24"
+              },
               "pace_advantage": "普通",
               "sire_name": "サトノクラウン",
               "running_style": "不明",
@@ -8584,6 +10331,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "53%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.62 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.617,
+                "moisture_ratio": 0.617,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-22"
+              },
               "pace_advantage": "普通",
               "sire_name": "ナダル",
               "running_style": "不明",
@@ -8637,6 +10391,13 @@
               "cushion_roi": "59%",
               "moisture_blood_roi": "83%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.64 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.637,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 0.637,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "不利",
               "sire_name": "ロードカナロア",
               "running_style": "不明",
@@ -8667,6 +10428,13 @@
               "cushion_roi": "95%",
               "moisture_blood_roi": "69%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.73 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.734,
+                "moisture_ratio": 1.164,
+                "cushion_ratio": 1.491,
+                "prev_race_date": "2026-02-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "サトノダイヤモンド",
               "running_style": "不明",
@@ -8697,6 +10465,13 @@
               "cushion_roi": "72%",
               "moisture_blood_roi": "89%",
               "dsgs_roi": "3/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-07"
+              },
               "pace_advantage": "不利",
               "sire_name": "ウインブライト",
               "running_style": "不明",
@@ -8727,6 +10502,13 @@
               "cushion_roi": "82%",
               "moisture_blood_roi": "69%",
               "dsgs_roi": "0/4",
+              "context_bias": "0.59 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.588,
+                "moisture_ratio": 0.666,
+                "cushion_ratio": 0.883,
+                "prev_race_date": "2026-02-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "モーリス",
               "running_style": "不明",
@@ -8757,6 +10539,13 @@
               "cushion_roi": "422%",
               "moisture_blood_roi": "90%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.14",
+              "context_bias_detail": {
+                "combined": 1.137,
+                "moisture_ratio": 1.137,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-08-09"
+              },
               "pace_advantage": "不利",
               "sire_name": "ファインニードル",
               "running_style": "不明",
@@ -8787,6 +10576,13 @@
               "cushion_roi": "127%",
               "moisture_blood_roi": "105%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.50 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.504,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.504,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "不利",
               "sire_name": "ゴールドアクター",
               "running_style": "不明",
@@ -8817,6 +10613,13 @@
               "cushion_roi": "95%",
               "moisture_blood_roi": "72%",
               "dsgs_roi": "120%(4/4)",
+              "context_bias": "0.95",
+              "context_bias_detail": {
+                "combined": 0.954,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 0.954,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "リオンディーズ",
               "running_style": "不明",
@@ -8847,6 +10650,13 @@
               "cushion_roi": "58%",
               "moisture_blood_roi": "78%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.50 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.5,
+                "moisture_ratio": 1.134,
+                "cushion_ratio": 0.366,
+                "prev_race_date": "2026-02-01"
+              },
               "pace_advantage": "不利",
               "sire_name": "ハーツクライ",
               "running_style": "不明",
@@ -8877,6 +10687,13 @@
               "cushion_roi": "35%",
               "moisture_blood_roi": "42%",
               "dsgs_roi": "2/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-07"
+              },
               "pace_advantage": "不利",
               "sire_name": "ノーブルミッション",
               "running_style": "不明",
@@ -8907,6 +10724,13 @@
               "cushion_roi": "98%",
               "moisture_blood_roi": "56%",
               "dsgs_roi": "0/4",
+              "context_bias": "2.00 (有利転換)",
+              "context_bias_detail": {
+                "combined": 2.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 4.613,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "リアルインパクト",
               "running_style": "不明",
@@ -8937,6 +10761,13 @@
               "cushion_roi": "82%",
               "moisture_blood_roi": "55%",
               "dsgs_roi": "1/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-28"
+              },
               "pace_advantage": "不利",
               "sire_name": "Kingman",
               "running_style": "不明",
@@ -8990,6 +10821,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "77%",
               "dsgs_roi": "1/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "エスポワールシチー",
               "running_style": "不明",
@@ -9020,6 +10858,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "79%",
               "dsgs_roi": "-",
+              "context_bias": "0.93",
+              "context_bias_detail": {
+                "combined": 0.93,
+                "moisture_ratio": 0.93,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-07"
+              },
               "pace_advantage": "不利",
               "sire_name": "カリフォルニアクローム",
               "running_style": "不明",
@@ -9050,6 +10895,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "115%",
               "dsgs_roi": "3/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-07"
+              },
               "pace_advantage": "不利",
               "sire_name": "レッドファルクス",
               "running_style": "不明",
@@ -9080,6 +10932,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "77%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.72 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.721,
+                "moisture_ratio": 0.721,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-22"
+              },
               "pace_advantage": "不利",
               "sire_name": "エスポワールシチー",
               "running_style": "不明",
@@ -9110,6 +10969,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "92%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.08",
+              "context_bias_detail": {
+                "combined": 1.081,
+                "moisture_ratio": 1.081,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "ヘニーヒューズ",
               "running_style": "不明",
@@ -9140,6 +11006,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "3/4",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "不利",
               "sire_name": "",
               "running_style": "不明",
@@ -9170,6 +11038,8 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "-",
               "dsgs_roi": "3/4",
+              "context_bias": "-",
+              "context_bias_detail": null,
               "pace_advantage": "不利",
               "sire_name": "",
               "running_style": "不明",
@@ -9200,6 +11070,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "89%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.41 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.407,
+                "moisture_ratio": 1.407,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-01"
+              },
               "pace_advantage": "不利",
               "sire_name": "ニューイヤーズデイ",
               "running_style": "不明",
@@ -9230,6 +11107,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "84%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.04",
+              "context_bias_detail": {
+                "combined": 1.04,
+                "moisture_ratio": 1.04,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "不利",
               "sire_name": "Tiz the Law",
               "running_style": "不明",
@@ -9260,6 +11144,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "53%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.60 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.603,
+                "moisture_ratio": 0.603,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "ナダル",
               "running_style": "不明",
@@ -9290,6 +11181,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "88%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.47 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.465,
+                "moisture_ratio": 1.465,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "マインドユアビスケッツ",
               "running_style": "不明",
@@ -9320,6 +11218,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "57%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.97",
+              "context_bias_detail": {
+                "combined": 0.966,
+                "moisture_ratio": 0.966,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "マテラスカイ",
               "running_style": "不明",
@@ -9373,6 +11278,13 @@
               "cushion_roi": "83%",
               "moisture_blood_roi": "92%",
               "dsgs_roi": "-",
+              "context_bias": "1.09",
+              "context_bias_detail": {
+                "combined": 1.095,
+                "moisture_ratio": 1.095,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "普通",
               "sire_name": "サトノアラジン",
               "running_style": "不明",
@@ -9403,6 +11315,13 @@
               "cushion_roi": "76%",
               "moisture_blood_roi": "82%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.50 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.5,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 0.243,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "普通",
               "sire_name": "ドレフォン",
               "running_style": "不明",
@@ -9433,6 +11352,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "100%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.94",
+              "context_bias_detail": {
+                "combined": 0.937,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 0.937,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "普通",
               "sire_name": "Siyouni",
               "running_style": "不明",
@@ -9463,6 +11389,13 @@
               "cushion_roi": "96%",
               "moisture_blood_roi": "90%",
               "dsgs_roi": "3/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "普通",
               "sire_name": "キズナ",
               "running_style": "不明",
@@ -9493,6 +11426,13 @@
               "cushion_roi": "86%",
               "moisture_blood_roi": "72%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.69 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.69,
+                "moisture_ratio": 0.807,
+                "cushion_ratio": 0.855,
+                "prev_race_date": "2025-10-04"
+              },
               "pace_advantage": "普通",
               "sire_name": "キタサンブラック",
               "running_style": "不明",
@@ -9523,6 +11463,13 @@
               "cushion_roi": "0%",
               "moisture_blood_roi": "92%",
               "dsgs_roi": "0/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "普通",
               "sire_name": "サトノアラジン",
               "running_style": "不明",
@@ -9553,6 +11500,13 @@
               "cushion_roi": "30%",
               "moisture_blood_roi": "69%",
               "dsgs_roi": "0/4",
+              "context_bias": "0.50 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.5,
+                "moisture_ratio": 0.666,
+                "cushion_ratio": 0.281,
+                "prev_race_date": "2026-02-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "モーリス",
               "running_style": "不明",
@@ -9583,6 +11537,13 @@
               "cushion_roi": "75%",
               "moisture_blood_roi": "83%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.09",
+              "context_bias_detail": {
+                "combined": 1.088,
+                "moisture_ratio": 1.038,
+                "cushion_ratio": 1.049,
+                "prev_race_date": "2025-10-12"
+              },
               "pace_advantage": "普通",
               "sire_name": "ロードカナロア",
               "running_style": "不明",
@@ -9613,6 +11574,13 @@
               "cushion_roi": "76%",
               "moisture_blood_roi": "83%",
               "dsgs_roi": "1/4",
+              "context_bias": "2.00 (有利転換)",
+              "context_bias_detail": {
+                "combined": 2.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 8.602,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "ロードカナロア",
               "running_style": "不明",
@@ -9643,6 +11611,13 @@
               "cushion_roi": "47%",
               "moisture_blood_roi": "91%",
               "dsgs_roi": "-",
+              "context_bias": "1.81 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.81,
+                "moisture_ratio": 1.81,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-28"
+              },
               "pace_advantage": "普通",
               "sire_name": "ダイワメジャー",
               "running_style": "不明",
@@ -9673,6 +11648,13 @@
               "cushion_roi": "103%",
               "moisture_blood_roi": "102%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.08",
+              "context_bias_detail": {
+                "combined": 1.08,
+                "moisture_ratio": 1.083,
+                "cushion_ratio": 0.997,
+                "prev_race_date": "2026-01-25"
+              },
               "pace_advantage": "普通",
               "sire_name": "ミッキーアイル",
               "running_style": "不明",
@@ -9703,6 +11685,13 @@
               "cushion_roi": "53%",
               "moisture_blood_roi": "83%",
               "dsgs_roi": "0/4",
+              "context_bias": "1.01",
+              "context_bias_detail": {
+                "combined": 1.013,
+                "moisture_ratio": 1.038,
+                "cushion_ratio": 0.976,
+                "prev_race_date": "2026-02-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "ロードカナロア",
               "running_style": "不明",
@@ -9733,6 +11722,13 @@
               "cushion_roi": "71%",
               "moisture_blood_roi": "72%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.82 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.818,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 0.818,
+                "prev_race_date": "2025-11-15"
+              },
               "pace_advantage": "普通",
               "sire_name": "レイデオロ",
               "running_style": "不明",
@@ -9763,6 +11759,13 @@
               "cushion_roi": "92%",
               "moisture_blood_roi": "80%",
               "dsgs_roi": "0/4",
+              "context_bias": "1.14",
+              "context_bias_detail": {
+                "combined": 1.144,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.144,
+                "prev_race_date": "2026-03-21"
+              },
               "pace_advantage": "普通",
               "sire_name": "オルフェーヴル",
               "running_style": "不明",
@@ -9793,6 +11796,13 @@
               "cushion_roi": "65%",
               "moisture_blood_roi": "69%",
               "dsgs_roi": "0/4",
+              "context_bias": "0.57 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.572,
+                "moisture_ratio": 0.666,
+                "cushion_ratio": 0.859,
+                "prev_race_date": "2026-01-25"
+              },
               "pace_advantage": "普通",
               "sire_name": "モーリス",
               "running_style": "不明",
@@ -9823,6 +11833,13 @@
               "cushion_roi": "76%",
               "moisture_blood_roi": "73%",
               "dsgs_roi": "0/4",
+              "context_bias": "0.81 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.805,
+                "moisture_ratio": 0.91,
+                "cushion_ratio": 0.884,
+                "prev_race_date": "2026-02-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "フィエールマン",
               "running_style": "不明",
@@ -9853,6 +11870,13 @@
               "cushion_roi": "93%",
               "moisture_blood_roi": "47%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.46 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.462,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.462,
+                "prev_race_date": "2026-03-14"
+              },
               "pace_advantage": "普通",
               "sire_name": "マジェスティックウォリアー",
               "running_style": "不明",
@@ -9883,6 +11907,13 @@
               "cushion_roi": "64%",
               "moisture_blood_roi": "53%",
               "dsgs_roi": "-",
+              "context_bias": "0.69 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.693,
+                "moisture_ratio": 0.693,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-12-06"
+              },
               "pace_advantage": "普通",
               "sire_name": "アドマイヤマーズ",
               "running_style": "不明",
@@ -9936,6 +11967,13 @@
               "cushion_roi": "96%",
               "moisture_blood_roi": "89%",
               "dsgs_roi": "120%(4/4)",
+              "context_bias": "1.05",
+              "context_bias_detail": {
+                "combined": 1.051,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.051,
+                "prev_race_date": "2025-11-09"
+              },
               "pace_advantage": "不利",
               "sire_name": "スクリーンヒーロー",
               "running_style": "不明",
@@ -9966,6 +12004,13 @@
               "cushion_roi": "80%",
               "moisture_blood_roi": "87%",
               "dsgs_roi": "0/4",
+              "context_bias": "0.66 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.658,
+                "moisture_ratio": 0.9,
+                "cushion_ratio": 0.731,
+                "prev_race_date": "2026-02-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "ディープインパクト",
               "running_style": "不明",
@@ -9996,6 +12041,13 @@
               "cushion_roi": "86%",
               "moisture_blood_roi": "72%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.01",
+              "context_bias_detail": {
+                "combined": 1.006,
+                "moisture_ratio": 0.807,
+                "cushion_ratio": 1.247,
+                "prev_race_date": "2025-11-30"
+              },
               "pace_advantage": "不利",
               "sire_name": "キタサンブラック",
               "running_style": "不明",
@@ -10026,6 +12078,13 @@
               "cushion_roi": "80%",
               "moisture_blood_roi": "82%",
               "dsgs_roi": "0/4",
+              "context_bias": "0.75 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.75,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 0.75,
+                "prev_race_date": "2026-03-01"
+              },
               "pace_advantage": "不利",
               "sire_name": "リアルスティール",
               "running_style": "不明",
@@ -10056,6 +12115,13 @@
               "cushion_roi": "76%",
               "moisture_blood_roi": "58%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.11",
+              "context_bias_detail": {
+                "combined": 1.112,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.112,
+                "prev_race_date": "2026-03-01"
+              },
               "pace_advantage": "不利",
               "sire_name": "ワールドエース",
               "running_style": "不明",
@@ -10086,6 +12152,13 @@
               "cushion_roi": "45%",
               "moisture_blood_roi": "83%",
               "dsgs_roi": "1/4",
+              "context_bias": "-",
+              "context_bias_detail": {
+                "combined": 1.0,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-12-06"
+              },
               "pace_advantage": "不利",
               "sire_name": "ロードカナロア",
               "running_style": "不明",
@@ -10116,6 +12189,13 @@
               "cushion_roi": "64%",
               "moisture_blood_roi": "72%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.95",
+              "context_bias_detail": {
+                "combined": 0.954,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 0.954,
+                "prev_race_date": "2026-03-01"
+              },
               "pace_advantage": "不利",
               "sire_name": "ブラックタイド",
               "running_style": "不明",
@@ -10146,6 +12226,13 @@
               "cushion_roi": "85%",
               "moisture_blood_roi": "76%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.09",
+              "context_bias_detail": {
+                "combined": 1.091,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.091,
+                "prev_race_date": "2025-12-28"
+              },
               "pace_advantage": "不利",
               "sire_name": "ゴールドシップ",
               "running_style": "不明",
@@ -10176,6 +12263,13 @@
               "cushion_roi": "74%",
               "moisture_blood_roi": "119%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.89",
+              "context_bias_detail": {
+                "combined": 0.885,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 0.885,
+                "prev_race_date": "2026-02-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "モズアスコット",
               "running_style": "不明",
@@ -10206,6 +12300,13 @@
               "cushion_roi": "86%",
               "moisture_blood_roi": "72%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.70 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.704,
+                "moisture_ratio": 0.738,
+                "cushion_ratio": 0.955,
+                "prev_race_date": "2026-02-15"
+              },
               "pace_advantage": "不利",
               "sire_name": "キタサンブラック",
               "running_style": "不明",
@@ -10236,6 +12337,13 @@
               "cushion_roi": "79%",
               "moisture_blood_roi": "82%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.04",
+              "context_bias_detail": {
+                "combined": 1.036,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.036,
+                "prev_race_date": "2026-03-01"
+              },
               "pace_advantage": "不利",
               "sire_name": "シルバーステート",
               "running_style": "不明",
@@ -10266,6 +12374,13 @@
               "cushion_roi": "77%",
               "moisture_blood_roi": "78%",
               "dsgs_roi": "0/4",
+              "context_bias": "0.81 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.81,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 0.81,
+                "prev_race_date": "2026-01-25"
+              },
               "pace_advantage": "不利",
               "sire_name": "ハーツクライ",
               "running_style": "不明",
@@ -10296,6 +12411,13 @@
               "cushion_roi": "76%",
               "moisture_blood_roi": "71%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.01",
+              "context_bias_detail": {
+                "combined": 1.009,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.009,
+                "prev_race_date": "2025-12-28"
+              },
               "pace_advantage": "不利",
               "sire_name": "エピファネイア",
               "running_style": "不明",
@@ -10326,6 +12448,13 @@
               "cushion_roi": "87%",
               "moisture_blood_roi": "66%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.19 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.192,
+                "moisture_ratio": 1.0,
+                "cushion_ratio": 1.192,
+                "prev_race_date": "2026-01-25"
+              },
               "pace_advantage": "不利",
               "sire_name": "サートゥルナーリア",
               "running_style": "不明",
@@ -10356,6 +12485,13 @@
               "cushion_roi": "66%",
               "moisture_blood_roi": "74%",
               "dsgs_roi": "0/4",
+              "context_bias": "1.22 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.221,
+                "moisture_ratio": 2.348,
+                "cushion_ratio": 0.52,
+                "prev_race_date": "2026-02-22"
+              },
               "pace_advantage": "不利",
               "sire_name": "ヤマカツエース",
               "running_style": "不明",
@@ -10409,6 +12545,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "120%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.27 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.268,
+                "moisture_ratio": 1.268,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "モーニン",
               "running_style": "不明",
@@ -10439,6 +12582,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "78%",
               "dsgs_roi": "-",
+              "context_bias": "0.98",
+              "context_bias_detail": {
+                "combined": 0.981,
+                "moisture_ratio": 0.981,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-24"
+              },
               "pace_advantage": "不利",
               "sire_name": "ロードカナロア",
               "running_style": "不明",
@@ -10469,6 +12619,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "54%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.64 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.644,
+                "moisture_ratio": 0.644,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-22"
+              },
               "pace_advantage": "不利",
               "sire_name": "ベストウォーリア",
               "running_style": "不明",
@@ -10499,6 +12656,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "126%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.51 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.508,
+                "moisture_ratio": 1.508,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-14"
+              },
               "pace_advantage": "不利",
               "sire_name": "Gun Runner",
               "running_style": "不明",
@@ -10529,6 +12693,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "84%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.06",
+              "context_bias_detail": {
+                "combined": 1.065,
+                "moisture_ratio": 1.065,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-07"
+              },
               "pace_advantage": "不利",
               "sire_name": "Too Darn Hot",
               "running_style": "不明",
@@ -10559,6 +12730,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "77%",
               "dsgs_roi": "1/4",
+              "context_bias": "0.84 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.844,
+                "moisture_ratio": 0.844,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "キタサンブラック",
               "running_style": "不明",
@@ -10589,6 +12767,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "90%",
               "dsgs_roi": "-",
+              "context_bias": "1.08",
+              "context_bias_detail": {
+                "combined": 1.08,
+                "moisture_ratio": 1.08,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2025-11-29"
+              },
               "pace_advantage": "不利",
               "sire_name": "エピファネイア",
               "running_style": "不明",
@@ -10619,6 +12804,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "99%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.25 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.246,
+                "moisture_ratio": 1.246,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-22"
+              },
               "pace_advantage": "不利",
               "sire_name": "ドレフォン",
               "running_style": "不明",
@@ -10649,6 +12841,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "62%",
               "dsgs_roi": "2/4",
+              "context_bias": "1.21 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.209,
+                "moisture_ratio": 1.209,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-17"
+              },
               "pace_advantage": "不利",
               "sire_name": "アメリカンペイトリオット",
               "running_style": "不明",
@@ -10679,6 +12878,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "84%",
               "dsgs_roi": "1/4",
+              "context_bias": "1.06",
+              "context_bias_detail": {
+                "combined": 1.065,
+                "moisture_ratio": 1.065,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-07"
+              },
               "pace_advantage": "不利",
               "sire_name": "トーセンホマレボシ",
               "running_style": "不明",
@@ -10709,6 +12915,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "73%",
               "dsgs_roi": "3/4",
+              "context_bias": "1.55 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.555,
+                "moisture_ratio": 1.555,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-21"
+              },
               "pace_advantage": "不利",
               "sire_name": "デクラレーションオブウォー",
               "running_style": "不明",
@@ -10739,6 +12952,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "104%",
               "dsgs_roi": "-",
+              "context_bias": "1.75 (有利転換)",
+              "context_bias_detail": {
+                "combined": 1.755,
+                "moisture_ratio": 1.755,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-10"
+              },
               "pace_advantage": "不利",
               "sire_name": "サトノダイヤモンド",
               "running_style": "不明",
@@ -10769,6 +12989,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "76%",
               "dsgs_roi": "3/4",
+              "context_bias": "0.92",
+              "context_bias_detail": {
+                "combined": 0.922,
+                "moisture_ratio": 0.922,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-02-07"
+              },
               "pace_advantage": "不利",
               "sire_name": "モーリス",
               "running_style": "不明",
@@ -10799,6 +13026,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "57%",
               "dsgs_roi": "2/4",
+              "context_bias": "0.68 (不利転換)",
+              "context_bias_detail": {
+                "combined": 0.679,
+                "moisture_ratio": 0.679,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-03-08"
+              },
               "pace_advantage": "不利",
               "sire_name": "リアルスティール",
               "running_style": "不明",
@@ -10829,6 +13063,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "118%",
               "dsgs_roi": "1/4",
+              "context_bias": "2.00 (有利転換)",
+              "context_bias_detail": {
+                "combined": 2.0,
+                "moisture_ratio": 2.462,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-31"
+              },
               "pace_advantage": "不利",
               "sire_name": "ディスクリートキャット",
               "running_style": "不明",
@@ -10859,6 +13100,13 @@
               "cushion_roi": "-",
               "moisture_blood_roi": "138%",
               "dsgs_roi": "3/4",
+              "context_bias": "2.00 (有利転換)",
+              "context_bias_detail": {
+                "combined": 2.0,
+                "moisture_ratio": 2.156,
+                "cushion_ratio": 1.0,
+                "prev_race_date": "2026-01-17"
+              },
               "pace_advantage": "不利",
               "sire_name": "American Pharoah",
               "running_style": "不明",
