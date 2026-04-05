@@ -1,5 +1,5 @@
 {
-  "exported_at": "2026-04-05T16:26:43",
+  "exported_at": "2026-04-05T16:56:28",
   "race_date": "2026-04-05",
   "venues": {
     "中山": {
@@ -38,8 +38,8 @@
               "running_style": "不明",
               "jockey_name": "荻野極",
               "signal_tags": "不利:rank_dev系, 有利:rank_dev単体, 有利:cushion×rank_dev",
-              "win_prob": 0.3803,
-              "place_prob": 0.8012,
+              "win_prob": 0.3922,
+              "place_prob": 0.8123,
               "odds_win_prob": 0.3956
             },
             {
@@ -68,8 +68,8 @@
               "running_style": "不明",
               "jockey_name": "横山武",
               "signal_tags": "",
-              "win_prob": 0.0545,
-              "place_prob": 0.2006,
+              "win_prob": 0.0542,
+              "place_prob": 0.2012,
               "odds_win_prob": 0.0565
             },
             {
@@ -98,8 +98,8 @@
               "running_style": "不明",
               "jockey_name": "三浦",
               "signal_tags": "有利:rank_dev単体",
-              "win_prob": 0.0867,
-              "place_prob": 0.3061,
+              "win_prob": 0.0979,
+              "place_prob": 0.343,
               "odds_win_prob": 0.092
             },
             {
@@ -128,8 +128,8 @@
               "running_style": "不明",
               "jockey_name": "△舟山",
               "signal_tags": "",
-              "win_prob": 0.018,
-              "place_prob": 0.0691,
+              "win_prob": 0.0179,
+              "place_prob": 0.0693,
               "odds_win_prob": 0.0187
             },
             {
@@ -158,8 +158,8 @@
               "running_style": "不明",
               "jockey_name": "▲水沼",
               "signal_tags": "",
-              "win_prob": 0.0123,
-              "place_prob": 0.0476,
+              "win_prob": 0.0125,
+              "place_prob": 0.0488,
               "odds_win_prob": 0.0123
             },
             {
@@ -188,8 +188,8 @@
               "running_style": "不明",
               "jockey_name": "丸山",
               "signal_tags": "",
-              "win_prob": 0.0311,
-              "place_prob": 0.1179,
+              "win_prob": 0.0317,
+              "place_prob": 0.1209,
               "odds_win_prob": 0.031
             },
             {
@@ -218,8 +218,8 @@
               "running_style": "不明",
               "jockey_name": "野中",
               "signal_tags": "",
-              "win_prob": 0.0122,
-              "place_prob": 0.0471,
+              "win_prob": 0.0124,
+              "place_prob": 0.0484,
               "odds_win_prob": 0.0122
             },
             {
@@ -248,8 +248,8 @@
               "running_style": "不明",
               "jockey_name": "△長浜",
               "signal_tags": "不利:rank_dev単体",
-              "win_prob": 0.0084,
-              "place_prob": 0.0325,
+              "win_prob": 0.0095,
+              "place_prob": 0.037,
               "odds_win_prob": 0.0089
             },
             {
@@ -278,8 +278,8 @@
               "running_style": "不明",
               "jockey_name": "▲上里",
               "signal_tags": "有利:rank_dev単体",
-              "win_prob": 0.1487,
-              "place_prob": 0.4769,
+              "win_prob": 0.1314,
+              "place_prob": 0.437,
               "odds_win_prob": 0.1413
             },
             {
@@ -308,8 +308,8 @@
               "running_style": "不明",
               "jockey_name": "小林脩",
               "signal_tags": "",
-              "win_prob": 0.012,
-              "place_prob": 0.0465,
+              "win_prob": 0.0106,
+              "place_prob": 0.0416,
               "odds_win_prob": 0.0114
             },
             {
@@ -338,8 +338,8 @@
               "running_style": "不明",
               "jockey_name": "▲遠藤",
               "signal_tags": "",
-              "win_prob": 0.0446,
-              "place_prob": 0.1662,
+              "win_prob": 0.0443,
+              "place_prob": 0.1667,
               "odds_win_prob": 0.0444
             },
             {
@@ -368,8 +368,8 @@
               "running_style": "不明",
               "jockey_name": "吉田豊",
               "signal_tags": "有利:cushion×rank_dev",
-              "win_prob": 0.0079,
-              "place_prob": 0.0307,
+              "win_prob": 0.007,
+              "place_prob": 0.0274,
               "odds_win_prob": 0.0084
             },
             {
@@ -398,8 +398,8 @@
               "running_style": "不明",
               "jockey_name": "菊沢",
               "signal_tags": "有利:rank_dev単体",
-              "win_prob": 0.0259,
-              "place_prob": 0.0985,
+              "win_prob": 0.0229,
+              "place_prob": 0.0882,
               "odds_win_prob": 0.0254
             },
             {
@@ -428,8 +428,8 @@
               "running_style": "不明",
               "jockey_name": "横山和",
               "signal_tags": "",
-              "win_prob": 0.1059,
-              "place_prob": 0.3638,
+              "win_prob": 0.1053,
+              "place_prob": 0.3648,
               "odds_win_prob": 0.0899
             },
             {
@@ -458,8 +458,8 @@
               "running_style": "不明",
               "jockey_name": "田辺",
               "signal_tags": "有利:rank_dev系, 有利:rank_dev単体",
-              "win_prob": 0.0311,
-              "place_prob": 0.1179,
+              "win_prob": 0.0275,
+              "place_prob": 0.1056,
               "odds_win_prob": 0.0323
             },
             {
@@ -488,8 +488,8 @@
               "running_style": "不明",
               "jockey_name": "木幡巧",
               "signal_tags": "不利:cushion×accel, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0202,
-              "place_prob": 0.0773,
+              "win_prob": 0.0228,
+              "place_prob": 0.0879,
               "odds_win_prob": 0.0198
             }
           ],
@@ -541,8 +541,8 @@
               "running_style": "不明",
               "jockey_name": "横山和",
               "signal_tags": "不利:rank_dev系",
-              "win_prob": 0.2531,
-              "place_prob": 0.632,
+              "win_prob": 0.2765,
+              "place_prob": 0.6695,
               "odds_win_prob": 0.2402
             },
             {
@@ -571,8 +571,8 @@
               "running_style": "不明",
               "jockey_name": "小林脩",
               "signal_tags": "有利:pace圧力系",
-              "win_prob": 0.0326,
-              "place_prob": 0.1122,
+              "win_prob": 0.0314,
+              "place_prob": 0.1096,
               "odds_win_prob": 0.0367
             },
             {
@@ -601,8 +601,8 @@
               "running_style": "不明",
               "jockey_name": "△長浜",
               "signal_tags": "有利:pace圧力系",
-              "win_prob": 0.0479,
-              "place_prob": 0.1621,
+              "win_prob": 0.0524,
+              "place_prob": 0.1786,
               "odds_win_prob": 0.0539
             },
             {
@@ -632,7 +632,7 @@
               "jockey_name": "▲石神道",
               "signal_tags": "不利:rank_dev単体",
               "win_prob": 0.0199,
-              "place_prob": 0.0696,
+              "place_prob": 0.0705,
               "odds_win_prob": 0.0201
             },
             {
@@ -662,7 +662,7 @@
               "jockey_name": "佐々木",
               "signal_tags": "",
               "win_prob": 0.0167,
-              "place_prob": 0.0585,
+              "place_prob": 0.0592,
               "odds_win_prob": 0.0167
             },
             {
@@ -691,8 +691,8 @@
               "running_style": "不明",
               "jockey_name": "吉田豊",
               "signal_tags": "有利:rank_dev系, 有利:pace圧力系",
-              "win_prob": 0.024,
-              "place_prob": 0.0834,
+              "win_prob": 0.0236,
+              "place_prob": 0.0833,
               "odds_win_prob": 0.0264
             },
             {
@@ -721,8 +721,8 @@
               "running_style": "不明",
               "jockey_name": "柴田善",
               "signal_tags": "",
-              "win_prob": 0.1057,
-              "place_prob": 0.3326,
+              "win_prob": 0.1016,
+              "place_prob": 0.3259,
               "odds_win_prob": 0.1166
             },
             {
@@ -751,8 +751,8 @@
               "running_style": "不明",
               "jockey_name": "大野",
               "signal_tags": "不利:消耗×速度, 不利:load_speed系, 不利:pace圧力系, 不利:rel_accel-",
-              "win_prob": 0.0171,
-              "place_prob": 0.0597,
+              "win_prob": 0.0168,
+              "place_prob": 0.0596,
               "odds_win_prob": 0.0183
             },
             {
@@ -781,7 +781,7 @@
               "running_style": "不明",
               "jockey_name": "木幡育",
               "signal_tags": "不利:rank_dev単体",
-              "win_prob": 0.0078,
+              "win_prob": 0.0077,
               "place_prob": 0.0275,
               "odds_win_prob": 0.01
             },
@@ -811,8 +811,8 @@
               "running_style": "不明",
               "jockey_name": "津村",
               "signal_tags": "",
-              "win_prob": 0.1061,
-              "place_prob": 0.3338,
+              "win_prob": 0.0908,
+              "place_prob": 0.2953,
               "odds_win_prob": 0.0955
             },
             {
@@ -841,8 +841,8 @@
               "running_style": "不明",
               "jockey_name": "▲小林美",
               "signal_tags": "",
-              "win_prob": 0.0652,
-              "place_prob": 0.2162,
+              "win_prob": 0.0627,
+              "place_prob": 0.2114,
               "odds_win_prob": 0.0689
             },
             {
@@ -871,8 +871,8 @@
               "running_style": "不明",
               "jockey_name": "三浦",
               "signal_tags": "不利:rank_dev系, 不利:load_speed系",
-              "win_prob": 0.1933,
-              "place_prob": 0.5334,
+              "win_prob": 0.1931,
+              "place_prob": 0.5387,
               "odds_win_prob": 0.1761
             },
             {
@@ -901,8 +901,8 @@
               "running_style": "不明",
               "jockey_name": "木幡巧",
               "signal_tags": "",
-              "win_prob": 0.0397,
-              "place_prob": 0.1355,
+              "win_prob": 0.0434,
+              "place_prob": 0.1495,
               "odds_win_prob": 0.04
             },
             {
@@ -932,7 +932,7 @@
               "jockey_name": "黛",
               "signal_tags": "",
               "win_prob": 0.0187,
-              "place_prob": 0.0654,
+              "place_prob": 0.0662,
               "odds_win_prob": 0.0239
             },
             {
@@ -961,8 +961,8 @@
               "running_style": "不明",
               "jockey_name": "菊沢",
               "signal_tags": "",
-              "win_prob": 0.0446,
-              "place_prob": 0.1516,
+              "win_prob": 0.0382,
+              "place_prob": 0.1324,
               "odds_win_prob": 0.0472
             },
             {
@@ -991,8 +991,8 @@
               "running_style": "不明",
               "jockey_name": "▲佐藤",
               "signal_tags": "",
-              "win_prob": 0.0075,
-              "place_prob": 0.0264,
+              "win_prob": 0.0064,
+              "place_prob": 0.0229,
               "odds_win_prob": 0.0096
             }
           ],
@@ -1044,8 +1044,8 @@
               "running_style": "不明",
               "jockey_name": "津村",
               "signal_tags": "有利:rank_dev系, 有利:cushion×rank_dev",
-              "win_prob": 0.1223,
-              "place_prob": 0.4858,
+              "win_prob": 0.1343,
+              "place_prob": 0.5059,
               "odds_win_prob": 0.1257
             },
             {
@@ -1074,8 +1074,8 @@
               "running_style": "不明",
               "jockey_name": "荻野極",
               "signal_tags": "",
-              "win_prob": 0.0521,
-              "place_prob": 0.2355,
+              "win_prob": 0.0572,
+              "place_prob": 0.2477,
               "odds_win_prob": 0.0466
             },
             {
@@ -1104,8 +1104,8 @@
               "running_style": "不明",
               "jockey_name": "▲石田",
               "signal_tags": "",
-              "win_prob": 0.0382,
-              "place_prob": 0.1762,
+              "win_prob": 0.0419,
+              "place_prob": 0.1856,
               "odds_win_prob": 0.0377
             },
             {
@@ -1134,8 +1134,8 @@
               "running_style": "不明",
               "jockey_name": "小林脩",
               "signal_tags": "",
-              "win_prob": 0.0103,
-              "place_prob": 0.0494,
+              "win_prob": 0.0113,
+              "place_prob": 0.0521,
               "odds_win_prob": 0.0102
             },
             {
@@ -1164,8 +1164,8 @@
               "running_style": "不明",
               "jockey_name": "木幡巧",
               "signal_tags": "",
-              "win_prob": 0.0273,
-              "place_prob": 0.1277,
+              "win_prob": 0.03,
+              "place_prob": 0.1347,
               "odds_win_prob": 0.0269
             },
             {
@@ -1194,8 +1194,8 @@
               "running_style": "不明",
               "jockey_name": "丹内",
               "signal_tags": "不利:rank_dev単体",
-              "win_prob": 0.0305,
-              "place_prob": 0.1422,
+              "win_prob": 0.0372,
+              "place_prob": 0.1656,
               "odds_win_prob": 0.0321
             },
             {
@@ -1224,8 +1224,8 @@
               "running_style": "不明",
               "jockey_name": "武藤",
               "signal_tags": "",
-              "win_prob": 0.0571,
-              "place_prob": 0.2561,
+              "win_prob": 0.0545,
+              "place_prob": 0.2369,
               "odds_win_prob": 0.06
             },
             {
@@ -1254,8 +1254,8 @@
               "running_style": "不明",
               "jockey_name": "△長浜",
               "signal_tags": "有利:rank_dev単体",
-              "win_prob": 0.0147,
-              "place_prob": 0.0701,
+              "win_prob": 0.0141,
+              "place_prob": 0.0645,
               "odds_win_prob": 0.0155
             },
             {
@@ -1284,8 +1284,8 @@
               "running_style": "不明",
               "jockey_name": "横山武",
               "signal_tags": "有利:pace圧力系, 有利:rel_accel-",
-              "win_prob": 0.5335,
-              "place_prob": 0.9193,
+              "win_prob": 0.5094,
+              "place_prob": 0.9062,
               "odds_win_prob": 0.528
             },
             {
@@ -1314,8 +1314,8 @@
               "running_style": "不明",
               "jockey_name": "柴田大",
               "signal_tags": "有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.01,
-              "place_prob": 0.048,
+              "win_prob": 0.0108,
+              "place_prob": 0.0496,
               "odds_win_prob": 0.012
             },
             {
@@ -1344,8 +1344,8 @@
               "running_style": "不明",
               "jockey_name": "▲佐藤",
               "signal_tags": "不利:rank_dev系, 不利:rank_dev単体",
-              "win_prob": 0.0087,
-              "place_prob": 0.0416,
+              "win_prob": 0.0083,
+              "place_prob": 0.0383,
               "odds_win_prob": 0.0091
             },
             {
@@ -1374,8 +1374,8 @@
               "running_style": "不明",
               "jockey_name": "原田和",
               "signal_tags": "不利:accel_raw+, 不利:消耗×加速, 不利:pace圧力系, 不利:rel_accel-",
-              "win_prob": 0.008,
-              "place_prob": 0.0385,
+              "win_prob": 0.0077,
+              "place_prob": 0.0354,
               "odds_win_prob": 0.0099
             },
             {
@@ -1404,8 +1404,8 @@
               "running_style": "不明",
               "jockey_name": "菊沢",
               "signal_tags": "",
-              "win_prob": 0.0288,
-              "place_prob": 0.1347,
+              "win_prob": 0.0275,
+              "place_prob": 0.1242,
               "odds_win_prob": 0.0258
             },
             {
@@ -1434,8 +1434,8 @@
               "running_style": "不明",
               "jockey_name": "▲石神道",
               "signal_tags": "",
-              "win_prob": 0.0338,
-              "place_prob": 0.1571,
+              "win_prob": 0.0323,
+              "place_prob": 0.1448,
               "odds_win_prob": 0.0367
             },
             {
@@ -1464,8 +1464,8 @@
               "running_style": "不明",
               "jockey_name": "小林凌",
               "signal_tags": "不利:rank_dev系, 不利:rank_dev単体",
-              "win_prob": 0.0108,
-              "place_prob": 0.0515,
+              "win_prob": 0.0103,
+              "place_prob": 0.0474,
               "odds_win_prob": 0.01
             },
             {
@@ -1494,8 +1494,8 @@
               "running_style": "不明",
               "jockey_name": "木幡育",
               "signal_tags": "",
-              "win_prob": 0.0139,
-              "place_prob": 0.0664,
+              "win_prob": 0.0133,
+              "place_prob": 0.0611,
               "odds_win_prob": 0.0138
             }
           ],
@@ -1547,8 +1547,8 @@
               "running_style": "不明",
               "jockey_name": "石神深",
               "signal_tags": "",
-              "win_prob": 0.038,
-              "place_prob": 0.1324,
+              "win_prob": 0.031,
+              "place_prob": 0.1123,
               "odds_win_prob": 0.0384
             },
             {
@@ -1577,8 +1577,8 @@
               "running_style": "不明",
               "jockey_name": "上野",
               "signal_tags": "",
-              "win_prob": 0.0994,
-              "place_prob": 0.321,
+              "win_prob": 0.0806,
+              "place_prob": 0.2755,
               "odds_win_prob": 0.1069
             },
             {
@@ -1607,8 +1607,8 @@
               "running_style": "不明",
               "jockey_name": "▲水沼",
               "signal_tags": "",
-              "win_prob": 0.0861,
-              "place_prob": 0.2828,
+              "win_prob": 0.0827,
+              "place_prob": 0.2817,
               "odds_win_prob": 0.0869
             },
             {
@@ -1637,8 +1637,8 @@
               "running_style": "不明",
               "jockey_name": "中村",
               "signal_tags": "不利:rank_devフリー, 有利:dist_load-, 有利:load+, 有利:rel_dist-, 有利:load_dev+",
-              "win_prob": 0.2966,
-              "place_prob": 0.6954,
+              "win_prob": 0.3237,
+              "place_prob": 0.7378,
               "odds_win_prob": 0.2825
             },
             {
@@ -1667,8 +1667,8 @@
               "running_style": "不明",
               "jockey_name": "草野",
               "signal_tags": "不利:rank_dev×chg",
-              "win_prob": 0.0714,
-              "place_prob": 0.2389,
+              "win_prob": 0.0651,
+              "place_prob": 0.2267,
               "odds_win_prob": 0.0688
             },
             {
@@ -1697,8 +1697,8 @@
               "running_style": "不明",
               "jockey_name": "大江圭",
               "signal_tags": "不利:rank_dev単体, 不利:cushion×rank_dev",
-              "win_prob": 0.0155,
-              "place_prob": 0.0552,
+              "win_prob": 0.0125,
+              "place_prob": 0.0464,
               "odds_win_prob": 0.0147
             },
             {
@@ -1727,8 +1727,8 @@
               "running_style": "不明",
               "jockey_name": "難波",
               "signal_tags": "",
-              "win_prob": 0.0288,
-              "place_prob": 0.1013,
+              "win_prob": 0.0282,
+              "place_prob": 0.1027,
               "odds_win_prob": 0.0291
             },
             {
@@ -1757,8 +1757,8 @@
               "running_style": "不明",
               "jockey_name": "江田勇",
               "signal_tags": "",
-              "win_prob": 0.0598,
-              "place_prob": 0.203,
+              "win_prob": 0.0566,
+              "place_prob": 0.1993,
               "odds_win_prob": 0.0604
             },
             {
@@ -1787,8 +1787,8 @@
               "running_style": "不明",
               "jockey_name": "五十嵐",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×accel, 不利:rank_dev単体, 不利:load_speed+",
-              "win_prob": 0.0487,
-              "place_prob": 0.1676,
+              "win_prob": 0.0378,
+              "place_prob": 0.136,
               "odds_win_prob": 0.0524
             },
             {
@@ -1817,8 +1817,8 @@
               "running_style": "不明",
               "jockey_name": "伴",
               "signal_tags": "",
-              "win_prob": 0.0298,
-              "place_prob": 0.1047,
+              "win_prob": 0.0325,
+              "place_prob": 0.1176,
               "odds_win_prob": 0.0301
             },
             {
@@ -1847,8 +1847,8 @@
               "running_style": "不明",
               "jockey_name": "小牧加",
               "signal_tags": "",
-              "win_prob": 0.1666,
-              "place_prob": 0.4869,
+              "win_prob": 0.191,
+              "place_prob": 0.5505,
               "odds_win_prob": 0.1683
             },
             {
@@ -1877,8 +1877,8 @@
               "running_style": "不明",
               "jockey_name": "金子",
               "signal_tags": "",
-              "win_prob": 0.0181,
-              "place_prob": 0.0645,
+              "win_prob": 0.0189,
+              "place_prob": 0.0693,
               "odds_win_prob": 0.0183
             },
             {
@@ -1907,8 +1907,8 @@
               "running_style": "不明",
               "jockey_name": "小野寺",
               "signal_tags": "不利:rank_dev単体",
-              "win_prob": 0.0214,
-              "place_prob": 0.0758,
+              "win_prob": 0.0166,
+              "place_prob": 0.0611,
               "odds_win_prob": 0.023
             },
             {
@@ -1937,8 +1937,8 @@
               "running_style": "不明",
               "jockey_name": "▲小林凌",
               "signal_tags": "有利:rank_dev×accel, 不利:cushion×rank_dev, 不利:cushion×rel_lap",
-              "win_prob": 0.0198,
-              "place_prob": 0.0705,
+              "win_prob": 0.0227,
+              "place_prob": 0.0832,
               "odds_win_prob": 0.0201
             }
           ],
@@ -1991,8 +1991,8 @@
               "running_style": "不明",
               "jockey_name": "柴田大",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×chg, 不利:rank_dev×accel, 不利:rank_dev単体",
-              "win_prob": 0.0429,
-              "place_prob": 0.1477,
+              "win_prob": 0.0463,
+              "place_prob": 0.1579,
               "odds_win_prob": 0.0424
             },
             {
@@ -2021,8 +2021,8 @@
               "running_style": "不明",
               "jockey_name": "菊沢",
               "signal_tags": "",
-              "win_prob": 0.0151,
-              "place_prob": 0.0536,
+              "win_prob": 0.0171,
+              "place_prob": 0.0602,
               "odds_win_prob": 0.0189
             },
             {
@@ -2051,8 +2051,8 @@
               "running_style": "不明",
               "jockey_name": "杉原",
               "signal_tags": "有利:rank_change-, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0306,
-              "place_prob": 0.1069,
+              "win_prob": 0.0364,
+              "place_prob": 0.1255,
               "odds_win_prob": 0.0303
             },
             {
@@ -2081,8 +2081,8 @@
               "running_style": "不明",
               "jockey_name": "柴田善",
               "signal_tags": "",
-              "win_prob": 0.0181,
-              "place_prob": 0.0641,
+              "win_prob": 0.0195,
+              "place_prob": 0.0684,
               "odds_win_prob": 0.0177
             },
             {
@@ -2111,8 +2111,8 @@
               "running_style": "不明",
               "jockey_name": "吉田豊",
               "signal_tags": "不利:rank_dev×chg, 有利:rank_dev単体",
-              "win_prob": 0.0429,
-              "place_prob": 0.1479,
+              "win_prob": 0.0418,
+              "place_prob": 0.1432,
               "odds_win_prob": 0.0419
             },
             {
@@ -2141,8 +2141,8 @@
               "running_style": "不明",
               "jockey_name": "△長浜",
               "signal_tags": "",
-              "win_prob": 0.0203,
-              "place_prob": 0.0717,
+              "win_prob": 0.0219,
+              "place_prob": 0.0768,
               "odds_win_prob": 0.021
             },
             {
@@ -2171,8 +2171,8 @@
               "running_style": "不明",
               "jockey_name": "木幡巧",
               "signal_tags": "有利:rank_dev×chg",
-              "win_prob": 0.0448,
-              "place_prob": 0.1541,
+              "win_prob": 0.0436,
+              "place_prob": 0.1492,
               "odds_win_prob": 0.0438
             },
             {
@@ -2201,8 +2201,8 @@
               "running_style": "不明",
               "jockey_name": "丹内",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev×chg, 有利:rank_dev×accel, 有利:rank_dev単体",
-              "win_prob": 0.0196,
-              "place_prob": 0.0691,
+              "win_prob": 0.019,
+              "place_prob": 0.0668,
               "odds_win_prob": 0.0191
             },
             {
@@ -2231,8 +2231,8 @@
               "running_style": "不明",
               "jockey_name": "武藤",
               "signal_tags": "",
-              "win_prob": 0.0483,
-              "place_prob": 0.1654,
+              "win_prob": 0.047,
+              "place_prob": 0.1601,
               "odds_win_prob": 0.0472
             },
             {
@@ -2261,8 +2261,8 @@
               "running_style": "不明",
               "jockey_name": "横山琉",
               "signal_tags": "",
-              "win_prob": 0.0256,
-              "place_prob": 0.0899,
+              "win_prob": 0.0249,
+              "place_prob": 0.0869,
               "odds_win_prob": 0.0265
             },
             {
@@ -2291,8 +2291,8 @@
               "running_style": "不明",
               "jockey_name": "田辺",
               "signal_tags": "有利:rank_dev単体, 有利:rank_change-, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.1591,
-              "place_prob": 0.468,
+              "win_prob": 0.1564,
+              "place_prob": 0.4591,
               "odds_win_prob": 0.1554
             },
             {
@@ -2321,8 +2321,8 @@
               "running_style": "不明",
               "jockey_name": "横山武",
               "signal_tags": "有利:rank_dev×accel, 有利:rank_dev単体, 有利:load_dev+, 不利:cushion×rank_dev",
-              "win_prob": 0.2974,
-              "place_prob": 0.6933,
+              "win_prob": 0.2922,
+              "place_prob": 0.6842,
               "odds_win_prob": 0.2733
             },
             {
@@ -2351,8 +2351,8 @@
               "running_style": "不明",
               "jockey_name": "三浦",
               "signal_tags": "",
-              "win_prob": 0.1107,
-              "place_prob": 0.3501,
+              "win_prob": 0.0932,
+              "place_prob": 0.2999,
               "odds_win_prob": 0.1258
             },
             {
@@ -2381,8 +2381,8 @@
               "running_style": "不明",
               "jockey_name": "▲遠藤",
               "signal_tags": "有利:rank_change-",
-              "win_prob": 0.0356,
-              "place_prob": 0.1236,
+              "win_prob": 0.0352,
+              "place_prob": 0.1213,
               "odds_win_prob": 0.0348
             },
             {
@@ -2411,8 +2411,8 @@
               "running_style": "不明",
               "jockey_name": "津村",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev×chg, 不利:cushion×rank_dev",
-              "win_prob": 0.0811,
-              "place_prob": 0.2668,
+              "win_prob": 0.0965,
+              "place_prob": 0.3092,
               "odds_win_prob": 0.0922
             },
             {
@@ -2441,8 +2441,8 @@
               "running_style": "不明",
               "jockey_name": "木幡育",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×chg, 不利:rank_dev×accel, 不利:rank_dev単体",
-              "win_prob": 0.0078,
-              "place_prob": 0.0278,
+              "win_prob": 0.0088,
+              "place_prob": 0.0313,
               "odds_win_prob": 0.0097
             }
           ],
@@ -2494,8 +2494,8 @@
               "running_style": "不明",
               "jockey_name": "横山武",
               "signal_tags": "有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0532,
-              "place_prob": 0.1714,
+              "win_prob": 0.0536,
+              "place_prob": 0.1729,
               "odds_win_prob": 0.0602
             },
             {
@@ -2524,8 +2524,8 @@
               "running_style": "不明",
               "jockey_name": "横山琉",
               "signal_tags": "不利:rank_dev系",
-              "win_prob": 0.117,
-              "place_prob": 0.3482,
+              "win_prob": 0.1292,
+              "place_prob": 0.3783,
               "odds_win_prob": 0.1151
             },
             {
@@ -2554,8 +2554,8 @@
               "running_style": "不明",
               "jockey_name": "菊沢",
               "signal_tags": "",
-              "win_prob": 0.0526,
-              "place_prob": 0.1696,
+              "win_prob": 0.058,
+              "place_prob": 0.1863,
               "odds_win_prob": 0.0487
             },
             {
@@ -2584,8 +2584,8 @@
               "running_style": "不明",
               "jockey_name": "石橋脩",
               "signal_tags": "不利:rank_dev系, 不利:load_speed系",
-              "win_prob": 0.0114,
-              "place_prob": 0.0385,
+              "win_prob": 0.0126,
+              "place_prob": 0.0425,
               "odds_win_prob": 0.0112
             },
             {
@@ -2614,8 +2614,8 @@
               "running_style": "不明",
               "jockey_name": "小沢",
               "signal_tags": "有利:rank_dev単体, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.1418,
-              "place_prob": 0.4075,
+              "win_prob": 0.1431,
+              "place_prob": 0.4108,
               "odds_win_prob": 0.1557
             },
             {
@@ -2644,8 +2644,8 @@
               "running_style": "不明",
               "jockey_name": "三浦",
               "signal_tags": "",
-              "win_prob": 0.2158,
-              "place_prob": 0.554,
+              "win_prob": 0.2146,
+              "place_prob": 0.5524,
               "odds_win_prob": 0.1764
             },
             {
@@ -2674,8 +2674,8 @@
               "running_style": "不明",
               "jockey_name": "▲石田",
               "signal_tags": "不利:rank_dev系, 不利:rank_dev単体",
-              "win_prob": 0.0244,
-              "place_prob": 0.0813,
+              "win_prob": 0.0211,
+              "place_prob": 0.0706,
               "odds_win_prob": 0.0241
             },
             {
@@ -2704,8 +2704,8 @@
               "running_style": "不明",
               "jockey_name": "津村",
               "signal_tags": "不利:rank_dev系, 有利:消耗×加速, 有利:pace圧力系",
-              "win_prob": 0.0511,
-              "place_prob": 0.1651,
+              "win_prob": 0.0564,
+              "place_prob": 0.1814,
               "odds_win_prob": 0.0418
             },
             {
@@ -2734,8 +2734,8 @@
               "running_style": "不明",
               "jockey_name": "丹内",
               "signal_tags": "",
-              "win_prob": 0.1079,
-              "place_prob": 0.3251,
+              "win_prob": 0.0933,
+              "place_prob": 0.2867,
               "odds_win_prob": 0.1222
             },
             {
@@ -2764,8 +2764,8 @@
               "running_style": "不明",
               "jockey_name": "横山和",
               "signal_tags": "有利:消耗×加速, 有利:load_speed系, 不利:rank_dev単体, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0207,
-              "place_prob": 0.069,
+              "win_prob": 0.0205,
+              "place_prob": 0.0687,
               "odds_win_prob": 0.0227
             },
             {
@@ -2794,8 +2794,8 @@
               "running_style": "不明",
               "jockey_name": "佐々木",
               "signal_tags": "不利:rank_dev系, 不利:rank_dev単体",
-              "win_prob": 0.0247,
-              "place_prob": 0.0823,
+              "win_prob": 0.025,
+              "place_prob": 0.0831,
               "odds_win_prob": 0.0241
             },
             {
@@ -2824,8 +2824,8 @@
               "running_style": "不明",
               "jockey_name": "小崎",
               "signal_tags": "",
-              "win_prob": 0.0448,
-              "place_prob": 0.1459,
+              "win_prob": 0.0387,
+              "place_prob": 0.1271,
               "odds_win_prob": 0.0481
             },
             {
@@ -2854,8 +2854,8 @@
               "running_style": "不明",
               "jockey_name": "田辺",
               "signal_tags": "有利:消耗×加速, 有利:pace圧力系, 有利:rel_accel-, 有利:rank_dev単体, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0482,
-              "place_prob": 0.1563,
+              "win_prob": 0.0468,
+              "place_prob": 0.1523,
               "odds_win_prob": 0.0529
             },
             {
@@ -2884,8 +2884,8 @@
               "running_style": "不明",
               "jockey_name": "▲小林美",
               "signal_tags": "不利:rank_dev系, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0403,
-              "place_prob": 0.1319,
+              "win_prob": 0.0445,
+              "place_prob": 0.1451,
               "odds_win_prob": 0.0456
             },
             {
@@ -2914,8 +2914,8 @@
               "running_style": "不明",
               "jockey_name": "木幡巧",
               "signal_tags": "不利:rank_dev系, 不利:rank_dev単体, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0238,
-              "place_prob": 0.0793,
+              "win_prob": 0.0231,
+              "place_prob": 0.0772,
               "odds_win_prob": 0.0234
             },
             {
@@ -2944,8 +2944,8 @@
               "running_style": "不明",
               "jockey_name": "△長浜",
               "signal_tags": "有利:rank_dev系, 有利:pace圧力系, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0223,
-              "place_prob": 0.0744,
+              "win_prob": 0.0193,
+              "place_prob": 0.0646,
               "odds_win_prob": 0.0279
             }
           ],
@@ -2997,8 +2997,8 @@
               "running_style": "不明",
               "jockey_name": "丹内",
               "signal_tags": "",
-              "win_prob": 0.0436,
-              "place_prob": 0.1457,
+              "win_prob": 0.0478,
+              "place_prob": 0.1601,
               "odds_win_prob": 0.044
             },
             {
@@ -3027,8 +3027,8 @@
               "running_style": "不明",
               "jockey_name": "吉田豊",
               "signal_tags": "",
-              "win_prob": 0.2348,
-              "place_prob": 0.5974,
+              "win_prob": 0.2567,
+              "place_prob": 0.6324,
               "odds_win_prob": 0.233
             },
             {
@@ -3057,8 +3057,8 @@
               "running_style": "不明",
               "jockey_name": "原",
               "signal_tags": "",
-              "win_prob": 0.0443,
-              "place_prob": 0.148,
+              "win_prob": 0.0381,
+              "place_prob": 0.1289,
               "odds_win_prob": 0.0461
             },
             {
@@ -3087,8 +3087,8 @@
               "running_style": "不明",
               "jockey_name": "▲石神道",
               "signal_tags": "",
-              "win_prob": 0.0261,
-              "place_prob": 0.0888,
+              "win_prob": 0.0286,
+              "place_prob": 0.0979,
               "odds_win_prob": 0.0256
             },
             {
@@ -3117,8 +3117,8 @@
               "running_style": "不明",
               "jockey_name": "津村",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×chg, 不利:rank_dev×accel, 不利:rank_dev単体",
-              "win_prob": 0.0439,
-              "place_prob": 0.1468,
+              "win_prob": 0.048,
+              "place_prob": 0.1607,
               "odds_win_prob": 0.0431
             },
             {
@@ -3147,8 +3147,8 @@
               "running_style": "不明",
               "jockey_name": "★谷原",
               "signal_tags": "",
-              "win_prob": 0.0296,
-              "place_prob": 0.1004,
+              "win_prob": 0.0253,
+              "place_prob": 0.0869,
               "odds_win_prob": 0.0293
             },
             {
@@ -3177,8 +3177,8 @@
               "running_style": "不明",
               "jockey_name": "石橋脩",
               "signal_tags": "",
-              "win_prob": 0.1051,
-              "place_prob": 0.3257,
+              "win_prob": 0.121,
+              "place_prob": 0.369,
               "odds_win_prob": 0.1042
             },
             {
@@ -3207,8 +3207,8 @@
               "running_style": "不明",
               "jockey_name": "横山武",
               "signal_tags": "不利:rank_dev×chg",
-              "win_prob": 0.1037,
-              "place_prob": 0.3222,
+              "win_prob": 0.1105,
+              "place_prob": 0.3419,
               "odds_win_prob": 0.1148
             },
             {
@@ -3237,8 +3237,8 @@
               "running_style": "不明",
               "jockey_name": "▲佐藤",
               "signal_tags": "",
-              "win_prob": 0.0163,
-              "place_prob": 0.0561,
+              "win_prob": 0.014,
+              "place_prob": 0.0486,
               "odds_win_prob": 0.016
             },
             {
@@ -3267,8 +3267,8 @@
               "running_style": "不明",
               "jockey_name": "武藤",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev単体, 不利:dist_load-, 不利:rel_dist-",
-              "win_prob": 0.013,
-              "place_prob": 0.0448,
+              "win_prob": 0.0157,
+              "place_prob": 0.0543,
               "odds_win_prob": 0.0127
             },
             {
@@ -3297,8 +3297,8 @@
               "running_style": "不明",
               "jockey_name": "佐々木",
               "signal_tags": "",
-              "win_prob": 0.0253,
-              "place_prob": 0.0864,
+              "win_prob": 0.0292,
+              "place_prob": 0.0997,
               "odds_win_prob": 0.0248
             },
             {
@@ -3327,8 +3327,8 @@
               "running_style": "不明",
               "jockey_name": "丸山",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×chg, 不利:rank_dev×accel",
-              "win_prob": 0.1243,
-              "place_prob": 0.3754,
+              "win_prob": 0.1008,
+              "place_prob": 0.316,
               "odds_win_prob": 0.1219
             },
             {
@@ -3357,8 +3357,8 @@
               "running_style": "不明",
               "jockey_name": "田辺",
               "signal_tags": "",
-              "win_prob": 0.1585,
-              "place_prob": 0.4553,
+              "win_prob": 0.1356,
+              "place_prob": 0.4052,
               "odds_win_prob": 0.1553
             },
             {
@@ -3387,8 +3387,8 @@
               "running_style": "不明",
               "jockey_name": "荻野極",
               "signal_tags": "",
-              "win_prob": 0.0316,
-              "place_prob": 0.107,
+              "win_prob": 0.0288,
+              "place_prob": 0.0984,
               "odds_win_prob": 0.0291
             }
           ],
@@ -3440,8 +3440,8 @@
               "running_style": "不明",
               "jockey_name": "荻野極",
               "signal_tags": "",
-              "win_prob": 0.0757,
-              "place_prob": 0.2322,
+              "win_prob": 0.0855,
+              "place_prob": 0.2575,
               "odds_win_prob": 0.0854
             },
             {
@@ -3470,8 +3470,8 @@
               "running_style": "不明",
               "jockey_name": "△長浜",
               "signal_tags": "",
-              "win_prob": 0.0801,
-              "place_prob": 0.2444,
+              "win_prob": 0.0827,
+              "place_prob": 0.2498,
               "odds_win_prob": 0.0771
             },
             {
@@ -3500,8 +3500,8 @@
               "running_style": "不明",
               "jockey_name": "大野",
               "signal_tags": "有利:消耗×加速, 不利:rank_dev単体",
-              "win_prob": 0.0243,
-              "place_prob": 0.079,
+              "win_prob": 0.0274,
+              "place_prob": 0.0884,
               "odds_win_prob": 0.0227
             },
             {
@@ -3530,8 +3530,8 @@
               "running_style": "不明",
               "jockey_name": "原",
               "signal_tags": "有利:rank_dev系, 有利:消耗×加速, 有利:pace圧力系",
-              "win_prob": 0.0274,
-              "place_prob": 0.0887,
+              "win_prob": 0.0272,
+              "place_prob": 0.0877,
               "odds_win_prob": 0.0328
             },
             {
@@ -3560,8 +3560,8 @@
               "running_style": "不明",
               "jockey_name": "△舟山",
               "signal_tags": "有利:消耗×加速, 有利:pace圧力系, 有利:rank_dev単体, 不利:cushion×accel, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0147,
-              "place_prob": 0.0482,
+              "win_prob": 0.0166,
+              "place_prob": 0.0539,
               "odds_win_prob": 0.0139
             },
             {
@@ -3590,8 +3590,8 @@
               "running_style": "不明",
               "jockey_name": "杉原",
               "signal_tags": "不利:load_speed系",
-              "win_prob": 0.1164,
-              "place_prob": 0.3388,
+              "win_prob": 0.1201,
+              "place_prob": 0.3459,
               "odds_win_prob": 0.1204
             },
             {
@@ -3620,8 +3620,8 @@
               "running_style": "不明",
               "jockey_name": "松岡",
               "signal_tags": "有利:消耗×加速, 有利:pace圧力系",
-              "win_prob": 0.1292,
-              "place_prob": 0.3696,
+              "win_prob": 0.1142,
+              "place_prob": 0.3315,
               "odds_win_prob": 0.1103
             },
             {
@@ -3650,8 +3650,8 @@
               "running_style": "不明",
               "jockey_name": "石橋脩",
               "signal_tags": "不利:rank_dev単体",
-              "win_prob": 0.0214,
-              "place_prob": 0.0699,
+              "win_prob": 0.0221,
+              "place_prob": 0.0717,
               "odds_win_prob": 0.0203
             },
             {
@@ -3680,8 +3680,8 @@
               "running_style": "不明",
               "jockey_name": "三浦",
               "signal_tags": "",
-              "win_prob": 0.0919,
-              "place_prob": 0.2761,
+              "win_prob": 0.1037,
+              "place_prob": 0.3052,
               "odds_win_prob": 0.0969
             },
             {
@@ -3710,8 +3710,8 @@
               "running_style": "不明",
               "jockey_name": "江田照",
               "signal_tags": "有利:pace圧力系",
-              "win_prob": 0.0302,
-              "place_prob": 0.0974,
+              "win_prob": 0.034,
+              "place_prob": 0.1088,
               "odds_win_prob": 0.0285
             },
             {
@@ -3740,8 +3740,8 @@
               "running_style": "不明",
               "jockey_name": "菊沢",
               "signal_tags": "不利:pace圧力系, 不利:cushion×rank_dev, 不利:cushion×rel_lap",
-              "win_prob": 0.0206,
-              "place_prob": 0.0674,
+              "win_prob": 0.0233,
+              "place_prob": 0.0754,
               "odds_win_prob": 0.0195
             },
             {
@@ -3770,8 +3770,8 @@
               "running_style": "不明",
               "jockey_name": "原田和",
               "signal_tags": "有利:消耗×加速, 有利:pace圧力系",
-              "win_prob": 0.032,
-              "place_prob": 0.1031,
+              "win_prob": 0.033,
+              "place_prob": 0.1057,
               "odds_win_prob": 0.0312
             },
             {
@@ -3800,8 +3800,8 @@
               "running_style": "不明",
               "jockey_name": "津村",
               "signal_tags": "有利:消耗×加速, 有利:pace圧力系",
-              "win_prob": 0.1568,
-              "place_prob": 0.4314,
+              "win_prob": 0.1386,
+              "place_prob": 0.3891,
               "odds_win_prob": 0.1621
             },
             {
@@ -3830,8 +3830,8 @@
               "running_style": "不明",
               "jockey_name": "佐々木",
               "signal_tags": "不利:rank_dev系, 不利:pace圧力系, 不利:rank_dev単体, 不利:cushion×rank_dev",
-              "win_prob": 0.0527,
-              "place_prob": 0.166,
+              "win_prob": 0.0595,
+              "place_prob": 0.1848,
               "odds_win_prob": 0.0556
             },
             {
@@ -3860,8 +3860,8 @@
               "running_style": "不明",
               "jockey_name": "丸山",
               "signal_tags": "不利:rank_dev系",
-              "win_prob": 0.0354,
-              "place_prob": 0.1138,
+              "win_prob": 0.0313,
+              "place_prob": 0.1005,
               "odds_win_prob": 0.0331
             },
             {
@@ -3890,8 +3890,8 @@
               "running_style": "不明",
               "jockey_name": "丹内",
               "signal_tags": "",
-              "win_prob": 0.0911,
-              "place_prob": 0.2741,
+              "win_prob": 0.0806,
+              "place_prob": 0.2441,
               "odds_win_prob": 0.0903
             }
           ],
@@ -3943,8 +3943,8 @@
               "running_style": "不明",
               "jockey_name": "原",
               "signal_tags": "有利:rank_dev単体, 有利:cushion×rank_dev",
-              "win_prob": 0.1766,
-              "place_prob": 0.5489,
+              "win_prob": 0.1354,
+              "place_prob": 0.4689,
               "odds_win_prob": 0.1713
             },
             {
@@ -3973,8 +3973,8 @@
               "running_style": "不明",
               "jockey_name": "杉原",
               "signal_tags": "不利:rank_dev系最強, 不利:cushion×accel, 有利:cushion×rank_dev",
-              "win_prob": 0.0537,
-              "place_prob": 0.2011,
+              "win_prob": 0.0526,
+              "place_prob": 0.2062,
               "odds_win_prob": 0.0515
             },
             {
@@ -4003,8 +4003,8 @@
               "running_style": "不明",
               "jockey_name": "津村",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev単体, 有利:rank_change-, 不利:cushion×accel, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.3692,
-              "place_prob": 0.8027,
+              "win_prob": 0.4224,
+              "place_prob": 0.8497,
               "odds_win_prob": 0.3581
             },
             {
@@ -4033,8 +4033,8 @@
               "running_style": "不明",
               "jockey_name": "横山和",
               "signal_tags": "不利:rank_dev系最強, 有利:rank_dev単体, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0832,
-              "place_prob": 0.2999,
+              "win_prob": 0.0906,
+              "place_prob": 0.3373,
               "odds_win_prob": 0.1023
             },
             {
@@ -4063,8 +4063,8 @@
               "running_style": "不明",
               "jockey_name": "佐々木",
               "signal_tags": "有利:rank_change-, 不利:rel_dist-",
-              "win_prob": 0.071,
-              "place_prob": 0.2602,
+              "win_prob": 0.0813,
+              "place_prob": 0.3066,
               "odds_win_prob": 0.071
             },
             {
@@ -4093,8 +4093,8 @@
               "running_style": "不明",
               "jockey_name": "荻野極",
               "signal_tags": "不利:rank_dev×chg, 有利:rank_change-, 有利:load_dev+, 有利:cushion×rank_dev",
-              "win_prob": 0.099,
-              "place_prob": 0.3494,
+              "win_prob": 0.0759,
+              "place_prob": 0.2886,
               "odds_win_prob": 0.0949
             },
             {
@@ -4123,8 +4123,8 @@
               "running_style": "不明",
               "jockey_name": "横山武",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×chg, 不利:rank_dev×accel, 不利:rank_devフリー, 不利:rank_dev単体",
-              "win_prob": 0.0707,
-              "place_prob": 0.2591,
+              "win_prob": 0.0668,
+              "place_prob": 0.2571,
               "odds_win_prob": 0.0765
             },
             {
@@ -4153,8 +4153,8 @@
               "running_style": "不明",
               "jockey_name": "丹内",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×chg, 有利:cushion×rank_dev",
-              "win_prob": 0.0766,
-              "place_prob": 0.2787,
+              "win_prob": 0.075,
+              "place_prob": 0.2856,
               "odds_win_prob": 0.0743
             }
           ],
@@ -4207,8 +4207,8 @@
               "running_style": "不明",
               "jockey_name": "原",
               "signal_tags": "有利:rank_dev系, 不利:cushion×rank_dev",
-              "win_prob": 0.0371,
-              "place_prob": 0.1238,
+              "win_prob": 0.0321,
+              "place_prob": 0.1064,
               "odds_win_prob": 0.035
             },
             {
@@ -4237,8 +4237,8 @@
               "running_style": "不明",
               "jockey_name": "横山琉",
               "signal_tags": "",
-              "win_prob": 0.0539,
-              "place_prob": 0.1764,
+              "win_prob": 0.0595,
+              "place_prob": 0.1914,
               "odds_win_prob": 0.0685
             },
             {
@@ -4267,8 +4267,8 @@
               "running_style": "不明",
               "jockey_name": "木幡巧",
               "signal_tags": "不利:消耗×加速, 不利:pace圧力系, 不利:rel_accel-, 不利:rank_dev単体, 不利:cushion×accel",
-              "win_prob": 0.0122,
-              "place_prob": 0.0418,
+              "win_prob": 0.0135,
+              "place_prob": 0.0456,
               "odds_win_prob": 0.0121
             },
             {
@@ -4297,8 +4297,8 @@
               "running_style": "不明",
               "jockey_name": "小沢",
               "signal_tags": "",
-              "win_prob": 0.0094,
-              "place_prob": 0.0323,
+              "win_prob": 0.0104,
+              "place_prob": 0.0353,
               "odds_win_prob": 0.0093
             },
             {
@@ -4327,8 +4327,8 @@
               "running_style": "不明",
               "jockey_name": "丹内",
               "signal_tags": "有利:pace圧力系",
-              "win_prob": 0.0367,
-              "place_prob": 0.1225,
+              "win_prob": 0.0406,
+              "place_prob": 0.1332,
               "odds_win_prob": 0.0328
             },
             {
@@ -4357,8 +4357,8 @@
               "running_style": "不明",
               "jockey_name": "柴田善",
               "signal_tags": "有利:cushion×rank_dev",
-              "win_prob": 0.0424,
-              "place_prob": 0.1408,
+              "win_prob": 0.0469,
+              "place_prob": 0.153,
               "odds_win_prob": 0.0421
             },
             {
@@ -4387,8 +4387,8 @@
               "running_style": "不明",
               "jockey_name": "三浦",
               "signal_tags": "",
-              "win_prob": 0.1646,
-              "place_prob": 0.4643,
+              "win_prob": 0.1663,
+              "place_prob": 0.4629,
               "odds_win_prob": 0.1806
             },
             {
@@ -4417,8 +4417,8 @@
               "running_style": "不明",
               "jockey_name": "松岡",
               "signal_tags": "",
-              "win_prob": 0.0119,
-              "place_prob": 0.0409,
+              "win_prob": 0.0116,
+              "place_prob": 0.0393,
               "odds_win_prob": 0.0133
             },
             {
@@ -4447,8 +4447,8 @@
               "running_style": "不明",
               "jockey_name": "黛",
               "signal_tags": "",
-              "win_prob": 0.0563,
-              "place_prob": 0.1838,
+              "win_prob": 0.0548,
+              "place_prob": 0.177,
               "odds_win_prob": 0.0716
             },
             {
@@ -4477,8 +4477,8 @@
               "running_style": "不明",
               "jockey_name": "国分恭",
               "signal_tags": "",
-              "win_prob": 0.0474,
-              "place_prob": 0.1562,
+              "win_prob": 0.041,
+              "place_prob": 0.1346,
               "odds_win_prob": 0.0399
             },
             {
@@ -4507,8 +4507,8 @@
               "running_style": "不明",
               "jockey_name": "菊沢",
               "signal_tags": "",
-              "win_prob": 0.1179,
-              "place_prob": 0.356,
+              "win_prob": 0.1304,
+              "place_prob": 0.3825,
               "odds_win_prob": 0.1169
             },
             {
@@ -4537,8 +4537,8 @@
               "running_style": "不明",
               "jockey_name": "石橋脩",
               "signal_tags": "不利:rank_dev系, 不利:rel_accel-",
-              "win_prob": 0.088,
-              "place_prob": 0.2765,
+              "win_prob": 0.0973,
+              "place_prob": 0.2985,
               "odds_win_prob": 0.0883
             },
             {
@@ -4567,8 +4567,8 @@
               "running_style": "不明",
               "jockey_name": "大野",
               "signal_tags": "有利:rank_dev系, 不利:rank_dev単体",
-              "win_prob": 0.0331,
-              "place_prob": 0.1111,
+              "win_prob": 0.0366,
+              "place_prob": 0.1208,
               "odds_win_prob": 0.0328
             },
             {
@@ -4597,8 +4597,8 @@
               "running_style": "不明",
               "jockey_name": "荻野極",
               "signal_tags": "有利:消耗×加速, 有利:pace圧力系, 有利:cushion×rel_lap",
-              "win_prob": 0.2356,
-              "place_prob": 0.5937,
+              "win_prob": 0.2039,
+              "place_prob": 0.5357,
               "odds_win_prob": 0.1987
             },
             {
@@ -4627,8 +4627,8 @@
               "running_style": "不明",
               "jockey_name": "石川",
               "signal_tags": "",
-              "win_prob": 0.025,
-              "place_prob": 0.0847,
+              "win_prob": 0.0277,
+              "place_prob": 0.0922,
               "odds_win_prob": 0.0263
             },
             {
@@ -4657,8 +4657,8 @@
               "running_style": "不明",
               "jockey_name": "佐々木",
               "signal_tags": "不利:pace圧力系",
-              "win_prob": 0.0283,
-              "place_prob": 0.0953,
+              "win_prob": 0.0275,
+              "place_prob": 0.0917,
               "odds_win_prob": 0.0317
             }
           ],
@@ -4710,8 +4710,8 @@
               "running_style": "不明",
               "jockey_name": "横山琉",
               "signal_tags": "",
-              "win_prob": 0.0371,
-              "place_prob": 0.1182,
+              "win_prob": 0.0403,
+              "place_prob": 0.1285,
               "odds_win_prob": 0.0358
             },
             {
@@ -4740,8 +4740,8 @@
               "running_style": "不明",
               "jockey_name": "横山武",
               "signal_tags": "有利:rank_dev系最強",
-              "win_prob": 0.1289,
-              "place_prob": 0.3669,
+              "win_prob": 0.1282,
+              "place_prob": 0.3663,
               "odds_win_prob": 0.1223
             },
             {
@@ -4770,8 +4770,8 @@
               "running_style": "不明",
               "jockey_name": "佐々木",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev単体, 有利:rank_change-",
-              "win_prob": 0.0514,
-              "place_prob": 0.1614,
+              "win_prob": 0.0588,
+              "place_prob": 0.1835,
               "odds_win_prob": 0.0545
             },
             {
@@ -4800,8 +4800,8 @@
               "running_style": "不明",
               "jockey_name": "荻野極",
               "signal_tags": "",
-              "win_prob": 0.0999,
-              "place_prob": 0.2954,
+              "win_prob": 0.0765,
+              "place_prob": 0.2336,
               "odds_win_prob": 0.1089
             },
             {
@@ -4830,8 +4830,8 @@
               "running_style": "不明",
               "jockey_name": "丹内",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×accel, 有利:rank_change-",
-              "win_prob": 0.1034,
-              "place_prob": 0.3045,
+              "win_prob": 0.1029,
+              "place_prob": 0.304,
               "odds_win_prob": 0.097
             },
             {
@@ -4860,8 +4860,8 @@
               "running_style": "不明",
               "jockey_name": "横山和",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev×chg, 有利:rank_dev×accel, 有利:rank_dev単体, 有利:rank_change-, 有利:load_dev+",
-              "win_prob": 0.0751,
-              "place_prob": 0.2291,
+              "win_prob": 0.0776,
+              "place_prob": 0.2366,
               "odds_win_prob": 0.0904
             },
             {
@@ -4890,8 +4890,8 @@
               "running_style": "不明",
               "jockey_name": "大野",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×chg, 不利:rank_dev×accel, 不利:rank_dev単体, 有利:cushion×rank_dev",
-              "win_prob": 0.0922,
-              "place_prob": 0.2753,
+              "win_prob": 0.0928,
+              "place_prob": 0.2777,
               "odds_win_prob": 0.0864
             },
             {
@@ -4920,8 +4920,8 @@
               "running_style": "不明",
               "jockey_name": "石橋脩",
               "signal_tags": "不利:rank_dev系最強",
-              "win_prob": 0.024,
-              "place_prob": 0.0777,
+              "win_prob": 0.0261,
+              "place_prob": 0.0846,
               "odds_win_prob": 0.0225
             },
             {
@@ -4950,8 +4950,8 @@
               "running_style": "不明",
               "jockey_name": "石川",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev×accel, 有利:rank_dev単体, 有利:rank_change-, 有利:cushion×rank_dev",
-              "win_prob": 0.1444,
-              "place_prob": 0.4023,
+              "win_prob": 0.1651,
+              "place_prob": 0.4477,
               "odds_win_prob": 0.1529
             },
             {
@@ -4980,8 +4980,8 @@
               "running_style": "不明",
               "jockey_name": "柴田大",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev×chg",
-              "win_prob": 0.0152,
-              "place_prob": 0.0496,
+              "win_prob": 0.015,
+              "place_prob": 0.0492,
               "odds_win_prob": 0.0144
             },
             {
@@ -5010,8 +5010,8 @@
               "running_style": "不明",
               "jockey_name": "小沢",
               "signal_tags": "",
-              "win_prob": 0.0149,
-              "place_prob": 0.0487,
+              "win_prob": 0.0148,
+              "place_prob": 0.0483,
               "odds_win_prob": 0.014
             },
             {
@@ -5040,8 +5040,8 @@
               "running_style": "不明",
               "jockey_name": "柴田善",
               "signal_tags": "有利:cushion×rank_dev",
-              "win_prob": 0.0569,
-              "place_prob": 0.1774,
+              "win_prob": 0.0509,
+              "place_prob": 0.1602,
               "odds_win_prob": 0.0534
             },
             {
@@ -5070,8 +5070,8 @@
               "running_style": "不明",
               "jockey_name": "丸山",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev×chg, 有利:rank_dev×accel, 有利:rank_dev単体, 有利:rank_change-",
-              "win_prob": 0.0146,
-              "place_prob": 0.0476,
+              "win_prob": 0.0167,
+              "place_prob": 0.0544,
               "odds_win_prob": 0.0137
             },
             {
@@ -5100,8 +5100,8 @@
               "running_style": "不明",
               "jockey_name": "松岡",
               "signal_tags": "不利:rank_dev系最強",
-              "win_prob": 0.0574,
-              "place_prob": 0.1788,
+              "win_prob": 0.0464,
+              "place_prob": 0.1469,
               "odds_win_prob": 0.0545
             },
             {
@@ -5130,8 +5130,8 @@
               "running_style": "不明",
               "jockey_name": "津村",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×chg, 不利:rank_dev×accel",
-              "win_prob": 0.0527,
-              "place_prob": 0.165,
+              "win_prob": 0.0515,
+              "place_prob": 0.1621,
               "odds_win_prob": 0.0494
             },
             {
@@ -5160,8 +5160,8 @@
               "running_style": "不明",
               "jockey_name": "原",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×chg, 不利:rank_dev×accel, 有利:dist_load-, 有利:rel_dist-",
-              "win_prob": 0.0319,
-              "place_prob": 0.1022,
+              "win_prob": 0.0364,
+              "place_prob": 0.1166,
               "odds_win_prob": 0.0299
             }
           ],
@@ -5213,8 +5213,8 @@
               "running_style": "不明",
               "jockey_name": "横山武",
               "signal_tags": "",
-              "win_prob": 0.2742,
-              "place_prob": 0.671,
+              "win_prob": 0.2864,
+              "place_prob": 0.6918,
               "odds_win_prob": 0.2631
             },
             {
@@ -5243,8 +5243,8 @@
               "running_style": "不明",
               "jockey_name": "木幡巧",
               "signal_tags": "",
-              "win_prob": 0.0551,
-              "place_prob": 0.1886,
+              "win_prob": 0.0522,
+              "place_prob": 0.1817,
               "odds_win_prob": 0.0544
             },
             {
@@ -5273,8 +5273,8 @@
               "running_style": "不明",
               "jockey_name": "▲石田",
               "signal_tags": "有利:rank_dev系最強, 有利:dist_load-, 有利:rel_dist-, 有利:load_dev+, 有利:cushion×rank_dev",
-              "win_prob": 0.049,
-              "place_prob": 0.1689,
+              "win_prob": 0.0537,
+              "place_prob": 0.1866,
               "odds_win_prob": 0.047
             },
             {
@@ -5303,8 +5303,8 @@
               "running_style": "不明",
               "jockey_name": "丹内",
               "signal_tags": "",
-              "win_prob": 0.0832,
-              "place_prob": 0.2754,
+              "win_prob": 0.0913,
+              "place_prob": 0.3028,
               "odds_win_prob": 0.0858
             },
             {
@@ -5333,8 +5333,8 @@
               "running_style": "不明",
               "jockey_name": "横山琉",
               "signal_tags": "不利:rank_dev×chg, 不利:rank_dev×accel, 不利:rank_dev単体, 不利:load_speed+",
-              "win_prob": 0.0316,
-              "place_prob": 0.1113,
+              "win_prob": 0.0264,
+              "place_prob": 0.0946,
               "odds_win_prob": 0.0304
             },
             {
@@ -5363,8 +5363,8 @@
               "running_style": "不明",
               "jockey_name": "佐々木",
               "signal_tags": "有利:rank_change-",
-              "win_prob": 0.1913,
-              "place_prob": 0.5393,
+              "win_prob": 0.1998,
+              "place_prob": 0.5611,
               "odds_win_prob": 0.1836
             },
             {
@@ -5393,8 +5393,8 @@
               "running_style": "不明",
               "jockey_name": "杉原",
               "signal_tags": "",
-              "win_prob": 0.1255,
-              "place_prob": 0.3922,
+              "win_prob": 0.1179,
+              "place_prob": 0.3769,
               "odds_win_prob": 0.1294
             },
             {
@@ -5423,8 +5423,8 @@
               "running_style": "不明",
               "jockey_name": "黛",
               "signal_tags": "",
-              "win_prob": 0.0204,
-              "place_prob": 0.0725,
+              "win_prob": 0.0223,
+              "place_prob": 0.0804,
               "odds_win_prob": 0.0201
             },
             {
@@ -5453,8 +5453,8 @@
               "running_style": "不明",
               "jockey_name": "△舟山",
               "signal_tags": "有利:rank_dev×accel",
-              "win_prob": 0.0772,
-              "place_prob": 0.2575,
+              "win_prob": 0.0663,
+              "place_prob": 0.2268,
               "odds_win_prob": 0.0951
             },
             {
@@ -5483,8 +5483,8 @@
               "running_style": "不明",
               "jockey_name": "武藤",
               "signal_tags": "",
-              "win_prob": 0.0298,
-              "place_prob": 0.105,
+              "win_prob": 0.0327,
+              "place_prob": 0.1163,
               "odds_win_prob": 0.0286
             },
             {
@@ -5513,8 +5513,8 @@
               "running_style": "不明",
               "jockey_name": "石川",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×chg, 不利:rank_dev×accel, 不利:load_speed+, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0475,
-              "place_prob": 0.1642,
+              "win_prob": 0.0397,
+              "place_prob": 0.1401,
               "odds_win_prob": 0.0462
             },
             {
@@ -5543,8 +5543,8 @@
               "running_style": "不明",
               "jockey_name": "原田和",
               "signal_tags": "",
-              "win_prob": 0.0151,
-              "place_prob": 0.054,
+              "win_prob": 0.0112,
+              "place_prob": 0.0408,
               "odds_win_prob": 0.0163
             }
           ],
@@ -5600,8 +5600,8 @@
               "running_style": "不明",
               "jockey_name": "▲川端",
               "signal_tags": "不利:cushion×accel, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.1513,
-              "place_prob": 0.4408,
+              "win_prob": 0.1666,
+              "place_prob": 0.4701,
               "odds_win_prob": 0.1533
             },
             {
@@ -5630,8 +5630,8 @@
               "running_style": "不明",
               "jockey_name": "▲田山",
               "signal_tags": "有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0881,
-              "place_prob": 0.2802,
+              "win_prob": 0.0854,
+              "place_prob": 0.2699,
               "odds_win_prob": 0.0895
             },
             {
@@ -5660,8 +5660,8 @@
               "running_style": "不明",
               "jockey_name": "鮫島良",
               "signal_tags": "有利:消耗×加速, 有利:pace圧力系, 有利:rel_accel-",
-              "win_prob": 0.1085,
-              "place_prob": 0.3359,
+              "win_prob": 0.1195,
+              "place_prob": 0.361,
               "odds_win_prob": 0.1155
             },
             {
@@ -5690,8 +5690,8 @@
               "running_style": "不明",
               "jockey_name": "松山",
               "signal_tags": "不利:rank_dev系",
-              "win_prob": 0.0778,
-              "place_prob": 0.2505,
+              "win_prob": 0.0856,
+              "place_prob": 0.2705,
               "odds_win_prob": 0.0916
             },
             {
@@ -5720,8 +5720,8 @@
               "running_style": "不明",
               "jockey_name": "川又",
               "signal_tags": "有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0231,
-              "place_prob": 0.0794,
+              "win_prob": 0.0233,
+              "place_prob": 0.0791,
               "odds_win_prob": 0.0202
             },
             {
@@ -5750,8 +5750,8 @@
               "running_style": "不明",
               "jockey_name": "幸",
               "signal_tags": "",
-              "win_prob": 0.0315,
-              "place_prob": 0.1071,
+              "win_prob": 0.0347,
+              "place_prob": 0.1163,
               "odds_win_prob": 0.032
             },
             {
@@ -5780,8 +5780,8 @@
               "running_style": "不明",
               "jockey_name": "川田",
               "signal_tags": "",
-              "win_prob": 0.1357,
-              "place_prob": 0.4045,
+              "win_prob": 0.1346,
+              "place_prob": 0.3981,
               "odds_win_prob": 0.1138
             },
             {
@@ -5810,8 +5810,8 @@
               "running_style": "不明",
               "jockey_name": "藤懸",
               "signal_tags": "",
-              "win_prob": 0.0283,
-              "place_prob": 0.0966,
+              "win_prob": 0.0312,
+              "place_prob": 0.105,
               "odds_win_prob": 0.0276
             },
             {
@@ -5841,7 +5841,7 @@
               "jockey_name": "高倉",
               "signal_tags": "",
               "win_prob": 0.0087,
-              "place_prob": 0.0304,
+              "place_prob": 0.0298,
               "odds_win_prob": 0.0085
             },
             {
@@ -5870,8 +5870,8 @@
               "running_style": "不明",
               "jockey_name": "吉村",
               "signal_tags": "",
-              "win_prob": 0.0152,
-              "place_prob": 0.0526,
+              "win_prob": 0.0151,
+              "place_prob": 0.0517,
               "odds_win_prob": 0.0148
             },
             {
@@ -5900,8 +5900,8 @@
               "running_style": "不明",
               "jockey_name": "岩田康",
               "signal_tags": "",
-              "win_prob": 0.0482,
-              "place_prob": 0.1607,
+              "win_prob": 0.0478,
+              "place_prob": 0.1579,
               "odds_win_prob": 0.0469
             },
             {
@@ -5930,8 +5930,8 @@
               "running_style": "不明",
               "jockey_name": "▲和田陽",
               "signal_tags": "不利:rank_dev系, 不利:rank_dev単体",
-              "win_prob": 0.0091,
-              "place_prob": 0.0316,
+              "win_prob": 0.009,
+              "place_prob": 0.0311,
               "odds_win_prob": 0.0084
             },
             {
@@ -5960,8 +5960,8 @@
               "running_style": "不明",
               "jockey_name": "岩田望",
               "signal_tags": "不利:cushion×accel, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.2377,
-              "place_prob": 0.6035,
+              "win_prob": 0.2049,
+              "place_prob": 0.5446,
               "odds_win_prob": 0.2415
             },
             {
@@ -5990,8 +5990,8 @@
               "running_style": "不明",
               "jockey_name": "国分優",
               "signal_tags": "有利:消耗×加速, 有利:pace圧力系, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0083,
-              "place_prob": 0.0289,
+              "win_prob": 0.0091,
+              "place_prob": 0.0314,
               "odds_win_prob": 0.0086
             },
             {
@@ -6020,8 +6020,8 @@
               "running_style": "不明",
               "jockey_name": "北村友",
               "signal_tags": "",
-              "win_prob": 0.0285,
-              "place_prob": 0.0973,
+              "win_prob": 0.0246,
+              "place_prob": 0.0834,
               "odds_win_prob": 0.0278
             }
           ],
@@ -6073,8 +6073,8 @@
               "running_style": "不明",
               "jockey_name": "岩田康",
               "signal_tags": "",
-              "win_prob": 0.124,
-              "place_prob": 0.3756,
+              "win_prob": 0.1058,
+              "place_prob": 0.3301,
               "odds_win_prob": 0.122
             },
             {
@@ -6103,8 +6103,8 @@
               "running_style": "不明",
               "jockey_name": "鮫島駿",
               "signal_tags": "有利:cushion×rank_dev",
-              "win_prob": 0.1897,
-              "place_prob": 0.5209,
+              "win_prob": 0.1821,
+              "place_prob": 0.508,
               "odds_win_prob": 0.1983
             },
             {
@@ -6133,8 +6133,8 @@
               "running_style": "不明",
               "jockey_name": "▲田山",
               "signal_tags": "不利:rank_dev系, 不利:pace圧力系, 不利:rank_dev単体, 不利:cushion×accel, 有利:cushion×rank_dev",
-              "win_prob": 0.0334,
-              "place_prob": 0.1131,
+              "win_prob": 0.0364,
+              "place_prob": 0.1235,
               "odds_win_prob": 0.0356
             },
             {
@@ -6163,8 +6163,8 @@
               "running_style": "不明",
               "jockey_name": "古川吉",
               "signal_tags": "有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0813,
-              "place_prob": 0.2607,
+              "win_prob": 0.081,
+              "place_prob": 0.261,
               "odds_win_prob": 0.0702
             },
             {
@@ -6193,8 +6193,8 @@
               "running_style": "不明",
               "jockey_name": "幸",
               "signal_tags": "有利:cushion×rank_dev",
-              "win_prob": 0.0909,
-              "place_prob": 0.2879,
+              "win_prob": 0.0991,
+              "place_prob": 0.3119,
               "odds_win_prob": 0.0912
             },
             {
@@ -6223,8 +6223,8 @@
               "running_style": "不明",
               "jockey_name": "高倉",
               "signal_tags": "有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.2066,
-              "place_prob": 0.5521,
+              "win_prob": 0.2253,
+              "place_prob": 0.586,
               "odds_win_prob": 0.2034
             },
             {
@@ -6253,8 +6253,8 @@
               "running_style": "不明",
               "jockey_name": "▲川端",
               "signal_tags": "",
-              "win_prob": 0.0164,
-              "place_prob": 0.0566,
+              "win_prob": 0.0179,
+              "place_prob": 0.0619,
               "odds_win_prob": 0.0175
             },
             {
@@ -6283,8 +6283,8 @@
               "running_style": "不明",
               "jockey_name": "秋山稔",
               "signal_tags": "",
-              "win_prob": 0.0131,
-              "place_prob": 0.0455,
+              "win_prob": 0.0129,
+              "place_prob": 0.0449,
               "odds_win_prob": 0.014
             },
             {
@@ -6313,8 +6313,8 @@
               "running_style": "不明",
               "jockey_name": "北村友",
               "signal_tags": "",
-              "win_prob": 0.1116,
-              "place_prob": 0.3439,
+              "win_prob": 0.1096,
+              "place_prob": 0.3401,
               "odds_win_prob": 0.1117
             },
             {
@@ -6343,8 +6343,8 @@
               "running_style": "不明",
               "jockey_name": "団野",
               "signal_tags": "",
-              "win_prob": 0.0689,
-              "place_prob": 0.2242,
+              "win_prob": 0.0751,
+              "place_prob": 0.2437,
               "odds_win_prob": 0.069
             },
             {
@@ -6373,8 +6373,8 @@
               "running_style": "不明",
               "jockey_name": "田口",
               "signal_tags": "不利:pace圧力系, 不利:rank_dev単体",
-              "win_prob": 0.0296,
-              "place_prob": 0.1007,
+              "win_prob": 0.0253,
+              "place_prob": 0.0868,
               "odds_win_prob": 0.0279
             },
             {
@@ -6403,8 +6403,8 @@
               "running_style": "不明",
               "jockey_name": "★河原田",
               "signal_tags": "",
-              "win_prob": 0.017,
-              "place_prob": 0.0585,
+              "win_prob": 0.0145,
+              "place_prob": 0.0503,
               "odds_win_prob": 0.0206
             },
             {
@@ -6433,8 +6433,8 @@
               "running_style": "不明",
               "jockey_name": "▲和田陽",
               "signal_tags": "有利:rank_dev単体",
-              "win_prob": 0.0175,
-              "place_prob": 0.0602,
+              "win_prob": 0.0149,
+              "place_prob": 0.0518,
               "odds_win_prob": 0.0186
             }
           ],
@@ -6486,8 +6486,8 @@
               "running_style": "不明",
               "jockey_name": "▲和田陽",
               "signal_tags": "不利:accel_raw+, 不利:消耗×速度, 不利:rel_accel-",
-              "win_prob": 0.0937,
-              "place_prob": 0.2972,
+              "win_prob": 0.0934,
+              "place_prob": 0.2997,
               "odds_win_prob": 0.089
             },
             {
@@ -6516,8 +6516,8 @@
               "running_style": "不明",
               "jockey_name": "松若",
               "signal_tags": "有利:cushion×rank_dev",
-              "win_prob": 0.0831,
-              "place_prob": 0.2674,
+              "win_prob": 0.0907,
+              "place_prob": 0.2922,
               "odds_win_prob": 0.0955
             },
             {
@@ -6546,8 +6546,8 @@
               "running_style": "不明",
               "jockey_name": "◇今村",
               "signal_tags": "",
-              "win_prob": 0.2253,
-              "place_prob": 0.5855,
+              "win_prob": 0.2214,
+              "place_prob": 0.5843,
               "odds_win_prob": 0.1843
             },
             {
@@ -6576,8 +6576,8 @@
               "running_style": "不明",
               "jockey_name": "藤懸",
               "signal_tags": "不利:rank_dev単体",
-              "win_prob": 0.019,
-              "place_prob": 0.0659,
+              "win_prob": 0.0208,
+              "place_prob": 0.0726,
               "odds_win_prob": 0.0183
             },
             {
@@ -6606,8 +6606,8 @@
               "running_style": "不明",
               "jockey_name": "鮫島駿",
               "signal_tags": "有利:pace圧力系, 有利:rel_accel-, 有利:cushion×rel_lap",
-              "win_prob": 0.0261,
-              "place_prob": 0.0898,
+              "win_prob": 0.0257,
+              "place_prob": 0.0892,
               "odds_win_prob": 0.0214
             },
             {
@@ -6636,8 +6636,8 @@
               "running_style": "不明",
               "jockey_name": "秋山稔",
               "signal_tags": "不利:cushion×rank_dev, 不利:cushion×rel_lap",
-              "win_prob": 0.0734,
-              "place_prob": 0.239,
+              "win_prob": 0.0627,
+              "place_prob": 0.2091,
               "odds_win_prob": 0.0843
             },
             {
@@ -6666,8 +6666,8 @@
               "running_style": "不明",
               "jockey_name": "▲田山",
               "signal_tags": "不利:rank_dev単体",
-              "win_prob": 0.024,
-              "place_prob": 0.0826,
+              "win_prob": 0.0236,
+              "place_prob": 0.0821,
               "odds_win_prob": 0.023
             },
             {
@@ -6696,8 +6696,8 @@
               "running_style": "不明",
               "jockey_name": "△柴田裕",
               "signal_tags": "不利:rank_dev単体",
-              "win_prob": 0.0088,
-              "place_prob": 0.0308,
+              "win_prob": 0.0087,
+              "place_prob": 0.0306,
               "odds_win_prob": 0.0101
             },
             {
@@ -6726,8 +6726,8 @@
               "running_style": "不明",
               "jockey_name": "斎藤",
               "signal_tags": "有利:pace圧力系, 有利:rel_accel-",
-              "win_prob": 0.0299,
-              "place_prob": 0.1024,
+              "win_prob": 0.0256,
+              "place_prob": 0.0889,
               "odds_win_prob": 0.0228
             },
             {
@@ -6756,8 +6756,8 @@
               "running_style": "不明",
               "jockey_name": "北村友",
               "signal_tags": "",
-              "win_prob": 0.0488,
-              "place_prob": 0.1636,
+              "win_prob": 0.0533,
+              "place_prob": 0.1796,
               "odds_win_prob": 0.0508
             },
             {
@@ -6786,8 +6786,8 @@
               "running_style": "不明",
               "jockey_name": "太宰",
               "signal_tags": "",
-              "win_prob": 0.0303,
-              "place_prob": 0.1036,
+              "win_prob": 0.0259,
+              "place_prob": 0.0899,
               "odds_win_prob": 0.0287
             },
             {
@@ -6816,8 +6816,8 @@
               "running_style": "不明",
               "jockey_name": "岩田望",
               "signal_tags": "有利:rank_dev系, 有利:cushion×rank_dev",
-              "win_prob": 0.2226,
-              "place_prob": 0.5811,
+              "win_prob": 0.2429,
+              "place_prob": 0.6182,
               "odds_win_prob": 0.2556
             },
             {
@@ -6847,7 +6847,7 @@
               "jockey_name": "▲大久保",
               "signal_tags": "不利:rank_dev系, 不利:pace圧力系, 不利:rank_dev単体, 不利:cushion×rank_dev, 不利:cushion×rel_lap",
               "win_prob": 0.0125,
-              "place_prob": 0.0437,
+              "place_prob": 0.044,
               "odds_win_prob": 0.0144
             },
             {
@@ -6876,8 +6876,8 @@
               "running_style": "不明",
               "jockey_name": "西塚",
               "signal_tags": "",
-              "win_prob": 0.0514,
-              "place_prob": 0.1719,
+              "win_prob": 0.0494,
+              "place_prob": 0.1673,
               "odds_win_prob": 0.0433
             },
             {
@@ -6906,8 +6906,8 @@
               "running_style": "不明",
               "jockey_name": "高杉",
               "signal_tags": "不利:rank_dev系, 不利:rank_dev単体",
-              "win_prob": 0.023,
-              "place_prob": 0.0793,
+              "win_prob": 0.0197,
+              "place_prob": 0.0688,
               "odds_win_prob": 0.0264
             },
             {
@@ -6936,8 +6936,8 @@
               "running_style": "不明",
               "jockey_name": "幸",
               "signal_tags": "不利:rank_dev系, 不利:load_speed系, 不利:pace圧力系, 不利:rank_dev単体",
-              "win_prob": 0.0281,
-              "place_prob": 0.0962,
+              "win_prob": 0.024,
+              "place_prob": 0.0835,
               "odds_win_prob": 0.0322
             }
           ],
@@ -6989,8 +6989,8 @@
               "running_style": "不明",
               "jockey_name": "ルメール",
               "signal_tags": "不利:load+, 不利:cushion×rank_dev",
-              "win_prob": 0.2323,
-              "place_prob": 0.611,
+              "win_prob": 0.2419,
+              "place_prob": 0.6303,
               "odds_win_prob": 0.2408
             },
             {
@@ -7019,8 +7019,8 @@
               "running_style": "不明",
               "jockey_name": "太宰",
               "signal_tags": "有利:dist_load-, 不利:load_speed+, 有利:rel_dist-",
-              "win_prob": 0.0193,
-              "place_prob": 0.0687,
+              "win_prob": 0.0161,
+              "place_prob": 0.0579,
               "odds_win_prob": 0.0232
             },
             {
@@ -7049,8 +7049,8 @@
               "running_style": "不明",
               "jockey_name": "坂井",
               "signal_tags": "有利:rank_dev×chg, 有利:rank_dev単体, 不利:load+",
-              "win_prob": 0.2079,
-              "place_prob": 0.5699,
+              "win_prob": 0.2055,
+              "place_prob": 0.57,
               "odds_win_prob": 0.2091
             },
             {
@@ -7079,8 +7079,8 @@
               "running_style": "不明",
               "jockey_name": "鮫島駿",
               "signal_tags": "",
-              "win_prob": 0.0278,
-              "place_prob": 0.0979,
+              "win_prob": 0.0282,
+              "place_prob": 0.1002,
               "odds_win_prob": 0.0276
             },
             {
@@ -7109,8 +7109,8 @@
               "running_style": "不明",
               "jockey_name": "岩田望",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev×accel, 不利:cushion×accel, 有利:cushion×rank_dev",
-              "win_prob": 0.1198,
-              "place_prob": 0.3767,
+              "win_prob": 0.119,
+              "place_prob": 0.3777,
               "odds_win_prob": 0.1135
             },
             {
@@ -7139,8 +7139,8 @@
               "running_style": "不明",
               "jockey_name": "池添",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev×chg, 有利:rank_dev×accel, 有利:rank_dev単体, 有利:cushion×rel_lap",
-              "win_prob": 0.0325,
-              "place_prob": 0.114,
+              "win_prob": 0.0339,
+              "place_prob": 0.1196,
               "odds_win_prob": 0.0344
             },
             {
@@ -7169,8 +7169,8 @@
               "running_style": "不明",
               "jockey_name": "高杉",
               "signal_tags": "",
-              "win_prob": 0.0482,
-              "place_prob": 0.1658,
+              "win_prob": 0.0446,
+              "place_prob": 0.1555,
               "odds_win_prob": 0.0429
             },
             {
@@ -7199,8 +7199,8 @@
               "running_style": "不明",
               "jockey_name": "西村淳",
               "signal_tags": "",
-              "win_prob": 0.0235,
-              "place_prob": 0.0831,
+              "win_prob": 0.022,
+              "place_prob": 0.0786,
               "odds_win_prob": 0.0248
             },
             {
@@ -7229,8 +7229,8 @@
               "running_style": "不明",
               "jockey_name": "松山",
               "signal_tags": "有利:cushion×rel_lap",
-              "win_prob": 0.1711,
-              "place_prob": 0.4984,
+              "win_prob": 0.1782,
+              "place_prob": 0.5173,
               "odds_win_prob": 0.1621
             },
             {
@@ -7259,8 +7259,8 @@
               "running_style": "不明",
               "jockey_name": "▲田山",
               "signal_tags": "有利:rank_change-, 不利:load+, 有利:cushion×rank_dev",
-              "win_prob": 0.0437,
-              "place_prob": 0.1512,
+              "win_prob": 0.0449,
+              "place_prob": 0.1563,
               "odds_win_prob": 0.0476
             },
             {
@@ -7289,8 +7289,8 @@
               "running_style": "不明",
               "jockey_name": "松若",
               "signal_tags": "",
-              "win_prob": 0.016,
-              "place_prob": 0.057,
+              "win_prob": 0.0141,
+              "place_prob": 0.0508,
               "odds_win_prob": 0.0159
             },
             {
@@ -7319,8 +7319,8 @@
               "running_style": "不明",
               "jockey_name": "▲森田",
               "signal_tags": "",
-              "win_prob": 0.0111,
-              "place_prob": 0.0399,
+              "win_prob": 0.0126,
+              "place_prob": 0.0454,
               "odds_win_prob": 0.0111
             },
             {
@@ -7349,8 +7349,8 @@
               "running_style": "不明",
               "jockey_name": "団野",
               "signal_tags": "有利:rank_change-",
-              "win_prob": 0.0227,
-              "place_prob": 0.0802,
+              "win_prob": 0.0189,
+              "place_prob": 0.0677,
               "odds_win_prob": 0.0215
             },
             {
@@ -7379,8 +7379,8 @@
               "running_style": "不明",
               "jockey_name": "田口",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev×chg, 有利:rank_dev×accel, 有利:cushion×rank_dev",
-              "win_prob": 0.0113,
-              "place_prob": 0.0406,
+              "win_prob": 0.0094,
+              "place_prob": 0.0342,
               "odds_win_prob": 0.0136
             },
             {
@@ -7409,8 +7409,8 @@
               "running_style": "不明",
               "jockey_name": "吉村",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×chg, 不利:rank_dev×accel, 不利:rank_dev単体, 不利:load_speed+, 有利:load_dev+, 不利:cushion×rank_dev",
-              "win_prob": 0.0128,
-              "place_prob": 0.0457,
+              "win_prob": 0.0106,
+              "place_prob": 0.0384,
               "odds_win_prob": 0.0119
             }
           ],
@@ -7463,8 +7463,8 @@
               "running_style": "不明",
               "jockey_name": "岩田望",
               "signal_tags": "有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.2233,
-              "place_prob": 0.5974,
+              "win_prob": 0.237,
+              "place_prob": 0.6159,
               "odds_win_prob": 0.2329
             },
             {
@@ -7493,8 +7493,8 @@
               "running_style": "不明",
               "jockey_name": "斎藤",
               "signal_tags": "有利:pace圧力系, 有利:cushion×rel_lap",
-              "win_prob": 0.0804,
-              "place_prob": 0.2679,
+              "win_prob": 0.0934,
+              "place_prob": 0.3038,
               "odds_win_prob": 0.0727
             },
             {
@@ -7523,8 +7523,8 @@
               "running_style": "不明",
               "jockey_name": "岩田康",
               "signal_tags": "有利:pace圧力系, 有利:rel_accel-",
-              "win_prob": 0.0664,
-              "place_prob": 0.2249,
+              "win_prob": 0.0771,
+              "place_prob": 0.2559,
               "odds_win_prob": 0.0851
             },
             {
@@ -7553,8 +7553,8 @@
               "running_style": "不明",
               "jockey_name": "幸",
               "signal_tags": "有利:rank_dev単体, 有利:cushion×rank_dev",
-              "win_prob": 0.0275,
-              "place_prob": 0.0975,
+              "win_prob": 0.032,
+              "place_prob": 0.1118,
               "odds_win_prob": 0.0311
             },
             {
@@ -7583,8 +7583,8 @@
               "running_style": "不明",
               "jockey_name": "松若",
               "signal_tags": "",
-              "win_prob": 0.0272,
-              "place_prob": 0.0964,
+              "win_prob": 0.0316,
+              "place_prob": 0.1106,
               "odds_win_prob": 0.0307
             },
             {
@@ -7613,8 +7613,8 @@
               "running_style": "不明",
               "jockey_name": "西村淳",
               "signal_tags": "不利:rank_dev系, 有利:cushion×rank_dev",
-              "win_prob": 0.0894,
-              "place_prob": 0.2944,
+              "win_prob": 0.0813,
+              "place_prob": 0.2685,
               "odds_win_prob": 0.099
             },
             {
@@ -7643,8 +7643,8 @@
               "running_style": "不明",
               "jockey_name": "中井",
               "signal_tags": "",
-              "win_prob": 0.0234,
-              "place_prob": 0.0835,
+              "win_prob": 0.0272,
+              "place_prob": 0.0958,
               "odds_win_prob": 0.0237
             },
             {
@@ -7673,8 +7673,8 @@
               "running_style": "不明",
               "jockey_name": "ルメール",
               "signal_tags": "不利:rank_dev系",
-              "win_prob": 0.2659,
-              "place_prob": 0.6609,
+              "win_prob": 0.2418,
+              "place_prob": 0.6233,
               "odds_win_prob": 0.2263
             },
             {
@@ -7703,8 +7703,8 @@
               "running_style": "不明",
               "jockey_name": "坂井",
               "signal_tags": "不利:rank_dev系",
-              "win_prob": 0.025,
-              "place_prob": 0.0888,
+              "win_prob": 0.0227,
+              "place_prob": 0.0803,
               "odds_win_prob": 0.021
             },
             {
@@ -7733,8 +7733,8 @@
               "running_style": "不明",
               "jockey_name": "吉村",
               "signal_tags": "有利:cushion×rank_dev",
-              "win_prob": 0.0784,
-              "place_prob": 0.2618,
+              "win_prob": 0.0713,
+              "place_prob": 0.2384,
               "odds_win_prob": 0.0784
             },
             {
@@ -7763,8 +7763,8 @@
               "running_style": "不明",
               "jockey_name": "川田",
               "signal_tags": "不利:rank_dev系, 有利:消耗×加速, 有利:load_speed系, 有利:pace圧力系, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0475,
-              "place_prob": 0.1645,
+              "win_prob": 0.0432,
+              "place_prob": 0.1492,
               "odds_win_prob": 0.0504
             },
             {
@@ -7793,8 +7793,8 @@
               "running_style": "不明",
               "jockey_name": "鮫島駿",
               "signal_tags": "不利:pace圧力系, 不利:rel_accel-",
-              "win_prob": 0.0262,
-              "place_prob": 0.0929,
+              "win_prob": 0.0238,
+              "place_prob": 0.084,
               "odds_win_prob": 0.0239
             },
             {
@@ -7823,8 +7823,8 @@
               "running_style": "不明",
               "jockey_name": "高杉",
               "signal_tags": "有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0193,
-              "place_prob": 0.0691,
+              "win_prob": 0.0176,
+              "place_prob": 0.0625,
               "odds_win_prob": 0.0248
             }
           ],
@@ -7876,8 +7876,8 @@
               "running_style": "不明",
               "jockey_name": "ルメール",
               "signal_tags": "不利:rank_dev×accel, 不利:rank_dev単体, 不利:load_speed+, 不利:load_dev+, 不利:cushion×rank_dev",
-              "win_prob": 0.2236,
-              "place_prob": 0.603,
+              "win_prob": 0.2364,
+              "place_prob": 0.6204,
               "odds_win_prob": 0.2139
             },
             {
@@ -7906,8 +7906,8 @@
               "running_style": "不明",
               "jockey_name": "◇永島",
               "signal_tags": "",
-              "win_prob": 0.0596,
-              "place_prob": 0.2049,
+              "win_prob": 0.0562,
+              "place_prob": 0.1929,
               "odds_win_prob": 0.0604
             },
             {
@@ -7936,8 +7936,8 @@
               "running_style": "不明",
               "jockey_name": "松若",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×chg, 不利:rank_dev×accel, 不利:rank_dev単体, 不利:dist_load-, 不利:load+, 不利:rel_dist-, 不利:load_dev+, 不利:cushion×load, 不利:cushion×rank_dev",
-              "win_prob": 0.0701,
-              "place_prob": 0.238,
+              "win_prob": 0.078,
+              "place_prob": 0.2606,
               "odds_win_prob": 0.0638
             },
             {
@@ -7966,8 +7966,8 @@
               "running_style": "不明",
               "jockey_name": "◇古川奈",
               "signal_tags": "",
-              "win_prob": 0.039,
-              "place_prob": 0.1374,
+              "win_prob": 0.0413,
+              "place_prob": 0.1439,
               "odds_win_prob": 0.0373
             },
             {
@@ -7996,8 +7996,8 @@
               "running_style": "不明",
               "jockey_name": "団野",
               "signal_tags": "有利:rank_change-, 有利:cushion×rank_dev",
-              "win_prob": 0.107,
-              "place_prob": 0.3465,
+              "win_prob": 0.1071,
+              "place_prob": 0.3444,
               "odds_win_prob": 0.1099
             },
             {
@@ -8026,8 +8026,8 @@
               "running_style": "不明",
               "jockey_name": "浜中",
               "signal_tags": "",
-              "win_prob": 0.1293,
-              "place_prob": 0.406,
+              "win_prob": 0.1367,
+              "place_prob": 0.4218,
               "odds_win_prob": 0.1439
             },
             {
@@ -8057,7 +8057,7 @@
               "jockey_name": "吉村",
               "signal_tags": "有利:rank_change-",
               "win_prob": 0.0539,
-              "place_prob": 0.1865,
+              "place_prob": 0.1854,
               "odds_win_prob": 0.0554
             },
             {
@@ -8086,8 +8086,8 @@
               "running_style": "不明",
               "jockey_name": "▲和田陽",
               "signal_tags": "有利:dist_load-, 有利:rel_dist-, 有利:load_dev+",
-              "win_prob": 0.0698,
-              "place_prob": 0.2371,
+              "win_prob": 0.0699,
+              "place_prob": 0.2358,
               "odds_win_prob": 0.0754
             },
             {
@@ -8116,8 +8116,8 @@
               "running_style": "不明",
               "jockey_name": "▲森田",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev×accel, 有利:rank_dev単体, 有利:load_speed+",
-              "win_prob": 0.2478,
-              "place_prob": 0.6407,
+              "win_prob": 0.2205,
+              "place_prob": 0.5947,
               "odds_win_prob": 0.2399
             }
           ],
@@ -8169,8 +8169,8 @@
               "running_style": "不明",
               "jockey_name": "古川吉",
               "signal_tags": "",
-              "win_prob": 0.0829,
-              "place_prob": 0.254,
+              "win_prob": 0.0913,
+              "place_prob": 0.2766,
               "odds_win_prob": 0.0686
             },
             {
@@ -8199,8 +8199,8 @@
               "running_style": "不明",
               "jockey_name": "坂井",
               "signal_tags": "",
-              "win_prob": 0.0456,
-              "place_prob": 0.146,
+              "win_prob": 0.0502,
+              "place_prob": 0.1598,
               "odds_win_prob": 0.05
             },
             {
@@ -8229,8 +8229,8 @@
               "running_style": "不明",
               "jockey_name": "西村淳",
               "signal_tags": "有利:消耗×速度, 有利:dist_load+, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.1783,
-              "place_prob": 0.4788,
+              "win_prob": 0.1963,
+              "place_prob": 0.5127,
               "odds_win_prob": 0.1808
             },
             {
@@ -8259,8 +8259,8 @@
               "running_style": "不明",
               "jockey_name": "吉田隼",
               "signal_tags": "有利:pace圧力系, 有利:cushion×rel_lap",
-              "win_prob": 0.0318,
-              "place_prob": 0.1035,
+              "win_prob": 0.0274,
+              "place_prob": 0.0896,
               "odds_win_prob": 0.0263
             },
             {
@@ -8289,8 +8289,8 @@
               "running_style": "不明",
               "jockey_name": "幸",
               "signal_tags": "有利:cushion×rank_dev",
-              "win_prob": 0.0465,
-              "place_prob": 0.1486,
+              "win_prob": 0.0511,
+              "place_prob": 0.1627,
               "odds_win_prob": 0.051
             },
             {
@@ -8319,8 +8319,8 @@
               "running_style": "不明",
               "jockey_name": "▲田山",
               "signal_tags": "",
-              "win_prob": 0.0364,
-              "place_prob": 0.1178,
+              "win_prob": 0.0401,
+              "place_prob": 0.1291,
               "odds_win_prob": 0.04
             },
             {
@@ -8349,8 +8349,8 @@
               "running_style": "不明",
               "jockey_name": "田口",
               "signal_tags": "有利:rank_dev系",
-              "win_prob": 0.0373,
-              "place_prob": 0.1204,
+              "win_prob": 0.0321,
+              "place_prob": 0.1043,
               "odds_win_prob": 0.04
             },
             {
@@ -8379,8 +8379,8 @@
               "running_style": "不明",
               "jockey_name": "浜中",
               "signal_tags": "不利:rank_dev系, 不利:load_speed系",
-              "win_prob": 0.0413,
-              "place_prob": 0.1327,
+              "win_prob": 0.0454,
+              "place_prob": 0.1454,
               "odds_win_prob": 0.0406
             },
             {
@@ -8409,8 +8409,8 @@
               "running_style": "不明",
               "jockey_name": "▲和田陽",
               "signal_tags": "",
-              "win_prob": 0.0638,
-              "place_prob": 0.1999,
+              "win_prob": 0.0702,
+              "place_prob": 0.2184,
               "odds_win_prob": 0.0657
             },
             {
@@ -8439,8 +8439,8 @@
               "running_style": "不明",
               "jockey_name": "▲森田",
               "signal_tags": "不利:load_speed系",
-              "win_prob": 0.0261,
-              "place_prob": 0.0853,
+              "win_prob": 0.0287,
+              "place_prob": 0.0936,
               "odds_win_prob": 0.0272
             },
             {
@@ -8469,8 +8469,8 @@
               "running_style": "不明",
               "jockey_name": "団野",
               "signal_tags": "有利:rank_dev系, 有利:load_speed系, 有利:pace圧力系",
-              "win_prob": 0.0255,
-              "place_prob": 0.0834,
+              "win_prob": 0.028,
+              "place_prob": 0.0915,
               "odds_win_prob": 0.0258
             },
             {
@@ -8499,8 +8499,8 @@
               "running_style": "不明",
               "jockey_name": "菱田",
               "signal_tags": "有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.1285,
-              "place_prob": 0.3707,
+              "win_prob": 0.1107,
+              "place_prob": 0.3272,
               "odds_win_prob": 0.1263
             },
             {
@@ -8529,8 +8529,8 @@
               "running_style": "不明",
               "jockey_name": "武豊",
               "signal_tags": "",
-              "win_prob": 0.0716,
-              "place_prob": 0.2223,
+              "win_prob": 0.0693,
+              "place_prob": 0.2159,
               "odds_win_prob": 0.0704
             },
             {
@@ -8559,8 +8559,8 @@
               "running_style": "不明",
               "jockey_name": "高杉",
               "signal_tags": "",
-              "win_prob": 0.04,
-              "place_prob": 0.1288,
+              "win_prob": 0.0344,
+              "place_prob": 0.1116,
               "odds_win_prob": 0.0452
             },
             {
@@ -8589,8 +8589,8 @@
               "running_style": "不明",
               "jockey_name": "横山典",
               "signal_tags": "有利:pace圧力系",
-              "win_prob": 0.1445,
-              "place_prob": 0.4078,
+              "win_prob": 0.1246,
+              "place_prob": 0.3613,
               "odds_win_prob": 0.1421
             }
           ],
@@ -8642,8 +8642,8 @@
               "running_style": "不明",
               "jockey_name": "◇古川奈",
               "signal_tags": "",
-              "win_prob": 0.1018,
-              "place_prob": 0.3256,
+              "win_prob": 0.0977,
+              "place_prob": 0.3199,
               "odds_win_prob": 0.0955
             },
             {
@@ -8672,8 +8672,8 @@
               "running_style": "不明",
               "jockey_name": "ルメール",
               "signal_tags": "",
-              "win_prob": 0.187,
-              "place_prob": 0.5275,
+              "win_prob": 0.1693,
+              "place_prob": 0.4989,
               "odds_win_prob": 0.1982
             },
             {
@@ -8702,8 +8702,8 @@
               "running_style": "不明",
               "jockey_name": "団野",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×chg, 不利:cushion×rank_dev, 不利:cushion×rel_lap",
-              "win_prob": 0.0965,
-              "place_prob": 0.311,
+              "win_prob": 0.1059,
+              "place_prob": 0.3431,
               "odds_win_prob": 0.0853
             },
             {
@@ -8732,8 +8732,8 @@
               "running_style": "不明",
               "jockey_name": "北村友",
               "signal_tags": "",
-              "win_prob": 0.17,
-              "place_prob": 0.4928,
+              "win_prob": 0.1461,
+              "place_prob": 0.4466,
               "odds_win_prob": 0.1802
             },
             {
@@ -8762,8 +8762,8 @@
               "running_style": "不明",
               "jockey_name": "鮫島駿",
               "signal_tags": "",
-              "win_prob": 0.0265,
-              "place_prob": 0.0927,
+              "win_prob": 0.0322,
+              "place_prob": 0.114,
               "odds_win_prob": 0.0249
             },
             {
@@ -8792,8 +8792,8 @@
               "running_style": "不明",
               "jockey_name": "武豊",
               "signal_tags": "有利:rank_change-, 有利:cushion×rank_dev",
-              "win_prob": 0.2312,
-              "place_prob": 0.606,
+              "win_prob": 0.2808,
+              "place_prob": 0.6842,
               "odds_win_prob": 0.2332
             },
             {
@@ -8822,8 +8822,8 @@
               "running_style": "不明",
               "jockey_name": "岩田康",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×chg, 不利:rank_dev×accel, 不利:rank_dev単体, 不利:load+",
-              "win_prob": 0.0305,
-              "place_prob": 0.1062,
+              "win_prob": 0.031,
+              "place_prob": 0.11,
               "odds_win_prob": 0.0367
             },
             {
@@ -8852,8 +8852,8 @@
               "running_style": "不明",
               "jockey_name": "国分優",
               "signal_tags": "",
-              "win_prob": 0.0393,
-              "place_prob": 0.1356,
+              "win_prob": 0.0363,
+              "place_prob": 0.1281,
               "odds_win_prob": 0.0369
             },
             {
@@ -8882,8 +8882,8 @@
               "running_style": "不明",
               "jockey_name": "酒井",
               "signal_tags": "有利:rank_dev×accel, 不利:cushion×rank_dev",
-              "win_prob": 0.0495,
-              "place_prob": 0.1691,
+              "win_prob": 0.0407,
+              "place_prob": 0.143,
               "odds_win_prob": 0.0443
             },
             {
@@ -8912,8 +8912,8 @@
               "running_style": "不明",
               "jockey_name": "斎藤",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev×chg, 有利:rank_dev×accel",
-              "win_prob": 0.0205,
-              "place_prob": 0.0722,
+              "win_prob": 0.0195,
+              "place_prob": 0.0701,
               "odds_win_prob": 0.0192
             },
             {
@@ -8942,8 +8942,8 @@
               "running_style": "不明",
               "jockey_name": "坂井",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev×chg, 有利:rank_dev単体",
-              "win_prob": 0.0471,
-              "place_prob": 0.1612,
+              "win_prob": 0.0405,
+              "place_prob": 0.1422,
               "odds_win_prob": 0.0456
             }
           ],
@@ -8995,8 +8995,8 @@
               "running_style": "不明",
               "jockey_name": "鮫島駿",
               "signal_tags": "有利:rank_dev系, 有利:pace圧力系, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.054,
-              "place_prob": 0.1723,
+              "win_prob": 0.0516,
+              "place_prob": 0.1657,
               "odds_win_prob": 0.0579
             },
             {
@@ -9025,8 +9025,8 @@
               "running_style": "不明",
               "jockey_name": "田口",
               "signal_tags": "",
-              "win_prob": 0.0598,
-              "place_prob": 0.1895,
+              "win_prob": 0.0593,
+              "place_prob": 0.1888,
               "odds_win_prob": 0.061
             },
             {
@@ -9055,8 +9055,8 @@
               "running_style": "不明",
               "jockey_name": "ルメール",
               "signal_tags": "",
-              "win_prob": 0.0779,
-              "place_prob": 0.2415,
+              "win_prob": 0.0846,
+              "place_prob": 0.261,
               "odds_win_prob": 0.0834
             },
             {
@@ -9085,8 +9085,8 @@
               "running_style": "不明",
               "jockey_name": "菱田",
               "signal_tags": "不利:rank_dev系",
-              "win_prob": 0.162,
-              "place_prob": 0.4481,
+              "win_prob": 0.1548,
+              "place_prob": 0.4343,
               "odds_win_prob": 0.1415
             },
             {
@@ -9115,8 +9115,8 @@
               "running_style": "不明",
               "jockey_name": "武豊",
               "signal_tags": "",
-              "win_prob": 0.0665,
-              "place_prob": 0.2089,
+              "win_prob": 0.0722,
+              "place_prob": 0.2261,
               "odds_win_prob": 0.0583
             },
             {
@@ -9145,8 +9145,8 @@
               "running_style": "不明",
               "jockey_name": "松山",
               "signal_tags": "有利:pace圧力系",
-              "win_prob": 0.0871,
-              "place_prob": 0.2671,
+              "win_prob": 0.0852,
+              "place_prob": 0.2627,
               "odds_win_prob": 0.0852
             },
             {
@@ -9175,8 +9175,8 @@
               "running_style": "不明",
               "jockey_name": "坂井",
               "signal_tags": "有利:消耗×加速",
-              "win_prob": 0.0505,
-              "place_prob": 0.1617,
+              "win_prob": 0.0494,
+              "place_prob": 0.1589,
               "odds_win_prob": 0.0539
             },
             {
@@ -9205,8 +9205,8 @@
               "running_style": "不明",
               "jockey_name": "岩田望",
               "signal_tags": "不利:rank_dev系",
-              "win_prob": 0.0575,
-              "place_prob": 0.1828,
+              "win_prob": 0.0625,
+              "place_prob": 0.198,
               "odds_win_prob": 0.0536
             },
             {
@@ -9235,8 +9235,8 @@
               "running_style": "不明",
               "jockey_name": "団野",
               "signal_tags": "不利:rank_dev系, 不利:accel_raw+",
-              "win_prob": 0.0849,
-              "place_prob": 0.261,
+              "win_prob": 0.0843,
+              "place_prob": 0.2602,
               "odds_win_prob": 0.1003
             },
             {
@@ -9265,8 +9265,8 @@
               "running_style": "不明",
               "jockey_name": "西村淳",
               "signal_tags": "",
-              "win_prob": 0.0549,
-              "place_prob": 0.175,
+              "win_prob": 0.0467,
+              "place_prob": 0.1507,
               "odds_win_prob": 0.0511
             },
             {
@@ -9295,8 +9295,8 @@
               "running_style": "不明",
               "jockey_name": "川田",
               "signal_tags": "有利:rank_dev単体",
-              "win_prob": 0.1762,
-              "place_prob": 0.4773,
+              "win_prob": 0.1913,
+              "place_prob": 0.508,
               "odds_win_prob": 0.1887
             },
             {
@@ -9325,8 +9325,8 @@
               "running_style": "不明",
               "jockey_name": "高杉",
               "signal_tags": "",
-              "win_prob": 0.0685,
-              "place_prob": 0.2148,
+              "win_prob": 0.0582,
+              "place_prob": 0.1855,
               "odds_win_prob": 0.065
             }
           ],
@@ -9378,8 +9378,8 @@
               "running_style": "不明",
               "jockey_name": "亀田",
               "signal_tags": "",
-              "win_prob": 0.0157,
-              "place_prob": 0.0517,
+              "win_prob": 0.0174,
+              "place_prob": 0.0573,
               "odds_win_prob": 0.0152
             },
             {
@@ -9408,8 +9408,8 @@
               "running_style": "不明",
               "jockey_name": "鮫島駿",
               "signal_tags": "有利:rank_dev×chg, 有利:rank_change-, 有利:cushion×rank_dev",
-              "win_prob": 0.0417,
-              "place_prob": 0.1336,
+              "win_prob": 0.0423,
+              "place_prob": 0.1354,
               "odds_win_prob": 0.0489
             },
             {
@@ -9438,8 +9438,8 @@
               "running_style": "不明",
               "jockey_name": "城戸",
               "signal_tags": "不利:rank_dev系最強",
-              "win_prob": 0.0113,
-              "place_prob": 0.0373,
+              "win_prob": 0.0125,
+              "place_prob": 0.0415,
               "odds_win_prob": 0.0116
             },
             {
@@ -9468,8 +9468,8 @@
               "running_style": "不明",
               "jockey_name": "古川奈",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×chg, 不利:rank_dev×accel, 不利:rank_dev単体",
-              "win_prob": 0.0376,
-              "place_prob": 0.1211,
+              "win_prob": 0.0461,
+              "place_prob": 0.1472,
               "odds_win_prob": 0.0344
             },
             {
@@ -9498,8 +9498,8 @@
               "running_style": "不明",
               "jockey_name": "吉村",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev×accel, 有利:rank_dev単体, 有利:load_speed+, 有利:rank_change-, 有利:cushion×rel_lap",
-              "win_prob": 0.1557,
-              "place_prob": 0.4311,
+              "win_prob": 0.1602,
+              "place_prob": 0.4406,
               "odds_win_prob": 0.1424
             },
             {
@@ -9528,8 +9528,8 @@
               "running_style": "不明",
               "jockey_name": "酒井",
               "signal_tags": "",
-              "win_prob": 0.1041,
-              "place_prob": 0.3096,
+              "win_prob": 0.1105,
+              "place_prob": 0.3257,
               "odds_win_prob": 0.0896
             },
             {
@@ -9558,8 +9558,8 @@
               "running_style": "不明",
               "jockey_name": "西村淳",
               "signal_tags": "",
-              "win_prob": 0.0483,
-              "place_prob": 0.1537,
+              "win_prob": 0.0401,
+              "place_prob": 0.1289,
               "odds_win_prob": 0.0475
             },
             {
@@ -9588,8 +9588,8 @@
               "running_style": "不明",
               "jockey_name": "松若",
               "signal_tags": "不利:rank_dev×chg, 不利:rank_dev単体, 不利:load_speed+, 不利:load+, 不利:cushion×rel_lap",
-              "win_prob": 0.0421,
-              "place_prob": 0.135,
+              "win_prob": 0.0427,
+              "place_prob": 0.1368,
               "odds_win_prob": 0.0385
             },
             {
@@ -9618,8 +9618,8 @@
               "running_style": "不明",
               "jockey_name": "西塚",
               "signal_tags": "不利:rank_dev×chg, 不利:rank_dev×accel, 不利:rank_dev単体",
-              "win_prob": 0.017,
-              "place_prob": 0.0559,
+              "win_prob": 0.0172,
+              "place_prob": 0.0567,
               "odds_win_prob": 0.0175
             },
             {
@@ -9648,8 +9648,8 @@
               "running_style": "不明",
               "jockey_name": "田口",
               "signal_tags": "",
-              "win_prob": 0.0124,
-              "place_prob": 0.0409,
+              "win_prob": 0.0131,
+              "place_prob": 0.0433,
               "odds_win_prob": 0.0113
             },
             {
@@ -9678,8 +9678,8 @@
               "running_style": "不明",
               "jockey_name": "池添",
               "signal_tags": "",
-              "win_prob": 0.0379,
-              "place_prob": 0.1221,
+              "win_prob": 0.0466,
+              "place_prob": 0.1484,
               "odds_win_prob": 0.0347
             },
             {
@@ -9708,8 +9708,8 @@
               "running_style": "不明",
               "jockey_name": "幸",
               "signal_tags": "有利:rank_change-",
-              "win_prob": 0.0395,
-              "place_prob": 0.127,
+              "win_prob": 0.0383,
+              "place_prob": 0.1233,
               "odds_win_prob": 0.0464
             },
             {
@@ -9738,8 +9738,8 @@
               "running_style": "不明",
               "jockey_name": "岩田望",
               "signal_tags": "不利:rank_dev×chg, 不利:rank_dev×accel, 不利:rank_dev単体",
-              "win_prob": 0.1679,
-              "place_prob": 0.4566,
+              "win_prob": 0.1553,
+              "place_prob": 0.4301,
               "odds_win_prob": 0.1734
             },
             {
@@ -9768,8 +9768,8 @@
               "running_style": "不明",
               "jockey_name": "ルメール",
               "signal_tags": "",
-              "win_prob": 0.1213,
-              "place_prob": 0.3526,
+              "win_prob": 0.1296,
+              "place_prob": 0.3722,
               "odds_win_prob": 0.1424
             },
             {
@@ -9798,8 +9798,8 @@
               "running_style": "不明",
               "jockey_name": "松山",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev×chg, 有利:rank_dev×accel",
-              "win_prob": 0.043,
-              "place_prob": 0.1377,
+              "win_prob": 0.0354,
+              "place_prob": 0.1142,
               "odds_win_prob": 0.0505
             },
             {
@@ -9828,8 +9828,8 @@
               "running_style": "不明",
               "jockey_name": "吉田隼",
               "signal_tags": "有利:load_dev+",
-              "win_prob": 0.0359,
-              "place_prob": 0.1158,
+              "win_prob": 0.0351,
+              "place_prob": 0.1132,
               "odds_win_prob": 0.0328
             },
             {
@@ -9858,8 +9858,8 @@
               "running_style": "不明",
               "jockey_name": "富田",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×chg, 不利:rank_dev×accel, 不利:rank_dev単体, 不利:dist_load-, 不利:load+, 不利:rel_dist-",
-              "win_prob": 0.013,
-              "place_prob": 0.043,
+              "win_prob": 0.0119,
+              "place_prob": 0.0394,
               "odds_win_prob": 0.0119
             },
             {
@@ -9888,8 +9888,8 @@
               "running_style": "不明",
               "jockey_name": "武豊",
               "signal_tags": "",
-              "win_prob": 0.0555,
-              "place_prob": 0.1753,
+              "win_prob": 0.0457,
+              "place_prob": 0.1458,
               "odds_win_prob": 0.0508
             }
           ],
@@ -9941,8 +9941,8 @@
               "running_style": "不明",
               "jockey_name": "松山",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×chg, 不利:rank_dev×accel, 不利:rank_dev単体, 有利:rank_change-, 不利:cushion×rank_dev, 不利:cushion×rel_lap",
-              "win_prob": 0.0078,
-              "place_prob": 0.0289,
+              "win_prob": 0.0095,
+              "place_prob": 0.0355,
               "odds_win_prob": 0.0061
             },
             {
@@ -9971,8 +9971,8 @@
               "running_style": "不明",
               "jockey_name": "西村淳",
               "signal_tags": "",
-              "win_prob": 0.0181,
-              "place_prob": 0.0665,
+              "win_prob": 0.0201,
+              "place_prob": 0.0738,
               "odds_win_prob": 0.0169
             },
             {
@@ -10001,8 +10001,8 @@
               "running_style": "不明",
               "jockey_name": "北村友",
               "signal_tags": "有利:rank_dev単体, 有利:rank_change-, 有利:cushion×rank_dev",
-              "win_prob": 0.2841,
-              "place_prob": 0.6994,
+              "win_prob": 0.2918,
+              "place_prob": 0.71,
               "odds_win_prob": 0.2732
             },
             {
@@ -10031,8 +10031,8 @@
               "running_style": "不明",
               "jockey_name": "ルメール",
               "signal_tags": "有利:rank_dev×accel, 有利:dist_load-, 有利:rel_dist-, 有利:cushion×rank_dev",
-              "win_prob": 0.0917,
-              "place_prob": 0.3092,
+              "win_prob": 0.0929,
+              "place_prob": 0.3138,
               "odds_win_prob": 0.0966
             },
             {
@@ -10061,8 +10061,8 @@
               "running_style": "不明",
               "jockey_name": "高杉",
               "signal_tags": "不利:load+",
-              "win_prob": 0.0045,
-              "place_prob": 0.0168,
+              "win_prob": 0.0039,
+              "place_prob": 0.0147,
               "odds_win_prob": 0.0042
             },
             {
@@ -10091,8 +10091,8 @@
               "running_style": "不明",
               "jockey_name": "岩田望",
               "signal_tags": "有利:rank_change-, 有利:cushion×accel, 有利:cushion×rank_dev",
-              "win_prob": 0.0168,
-              "place_prob": 0.0617,
+              "win_prob": 0.0162,
+              "place_prob": 0.0601,
               "odds_win_prob": 0.0182
             },
             {
@@ -10121,8 +10121,8 @@
               "running_style": "不明",
               "jockey_name": "浜中",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev×accel, 不利:load+, 有利:cushion×rank_dev",
-              "win_prob": 0.0244,
-              "place_prob": 0.089,
+              "win_prob": 0.0225,
+              "place_prob": 0.0827,
               "odds_win_prob": 0.023
             },
             {
@@ -10151,8 +10151,8 @@
               "running_style": "不明",
               "jockey_name": "武豊",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev×chg, 有利:rank_dev×accel, 有利:rank_dev単体, 有利:load_speed+, 有利:rank_change-, 有利:load+, 有利:load_dev+, 有利:cushion×load, 不利:cushion×rank_dev, 不利:cushion×rel_lap",
-              "win_prob": 0.1709,
-              "place_prob": 0.5128,
+              "win_prob": 0.1755,
+              "place_prob": 0.5243,
               "odds_win_prob": 0.1801
             },
             {
@@ -10181,8 +10181,8 @@
               "running_style": "不明",
               "jockey_name": "岩田康",
               "signal_tags": "不利:rank_dev系最強, 不利:rank_dev×accel, 有利:load_speed+, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0115,
-              "place_prob": 0.0426,
+              "win_prob": 0.0128,
+              "place_prob": 0.0474,
               "odds_win_prob": 0.0138
             },
             {
@@ -10211,8 +10211,8 @@
               "running_style": "不明",
               "jockey_name": "池添",
               "signal_tags": "",
-              "win_prob": 0.024,
-              "place_prob": 0.0876,
+              "win_prob": 0.0246,
+              "place_prob": 0.0903,
               "odds_win_prob": 0.0224
             },
             {
@@ -10241,8 +10241,8 @@
               "running_style": "不明",
               "jockey_name": "幸",
               "signal_tags": "有利:dist_load-, 有利:rel_dist-",
-              "win_prob": 0.017,
-              "place_prob": 0.0625,
+              "win_prob": 0.0172,
+              "place_prob": 0.0635,
               "odds_win_prob": 0.0158
             },
             {
@@ -10271,8 +10271,8 @@
               "running_style": "不明",
               "jockey_name": "横山典",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev×chg, 有利:rank_dev×accel, 有利:rank_dev単体, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0148,
-              "place_prob": 0.0545,
+              "win_prob": 0.0144,
+              "place_prob": 0.0533,
               "odds_win_prob": 0.0138
             },
             {
@@ -10301,8 +10301,8 @@
               "running_style": "不明",
               "jockey_name": "坂井",
               "signal_tags": "有利:rank_dev単体",
-              "win_prob": 0.1831,
-              "place_prob": 0.5384,
+              "win_prob": 0.1785,
+              "place_prob": 0.5307,
               "odds_win_prob": 0.1761
             },
             {
@@ -10331,8 +10331,8 @@
               "running_style": "不明",
               "jockey_name": "川田",
               "signal_tags": "有利:rank_dev系最強, 有利:rank_dev×chg, 有利:rank_dev単体, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.1213,
-              "place_prob": 0.3927,
+              "win_prob": 0.1108,
+              "place_prob": 0.3654,
               "odds_win_prob": 0.1278
             },
             {
@@ -10361,8 +10361,8 @@
               "running_style": "不明",
               "jockey_name": "古川吉",
               "signal_tags": "",
-              "win_prob": 0.0101,
-              "place_prob": 0.0373,
+              "win_prob": 0.0093,
+              "place_prob": 0.0346,
               "odds_win_prob": 0.0121
             }
           ],
@@ -10414,8 +10414,8 @@
               "running_style": "不明",
               "jockey_name": "岩田望",
               "signal_tags": "不利:rank_dev単体, 不利:cushion×rank_dev",
-              "win_prob": 0.0637,
-              "place_prob": 0.203,
+              "win_prob": 0.0717,
+              "place_prob": 0.2236,
               "odds_win_prob": 0.0627
             },
             {
@@ -10444,8 +10444,8 @@
               "running_style": "不明",
               "jockey_name": "太宰",
               "signal_tags": "",
-              "win_prob": 0.0276,
-              "place_prob": 0.0915,
+              "win_prob": 0.0273,
+              "place_prob": 0.0896,
               "odds_win_prob": 0.0293
             },
             {
@@ -10474,8 +10474,8 @@
               "running_style": "不明",
               "jockey_name": "川田",
               "signal_tags": "",
-              "win_prob": 0.2264,
-              "place_prob": 0.5713,
+              "win_prob": 0.1993,
+              "place_prob": 0.5202,
               "odds_win_prob": 0.2094
             },
             {
@@ -10504,8 +10504,8 @@
               "running_style": "不明",
               "jockey_name": "高杉",
               "signal_tags": "",
-              "win_prob": 0.0323,
-              "place_prob": 0.1066,
+              "win_prob": 0.0363,
+              "place_prob": 0.1181,
               "odds_win_prob": 0.0347
             },
             {
@@ -10534,8 +10534,8 @@
               "running_style": "不明",
               "jockey_name": "ルメール",
               "signal_tags": "",
-              "win_prob": 0.0474,
-              "place_prob": 0.1539,
+              "win_prob": 0.0487,
+              "place_prob": 0.1563,
               "odds_win_prob": 0.052
             },
             {
@@ -10564,8 +10564,8 @@
               "running_style": "不明",
               "jockey_name": "幸",
               "signal_tags": "有利:rank_dev系, 有利:pace圧力系, 有利:rel_accel-",
-              "win_prob": 0.037,
-              "place_prob": 0.1214,
+              "win_prob": 0.0366,
+              "place_prob": 0.1189,
               "odds_win_prob": 0.0392
             },
             {
@@ -10594,8 +10594,8 @@
               "running_style": "不明",
               "jockey_name": "岩田康",
               "signal_tags": "",
-              "win_prob": 0.0277,
-              "place_prob": 0.0918,
+              "win_prob": 0.0311,
+              "place_prob": 0.1018,
               "odds_win_prob": 0.0285
             },
             {
@@ -10624,8 +10624,8 @@
               "running_style": "不明",
               "jockey_name": "武豊",
               "signal_tags": "有利:cushion×rank_dev",
-              "win_prob": 0.1178,
-              "place_prob": 0.3502,
+              "win_prob": 0.1325,
+              "place_prob": 0.3819,
               "odds_win_prob": 0.109
             },
             {
@@ -10654,8 +10654,8 @@
               "running_style": "不明",
               "jockey_name": "西村淳",
               "signal_tags": "",
-              "win_prob": 0.0501,
-              "place_prob": 0.162,
+              "win_prob": 0.0441,
+              "place_prob": 0.142,
               "odds_win_prob": 0.0517
             },
             {
@@ -10684,8 +10684,8 @@
               "running_style": "不明",
               "jockey_name": "古川吉",
               "signal_tags": "有利:rank_dev系, 有利:pace圧力系",
-              "win_prob": 0.0139,
-              "place_prob": 0.0467,
+              "win_prob": 0.0142,
+              "place_prob": 0.0474,
               "odds_win_prob": 0.0135
             },
             {
@@ -10714,8 +10714,8 @@
               "running_style": "不明",
               "jockey_name": "永島",
               "signal_tags": "",
-              "win_prob": 0.1292,
-              "place_prob": 0.378,
+              "win_prob": 0.1279,
+              "place_prob": 0.3711,
               "odds_win_prob": 0.1349
             },
             {
@@ -10744,8 +10744,8 @@
               "running_style": "不明",
               "jockey_name": "北村友",
               "signal_tags": "",
-              "win_prob": 0.0321,
-              "place_prob": 0.1058,
+              "win_prob": 0.036,
+              "place_prob": 0.1172,
               "odds_win_prob": 0.033
             },
             {
@@ -10774,8 +10774,8 @@
               "running_style": "不明",
               "jockey_name": "吉村",
               "signal_tags": "不利:rank_dev系, 不利:rank_dev単体",
-              "win_prob": 0.0182,
-              "place_prob": 0.0611,
+              "win_prob": 0.0181,
+              "place_prob": 0.0599,
               "odds_win_prob": 0.0177
             },
             {
@@ -10804,8 +10804,8 @@
               "running_style": "不明",
               "jockey_name": "和田陽",
               "signal_tags": "",
-              "win_prob": 0.0919,
-              "place_prob": 0.2825,
+              "win_prob": 0.0809,
+              "place_prob": 0.2495,
               "odds_win_prob": 0.1007
             },
             {
@@ -10834,8 +10834,8 @@
               "running_style": "不明",
               "jockey_name": "横山典",
               "signal_tags": "有利:消耗×加速, 有利:pace圧力系, 有利:cushion×rank_dev, 有利:cushion×rel_lap",
-              "win_prob": 0.0241,
-              "place_prob": 0.0802,
+              "win_prob": 0.0271,
+              "place_prob": 0.0889,
               "odds_win_prob": 0.0249
             },
             {
@@ -10864,8 +10864,8 @@
               "running_style": "不明",
               "jockey_name": "坂井",
               "signal_tags": "不利:rel_accel-, 不利:rank_dev単体",
-              "win_prob": 0.0607,
-              "place_prob": 0.1939,
+              "win_prob": 0.0682,
+              "place_prob": 0.2138,
               "odds_win_prob": 0.0589
             }
           ],
