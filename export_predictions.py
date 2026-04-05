@@ -243,9 +243,27 @@ def export_predictions(target_date: date) -> Path:
                 e = entries_map.get(hn, {})
                 pf_info = pace_fitness_map.get(hn, {})
 
-                # 推奨判定（DSGS ROI + composite_rank ベース）
+                # ANDフィルタティア判定（推奨判定の前に実施）
+                and_filter_tier = None
+                and_filter_roi = None
+                if horse_id:
+                    tier_result = heatmap_scorer.classify_horse(horse_id, ct)
+                    and_filter_tier = tier_result.get("tier")
+                    and_filter_roi = tier_result.get("oos_roi")
+
+                # 推奨判定（ANDフィルタティア + DSGS ROI + composite_rank ベース）
                 recommendation = ""
-                if ct in ("ダート", "芝") and horse_id:
+
+                # ANDフィルタティアによる推奨
+                if and_filter_tier:
+                    tier_num = int(and_filter_tier.replace("%", ""))
+                    if tier_num >= 110:
+                        recommendation = "買"
+                    elif tier_num <= 70:
+                        recommendation = "避"
+
+                # ティアで判定されなかった場合、DSGSベースで補完
+                if not recommendation and ct in ("ダート", "芝") and horse_id:
                     dsgs_roi_info = dsgs_scorer.get_horse_dsgs_roi(
                         horse_id, race_id, ct, combo_chains_df)
                     dims_passed = dsgs_roi_info.get("dims_passed", 0)
@@ -411,14 +429,6 @@ def export_predictions(target_date: date) -> Path:
                                 dsgs_roi_str = f"0/{total_dims}"
                         else:
                             dsgs_roi_str = "-"
-
-                # ANDフィルタティア判定
-                and_filter_tier = None
-                and_filter_roi = None
-                if horse_id:
-                    tier_result = heatmap_scorer.classify_horse(horse_id, ct)
-                    and_filter_tier = tier_result.get("tier")
-                    and_filter_roi = tier_result.get("oos_roi")
 
                 # 展開適性
                 pace_advantage_str = pf_info.get("advantage", "")

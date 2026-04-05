@@ -33,16 +33,25 @@ BG_GREEN_STRONG = "#1a5c2a"
 BG_GREEN_MEDIUM = "#1a4d2a"
 BG_GREEN_LIGHT = "#1a3d2a"
 BG_RED_STRONG = "#5a1a1a"
+BG_RED_MEDIUM = "#4d1a1a"
 BG_RED_LIGHT = "#3d1a1a"
+BG_ORANGE_LIGHT = "#3d2a1a"
+BG_ORANGE = "#4d2a1a"
+BG_YELLOW_LIGHT = "#3d3d1a"
 TEXT_GREEN = "#4caf50"
 TEXT_GREEN_MED = "#66bb6a"
 TEXT_RED = "#ef5350"
+TEXT_RED_STRONG = "#ff1744"
+TEXT_ORANGE = "#ff9800"
+TEXT_ORANGE_LIGHT = "#ffb74d"
+TEXT_YELLOW = "#ffee58"
 TEXT_LIGHT = "#e0e0e0"
 TEXT_MUTED = "#b0b0b0"
 PACE_COLORS = {"H": "#ef5350", "M": "#ffa726", "S": "#42a5f5"}
 
-# ティア色マッピング
+# ティア色マッピング（全10段階: 高ROI 130-90% + 低ROI 80-40%）
 TIER_STYLES = {
+    # 高ROIティア（恵まれた馬）
     "130%": {
         "bg": BG_GREEN_STRONG,
         "color": TEXT_GREEN,
@@ -68,15 +77,50 @@ TIER_STYLES = {
         "font_size": "1em",
     },
     "90%": {
+        "bg": BG_YELLOW_LIGHT,
+        "color": TEXT_YELLOW,
+        "font_weight": "normal",
+        "font_size": "1em",
+    },
+    # 低ROIティア（恵まれない馬）
+    "80%": {
+        "bg": BG_ORANGE_LIGHT,
+        "color": TEXT_ORANGE_LIGHT,
+        "font_weight": "normal",
+        "font_size": "1em",
+    },
+    "70%": {
+        "bg": BG_ORANGE,
+        "color": TEXT_ORANGE,
+        "font_weight": "normal",
+        "font_size": "1em",
+    },
+    "60%": {
         "bg": BG_RED_LIGHT,
         "color": TEXT_RED,
         "font_weight": "normal",
         "font_size": "1em",
     },
+    "50%": {
+        "bg": BG_RED_MEDIUM,
+        "color": TEXT_RED,
+        "font_weight": "bold",
+        "font_size": "1em",
+    },
+    "40%": {
+        "bg": BG_RED_STRONG,
+        "color": TEXT_RED_STRONG,
+        "font_weight": "bold",
+        "font_size": "1.1em",
+    },
 }
 
-# ティアソート順（高い方が上位）
-TIER_SORT_ORDER = {"130%": 0, "120%": 1, "110%": 2, "100%": 3, "90%": 4, "-": 5}
+# ティアソート順（高い方が上位、低い方が下位）
+TIER_SORT_ORDER = {
+    "130%": 0, "120%": 1, "110%": 2, "100%": 3, "90%": 4,
+    "80%": 6, "70%": 7, "60%": 8, "50%": 9, "40%": 10,
+    "-": 5,
+}
 
 
 # ============================================================
@@ -317,14 +361,15 @@ def main():
         except ValueError:
             pass
 
-    # 注目レースランキング（ティア130%/120%の馬がいるレースを上位に）
+    # 注目レースランキング（ティア130%/120%の馬がいるレースを上位に、40%/50%は注意マーク）
     all_races = []
+    ALL_TIER_KEYS = ["130%", "120%", "110%", "100%", "90%", "80%", "70%", "60%", "50%", "40%"]
     for venue_name, venue_data in venues_data.items():
         for race in venue_data.get("races", []):
             horses = race.get("horses", [])
 
             # 各馬のティアを集計
-            tier_counts = {"130%": 0, "120%": 0, "110%": 0, "100%": 0, "90%": 0}
+            tier_counts = {k: 0 for k in ALL_TIER_KEYS}
             for h in horses:
                 t = h.get("and_filter_tier")
                 if t and t in tier_counts:
@@ -338,7 +383,7 @@ def main():
                 + tier_counts["100%"] * 1
             )
 
-            # Top3のティア馬名
+            # Top3のティア馬名（高ティアと低ティアの注目馬）
             tier_horses = [
                 (h, TIER_SORT_ORDER.get(h.get("and_filter_tier") or "-", 5))
                 for h in horses
@@ -350,12 +395,18 @@ def main():
                 if h.get("and_filter_tier")
             )
 
-            # ティアサマリー文字列
+            # ティアサマリー文字列（高ティアと低ティア両方表示）
             tier_summary_parts = []
-            for tk in ["130%", "120%", "110%", "100%", "90%"]:
+            for tk in ALL_TIER_KEYS:
                 if tier_counts[tk] > 0:
                     tier_summary_parts.append(f"{tk}:{tier_counts[tk]}")
             tier_summary = " ".join(tier_summary_parts) if tier_summary_parts else "-"
+
+            # 低ティア注意マーク
+            n_low_tier = tier_counts["40%"] + tier_counts["50%"]
+            alert_mark = ""
+            if n_low_tier > 0:
+                alert_mark = f" [!{n_low_tier}]"
 
             all_races.append({
                 "venue": venue_name,
@@ -367,6 +418,8 @@ def main():
                 "tier_summary": tier_summary,
                 "top3_names": top3_names,
                 "n_high_tier": tier_counts["130%"] + tier_counts["120%"],
+                "n_low_tier": n_low_tier,
+                "alert_mark": alert_mark,
                 "race_data": race,
             })
 
@@ -380,7 +433,7 @@ def main():
             "順位": f"{i + 1}.",
             "場所": r["venue"],
             "R": f"{r['race_number']}R",
-            "レース名": r["race_name"],
+            "レース名": r["race_name"] + r.get("alert_mark", ""),
             "コース": r["course"],
             "頭数": r["head_count"],
             "ティア分布": r["tier_summary"],
@@ -420,12 +473,13 @@ def main():
                     tier_counts[t] = tier_counts.get(t, 0) + 1
 
                 tier_str_parts = []
-                for tk in ["130%", "120%", "110%", "100%", "90%"]:
+                for tk in ALL_TIER_KEYS:
                     if tier_counts.get(tk, 0) > 0:
                         tier_str_parts.append(f"{tk}:{tier_counts[tk]}")
                 tier_str = " ".join(tier_str_parts) if tier_str_parts else ""
 
                 has_high_tier = tier_counts.get("130%", 0) + tier_counts.get("120%", 0) > 0
+                has_low_tier = tier_counts.get("40%", 0) + tier_counts.get("50%", 0) > 0
 
                 header = (
                     f"{race_num}R **{race_name}** "
@@ -433,7 +487,7 @@ def main():
                     f"{tier_str}"
                 )
 
-                with st.expander(header, expanded=has_high_tier):
+                with st.expander(header, expanded=(has_high_tier or has_low_tier)):
                     # レース情報
                     info_cols = st.columns([2, 3])
                     with info_cols[0]:
