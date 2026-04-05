@@ -219,6 +219,13 @@ def highlight_row(row):
         if s:
             styles[idx] = s
 
+    # 馬場ROI列ハイライト
+    if "馬場ROI" in cols:
+        idx = cols.index("馬場ROI")
+        s = roi_style(str(row["馬場ROI"]))
+        if s:
+            styles[idx] = s
+
     # 血統ROI列ハイライト
     if "血統ROI" in cols:
         idx = cols.index("血統ROI")
@@ -445,9 +452,18 @@ def main():
                         st.warning("馬データなし")
                         continue
 
+                    # 芝レース判定（cushion_roi表示用）
+                    is_turf = course.startswith("芝") if course else False
+
                     table_rows = []
                     for h in horses:
                         tier_val = h.get("and_filter_tier") or "-"
+
+                        # 馬場ROI: 芝レースのみ cushion_roi を表示、ダートは「-」
+                        if is_turf:
+                            cushion_roi_val = h.get("cushion_roi", "-") or "-"
+                        else:
+                            cushion_roi_val = "-"
 
                         row_data = {
                             "Rank": h.get("rank", 0),
@@ -455,6 +471,7 @@ def main():
                             "番": h.get("horse_number", ""),
                             "馬名": h.get("horse_name", ""),
                             "ROIティア": tier_val,
+                            "馬場ROI": cushion_roi_val,
                             "血統ROI": h.get("blood_roi", "-") or "-",
                             "父": h.get("sire_name", ""),
                             "脚質": h.get("running_style", ""),
@@ -475,7 +492,7 @@ def main():
 
                     display_cols = [
                         "Rank", "推奨", "番", "馬名",
-                        "ROIティア", "血統ROI",
+                        "ROIティア", "馬場ROI", "血統ROI",
                         "父", "脚質", "騎手", "オッズ", "シグナル",
                     ]
                     display_cols = [c for c in display_cols if c in tdf.columns]
