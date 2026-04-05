@@ -288,71 +288,21 @@ def export_predictions(target_date: date) -> Path:
     heatmap_scorer = HeatmapScorer()
     heatmap_scorer.load()
 
-    # --- 含水率ROI計算用 ---
-    # heatmap_roi_tables.json から moisture_norm テーブルを取得
+    # --- 含水率×血統ROI計算用 ---
     import numpy as np
-    moisture_roi_tables = {}
-    moisture_decile_edges = {}
-    moisture_stats = {}  # {course_type: {"mean": float, "std": float}}
-    if heatmap_scorer._loaded and heatmap_scorer._heatmap_tables:
-        moisture_roi_tables = heatmap_scorer._heatmap_tables.get("moisture_norm", {})
+    from scripts.moisture_blood_roi import lookup_moisture_blood_roi
 
-    # parquet から moisture_norm のデシル境界を計算
-    if heatmap_scorer._loaded and heatmap_scorer._df is not None:
-        _mdf = heatmap_scorer._df
-        for _ct in ["芝", "ダート"]:
-            _ct_data = _mdf[_mdf["course_type"] == _ct]
-            if "moisture_norm" not in _ct_data.columns:
-                continue
-            _vals = _ct_data["moisture_norm"].dropna()
-            if len(_vals) < 100:
-                continue
-            # デシル境界（moisture_normは既にz-score）
-            edges = [float(np.percentile(_vals, p)) for p in range(10, 100, 10)]
-            moisture_decile_edges[_ct] = edges
-
-    # raw moisture の mean/std をDBから計算（z-score変換用）
+    moisture_blood_roi_data = None
+    _mb_roi_path = KEIBA_AI_DIR / "config" / "moisture_blood_roi.json"
     try:
-        import sqlite3 as _sqlite3
-        _db_path = KEIBA_AI_DIR / "keiba.db"
-        _conn = _sqlite3.connect(str(_db_path))
-        _cur = _conn.cursor()
-        # 芝: (turf_moisture_goal + turf_moisture_corner) / 2 の統計
-        _cur.execute(
-            "SELECT (turf_moisture_goal + turf_moisture_corner) / 2.0 as m "
-            "FROM cushion_values WHERE turf_moisture_goal IS NOT NULL "
-            "AND turf_moisture_corner IS NOT NULL"
-        )
-        _turf_vals = [r[0] for r in _cur.fetchall() if r[0] is not None]
-        if len(_turf_vals) > 10:
-            _turf_mean = sum(_turf_vals) / len(_turf_vals)
-            _turf_std = (sum((v - _turf_mean)**2 for v in _turf_vals) / len(_turf_vals))**0.5
-            if _turf_std > 0:
-                moisture_stats["芝"] = {"mean": _turf_mean, "std": _turf_std}
-
-        # ダート: (dirt_moisture_goal + dirt_moisture_corner) / 2 の統計
-        _cur.execute(
-            "SELECT (dirt_moisture_goal + dirt_moisture_corner) / 2.0 as m "
-            "FROM cushion_values WHERE dirt_moisture_goal IS NOT NULL "
-            "AND dirt_moisture_corner IS NOT NULL"
-        )
-        _dirt_vals = [r[0] for r in _cur.fetchall() if r[0] is not None]
-        if len(_dirt_vals) > 10:
-            _dirt_mean = sum(_dirt_vals) / len(_dirt_vals)
-            _dirt_std = (sum((v - _dirt_mean)**2 for v in _dirt_vals) / len(_dirt_vals))**0.5
-            if _dirt_std > 0:
-                moisture_stats["ダート"] = {"mean": _dirt_mean, "std": _dirt_std}
-        _conn.close()
+        with open(_mb_roi_path, "r", encoding="utf-8") as _f:
+            moisture_blood_roi_data = json.load(_f)
+        _meta = moisture_blood_roi_data.get("metadata", {})
+        print(f"  moisture_blood_roi loaded: cross={_meta.get('n_cross', 0)}, "
+              f"sire_fb={_meta.get('n_fallback_sire', 0)}, "
+              f"zone_fb={_meta.get('n_fallback_zone', 0)}")
     except Exception as e:
-        print(f"  WARNING: moisture stats from DB failed: {e}")
-
-    if moisture_stats:
-        _ms_parts = []
-        for _k, _v in moisture_stats.items():
-            _ms_parts.append(f"{_k}: mean={_v['mean']:.2f},std={_v['std']:.2f}")
-        print(f"  moisture stats: {', '.join(_ms_parts)}")
-    if moisture_decile_edges:
-        print(f"  moisture decile edges computed for: {list(moisture_decile_edges.keys())}")
+        print(f"  WARNING: moisture_blood_roi.json load failed: {e}")
 
     def _get_moisture_for_venue(venue_code, race_date_str):
         """CushionValueテーブルから含水率を取得"""
@@ -381,8 +331,11 @@ def export_predictions(target_date: date) -> Path:
             print(f"  WARNING: moisture query failed: {e}")
         return None
 
-    def _compute_moisture_roi(venue_code, race_date_str, course_type, distance, track_condition):
-        """含水率ROIを計算する（レース単位）"""
+    def _compute_moisture_blood_roi(venue_code, race_date_str, course_type, horse_id):
+        """含水率×血統ROIを計算する（馬ごと）"""
+        if not moisture_blood_roi_data or not horse_id:
+            return None
+
         moist_data = _get_moisture_for_venue(venue_code, race_date_str)
         if not moist_data:
             return None
@@ -399,35 +352,24 @@ def export_predictions(target_date: date) -> Path:
             return None
         raw_moisture = ((g or 0) + (c or 0)) / (2 if (g is not None and c is not None) else 1)
 
-        # z-score化
-        stats = moisture_stats.get(course_type)
-        if not stats or stats["std"] <= 0:
+        # 馬のsire_idを取得
+        from database.models import Horse
+        sire_id = None
+        with get_session() as s:
+            horse = s.query(Horse.sire_id).filter_by(horse_id=horse_id).first()
+            if horse:
+                sire_id = horse.sire_id
+        if not sire_id:
             return None
-        moisture_norm = (raw_moisture - stats["mean"]) / stats["std"]
 
-        # デシル境界
-        edges = moisture_decile_edges.get(course_type)
-        if not edges or len(edges) != 9:
-            return None
-
-        # デシル割当 (1-10)
-        decile = int(np.searchsorted(edges, moisture_norm)) + 1
-        decile = max(1, min(10, decile))
-
-        # ROIテーブルから取得
-        from analysis.heatmap_scorer import _classify_distance, TRACK_CONDITION_MAP
-        distance_band = _classify_distance(distance)
-        tc_group = TRACK_CONDITION_MAP.get(track_condition, "良好")
-        cell_key = f"{course_type}_{distance_band}_{tc_group}"
-
-        cell_data = moisture_roi_tables.get(cell_key, {})
-        roi = cell_data.get(f"D{decile}")
-        if roi is not None:
-            return round(roi, 0)
+        result = lookup_moisture_blood_roi(
+            moisture_blood_roi_data, sire_id, course_type, raw_moisture)
+        if result:
+            return result
         return None
 
-    # 含水率キャッシュ（会場ごとに1回のみ取得）
-    _moisture_cache = {}
+    # 含水率キャッシュ（会場ごとに1回のみ取得 — moisture_for_venue用）
+    _moisture_venue_cache = {}
 
     SIGNAL_NAMES = {}
     try:
@@ -571,16 +513,8 @@ def export_predictions(target_date: date) -> Path:
                 race_cushion_cv = cushion_analyzer.get_cushion_value_for_date(
                     race.get("venue_code", ""), str(target_date))
 
-            # 含水率ROI（レース単位: 全馬共通）
-            race_moisture_roi = None
+            # 含水率×血統ROI（馬ごと: sire_id × moisture_zone）
             venue_code = race.get("venue_code", "")
-            cache_key = (venue_code, str(target_date), ct, dist, track_cond)
-            if cache_key in _moisture_cache:
-                race_moisture_roi = _moisture_cache[cache_key]
-            else:
-                race_moisture_roi = _compute_moisture_roi(
-                    venue_code, str(target_date), ct, dist, track_cond)
-                _moisture_cache[cache_key] = race_moisture_roi
 
             # 馬ごとの情報を構築
             horses_output = []
@@ -799,6 +733,14 @@ def export_predictions(target_date: date) -> Path:
                     if blood_roi is not None:
                         blood_roi_str = f"{blood_roi:.0f}%"
 
+                # 含水率×血統ROI（馬ごと）
+                moisture_blood_roi_str = "-"
+                if horse_id and moisture_blood_roi_data:
+                    mb_result = _compute_moisture_blood_roi(
+                        venue_code, str(target_date), ct, horse_id)
+                    if mb_result:
+                        moisture_blood_roi_str = f"{mb_result['roi']:.0f}%"
+
                 odds_val = e.get("odds")
 
                 # composite_score は 0-1 スケール → 0-100 に変換して表示
@@ -827,7 +769,7 @@ def export_predictions(target_date: date) -> Path:
                     "margin_roi": margin_roi_str,
                     "accel_roi": accel_roi_str,
                     "cushion_roi": cushion_roi_str,
-                    "moisture_roi": f"{race_moisture_roi:.0f}%" if race_moisture_roi is not None else "-",
+                    "moisture_blood_roi": moisture_blood_roi_str,
                     "dsgs_roi": dsgs_roi_str,
                     "pace_advantage": pace_advantage_str,
                     # 共通

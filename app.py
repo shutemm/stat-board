@@ -270,10 +270,10 @@ def highlight_row(row):
         if s:
             styles[idx] = s
 
-    # 含水率ROI列ハイライト
-    if "含水率ROI" in cols:
-        idx = cols.index("含水率ROI")
-        s = roi_style(str(row["含水率ROI"]))
+    # 含水率×血統ROI列ハイライト
+    if "含水率×血統ROI" in cols:
+        idx = cols.index("含水率×血統ROI")
+        s = roi_style(str(row["含水率×血統ROI"]))
         if s:
             styles[idx] = s
 
@@ -572,8 +572,8 @@ def main():
                         win_prob_str = f"{wp * 100:.1f}%" if wp else "-"
                         place_prob_str = f"{pp * 100:.1f}%" if pp else "-"
 
-                        # 含水率ROI
-                        moisture_roi_val = h.get("moisture_roi", "-") or "-"
+                        # 含水率×血統ROI
+                        moisture_blood_roi_val = h.get("moisture_blood_roi", "-") or "-"
 
                         row_data = {
                             "Rank": h.get("rank", 0),
@@ -584,7 +584,7 @@ def main():
                             "勝率": win_prob_str,
                             "複勝率": place_prob_str,
                             "馬場ROI": cushion_roi_val,
-                            "含水率ROI": moisture_roi_val,
+                            "含水率×血統ROI": moisture_blood_roi_val,
                             "血統ROI": h.get("blood_roi", "-") or "-",
                             "父": h.get("sire_name", ""),
                             "脚質": h.get("running_style", ""),
@@ -606,7 +606,7 @@ def main():
                     display_cols = [
                         "Rank", "推奨", "番", "馬名",
                         "ROIティア", "勝率", "複勝率",
-                        "馬場ROI", "含水率ROI", "血統ROI",
+                        "馬場ROI", "含水率×血統ROI", "血統ROI",
                         "父", "脚質", "騎手", "オッズ", "シグナル",
                     ]
                     display_cols = [c for c in display_cols if c in tdf.columns]
