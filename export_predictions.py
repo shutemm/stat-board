@@ -22,6 +22,169 @@ sys.path.insert(0, str(KEIBA_AI_DIR))
 OUTPUT_DIR = Path(__file__).resolve().parent / "data"
 OUTPUT_DIR.mkdir(exist_ok=True)
 
+# 勝率補正係数
+WIN_PROB_ADJ_PATH = KEIBA_AI_DIR / "config" / "win_prob_adjustments.json"
+
+
+def _load_win_prob_adjustments():
+    """win_prob_adjustments.json を読み込む"""
+    if not WIN_PROB_ADJ_PATH.exists():
+        return None
+    with open(WIN_PROB_ADJ_PATH, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def _compute_race_win_probs(horses_data, win_adj, heatmap_scorer_obj, course_type, distance, track_condition, quintile_edges=None):
+    """レース内の全馬について補正済み勝率・複勝率を計算する。
+
+    Bradley-Terry model:
+      base_gamma = 1 / odds
+      adjusted_gamma = base_gamma * tier_adj * heatmap_adj
+      win_prob = adjusted_gamma / sum(adjusted_gamma for all horses in race)
+
+    複勝率は上位3頭に入る確率を近似計算する:
+      place_prob ≈ 1 - product((1 - p_j / (1 - p_i)) for top competitors)
+      ここでは簡易近似として: place_prob = min(1.0, 3 * win_prob * f(head_count))
+      ただしより正確にはBT順位モデルの数値計算を使用する。
+    """
+    if not win_adj or not horses_data:
+        return {}
+
+    tier_adj = win_adj.get("tier_adjustments", {})
+    heatmap_adj = win_adj.get("heatmap_roi_adjustments", {})
+
+    # 各馬のadjusted_gammaを計算
+    gamma_list = []
+    for h in horses_data:
+        odds = h.get("odds")
+        if not odds or odds <= 0:
+            gamma_list.append({"hn": h["horse_number"], "gamma": 0.0,
+                               "base_gamma": 0.0, "tier_m": 1.0, "hm_m": 1.0})
+            continue
+
+        base_gamma = 1.0 / odds
+
+        # ティア調整
+        tier = h.get("and_filter_tier")  # e.g. "130%" or None
+        if tier:
+            tier_key = tier.replace("%", "")  # "130"
+        else:
+            tier_key = "none"
+        t_adj = tier_adj.get(tier_key, tier_adj.get("none", 1.0))
+
+        # ヒートマップROI五分位調整
+        horse_id = h.get("_horse_id", "")
+        hm_adj = 1.0
+        if heatmap_scorer_obj and horse_id and quintile_edges is not None:
+            unified = heatmap_scorer_obj.compute_unified_roi(
+                horse_id, course_type, distance, track_condition)
+            uroi = unified.get("unified_roi")
+            if uroi is not None:
+                import numpy as np
+                qi = int(np.digitize(uroi, quintile_edges)) + 1
+                qi = max(1, min(5, qi))
+                q_labels = ["Q1", "Q2", "Q3", "Q4", "Q5"]
+                q = q_labels[qi - 1]
+                hm_adj = heatmap_adj.get(q, 1.0)
+
+        adjusted_gamma = base_gamma * t_adj * hm_adj
+        gamma_list.append({
+            "hn": h["horse_number"],
+            "gamma": adjusted_gamma,
+            "base_gamma": base_gamma,
+            "tier_m": t_adj,
+            "hm_m": hm_adj,
+        })
+
+    # レース内正規化 → 勝率
+    total_gamma = sum(g["gamma"] for g in gamma_list)
+    total_base = sum(g["base_gamma"] for g in gamma_list)
+
+    result = {}
+    for g in gamma_list:
+        hn = g["hn"]
+        if total_gamma > 0 and g["gamma"] > 0:
+            win_prob = g["gamma"] / total_gamma
+        else:
+            win_prob = 0.0
+
+        if total_base > 0 and g["base_gamma"] > 0:
+            odds_win_prob = g["base_gamma"] / total_base
+        else:
+            odds_win_prob = 0.0
+
+        # 複勝率: Harville model で top-3 入り確率
+        head_count = len(gamma_list)
+        gamma_values = [x["gamma"] for x in gamma_list]
+        idx = gamma_list.index(g)
+        place_prob = _approx_place_prob_harville(idx, gamma_values, min(3, head_count))
+
+        result[hn] = {
+            "win_prob": round(win_prob, 4),
+            "place_prob": round(place_prob, 4),
+            "odds_win_prob": round(odds_win_prob, 4),
+        }
+
+    return result
+
+
+def _approx_place_prob_harville(target_idx, gammas, top_k=3):
+    """Harville model でのtop-k入り確率を計算する。
+
+    Args:
+        target_idx: 対象馬のインデックス (gammasリスト内)
+        gammas: 全馬のgammaリスト
+        top_k: 上位何頭 (通常3 = 複勝)
+
+    Returns:
+        float: top-k入り確率
+    """
+    gi = gammas[target_idx]
+    if gi <= 0:
+        return 0.0
+
+    n = len(gammas)
+    if n <= top_k:
+        return 1.0
+
+    total = sum(gammas)
+    if total <= 0:
+        return 0.0
+
+    # P(i finishes 1st)
+    p1 = gi / total
+
+    # P(i finishes 2nd) = sum_{j!=i} P(j 1st) * P(i | remaining)
+    p2 = 0.0
+    for j in range(n):
+        if j == target_idx or gammas[j] <= 0:
+            continue
+        rem = total - gammas[j]
+        if rem > 0:
+            p2 += (gammas[j] / total) * (gi / rem)
+
+    if top_k < 3:
+        return min(1.0, max(0.0, p1 + p2))
+
+    # P(i finishes 3rd) = sum_{j!=i, k!=i, j!=k} P(j 1st) * P(k 2nd|j) * P(i|j,k)
+    p3 = 0.0
+    for j in range(n):
+        if j == target_idx or gammas[j] <= 0:
+            continue
+        pj = gammas[j] / total
+        rem_j = total - gammas[j]
+        if rem_j <= 0:
+            continue
+        for k in range(n):
+            if k == target_idx or k == j or gammas[k] <= 0:
+                continue
+            pk_given_j = gammas[k] / rem_j
+            rem_jk = rem_j - gammas[k]
+            if rem_jk > 0:
+                p3 += pj * pk_given_j * (gi / rem_jk)
+
+    return min(1.0, max(0.0, p1 + p2 + p3))
+
 
 def export_predictions(target_date: date) -> Path:
     """指定日のレース予測結果をJSONにエクスポートする。
@@ -125,6 +288,147 @@ def export_predictions(target_date: date) -> Path:
     heatmap_scorer = HeatmapScorer()
     heatmap_scorer.load()
 
+    # --- 含水率ROI計算用 ---
+    # heatmap_roi_tables.json から moisture_norm テーブルを取得
+    import numpy as np
+    moisture_roi_tables = {}
+    moisture_decile_edges = {}
+    moisture_stats = {}  # {course_type: {"mean": float, "std": float}}
+    if heatmap_scorer._loaded and heatmap_scorer._heatmap_tables:
+        moisture_roi_tables = heatmap_scorer._heatmap_tables.get("moisture_norm", {})
+
+    # parquet から moisture_norm のデシル境界を計算
+    if heatmap_scorer._loaded and heatmap_scorer._df is not None:
+        _mdf = heatmap_scorer._df
+        for _ct in ["芝", "ダート"]:
+            _ct_data = _mdf[_mdf["course_type"] == _ct]
+            if "moisture_norm" not in _ct_data.columns:
+                continue
+            _vals = _ct_data["moisture_norm"].dropna()
+            if len(_vals) < 100:
+                continue
+            # デシル境界（moisture_normは既にz-score）
+            edges = [float(np.percentile(_vals, p)) for p in range(10, 100, 10)]
+            moisture_decile_edges[_ct] = edges
+
+    # raw moisture の mean/std をDBから計算（z-score変換用）
+    try:
+        import sqlite3 as _sqlite3
+        _db_path = KEIBA_AI_DIR / "keiba.db"
+        _conn = _sqlite3.connect(str(_db_path))
+        _cur = _conn.cursor()
+        # 芝: (turf_moisture_goal + turf_moisture_corner) / 2 の統計
+        _cur.execute(
+            "SELECT (turf_moisture_goal + turf_moisture_corner) / 2.0 as m "
+            "FROM cushion_values WHERE turf_moisture_goal IS NOT NULL "
+            "AND turf_moisture_corner IS NOT NULL"
+        )
+        _turf_vals = [r[0] for r in _cur.fetchall() if r[0] is not None]
+        if len(_turf_vals) > 10:
+            _turf_mean = sum(_turf_vals) / len(_turf_vals)
+            _turf_std = (sum((v - _turf_mean)**2 for v in _turf_vals) / len(_turf_vals))**0.5
+            if _turf_std > 0:
+                moisture_stats["芝"] = {"mean": _turf_mean, "std": _turf_std}
+
+        # ダート: (dirt_moisture_goal + dirt_moisture_corner) / 2 の統計
+        _cur.execute(
+            "SELECT (dirt_moisture_goal + dirt_moisture_corner) / 2.0 as m "
+            "FROM cushion_values WHERE dirt_moisture_goal IS NOT NULL "
+            "AND dirt_moisture_corner IS NOT NULL"
+        )
+        _dirt_vals = [r[0] for r in _cur.fetchall() if r[0] is not None]
+        if len(_dirt_vals) > 10:
+            _dirt_mean = sum(_dirt_vals) / len(_dirt_vals)
+            _dirt_std = (sum((v - _dirt_mean)**2 for v in _dirt_vals) / len(_dirt_vals))**0.5
+            if _dirt_std > 0:
+                moisture_stats["ダート"] = {"mean": _dirt_mean, "std": _dirt_std}
+        _conn.close()
+    except Exception as e:
+        print(f"  WARNING: moisture stats from DB failed: {e}")
+
+    if moisture_stats:
+        _ms_parts = []
+        for _k, _v in moisture_stats.items():
+            _ms_parts.append(f"{_k}: mean={_v['mean']:.2f},std={_v['std']:.2f}")
+        print(f"  moisture stats: {', '.join(_ms_parts)}")
+    if moisture_decile_edges:
+        print(f"  moisture decile edges computed for: {list(moisture_decile_edges.keys())}")
+
+    def _get_moisture_for_venue(venue_code, race_date_str):
+        """CushionValueテーブルから含水率を取得"""
+        import sqlite3
+        db_path = KEIBA_AI_DIR / "keiba.db"
+        date_nodash = str(race_date_str).replace("-", "")
+        try:
+            conn = sqlite3.connect(str(db_path))
+            cur = conn.cursor()
+            cur.execute(
+                "SELECT turf_moisture_goal, turf_moisture_corner, "
+                "dirt_moisture_goal, dirt_moisture_corner "
+                "FROM cushion_values WHERE venue_code = ? AND race_date = ?",
+                (venue_code, date_nodash),
+            )
+            row = cur.fetchone()
+            conn.close()
+            if row:
+                return {
+                    "turf_moisture_goal": row[0],
+                    "turf_moisture_corner": row[1],
+                    "dirt_moisture_goal": row[2],
+                    "dirt_moisture_corner": row[3],
+                }
+        except Exception as e:
+            print(f"  WARNING: moisture query failed: {e}")
+        return None
+
+    def _compute_moisture_roi(venue_code, race_date_str, course_type, distance, track_condition):
+        """含水率ROIを計算する（レース単位）"""
+        moist_data = _get_moisture_for_venue(venue_code, race_date_str)
+        if not moist_data:
+            return None
+
+        # 含水率raw = (goal + corner) / 2
+        if course_type == "芝":
+            g = moist_data.get("turf_moisture_goal")
+            c = moist_data.get("turf_moisture_corner")
+        else:
+            g = moist_data.get("dirt_moisture_goal")
+            c = moist_data.get("dirt_moisture_corner")
+
+        if g is None and c is None:
+            return None
+        raw_moisture = ((g or 0) + (c or 0)) / (2 if (g is not None and c is not None) else 1)
+
+        # z-score化
+        stats = moisture_stats.get(course_type)
+        if not stats or stats["std"] <= 0:
+            return None
+        moisture_norm = (raw_moisture - stats["mean"]) / stats["std"]
+
+        # デシル境界
+        edges = moisture_decile_edges.get(course_type)
+        if not edges or len(edges) != 9:
+            return None
+
+        # デシル割当 (1-10)
+        decile = int(np.searchsorted(edges, moisture_norm)) + 1
+        decile = max(1, min(10, decile))
+
+        # ROIテーブルから取得
+        from analysis.heatmap_scorer import _classify_distance, TRACK_CONDITION_MAP
+        distance_band = _classify_distance(distance)
+        tc_group = TRACK_CONDITION_MAP.get(track_condition, "良好")
+        cell_key = f"{course_type}_{distance_band}_{tc_group}"
+
+        cell_data = moisture_roi_tables.get(cell_key, {})
+        roi = cell_data.get(f"D{decile}")
+        if roi is not None:
+            return round(roi, 0)
+        return None
+
+    # 含水率キャッシュ（会場ごとに1回のみ取得）
+    _moisture_cache = {}
+
     SIGNAL_NAMES = {}
     try:
         from analysis.combo_chain_predictor import COMBOS_DIRT, COMBOS_TURF
@@ -136,6 +440,43 @@ def export_predictions(target_date: date) -> Path:
         pass
 
     PACE_LABELS = {"H": "ハイ", "M": "ミドル", "S": "スロー"}
+
+    # 勝率補正係数読み込み
+    win_adj = _load_win_prob_adjustments()
+
+    # ヒートマップROI五分位境界を事前計算
+    # compute_unified_roi のサンプルから分布を推定
+    heatmap_quintile_edges = None
+    if win_adj and heatmap_scorer._loaded and heatmap_scorer._df is not None:
+        import numpy as np
+        try:
+            # 各馬の最新レースから unified_roi をサンプル計算
+            _df = heatmap_scorer._df
+            _latest = _df.sort_values("race_date", ascending=False).drop_duplicates(
+                subset="horse_id", keep="first")
+            # 最大1000頭をサンプル
+            if len(_latest) > 1000:
+                _latest = _latest.sample(1000, random_state=42)
+
+            _sample_rois = []
+            for _, row in _latest.iterrows():
+                hid = row.get("horse_id")
+                ct = row.get("course_type", "芝")
+                # 簡易計算: 代表的な距離・馬場で
+                result = heatmap_scorer.compute_unified_roi(hid, ct, 1800, "良")
+                uroi = result.get("unified_roi")
+                if uroi is not None:
+                    _sample_rois.append(uroi)
+
+            if len(_sample_rois) >= 100:
+                heatmap_quintile_edges = [
+                    float(np.percentile(_sample_rois, q)) for q in [20, 40, 60, 80]
+                ]
+                print(f"  heatmap quintile edges: {heatmap_quintile_edges}")
+                print(f"  (based on {len(_sample_rois)} horse samples)")
+        except Exception as e:
+            print(f"  WARNING: heatmap quintile edges computation failed: {e}")
+            heatmap_quintile_edges = None
 
     # 会場ごとに整理
     venues = {}
@@ -229,6 +570,17 @@ def export_predictions(target_date: date) -> Path:
             if ct == "芝":
                 race_cushion_cv = cushion_analyzer.get_cushion_value_for_date(
                     race.get("venue_code", ""), str(target_date))
+
+            # 含水率ROI（レース単位: 全馬共通）
+            race_moisture_roi = None
+            venue_code = race.get("venue_code", "")
+            cache_key = (venue_code, str(target_date), ct, dist, track_cond)
+            if cache_key in _moisture_cache:
+                race_moisture_roi = _moisture_cache[cache_key]
+            else:
+                race_moisture_roi = _compute_moisture_roi(
+                    venue_code, str(target_date), ct, dist, track_cond)
+                _moisture_cache[cache_key] = race_moisture_roi
 
             # 馬ごとの情報を構築
             horses_output = []
@@ -475,6 +827,7 @@ def export_predictions(target_date: date) -> Path:
                     "margin_roi": margin_roi_str,
                     "accel_roi": accel_roi_str,
                     "cushion_roi": cushion_roi_str,
+                    "moisture_roi": f"{race_moisture_roi:.0f}%" if race_moisture_roi is not None else "-",
                     "dsgs_roi": dsgs_roi_str,
                     "pace_advantage": pace_advantage_str,
                     # 共通
@@ -483,8 +836,27 @@ def export_predictions(target_date: date) -> Path:
                                                   e.get("running_style", "")),
                     "jockey_name": e.get("jockey_name", ""),
                     "signal_tags": signal_tags,
+                    # 勝率計算用（内部用、_horse_id は出力時に削除）
+                    "_horse_id": horse_id,
                 }
                 horses_output.append(horse_data)
+
+            # 勝率・複勝率を計算してマージ
+            if win_adj and horses_output:
+                win_probs = _compute_race_win_probs(
+                    horses_output, win_adj, heatmap_scorer,
+                    ct, dist, track_cond, heatmap_quintile_edges)
+                for h in horses_output:
+                    hn_key = h["horse_number"]
+                    wp = win_probs.get(hn_key, {})
+                    h["win_prob"] = wp.get("win_prob", 0.0)
+                    h["place_prob"] = wp.get("place_prob", 0.0)
+                    h["odds_win_prob"] = wp.get("odds_win_prob", 0.0)
+                    # _horse_id を削除（公開データに含めない）
+                    h.pop("_horse_id", None)
+            else:
+                for h in horses_output:
+                    h.pop("_horse_id", None)
 
             race_output = {
                 "race_number": race["race_number"],
