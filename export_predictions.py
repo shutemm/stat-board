@@ -121,6 +121,10 @@ def export_predictions(target_date: date) -> Path:
     cushion_analyzer = CushionAnalyzer()
     cushion_analyzer.load()
 
+    from analysis.heatmap_scorer import HeatmapScorer
+    heatmap_scorer = HeatmapScorer()
+    heatmap_scorer.load()
+
     SIGNAL_NAMES = {}
     try:
         from analysis.combo_chain_predictor import COMBOS_DIRT, COMBOS_TURF
@@ -408,6 +412,14 @@ def export_predictions(target_date: date) -> Path:
                         else:
                             dsgs_roi_str = "-"
 
+                # ANDフィルタティア判定
+                and_filter_tier = None
+                and_filter_roi = None
+                if horse_id:
+                    tier_result = heatmap_scorer.classify_horse(horse_id, ct)
+                    and_filter_tier = tier_result.get("tier")
+                    and_filter_roi = tier_result.get("oos_roi")
+
                 # 展開適性
                 pace_advantage_str = pf_info.get("advantage", "")
 
@@ -438,6 +450,9 @@ def export_predictions(target_date: date) -> Path:
                     "odds": round(odds_val, 1) if odds_val else None,
                     "recommendation": recommendation,
                     "composite_score": display_score,
+                    # ANDフィルタティア（全特徴量統合）
+                    "and_filter_tier": and_filter_tier,
+                    "and_filter_roi": and_filter_roi,
                     # Group A: 馬の力 (rank_dev系)
                     "base_roi": base_roi_str,
                     "pattern_roi": pattern_roi_str,
