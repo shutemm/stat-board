@@ -534,7 +534,12 @@ def export_predictions(target_date: date) -> Path:
 
         course_rate = pl_mu + alpha * (-course_aptitude_score)
         gamma = exp((course_rate - mean) / scale)
-        ECE 0.10% (オッズの0.16%より高精度)、ROI 119.1%。
+
+        PLレーティングが初期値付近の馬（経験が少ない馬）が多いレースでは、
+        CRモデルの識別力が低下するため、オッズベース確率とブレンドする。
+        ブレンド比率はPLレーティングのinit距離（情報量）で決定:
+          confidence = mean(|pl_mu - init|) に基づくシグモイド関数
+          final = confidence * cr_prob + (1 - confidence) * odds_prob
         """
         import numpy as np
 
@@ -557,17 +562,21 @@ def export_predictions(target_date: date) -> Path:
 
         # 各馬のcourse_rateを計算
         horse_course_rates = {}
+        pl_mu_values = []  # confidence計算用
         for h in horses_data:
             hn = h["horse_number"]
             hid = h.get("_horse_id") or entries_map.get(hn, {}).get("horse_id")
             if not hid:
                 horse_course_rates[hn] = CR_PL_INIT_RATING
+                pl_mu_values.append(CR_PL_INIT_RATING)
                 continue
 
             # PLレーティング取得（horse_idベース）
             pl_mu = pl_snap.get(hid)
             if pl_mu is None:
                 pl_mu = _cr_final_ratings.get(hid, CR_PL_INIT_RATING)
+
+            pl_mu_values.append(pl_mu)
 
             # コース適性補正
             course_adj = 0.0
@@ -581,6 +590,27 @@ def export_predictions(target_date: date) -> Path:
         if len(horse_course_rates) < 2:
             return {}
 
+        # --- PLレーティング信頼度（confidence）計算 ---
+        # mean_dist = 各馬のPLレーティングとinit(1000)の平均距離
+        # mean_dist が小さい → 経験の少ない馬ばかり → モデル信頼度低
+        # mean_dist が大きい → レーティングに情報がある → モデル信頼度高
+        mean_dist = float(np.mean([abs(v - CR_PL_INIT_RATING) for v in pl_mu_values]))
+        # シグモイド: mean_dist=1.0→conf≈0.05, mean_dist=2.0→conf≈0.18,
+        #             mean_dist=3.0→conf≈0.50, mean_dist=4.0→conf≈0.82
+        # PLレーティングのinit距離が小さい（経験少ない馬が多い）場合はオッズ寄り
+        confidence = 1.0 / (1.0 + math.exp(-1.5 * (mean_dist - 3.0)))
+
+        # --- オッズベース確率の計算 ---
+        odds_gamma = {}
+        for h in horses_data:
+            hn = h["horse_number"]
+            odds = h.get("odds")
+            if odds and odds > 0:
+                odds_gamma[hn] = 1.0 / odds
+            else:
+                odds_gamma[hn] = 0.0
+        total_odds_gamma = sum(odds_gamma.values())
+
         # mu → gamma変換
         values = list(horse_course_rates.values())
         mean_mu = np.mean(values)
@@ -592,12 +622,33 @@ def export_predictions(target_date: date) -> Path:
         if total_gamma <= 0:
             return {}
 
-        result = {}
-        gamma_list = list(gamma_dict.items())
-        for hn, g in gamma_list:
-            win_prob = g / total_gamma if total_gamma > 0 else 0.0
+        # --- ブレンド済みgamma計算 ---
+        # CR gamma と odds gamma をブレンドして最終確率を計算
+        blended_gamma = {}
+        for hn in gamma_dict:
+            cr_g = gamma_dict[hn]
+            od_g = odds_gamma.get(hn, 0.0)
+            # 正規化してからブレンド
+            cr_norm = cr_g / total_gamma if total_gamma > 0 else 0.0
+            od_norm = od_g / total_odds_gamma if total_odds_gamma > 0 else 0.0
+            # ブレンド確率
+            blended_prob = confidence * cr_norm + (1.0 - confidence) * od_norm
+            blended_gamma[hn] = blended_prob
 
-            # 複勝率 (Harville top-3)
+        total_blended = sum(blended_gamma.values())
+        if total_blended <= 0:
+            return {}
+
+        # 再正規化（ブレンドで合計が1からずれる場合の補正）
+        for hn in blended_gamma:
+            blended_gamma[hn] /= total_blended
+
+        result = {}
+        gamma_list = list(blended_gamma.items())
+        for hn, wp in gamma_list:
+            win_prob = wp
+
+            # 複勝率 (Harville top-3) — ブレンド済みgammaで計算
             head_count = len(gamma_list)
             gammas_arr = [x[1] for x in gamma_list]
             idx = [x[0] for x in gamma_list].index(hn)
