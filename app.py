@@ -49,65 +49,77 @@ TEXT_LIGHT = "#e0e0e0"
 TEXT_MUTED = "#b0b0b0"
 PACE_COLORS = {"H": "#ef5350", "M": "#ffa726", "S": "#42a5f5"}
 
-# ティア色マッピング（全10段階: 高ROI 130-90% + 低ROI 80-40%）
+# AI評価ランク表示（内部ティア → ユーザー向けラベル）
+TIER_TO_LABEL = {
+    "130%": "S",
+    "120%": "A",
+    "110%": "B",
+    "100%": "C",
+    "90%": "C-",
+    "80%": "D",
+    "70%": "D-",
+    "60%": "E",
+    "50%": "E-",
+    "40%": "F",
+}
+
+# AI評価ランクの色設定
 TIER_STYLES = {
-    # 高ROIティア（恵まれた馬）
-    "130%": {
+    "S": {
         "bg": BG_GREEN_STRONG,
         "color": TEXT_GREEN,
         "font_weight": "bold",
         "font_size": "1.1em",
     },
-    "120%": {
+    "A": {
         "bg": BG_GREEN_MEDIUM,
         "color": TEXT_GREEN_MED,
         "font_weight": "bold",
         "font_size": "1.05em",
     },
-    "110%": {
+    "B": {
         "bg": BG_GREEN_LIGHT,
         "color": TEXT_GREEN_MED,
         "font_weight": "normal",
         "font_size": "1em",
     },
-    "100%": {
+    "C": {
         "bg": "",
         "color": TEXT_LIGHT,
         "font_weight": "normal",
         "font_size": "1em",
     },
-    "90%": {
+    "C-": {
         "bg": BG_YELLOW_LIGHT,
         "color": TEXT_YELLOW,
         "font_weight": "normal",
         "font_size": "1em",
     },
-    # 低ROIティア（恵まれない馬）
-    "80%": {
+    "D": {
         "bg": BG_ORANGE_LIGHT,
         "color": TEXT_ORANGE_LIGHT,
         "font_weight": "normal",
         "font_size": "1em",
     },
-    "70%": {
+    "D-": {
         "bg": BG_ORANGE,
         "color": TEXT_ORANGE,
         "font_weight": "normal",
         "font_size": "1em",
     },
-    "60%": {
+    "E": {
         "bg": BG_RED_LIGHT,
         "color": TEXT_RED,
         "font_weight": "normal",
         "font_size": "1em",
     },
-    "50%": {
+    "E-": {
         "bg": BG_RED_MEDIUM,
         "color": TEXT_RED,
         "font_weight": "bold",
         "font_size": "1em",
     },
-    "40%": {
+    "F": {
         "bg": BG_RED_STRONG,
         "color": TEXT_RED_STRONG,
         "font_weight": "bold",
@@ -115,11 +127,18 @@ TIER_STYLES = {
     },
 }
 
-# ティアソート順（高い方が上位、低い方が下位）
+# AI評価ランクのソート順（高い方が上位）
 TIER_SORT_ORDER = {
+    "S": 0, "A": 1, "B": 2, "C": 3, "C-": 4,
+    "D": 6, "D-": 7, "E": 8, "E-": 9, "F": 10,
+    "-": 5,
+}
+
+# 内部ティア値 → ソート順（JSON上のand_filter_tier用）
+INTERNAL_TIER_SORT = {
     "130%": 0, "120%": 1, "110%": 2, "100%": 3, "90%": 4,
     "80%": 6, "70%": 7, "60%": 8, "50%": 9, "40%": 10,
-    "-": 5,
+    "-": 5, None: 5,
 }
 
 
@@ -181,6 +200,20 @@ def load_prediction_data(file_path: str):
 # ヘルパー
 # ============================================================
 
+def _tier_to_label(internal_tier: str | None) -> str:
+    """内部ティア値（"130%"等）をユーザー向けラベル（"S"等）に変換"""
+    if not internal_tier:
+        return "-"
+    return TIER_TO_LABEL.get(internal_tier, "-")
+
+
+def _roi_to_display(val_str: str) -> str:
+    """ROI文字列をそのまま返す（表示用）。'-'はそのまま。"""
+    if not val_str or val_str == "-":
+        return "-"
+    return val_str
+
+
 def _extract_roi_number(val_str: str) -> float | None:
     """ROI文字列から数値部分を抽出する。"""
     if not val_str or val_str == "-" or "%" not in val_str:
@@ -213,7 +246,7 @@ def roi_style(val_str: str) -> str:
 
 
 def tier_style(val_str: str) -> str:
-    """ティア文字列からセルスタイルを返す"""
+    """AI評価ラベルからセルスタイルを返す"""
     ts = TIER_STYLES.get(val_str)
     if ts is None:
         return f"color: {TEXT_MUTED}"
@@ -226,9 +259,44 @@ def tier_style(val_str: str) -> str:
     return "; ".join(parts)
 
 
-def parse_roi_value(val_str) -> float | None:
-    """ROI文字列から数値を抽出する。"""
-    return _extract_roi_number(str(val_str) if val_str else "")
+def _format_context_bias(val_str: str) -> str:
+    """条件バイアス値をわかりやすい表現に変換"""
+    if not val_str or val_str == "-":
+        return "-"
+    if "有利転換" in val_str:
+        return "今回有利"
+    if "不利転換" in val_str:
+        return "今回不利"
+    # 数値のみの場合
+    try:
+        v = float(val_str.split()[0])
+        if v > 1.10:
+            return "やや有利"
+        elif v < 0.90:
+            return "やや不利"
+        else:
+            return "-"
+    except (ValueError, IndexError):
+        return val_str
+
+
+def _simplify_signal_tags(tags_str: str) -> str:
+    """signal_tagsを一般向けに簡略化する。
+    内部名（rank_dev系, cushion×rank_dev等）は除去し、
+    有利/不利のカウントだけ表示する。"""
+    if not tags_str:
+        return "-"
+    parts = [t.strip() for t in tags_str.split(",") if t.strip()]
+    adv_count = sum(1 for p in parts if p.startswith("有利:"))
+    dis_count = sum(1 for p in parts if p.startswith("不利:"))
+    if adv_count == 0 and dis_count == 0:
+        return "-"
+    result_parts = []
+    if adv_count > 0:
+        result_parts.append(f"好材料{adv_count}")
+    if dis_count > 0:
+        result_parts.append(f"懸念{dis_count}")
+    return " / ".join(result_parts)
 
 
 def highlight_row(row):
@@ -247,48 +315,46 @@ def highlight_row(row):
             styles = [f"background-color: {BG_RED_LIGHT}; color: {TEXT_LIGHT}"] * len(row)
             styles[idx] = f"background-color: {BG_RED_STRONG}; color: {TEXT_RED}; font-weight: bold"
 
-    # Rank ハイライト
-    if "Rank" in cols:
-        idx = cols.index("Rank")
-        rank = row["Rank"]
+    # 順位ハイライト
+    if "順位" in cols:
+        idx = cols.index("順位")
+        rank = row["順位"]
         if rank == 1:
             styles[idx] = f"background-color: {BG_GREEN_STRONG}; color: #ffffff; font-weight: bold"
         elif rank <= 3:
             styles[idx] = f"background-color: {BG_GREEN_LIGHT}; color: {TEXT_LIGHT}"
 
-    # ROIティア列ハイライト
-    if "ROIティア" in cols:
-        idx = cols.index("ROIティア")
-        s = tier_style(str(row["ROIティア"]))
+    # AI評価列ハイライト
+    if "AI評価" in cols:
+        idx = cols.index("AI評価")
+        s = tier_style(str(row["AI評価"]))
         if s:
             styles[idx] = s
 
-    # 馬場ROI列ハイライト
-    if "馬場ROI" in cols:
-        idx = cols.index("馬場ROI")
-        s = roi_style(str(row["馬場ROI"]))
+    # 馬場適性列ハイライト
+    if "馬場適性" in cols:
+        idx = cols.index("馬場適性")
+        s = roi_style(str(row["馬場適性"]))
         if s:
             styles[idx] = s
 
-    # 含水率×血統ROI列ハイライト
-    if "含水率×血統ROI" in cols:
-        idx = cols.index("含水率×血統ROI")
-        s = roi_style(str(row["含水率×血統ROI"]))
+    # 馬場×血統列ハイライト
+    if "馬場×血統" in cols:
+        idx = cols.index("馬場×血統")
+        s = roi_style(str(row["馬場×血統"]))
         if s:
             styles[idx] = s
 
-    # 血統ROI列ハイライト
-    if "血統ROI" in cols:
-        idx = cols.index("血統ROI")
-        s = roi_style(str(row["血統ROI"]))
+    # 血統適性列ハイライト
+    if "血統適性" in cols:
+        idx = cols.index("血統適性")
+        s = roi_style(str(row["血統適性"]))
         if s:
             styles[idx] = s
 
     # 勝率ハイライト
     if "勝率" in cols:
         idx = cols.index("勝率")
-        v = _extract_roi_number(str(row["勝率"]).replace("%", "% "))
-        # _extract_roi_number expects "%" — workaround: parse directly
         win_str = str(row["勝率"])
         try:
             win_val = float(win_str.replace("%", "")) if "%" in win_str else None
@@ -318,42 +384,6 @@ def highlight_row(row):
             elif place_val < 15:
                 styles[idx] = f"color: {TEXT_MUTED}"
 
-    # PL勝率ハイライト（サブ表示: PL+reserveベース勝率）
-    if "PL勝率" in cols:
-        idx = cols.index("PL勝率")
-        pl_win_str = str(row["PL勝率"])
-        try:
-            pl_win_val = float(pl_win_str.replace("%", "")) if "%" in pl_win_str else None
-        except (ValueError, TypeError):
-            pl_win_val = None
-        if pl_win_val is not None:
-            if pl_win_val >= 20:
-                styles[idx] = f"color: {TEXT_GREEN_MED}"
-            elif pl_win_val >= 10:
-                styles[idx] = f"color: {TEXT_LIGHT}"
-            elif pl_win_val >= 5:
-                styles[idx] = f"color: {TEXT_MUTED}"
-            else:
-                styles[idx] = f"color: {TEXT_MUTED}"
-
-    # オッズ勝率ハイライト（サブ表示: オッズベース勝率）
-    if "オッズ勝率" in cols:
-        idx = cols.index("オッズ勝率")
-        odds_win_str = str(row["オッズ勝率"])
-        try:
-            odds_win_val = float(odds_win_str.replace("%", "")) if "%" in odds_win_str else None
-        except (ValueError, TypeError):
-            odds_win_val = None
-        if odds_win_val is not None:
-            if odds_win_val >= 20:
-                styles[idx] = f"color: {TEXT_GREEN_MED}"
-            elif odds_win_val >= 10:
-                styles[idx] = f"color: {TEXT_LIGHT}"
-            elif odds_win_val >= 5:
-                styles[idx] = f"color: {TEXT_MUTED}"
-            else:
-                styles[idx] = f"color: {TEXT_MUTED}"
-
     # 展開列ハイライト
     if "展開" in cols:
         idx = cols.index("展開")
@@ -363,23 +393,18 @@ def highlight_row(row):
         elif v == "不利":
             styles[idx] = f"background-color: {BG_RED_LIGHT}; color: {TEXT_RED}"
 
-    # 条件バイアス列ハイライト
-    if "条件バイアス" in cols:
-        idx = cols.index("条件バイアス")
-        v = str(row["条件バイアス"])
-        if "有利転換" in v:
+    # 前走比較列ハイライト
+    if "前走比較" in cols:
+        idx = cols.index("前走比較")
+        v = str(row["前走比較"])
+        if "今回有利" in v:
             styles[idx] = f"background-color: {BG_GREEN_MEDIUM}; color: {TEXT_GREEN}; font-weight: bold"
-        elif "不利転換" in v:
+        elif "今回不利" in v:
             styles[idx] = f"background-color: {BG_RED_MEDIUM}; color: {TEXT_RED}; font-weight: bold"
-        elif v != "-":
-            try:
-                cb_val = float(v.split()[0])
-                if cb_val > 1.05:
-                    styles[idx] = f"color: {TEXT_GREEN_MED}"
-                elif cb_val < 0.95:
-                    styles[idx] = f"color: {TEXT_ORANGE}"
-            except (ValueError, IndexError):
-                pass
+        elif "やや有利" in v:
+            styles[idx] = f"color: {TEXT_GREEN_MED}"
+        elif "やや不利" in v:
+            styles[idx] = f"color: {TEXT_ORANGE}"
 
     return styles
 
@@ -394,16 +419,20 @@ def render_pace_prediction(pace_data: dict):
     probs = pace_data.get("pace_probs", {})
     color = PACE_COLORS.get(pred, TEXT_LIGHT)
 
-    prob_str = " / ".join(f"{k}:{v:.0%}" for k, v in probs.items())
+    # ペース確率をわかりやすく表示
+    pace_label_map = {"H": "ハイ", "M": "ミドル", "S": "スロー"}
+    prob_str = " / ".join(
+        f"{pace_label_map.get(k, k)}:{v:.0%}" for k, v in probs.items()
+    )
     st.markdown(
-        f"**展開予測**: <span style='color:{color}; font-size:1.2em; "
+        f"**ペース予想**: <span style='color:{color}; font-size:1.2em; "
         f"font-weight:bold;'>{label}</span> ({prob_str})",
         unsafe_allow_html=True,
     )
 
     adv = pace_data.get("advantaged_styles", [])
     if adv:
-        st.caption(f"有利脚質: {', '.join(adv)}")
+        st.caption(f"有利な脚質: {', '.join(adv)}")
 
 
 # ============================================================
@@ -432,7 +461,12 @@ def main():
         )
 
         st.markdown("---")
-        st.caption("keiba-ai prediction viewer")
+
+        # 詳細表示切替
+        show_detail = st.checkbox("詳細情報を表示", value=False)
+
+        st.markdown("---")
+        st.caption("keiba-ai 予想ページ")
 
     # データ読み込み
     data = load_prediction_data(str(selected_file["path"]))
@@ -456,7 +490,26 @@ def main():
         except ValueError:
             pass
 
-    # 注目レースランキング（ティア130%/120%の馬がいるレースを上位に、40%/50%は注意マーク）
+    # 凡例（AI評価ランクの説明）
+    with st.expander("AI評価ランクの見方", expanded=False):
+        st.markdown("""
+| ランク | 意味 | 目安 |
+|:---:|:---|:---|
+| **S** | 最高評価 | 過去データで高い回収率実績 |
+| **A** | 高評価 | プラス回収が見込める |
+| **B** | やや高評価 | 平均以上の期待値 |
+| **C** | 普通 | 市場評価通り |
+| **C-** | やや低評価 | 平均をやや下回る |
+| **D** | 低評価 | 回収率が低い傾向 |
+| **E** | かなり低評価 | 大幅な割引が必要 |
+| **F** | 最低評価 | 見送り推奨 |
+
+- **推奨「買」**: AI評価が高く、買い目として推奨
+- **推奨「避」**: AI評価が低く、見送りを推奨
+- **勝率・複勝率**: AIが算出した予測確率（オッズ・過去成績ベース）
+        """)
+
+    # 注目レースランキング
     all_races = []
     ALL_TIER_KEYS = ["130%", "120%", "110%", "100%", "90%", "80%", "70%", "60%", "50%", "40%"]
     for venue_name, venue_data in venues_data.items():
@@ -470,7 +523,7 @@ def main():
                 if t and t in tier_counts:
                     tier_counts[t] += 1
 
-            # スコア: 130%馬数*10 + 120%馬数*5 + 110%馬数*2 + 100%馬数*1
+            # スコア
             highlight_score = (
                 tier_counts["130%"] * 10
                 + tier_counts["120%"] * 5
@@ -478,9 +531,9 @@ def main():
                 + tier_counts["100%"] * 1
             )
 
-            # Top3のティア馬名（高ティアと低ティアの注目馬）
+            # Top3の馬名（高評価順）
             tier_horses = [
-                (h, TIER_SORT_ORDER.get(h.get("and_filter_tier") or "-", 5))
+                (h, INTERNAL_TIER_SORT.get(h.get("and_filter_tier"), 5))
                 for h in horses
             ]
             tier_horses.sort(key=lambda x: (x[1], x[0].get("rank", 999)))
@@ -490,24 +543,26 @@ def main():
                     continue
                 wp = h.get("win_prob")
                 wp_str = f" {wp * 100:.0f}%" if wp else ""
+                label = _tier_to_label(h.get("and_filter_tier"))
                 top3_parts.append(
                     f"{h['horse_number']}{h['horse_name']}"
-                    f"({h.get('and_filter_tier', '-')}{wp_str})"
+                    f"({label}{wp_str})"
                 )
             top3_names = ", ".join(top3_parts)
 
-            # ティアサマリー文字列（高ティアと低ティア両方表示）
-            tier_summary_parts = []
+            # 評価サマリー
+            eval_summary_parts = []
             for tk in ALL_TIER_KEYS:
                 if tier_counts[tk] > 0:
-                    tier_summary_parts.append(f"{tk}:{tier_counts[tk]}")
-            tier_summary = " ".join(tier_summary_parts) if tier_summary_parts else "-"
+                    label = _tier_to_label(tk)
+                    eval_summary_parts.append(f"{label}:{tier_counts[tk]}")
+            eval_summary = " ".join(eval_summary_parts) if eval_summary_parts else "-"
 
-            # 低ティア注意マーク
-            n_low_tier = tier_counts["40%"] + tier_counts["50%"]
+            # 低評価注意マーク
+            n_low = tier_counts["40%"] + tier_counts["50%"]
             alert_mark = ""
-            if n_low_tier > 0:
-                alert_mark = f" [!{n_low_tier}]"
+            if n_low > 0:
+                alert_mark = f" [注意{n_low}]"
 
             all_races.append({
                 "venue": venue_name,
@@ -516,10 +571,10 @@ def main():
                 "course": race["course"],
                 "head_count": race.get("head_count", len(horses)),
                 "highlight_score": highlight_score,
-                "tier_summary": tier_summary,
+                "eval_summary": eval_summary,
                 "top3_names": top3_names,
-                "n_high_tier": tier_counts["130%"] + tier_counts["120%"],
-                "n_low_tier": n_low_tier,
+                "n_high": tier_counts["130%"] + tier_counts["120%"],
+                "n_low": n_low,
                 "alert_mark": alert_mark,
                 "race_data": race,
             })
@@ -527,7 +582,7 @@ def main():
     all_races.sort(key=lambda x: x["highlight_score"], reverse=True)
 
     # 注目レーストップ5
-    st.markdown("### 注目レース（ROIティア順）")
+    st.markdown("### 注目レース（AI高評価馬が多い順）")
     ranking_rows = []
     for i, r in enumerate(all_races[:5]):
         ranking_rows.append({
@@ -537,7 +592,7 @@ def main():
             "レース名": r["race_name"] + r.get("alert_mark", ""),
             "コース": r["course"],
             "頭数": r["head_count"],
-            "ティア分布": r["tier_summary"],
+            "評価分布": r["eval_summary"],
             "注目馬": r["top3_names"],
         })
 
@@ -567,28 +622,29 @@ def main():
                 track_cond = race.get("track_condition", "")
                 horses = race.get("horses", [])
 
-                # ティア別カウント
+                # 評価別カウント
                 tier_counts = {}
                 for h in horses:
-                    t = h.get("and_filter_tier") or "-"
-                    tier_counts[t] = tier_counts.get(t, 0) + 1
+                    t = h.get("and_filter_tier") or None
+                    label = _tier_to_label(t) if t else "-"
+                    tier_counts[label] = tier_counts.get(label, 0) + 1
 
-                tier_str_parts = []
-                for tk in ALL_TIER_KEYS:
-                    if tier_counts.get(tk, 0) > 0:
-                        tier_str_parts.append(f"{tk}:{tier_counts[tk]}")
-                tier_str = " ".join(tier_str_parts) if tier_str_parts else ""
+                eval_str_parts = []
+                for lbl in ["S", "A", "B", "C", "C-", "D", "D-", "E", "E-", "F"]:
+                    if tier_counts.get(lbl, 0) > 0:
+                        eval_str_parts.append(f"{lbl}:{tier_counts[lbl]}")
+                eval_str = " ".join(eval_str_parts) if eval_str_parts else ""
 
-                has_high_tier = tier_counts.get("130%", 0) + tier_counts.get("120%", 0) > 0
-                has_low_tier = tier_counts.get("40%", 0) + tier_counts.get("50%", 0) > 0
+                has_high = tier_counts.get("S", 0) + tier_counts.get("A", 0) > 0
+                has_low = tier_counts.get("E-", 0) + tier_counts.get("F", 0) > 0
 
                 header = (
                     f"{race_num}R **{race_name}** "
                     f"({course} {track_cond}) "
-                    f"{tier_str}"
+                    f"{eval_str}"
                 )
 
-                with st.expander(header, expanded=(has_high_tier or has_low_tier)):
+                with st.expander(header, expanded=(has_high or has_low)):
                     # レース情報
                     info_cols = st.columns([2, 3])
                     with info_cols[0]:
@@ -607,78 +663,90 @@ def main():
                         st.warning("馬データなし")
                         continue
 
-                    # 芝レース判定（cushion_roi表示用）
+                    # 芝レース判定（馬場適性表示用）
                     is_turf = course.startswith("芝") if course else False
 
                     table_rows = []
                     for h in horses:
-                        tier_val = h.get("and_filter_tier") or "-"
+                        tier_label = _tier_to_label(h.get("and_filter_tier"))
 
-                        # 馬場ROI: 芝レースのみ cushion_roi を表示、ダートは「-」
+                        # 馬場適性: 芝レースのみ表示
                         if is_turf:
-                            cushion_roi_val = h.get("cushion_roi", "-") or "-"
+                            cushion_val = h.get("cushion_roi", "-") or "-"
                         else:
-                            cushion_roi_val = "-"
+                            cushion_val = "-"
 
-                        # 勝率・複勝率（コース別レートベース = メイン）
+                        # 勝率・複勝率
                         wp = h.get("win_prob")
                         pp = h.get("place_prob")
                         win_prob_str = f"{wp * 100:.1f}%" if wp else "-"
                         place_prob_str = f"{pp * 100:.1f}%" if pp else "-"
 
-                        # PLベース勝率（サブ表示）
-                        plwp = h.get("pl_win_prob")
-                        pl_win_prob_str = f"{plwp * 100:.1f}%" if plwp else "-"
+                        # 含水率×血統
+                        moisture_blood_val = h.get("moisture_blood_roi", "-") or "-"
 
-                        # オッズベース勝率（サブ表示）
-                        owp = h.get("odds_win_prob")
-                        odds_win_prob_str = f"{owp * 100:.1f}%" if owp else "-"
+                        # 前走比較（旧: 条件バイアス）
+                        context_bias_raw = h.get("context_bias", "-") or "-"
+                        context_bias_display = _format_context_bias(context_bias_raw)
 
-                        # 含水率×血統ROI
-                        moisture_blood_roi_val = h.get("moisture_blood_roi", "-") or "-"
-
-                        # 条件バイアス（前走→今走の条件変化）
-                        context_bias_val = h.get("context_bias", "-") or "-"
+                        # シグナル簡略化
+                        signal_display = _simplify_signal_tags(h.get("signal_tags", ""))
 
                         row_data = {
-                            "Rank": h.get("rank", 0),
+                            "順位": h.get("rank", 0),
                             "推奨": h.get("recommendation", ""),
                             "番": h.get("horse_number", ""),
                             "馬名": h.get("horse_name", ""),
-                            "ROIティア": tier_val,
+                            "AI評価": tier_label,
                             "勝率": win_prob_str,
                             "複勝率": place_prob_str,
-                            "PL勝率": pl_win_prob_str,
-                            "オッズ勝率": odds_win_prob_str,
-                            "条件バイアス": context_bias_val,
-                            "馬場ROI": cushion_roi_val,
-                            "含水率×血統ROI": moisture_blood_roi_val,
-                            "血統ROI": h.get("blood_roi", "-") or "-",
+                            "前走比較": context_bias_display,
+                            "馬場適性": cushion_val,
+                            "馬場×血統": moisture_blood_val,
+                            "血統適性": h.get("blood_roi", "-") or "-",
                             "父": h.get("sire_name", ""),
                             "脚質": h.get("running_style", ""),
                             "騎手": h.get("jockey_name", ""),
                             "オッズ": h.get("odds") or "-",
-                            "シグナル": h.get("signal_tags", ""),
+                            "材料": signal_display,
                         }
+
+                        # 詳細モードの場合、追加列を表示
+                        if show_detail:
+                            plwp = h.get("pl_win_prob")
+                            owp = h.get("odds_win_prob")
+                            row_data["参考勝率1"] = f"{plwp * 100:.1f}%" if plwp else "-"
+                            row_data["参考勝率2"] = f"{owp * 100:.1f}%" if owp else "-"
+
                         table_rows.append(row_data)
 
                     tdf = pd.DataFrame(table_rows)
 
-                    # ティア順にソート（高い方が上位、同ティアはRank順）
-                    tdf["_tier_sort"] = tdf["ROIティア"].map(TIER_SORT_ORDER).fillna(5)
+                    # AI評価順にソート
+                    tdf["_tier_sort"] = tdf["AI評価"].map(TIER_SORT_ORDER).fillna(5)
                     tdf = (tdf
-                           .sort_values(["_tier_sort", "Rank"])
+                           .sort_values(["_tier_sort", "順位"])
                            .drop(columns="_tier_sort")
                            .reset_index(drop=True))
 
+                    # 表示列の定義
                     display_cols = [
-                        "Rank", "推奨", "番", "馬名",
-                        "ROIティア", "勝率", "複勝率",
-                        "PL勝率", "オッズ勝率",
-                        "条件バイアス",
-                        "馬場ROI", "含水率×血統ROI", "血統ROI",
-                        "父", "脚質", "騎手", "オッズ", "シグナル",
+                        "順位", "推奨", "番", "馬名",
+                        "AI評価", "勝率", "複勝率",
+                        "前走比較",
+                        "馬場適性", "馬場×血統", "血統適性",
+                        "父", "脚質", "騎手", "オッズ", "材料",
                     ]
+                    if show_detail:
+                        # 詳細モード: 参考勝率も表示
+                        display_cols = [
+                            "順位", "推奨", "番", "馬名",
+                            "AI評価", "勝率", "複勝率",
+                            "参考勝率1", "参考勝率2",
+                            "前走比較",
+                            "馬場適性", "馬場×血統", "血統適性",
+                            "父", "脚質", "騎手", "オッズ", "材料",
+                        ]
                     display_cols = [c for c in display_cols if c in tdf.columns]
 
                     styled = (
@@ -696,7 +764,7 @@ def main():
     # フッター
     st.markdown("---")
     st.caption(
-        "keiba-ai 予想公開ページ | "
+        "keiba-ai 予想ページ | "
         "予測はAIモデルによる参考情報です。馬券購入は自己責任でお願いします。"
     )
 
