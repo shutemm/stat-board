@@ -280,7 +280,9 @@ def export_predictions(target_date: date) -> Path:
             "race_name": r.race_name or "",
             "venue": VENUE_CODES.get(r.venue_code, r.venue_code or ""),
             "venue_code": r.venue_code,
+            "venue_name": r.venue_name or VENUE_CODES.get(r.venue_code, ""),
             "course_type": r.course_type or "",
+            "course_detail": r.course_detail,
             "distance": r.distance,
             "race_number": r.race_number,
             "track_condition": r.track_condition or "",
@@ -318,11 +320,16 @@ def export_predictions(target_date: date) -> Path:
     cushion_analyzer.load()
 
     # --- TrueSkill/PLレーティングベースの勝率計算 ---
-    # PL vanilla がOOS ROI 118.9%でベスト → メインの勝率として使用
+    # PL vanilla がOOS ROI 118.9%でベスト → PLベース勝率（サブ表示）
     from analysis.trueskill_probability import (
         load_all_races as ts_load_all_races,
         compute_conditional_pl_ratings,
         pl_ratings_to_gamma,
+        pl_ratings_to_gamma_with_reserve,
+        load_lap_data,
+        compute_all_reserve_scores,
+        build_horse_reserve_history,
+        RESERVE_GAMMA_WEIGHT,
     )
     print("  TrueSkill/PLレーティング計算中...")
     import time as _ts_time
@@ -334,10 +341,93 @@ def export_predictions(target_date: date) -> Path:
     print(f"  PLレーティング計算完了: {_ts_time.time()-_ts_t0:.1f}s, "
           f"{len(_pl_final_ratings)}頭")
 
+    # reserve_score 計算 (mult_last w=0.5, Brier -6.0bp)
+    print("  reserve_score計算中...")
+    _rs_t0 = _ts_time.time()
+    _laps = load_lap_data()
+    _reserve_by_entry = compute_all_reserve_scores(_ts_all_races, _ts_race_info, _laps)
+    _reserve_avg, _reserve_last = build_horse_reserve_history(
+        _ts_all_races, _ts_race_info, _reserve_by_entry)
+    print(f"  reserve_score計算完了: {_ts_time.time()-_rs_t0:.1f}s, "
+          f"{len(_reserve_by_entry)}エントリー")
+
+    # --- コース別レートベースの勝率計算 (ECE 0.10%, ROI 119.1%) ---
+    # コース別レート = pl_mu + alpha * (-course_aptitude_score)
+    from analysis.course_rate_calculator import (
+        load_course_structure as cr_load_course_structure,
+        build_all_course_weights,
+        load_races_for_pl as cr_load_races_for_pl,
+        compute_pl_ratings as cr_compute_pl_ratings,
+        compute_course_aptitude,
+        build_oos_profiles_fast,
+        race_to_course_key,
+        PL_INIT_RATING as CR_PL_INIT_RATING,
+        PL_GAMMA_SCALE as CR_PL_GAMMA_SCALE,
+    )
+    print("  コース別レート計算中...")
+    _cr_t0 = _ts_time.time()
+    _cr_courses = cr_load_course_structure()
+    _cr_course_weights = build_all_course_weights(_cr_courses)
+    _cr_valid_keys = set(_cr_course_weights.keys())
+    _cr_races, _cr_race_meta = cr_load_races_for_pl()
+    _cr_race_ratings, _cr_final_ratings = cr_compute_pl_ratings(_cr_races)
+    print(f"  コース別レートPL計算完了: {_ts_time.time()-_cr_t0:.1f}s, "
+          f"{len(_cr_final_ratings)}頭")
+
+    # OOSプロファイル構築（対象日のレースの馬について過去データからプロファイル構築）
+    from analysis.horse_profile_builder import build_profile as hp_build_profile, load_data as hp_load_data
+    _cr_target_race_ids = set(r["race_id"] for r in race_list)
+    print(f"  OOSプロファイル構築中 (対象: {len(_cr_target_race_ids)} レース)...")
+    _cr_t1 = _ts_time.time()
+
+    # section data を先に読み込んで両方で共有
+    _hp_df = hp_load_data()
+
+    # section data に対象レースがあるかチェック
+    _races_in_sections = set(_hp_df["race_id"].unique()) & _cr_target_race_ids
+    _cr_oos_profiles = {}
+
+    if _races_in_sections:
+        _cr_oos_profiles = build_oos_profiles_fast(_races_in_sections)
+
+    # section data にないレースは DB から馬一覧を取得して個別にプロファイル構築
+    _cr_missing_races = _cr_target_race_ids - set(_cr_oos_profiles.keys())
+    if _cr_missing_races:
+        print(f"  section data にないレース: {len(_cr_missing_races)} → DB から馬プロファイル構築")
+        with get_session() as _s_hp:
+            from database.models import RaceResult as _RR_hp
+            _hp_entries = (
+                _s_hp.query(_RR_hp.race_id, _RR_hp.horse_id)
+                .filter(_RR_hp.race_id.in_(list(_cr_missing_races)))
+                .filter(_RR_hp.horse_id.isnot(None))
+                .all()
+            )
+        _hp_by_race = {}
+        for _e in _hp_entries:
+            if _e.race_id not in _hp_by_race:
+                _hp_by_race[_e.race_id] = []
+            _hp_by_race[_e.race_id].append(_e.horse_id)
+
+        for _rid, _hids in _hp_by_race.items():
+            _race_profiles = {}
+            for _hid in _hids:
+                _prof = hp_build_profile(_hid, _rid, df=_hp_df)
+                if _prof is not None:
+                    _race_profiles[_hid] = _prof
+            if _race_profiles:
+                _cr_oos_profiles[_rid] = _race_profiles
+        print(f"  DB馬プロファイル構築完了: {len(_hp_by_race)} レース, "
+              f"{sum(len(v) for v in _cr_oos_profiles.values() if isinstance(v, dict))} 馬")
+
+    print(f"  OOSプロファイル構築完了: {_ts_time.time()-_cr_t1:.1f}s")
+
+    CR_ALPHA = 5.0  # ベスト alpha (OOS評価結果)
+
     def _compute_ts_win_probs(horses_data, race_id, entries_map):
-        """TrueSkill/PLレーティングベースの勝率・複勝率を計算する。
+        """TrueSkill/PLレーティング + reserve_score補正ベースの勝率・複勝率を計算する。
 
         PL gamma = exp((rating - mean) / scale) でレース内正規化。
+        reserve_score(直近1走, mult方式, w=0.5)でgamma補正。
         未評価馬はデフォルトレーティング(1000.0)を使用。
         """
         from analysis.trueskill_probability import PL_INIT_RATING, PL_GAMMA_SCALE
@@ -367,8 +457,13 @@ def export_predictions(target_date: date) -> Path:
         if len(horse_ratings) < 2:
             return {}
 
-        # PL gamma に変換
-        gamma = pl_ratings_to_gamma(horse_ratings, scale=PL_GAMMA_SCALE)
+        # reserve_score スナップショット（直近1走 = last）
+        reserve_snap = _reserve_last.get(race_id, {})
+
+        # PL gamma + reserve_score補正 に変換
+        gamma = pl_ratings_to_gamma_with_reserve(
+            horse_ratings, reserve_snap,
+            scale=PL_GAMMA_SCALE, reserve_weight=RESERVE_GAMMA_WEIGHT)
         total_gamma = sum(gamma.values())
         if total_gamma <= 0:
             return {}
@@ -433,6 +528,86 @@ def export_predictions(target_date: date) -> Path:
                     p3 += pj * pk_given_j * (gi / rem_jk)
 
         return min(1.0, max(0.0, p1 + p2 + p3))
+
+    def _compute_cr_win_probs(horses_data, race_id, entries_map, race_info):
+        """コース別レートベースの勝率・複勝率を計算する。
+
+        course_rate = pl_mu + alpha * (-course_aptitude_score)
+        gamma = exp((course_rate - mean) / scale)
+        ECE 0.10% (オッズの0.16%より高精度)、ROI 119.1%。
+        """
+        import numpy as np
+
+        # PLレーティングのスナップショット
+        pl_snap = _cr_race_ratings.get(race_id, {})
+
+        # コースキー特定
+        venue_name_for_cr = race_info.get("venue_name") or race_info.get("venue")
+        course_key = race_to_course_key(
+            venue_name_for_cr,
+            race_info.get("course_type"),
+            race_info.get("distance"),
+            race_info.get("course_detail"),
+            valid_keys=_cr_valid_keys,
+        )
+        c_weights = _cr_course_weights.get(course_key) if course_key else None
+
+        # OOSプロファイル
+        race_profiles = _cr_oos_profiles.get(race_id, {})
+
+        # 各馬のcourse_rateを計算
+        horse_course_rates = {}
+        for h in horses_data:
+            hn = h["horse_number"]
+            hid = h.get("_horse_id") or entries_map.get(hn, {}).get("horse_id")
+            if not hid:
+                horse_course_rates[hn] = CR_PL_INIT_RATING
+                continue
+
+            # PLレーティング取得（horse_idベース）
+            pl_mu = pl_snap.get(hid)
+            if pl_mu is None:
+                pl_mu = _cr_final_ratings.get(hid, CR_PL_INIT_RATING)
+
+            # コース適性補正
+            course_adj = 0.0
+            if CR_ALPHA > 0 and c_weights and hid in race_profiles:
+                profile = race_profiles[hid]
+                apt_score = compute_course_aptitude(profile, c_weights)
+                course_adj = -CR_ALPHA * apt_score
+
+            horse_course_rates[hn] = pl_mu + course_adj
+
+        if len(horse_course_rates) < 2:
+            return {}
+
+        # mu → gamma変換
+        values = list(horse_course_rates.values())
+        mean_mu = np.mean(values)
+        gamma_dict = {}
+        for hn, mu in horse_course_rates.items():
+            gamma_dict[hn] = math.exp((mu - mean_mu) / CR_PL_GAMMA_SCALE)
+
+        total_gamma = sum(gamma_dict.values())
+        if total_gamma <= 0:
+            return {}
+
+        result = {}
+        gamma_list = list(gamma_dict.items())
+        for hn, g in gamma_list:
+            win_prob = g / total_gamma if total_gamma > 0 else 0.0
+
+            # 複勝率 (Harville top-3)
+            head_count = len(gamma_list)
+            gammas_arr = [x[1] for x in gamma_list]
+            idx = [x[0] for x in gamma_list].index(hn)
+            place_prob = _harville_place_prob(idx, gammas_arr, min(3, head_count))
+
+            result[hn] = {
+                "cr_win_prob": round(win_prob, 4),
+                "cr_place_prob": round(place_prob, 4),
+            }
+        return result
 
     # --- 前走条件バイアス計算用 ---
     import sqlite3 as _sqlite3_ctx
@@ -1192,7 +1367,17 @@ def export_predictions(target_date: date) -> Path:
                 }
                 horses_output.append(horse_data)
 
-            # TrueSkill/PLベースの勝率・複勝率を計算（メイン表示用）
+            # コース別レートベースの勝率・複勝率を計算（メイン表示用 — ECE 0.10%, ROI 119.1%）
+            cr_race_info = {
+                "venue_name": race.get("venue_name"),
+                "venue": race.get("venue"),
+                "course_type": ct,
+                "distance": dist,
+                "course_detail": race.get("course_detail"),
+            }
+            cr_probs = _compute_cr_win_probs(horses_output, race_id, entries_map, cr_race_info)
+
+            # TrueSkill/PLベースの勝率・複勝率を計算（サブ表示: PLベース勝率）
             ts_probs = _compute_ts_win_probs(horses_output, race_id, entries_map)
 
             # オッズベースの勝率・複勝率を計算（サブ表示用）
@@ -1216,10 +1401,14 @@ def export_predictions(target_date: date) -> Path:
                     moisture_blood_quintile_edges=_mb_quintile_edges)
                 for h in horses_output:
                     hn_key = h["horse_number"]
-                    # TrueSkill/PLベース → メインの勝率（win_prob, place_prob）
+                    # コース別レートベース → メインの勝率（win_prob, place_prob）
+                    cr_wp = cr_probs.get(hn_key, {})
+                    h["win_prob"] = cr_wp.get("cr_win_prob", 0.0)
+                    h["place_prob"] = cr_wp.get("cr_place_prob", 0.0)
+                    # PL+reserveベース → サブ表示（pl_win_prob, pl_place_prob）
                     ts_wp = ts_probs.get(hn_key, {})
-                    h["win_prob"] = ts_wp.get("ts_win_prob", 0.0)
-                    h["place_prob"] = ts_wp.get("ts_place_prob", 0.0)
+                    h["pl_win_prob"] = ts_wp.get("ts_win_prob", 0.0)
+                    h["pl_place_prob"] = ts_wp.get("ts_place_prob", 0.0)
                     # オッズベース → サブ表示（odds_win_prob, odds_place_prob）
                     owp = odds_probs.get(hn_key, {})
                     h["odds_win_prob"] = owp.get("win_prob", 0.0)
@@ -1231,9 +1420,12 @@ def export_predictions(target_date: date) -> Path:
             else:
                 for h in horses_output:
                     hn_key = h["horse_number"]
+                    cr_wp = cr_probs.get(hn_key, {})
+                    h["win_prob"] = cr_wp.get("cr_win_prob", 0.0)
+                    h["place_prob"] = cr_wp.get("cr_place_prob", 0.0)
                     ts_wp = ts_probs.get(hn_key, {})
-                    h["win_prob"] = ts_wp.get("ts_win_prob", 0.0)
-                    h["place_prob"] = ts_wp.get("ts_place_prob", 0.0)
+                    h["pl_win_prob"] = ts_wp.get("ts_win_prob", 0.0)
+                    h["pl_place_prob"] = ts_wp.get("ts_place_prob", 0.0)
                     h["odds_win_prob"] = 0.0
                     h["odds_place_prob"] = 0.0
                     h.pop("_horse_id", None)

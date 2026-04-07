@@ -318,6 +318,24 @@ def highlight_row(row):
             elif place_val < 15:
                 styles[idx] = f"color: {TEXT_MUTED}"
 
+    # PL勝率ハイライト（サブ表示: PL+reserveベース勝率）
+    if "PL勝率" in cols:
+        idx = cols.index("PL勝率")
+        pl_win_str = str(row["PL勝率"])
+        try:
+            pl_win_val = float(pl_win_str.replace("%", "")) if "%" in pl_win_str else None
+        except (ValueError, TypeError):
+            pl_win_val = None
+        if pl_win_val is not None:
+            if pl_win_val >= 20:
+                styles[idx] = f"color: {TEXT_GREEN_MED}"
+            elif pl_win_val >= 10:
+                styles[idx] = f"color: {TEXT_LIGHT}"
+            elif pl_win_val >= 5:
+                styles[idx] = f"color: {TEXT_MUTED}"
+            else:
+                styles[idx] = f"color: {TEXT_MUTED}"
+
     # オッズ勝率ハイライト（サブ表示: オッズベース勝率）
     if "オッズ勝率" in cols:
         idx = cols.index("オッズ勝率")
@@ -602,11 +620,15 @@ def main():
                         else:
                             cushion_roi_val = "-"
 
-                        # 勝率・複勝率（TrueSkill/PLベース = メイン）
+                        # 勝率・複勝率（コース別レートベース = メイン）
                         wp = h.get("win_prob")
                         pp = h.get("place_prob")
                         win_prob_str = f"{wp * 100:.1f}%" if wp else "-"
                         place_prob_str = f"{pp * 100:.1f}%" if pp else "-"
+
+                        # PLベース勝率（サブ表示）
+                        plwp = h.get("pl_win_prob")
+                        pl_win_prob_str = f"{plwp * 100:.1f}%" if plwp else "-"
 
                         # オッズベース勝率（サブ表示）
                         owp = h.get("odds_win_prob")
@@ -626,6 +648,7 @@ def main():
                             "ROIティア": tier_val,
                             "勝率": win_prob_str,
                             "複勝率": place_prob_str,
+                            "PL勝率": pl_win_prob_str,
                             "オッズ勝率": odds_win_prob_str,
                             "条件バイアス": context_bias_val,
                             "馬場ROI": cushion_roi_val,
@@ -650,7 +673,8 @@ def main():
 
                     display_cols = [
                         "Rank", "推奨", "番", "馬名",
-                        "ROIティア", "勝率", "複勝率", "オッズ勝率",
+                        "ROIティア", "勝率", "複勝率",
+                        "PL勝率", "オッズ勝率",
                         "条件バイアス",
                         "馬場ROI", "含水率×血統ROI", "血統ROI",
                         "父", "脚質", "騎手", "オッズ", "シグナル",
