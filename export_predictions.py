@@ -348,8 +348,25 @@ def export_predictions(target_date: date) -> Path:
     _reserve_by_entry = compute_all_reserve_scores(_ts_all_races, _ts_race_info, _laps)
     _reserve_avg, _reserve_last = build_horse_reserve_history(
         _ts_all_races, _ts_race_info, _reserve_by_entry)
+
+    # 馬ごとの最新reserve_score（未来レース用フォールバック）
+    # horse_id → 直近のreserve_score
+    _horse_latest_reserve = {}
+    for race in _ts_all_races:
+        race_id = race["race_id"]
+        info = _ts_race_info.get(race_id, {})
+        entries = info.get("entries", {})
+        for hn, e in entries.items():
+            hid = e.get("horse_id")
+            if not hid:
+                continue
+            rs = _reserve_by_entry.get((race_id, hn))
+            if rs is not None:
+                _horse_latest_reserve[hid] = rs  # 時系列順なので最後が最新
+
     print(f"  reserve_score計算完了: {_ts_time.time()-_rs_t0:.1f}s, "
-          f"{len(_reserve_by_entry)}エントリー")
+          f"{len(_reserve_by_entry)}エントリー, "
+          f"馬別最新: {len(_horse_latest_reserve)}頭")
 
     # --- コース別レートベースの勝率計算 (ECE 0.10%, ROI 119.1%) ---
     # コース別レート = pl_mu + alpha * (-course_aptitude_score)
@@ -459,6 +476,16 @@ def export_predictions(target_date: date) -> Path:
 
         # reserve_score スナップショット（直近1走 = last）
         reserve_snap = _reserve_last.get(race_id, {})
+
+        # 未来レース（DB未登録）の場合、reserve_snapが空dictになる
+        # → 各馬のhorse_idから最新のreserve_scoreを個別に参照する
+        if not reserve_snap:
+            reserve_snap = {}
+            for h in horses_data:
+                hn = h["horse_number"]
+                hid = h.get("_horse_id") or entries_map.get(hn, {}).get("horse_id")
+                if hid and hid in _horse_latest_reserve:
+                    reserve_snap[hn] = _horse_latest_reserve[hid]
 
         # PL gamma + reserve_score補正 に変換
         gamma = pl_ratings_to_gamma_with_reserve(
@@ -599,6 +626,7 @@ def export_predictions(target_date: date) -> Path:
         #             mean_dist=3.0→conf≈0.50, mean_dist=4.0→conf≈0.82
         # PLレーティングのinit距離が小さい（経験少ない馬が多い）場合はオッズ寄り
         confidence = 1.0 / (1.0 + math.exp(-1.5 * (mean_dist - 3.0)))
+        confidence = min(0.50, confidence)
 
         # --- オッズベース確率の計算 ---
         odds_gamma = {}
