@@ -384,6 +384,24 @@ def highlight_row(row):
             elif place_val < 15:
                 styles[idx] = f"color: {TEXT_MUTED}"
 
+    # オッズハイライト
+    if "オッズ" in cols:
+        idx = cols.index("オッズ")
+        odds_str = str(row["オッズ"])
+        try:
+            odds_val = float(odds_str) if odds_str != "-" else None
+        except (ValueError, TypeError):
+            odds_val = None
+        if odds_val is not None:
+            if odds_val <= 3.0:
+                styles[idx] = f"color: {TEXT_ORANGE}; font-weight: bold"
+            elif odds_val <= 10.0:
+                styles[idx] = f"color: {TEXT_LIGHT}"
+            elif odds_val <= 30.0:
+                styles[idx] = f"color: {TEXT_MUTED}"
+            else:
+                styles[idx] = f"color: {TEXT_MUTED}"
+
     # 展開列ハイライト
     if "展開" in cols:
         idx = cols.index("展開")
@@ -732,20 +750,20 @@ def main():
                     # 表示列の定義
                     display_cols = [
                         "順位", "推奨", "番", "馬名",
-                        "AI評価", "勝率", "複勝率",
+                        "AI評価", "勝率", "複勝率", "オッズ",
                         "前走比較",
                         "馬場適性", "馬場×血統", "血統適性",
-                        "父", "脚質", "騎手", "オッズ", "材料",
+                        "父", "脚質", "騎手", "材料",
                     ]
                     if show_detail:
                         # 詳細モード: 参考勝率も表示
                         display_cols = [
                             "順位", "推奨", "番", "馬名",
-                            "AI評価", "勝率", "複勝率",
+                            "AI評価", "勝率", "複勝率", "オッズ",
                             "参考勝率1", "参考勝率2",
                             "前走比較",
                             "馬場適性", "馬場×血統", "血統適性",
-                            "父", "脚質", "騎手", "オッズ", "材料",
+                            "父", "脚質", "騎手", "材料",
                         ]
                     display_cols = [c for c in display_cols if c in tdf.columns]
 
