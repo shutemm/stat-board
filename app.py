@@ -1223,16 +1223,16 @@ def _best_rating(hdata):
 
 
 def _rating_color_style(v):
-    """レート値に応じたセルスタイルを返す（秒差スケール: 正=速い=強い）"""
-    if v >= 5.0:
+    """レート値に応じたセルスタイルを返す（1000mあたり秒差スケール: 正=速い=強い）"""
+    if v >= 2.5:
         return f"background-color: {BG_GREEN_STRONG}; color: {TEXT_GREEN}; font-weight: bold"
-    elif v >= 3.0:
-        return f"background-color: {BG_GREEN_MEDIUM}; color: {TEXT_GREEN_MED}; font-weight: bold"
     elif v >= 1.5:
+        return f"background-color: {BG_GREEN_MEDIUM}; color: {TEXT_GREEN_MED}; font-weight: bold"
+    elif v >= 0.75:
         return f"background-color: {BG_GREEN_LIGHT}; color: {TEXT_GREEN_MED}"
     elif v >= 0.0:
         return f"color: {TEXT_LIGHT}"
-    elif v >= -2.0:
+    elif v >= -1.0:
         return f"color: {TEXT_MUTED}"
     else:
         return f"background-color: {BG_RED_LIGHT}; color: {TEXT_RED}"
@@ -1387,11 +1387,11 @@ def page_ratings():
         # 期待レートスタイル
         er = row["期待"]
         er_s = _rating_color_style(er)
-        er_cell = f'<span style="{er_s}">{er:+.2f}s</span>'
+        er_cell = f'<span style="{er_s}">{er:+.2f}</span>'
 
         # 直近レートスタイル
         rate_s = _rating_color_style(row["レート"])
-        rate_cell = f'<span style="{rate_s}">{row["レート"]:+.2f}s</span>'
+        rate_cell = f'<span style="{rate_s}">{row["レート"]:+.2f}</span>'
 
         # 着順スタイル
         fo = row["着順"]
@@ -1512,7 +1512,7 @@ def page_horse_detail():
             st.info("該当する馬がいません。")
             return
 
-        options = {f"{n} ({cr:+.2f}s)": hid for hid, n, cr in filtered}
+        options = {f"{n} ({cr:+.2f})": hid for hid, n, cr in filtered}
 
         # session_state から馬名指定がある場合、その馬を初期選択
         default_idx = 0
@@ -1545,23 +1545,23 @@ def page_horse_detail():
         with cols[0]:
             if turf_data:
                 er = turf_data.get("er", turf_data["cr"])
-                st.metric("芝 期待レート", f"{er:+.2f}s")
+                st.metric("芝 期待レート", f"{er:+.2f}")
             else:
                 st.metric("芝 期待レート", "-")
         with cols[1]:
             if turf_data:
-                st.metric("芝 直近レート", f"{turf_data['cr']:+.2f}s")
+                st.metric("芝 直近レート", f"{turf_data['cr']:+.2f}")
             else:
                 st.metric("芝 直近レート", "-")
         with cols[2]:
             if dirt_data:
                 er = dirt_data.get("er", dirt_data["cr"])
-                st.metric("ダート 期待レート", f"{er:+.2f}s")
+                st.metric("ダート 期待レート", f"{er:+.2f}")
             else:
                 st.metric("ダート 期待レート", "-")
         with cols[3]:
             if dirt_data:
-                st.metric("ダート 直近レート", f"{dirt_data['cr']:+.2f}s")
+                st.metric("ダート 直近レート", f"{dirt_data['cr']:+.2f}")
             else:
                 st.metric("ダート 直近レート", "-")
 
