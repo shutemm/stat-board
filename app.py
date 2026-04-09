@@ -950,16 +950,16 @@ def _best_rating(hdata):
 
 
 def _rating_color_style(v):
-    """レート値に応じたセルスタイルを返す（絶対レートスケール対応）"""
-    if v >= 75:
+    """レート値に応じたセルスタイルを返す（秒差スケール: 正=速い=強い）"""
+    if v >= 5.0:
         return f"background-color: {BG_GREEN_STRONG}; color: {TEXT_GREEN}; font-weight: bold"
-    elif v >= 60:
+    elif v >= 3.0:
         return f"background-color: {BG_GREEN_MEDIUM}; color: {TEXT_GREEN_MED}; font-weight: bold"
-    elif v >= 48:
+    elif v >= 1.5:
         return f"background-color: {BG_GREEN_LIGHT}; color: {TEXT_GREEN_MED}"
-    elif v >= 35:
+    elif v >= 0.0:
         return f"color: {TEXT_LIGHT}"
-    elif v >= 25:
+    elif v >= -2.0:
         return f"color: {TEXT_MUTED}"
     else:
         return f"background-color: {BG_RED_LIGHT}; color: {TEXT_RED}"
@@ -1026,7 +1026,7 @@ def page_ratings():
         latest_dist = latest.get("dist", 0)
         latest_rn = latest.get("rn", "")
         latest_venue = latest.get("v", "")
-        latest_cls = latest.get("cls", "")
+        expected_rating = sdata.get("er") if is_v2 and sdata else None
 
         # v1互換コースフィルタ
         if not is_v2:
@@ -1053,7 +1053,7 @@ def page_ratings():
             "horse_id": hid,
             "馬名": name,
             "レート": cr,
-            "クラス": latest_cls,
+            "期待": expected_rating if expected_rating is not None else cr,
             "直近レース": f"{latest_venue} {latest_rn}" if latest_rn else latest_date,
             "日付": latest_date,
             "着順": latest_fo if latest_fo else "-",
@@ -1066,7 +1066,7 @@ def page_ratings():
         return
 
     df = pd.DataFrame(rows)
-    df = df.sort_values("レート", ascending=False).reset_index(drop=True)
+    df = df.sort_values("期待", ascending=False).reset_index(drop=True)
     df.insert(0, "順位", range(1, len(df) + 1))
 
     st.markdown(f"**{len(df)}頭** (馬名クリックで詳細を別タブで表示)")
@@ -1111,9 +1111,14 @@ def page_ratings():
         encoded_name = urllib.parse.quote(row["馬名"])
         horse_link = f'<a href="?page=horse&name={encoded_name}" target="_blank" style="color:#64b5f6; text-decoration:none; font-weight:bold;">{row["馬名"]}</a>'
 
-        # レートスタイル
+        # 期待レートスタイル
+        er = row["期待"]
+        er_s = _rating_color_style(er)
+        er_cell = f'<span style="{er_s}">{er:+.2f}s</span>'
+
+        # 直近レートスタイル
         rate_s = _rating_color_style(row["レート"])
-        rate_cell = f'<span style="{rate_s}">{row["レート"]:.1f}</span>'
+        rate_cell = f'<span style="{rate_s}">{row["レート"]:+.2f}s</span>'
 
         # 着順スタイル
         fo = row["着順"]
@@ -1135,8 +1140,8 @@ def page_ratings():
             f"<tr>"
             f'<td style="color:{TEXT_MUTED}; text-align:right; padding-right:8px;">{row["順位"]}</td>'
             f'<td>{horse_link}</td>'
+            f'<td style="text-align:right;">{er_cell}</td>'
             f'<td style="text-align:right;">{rate_cell}</td>'
-            f'<td style="color:{TEXT_LIGHT};">{row["クラス"]}</td>'
             f'<td style="color:{TEXT_LIGHT};">{row["直近レース"]}</td>'
             f'<td style="color:{TEXT_MUTED};">{row["日付"]}</td>'
             f'<td style="text-align:center;">{fo_cell}</td>'
@@ -1176,8 +1181,8 @@ def page_ratings():
     <tr>
         <th style="text-align:right; padding-right:8px;">#</th>
         <th>馬名</th>
-        <th style="text-align:right;">レート</th>
-        <th>クラス</th>
+        <th style="text-align:right;">期待</th>
+        <th style="text-align:right;">直近</th>
         <th>直近レース</th>
         <th>日付</th>
         <th style="text-align:center;">着順</th>
@@ -1234,7 +1239,7 @@ def page_horse_detail():
             st.info("該当する馬がいません。")
             return
 
-        options = {f"{n} (レート: {cr:.1f})": hid for hid, n, cr in filtered}
+        options = {f"{n} ({cr:+.2f}s)": hid for hid, n, cr in filtered}
 
         # session_state から馬名指定がある場合、その馬を初期選択
         default_idx = 0
@@ -1266,28 +1271,26 @@ def page_horse_detail():
         cols = st.columns(4)
         with cols[0]:
             if turf_data:
-                st.metric("芝レート", f"{turf_data['cr']:.1f}")
+                er = turf_data.get("er", turf_data["cr"])
+                st.metric("芝 期待レート", f"{er:+.2f}s")
             else:
-                st.metric("芝レート", "-")
+                st.metric("芝 期待レート", "-")
         with cols[1]:
-            if turf_data and len(turf_data.get("h", [])) >= 2:
-                prev = turf_data["h"][-2]["r"]
-                diff = turf_data["cr"] - prev
-                st.metric("芝 前走差", f"{diff:+.1f}")
+            if turf_data:
+                st.metric("芝 直近レート", f"{turf_data['cr']:+.2f}s")
             else:
-                st.metric("芝 前走差", "-")
+                st.metric("芝 直近レート", "-")
         with cols[2]:
             if dirt_data:
-                st.metric("ダートレート", f"{dirt_data['cr']:.1f}")
+                er = dirt_data.get("er", dirt_data["cr"])
+                st.metric("ダート 期待レート", f"{er:+.2f}s")
             else:
-                st.metric("ダートレート", "-")
+                st.metric("ダート 期待レート", "-")
         with cols[3]:
-            if dirt_data and len(dirt_data.get("h", [])) >= 2:
-                prev = dirt_data["h"][-2]["r"]
-                diff = dirt_data["cr"] - prev
-                st.metric("ダート 前走差", f"{diff:+.1f}")
+            if dirt_data:
+                st.metric("ダート 直近レート", f"{dirt_data['cr']:+.2f}s")
             else:
-                st.metric("ダート 前走差", "-")
+                st.metric("ダート 直近レート", "-")
 
         st.markdown("---")
 
@@ -1362,13 +1365,12 @@ def page_horse_detail():
         race_rows.append({
             "日付": rh.get("d", ""),
             "レース名": rh.get("rn", ""),
-            "クラス": rh.get("cls", ""),
             "場所": rh.get("v", ""),
             "コース": f"{rh.get('ct', '')} {rh.get('dist', '')}m",
             "馬場": rh.get("tc", ""),
             "着順": fo if fo else "-",
             "オッズ": f"{odds:.1f}" if odds else "-",
-            "レート": f"{rh.get('r', 0):.1f}",
+            "レート": f"{rh.get('r', 0):+.2f}",
         })
 
     if race_rows:
