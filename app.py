@@ -4,6 +4,7 @@
 モデルコード・特徴量計算・学習ロジックは一切含まない。
 
 データ更新: export_predictions.py で生成した JSON を data/ に配置する。
+レートデータ: export_ratings.py で生成した ratings.json を data/ に配置する。
 """
 
 import json
@@ -193,6 +194,16 @@ def load_prediction_files():
 def load_prediction_data(file_path: str):
     """JSONファイルを読み込む"""
     with open(file_path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+@st.cache_data(ttl=300)
+def load_ratings_data():
+    """ratings.json を読み込む"""
+    ratings_path = DATA_DIR / "ratings.json"
+    if not ratings_path.exists():
+        return None
+    with open(ratings_path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -458,11 +469,320 @@ def render_pace_prediction(pace_data: dict):
 # ============================================================
 
 def main():
-    # サイドバー
+    # サイドバー - ページ選択
     with st.sidebar:
-        st.title("keiba-ai 予想")
+        st.title("keiba-ai")
+        page = st.radio(
+            "ページ",
+            ["予想", "レート一覧", "馬詳細"],
+            index=0,
+        )
         st.markdown("---")
 
+    if page == "予想":
+        page_predictions()
+    elif page == "レート一覧":
+        page_ratings()
+    elif page == "馬詳細":
+        page_horse_detail()
+
+
+# ============================================================
+# レートページ
+# ============================================================
+
+def page_ratings():
+    """レート一覧ページ"""
+    ratings_data = load_ratings_data()
+    if not ratings_data:
+        st.warning("レートデータがありません。export_ratings.py を実行してください。")
+        return
+
+    ratings = ratings_data.get("ratings", {})
+    exported_at = ratings_data.get("exported_at", "")
+
+    st.header("レート一覧")
+    if exported_at:
+        try:
+            exp_dt = datetime.fromisoformat(exported_at)
+            st.caption(f"更新: {exp_dt.strftime('%Y-%m-%d %H:%M')}")
+        except ValueError:
+            pass
+
+    with st.sidebar:
+        # フィルタ
+        st.markdown("### フィルタ")
+        course_filter = st.selectbox("コース", ["全て", "芝", "ダート"])
+        dist_options = ["全て", "短距離(~1400m)", "マイル(1401~1800m)", "中距離(1801~2200m)", "長距離(2201m~)"]
+        dist_filter = st.selectbox("距離帯", dist_options)
+        search_query = st.text_input("馬名検索", "")
+
+    # データ構築
+    rows = []
+    for hid, hdata in ratings.items():
+        name = hdata.get("n", "")
+        cr = hdata.get("cr", 0.0)
+        history = hdata.get("h", [])
+
+        if not history:
+            continue
+
+        latest = history[-1]
+        latest_date = latest.get("d", "")
+        latest_fo = latest.get("fo")
+        latest_odds = latest.get("o")
+        latest_ct = latest.get("ct", "")
+        latest_dist = latest.get("dist", 0)
+        latest_rn = latest.get("rn", "")
+        latest_venue = latest.get("v", "")
+
+        # コースフィルタ
+        if course_filter == "芝" and "芝" not in latest_ct:
+            continue
+        if course_filter == "ダート" and "ダ" not in latest_ct and "ダート" not in latest_ct:
+            continue
+
+        # 距離帯フィルタ
+        if dist_filter == "短距離(~1400m)" and latest_dist > 1400:
+            continue
+        if dist_filter == "マイル(1401~1800m)" and (latest_dist <= 1400 or latest_dist > 1800):
+            continue
+        if dist_filter == "中距離(1801~2200m)" and (latest_dist <= 1800 or latest_dist > 2200):
+            continue
+        if dist_filter == "長距離(2201m~)" and latest_dist <= 2200:
+            continue
+
+        # 馬名検索
+        if search_query and search_query not in name:
+            continue
+
+        rows.append({
+            "horse_id": hid,
+            "馬名": name,
+            "レート": cr,
+            "直近レース": f"{latest_venue} {latest_rn}" if latest_rn else latest_date,
+            "日付": latest_date,
+            "着順": latest_fo if latest_fo else "-",
+            "オッズ": latest_odds if latest_odds else "-",
+            "コース": latest_ct,
+            "距離": latest_dist,
+        })
+
+    if not rows:
+        st.info("該当する馬がありません。")
+        return
+
+    df = pd.DataFrame(rows)
+    df = df.sort_values("レート", ascending=False).reset_index(drop=True)
+    df.insert(0, "順位", range(1, len(df) + 1))
+
+    st.markdown(f"**{len(df)}頭**")
+
+    # 表示列
+    display_cols = ["順位", "馬名", "レート", "直近レース", "日付", "着順", "オッズ"]
+
+    def highlight_rating_row(row):
+        styles = [""] * len(row)
+        cols = list(row.index)
+        if "レート" in cols:
+            idx = cols.index("レート")
+            v = row["レート"]
+            if v >= 1.5:
+                styles[idx] = f"background-color: {BG_GREEN_STRONG}; color: {TEXT_GREEN}; font-weight: bold"
+            elif v >= 1.0:
+                styles[idx] = f"background-color: {BG_GREEN_MEDIUM}; color: {TEXT_GREEN_MED}; font-weight: bold"
+            elif v >= 0.5:
+                styles[idx] = f"background-color: {BG_GREEN_LIGHT}; color: {TEXT_GREEN_MED}"
+            elif v >= 0.0:
+                styles[idx] = f"color: {TEXT_LIGHT}"
+            elif v >= -0.5:
+                styles[idx] = f"color: {TEXT_MUTED}"
+            elif v >= -1.0:
+                styles[idx] = f"background-color: {BG_RED_LIGHT}; color: {TEXT_RED}"
+            else:
+                styles[idx] = f"background-color: {BG_RED_STRONG}; color: {TEXT_RED_STRONG}; font-weight: bold"
+        if "着順" in cols:
+            idx = cols.index("着順")
+            fo = row["着順"]
+            if fo != "-":
+                try:
+                    fov = int(fo)
+                    if fov == 1:
+                        styles[idx] = f"background-color: {BG_GREEN_STRONG}; color: #ffffff; font-weight: bold"
+                    elif fov <= 3:
+                        styles[idx] = f"background-color: {BG_GREEN_LIGHT}; color: {TEXT_GREEN_MED}"
+                except (ValueError, TypeError):
+                    pass
+        return styles
+
+    styled = df[display_cols].style.apply(highlight_rating_row, axis=1)
+    st.dataframe(
+        styled,
+        use_container_width=True,
+        hide_index=True,
+        height=min(len(df) * 38 + 40, 800),
+    )
+
+
+# ============================================================
+# 馬詳細ページ
+# ============================================================
+
+def page_horse_detail():
+    """馬詳細ページ"""
+    ratings_data = load_ratings_data()
+    if not ratings_data:
+        st.warning("レートデータがありません。export_ratings.py を実行してください。")
+        return
+
+    ratings = ratings_data.get("ratings", {})
+
+    # 馬名リスト（レートが高い順）
+    horse_list = []
+    for hid, hdata in ratings.items():
+        name = hdata.get("n", "")
+        cr = hdata.get("cr", 0.0)
+        if name:
+            horse_list.append((hid, name, cr))
+    horse_list.sort(key=lambda x: x[2], reverse=True)
+
+    with st.sidebar:
+        search = st.text_input("馬名で検索", "", key="horse_search")
+        if search:
+            filtered = [(hid, n, cr) for hid, n, cr in horse_list if search in n]
+        else:
+            filtered = horse_list[:200]
+
+        if not filtered:
+            st.info("該当する馬がいません。")
+            return
+
+        options = {f"{n} (レート: {cr:.2f})": hid for hid, n, cr in filtered}
+        selected_label = st.selectbox(
+            "馬を選択",
+            list(options.keys()),
+        )
+        selected_hid = options[selected_label]
+
+    hdata = ratings[selected_hid]
+    horse_name = hdata.get("n", "")
+    current_rating = hdata.get("cr", 0.0)
+    history = hdata.get("h", [])
+
+    st.header(f"{horse_name}")
+
+    # 現在レート表示
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("現在レート", f"{current_rating:.2f}")
+    with col2:
+        if len(history) >= 2:
+            prev = history[-2]["r"]
+            diff = current_rating - prev
+            st.metric("前走からの変化", f"{diff:+.2f}")
+        else:
+            st.metric("前走からの変化", "-")
+    with col3:
+        st.metric("出走数(2024~)", f"{len(history)}")
+
+    st.markdown("---")
+
+    # レート推移グラフ
+    if len(history) >= 2:
+        st.subheader("レート推移")
+        chart_data = pd.DataFrame([
+            {
+                "日付": rh["d"],
+                "レート": rh["r"],
+            }
+            for rh in history
+        ])
+        chart_data["日付"] = pd.to_datetime(chart_data["日付"])
+        chart_data = chart_data.set_index("日付")
+
+        st.line_chart(chart_data, y="レート", color="#4caf50")
+
+    # 過去レース一覧
+    st.subheader("過去レース一覧")
+    race_rows = []
+    for rh in reversed(history):
+        fo = rh.get("fo")
+        odds = rh.get("o")
+        race_rows.append({
+            "日付": rh.get("d", ""),
+            "レース名": rh.get("rn", ""),
+            "場所": rh.get("v", ""),
+            "コース": f"{rh.get('ct', '')} {rh.get('dist', '')}m",
+            "馬場": rh.get("tc", ""),
+            "着順": fo if fo else "-",
+            "オッズ": f"{odds:.1f}" if odds else "-",
+            "レート": f"{rh.get('r', 0):.2f}",
+        })
+
+    if race_rows:
+        rdf = pd.DataFrame(race_rows)
+
+        def highlight_horse_race_row(row):
+            styles = [""] * len(row)
+            cols = list(row.index)
+            if "着順" in cols:
+                idx = cols.index("着順")
+                fo = row["着順"]
+                if fo != "-":
+                    try:
+                        fov = int(fo)
+                        if fov == 1:
+                            styles[idx] = f"background-color: {BG_GREEN_STRONG}; color: #ffffff; font-weight: bold"
+                        elif fov <= 3:
+                            styles[idx] = f"background-color: {BG_GREEN_LIGHT}; color: {TEXT_GREEN_MED}"
+                        elif fov >= 10:
+                            styles[idx] = f"color: {TEXT_MUTED}"
+                    except (ValueError, TypeError):
+                        pass
+            if "レート" in cols:
+                idx = cols.index("レート")
+                try:
+                    v = float(row["レート"])
+                    if v >= 1.0:
+                        styles[idx] = f"background-color: {BG_GREEN_MEDIUM}; color: {TEXT_GREEN}; font-weight: bold"
+                    elif v >= 0.5:
+                        styles[idx] = f"background-color: {BG_GREEN_LIGHT}; color: {TEXT_GREEN_MED}"
+                    elif v >= 0.0:
+                        styles[idx] = f"color: {TEXT_LIGHT}"
+                    elif v >= -0.5:
+                        styles[idx] = f"color: {TEXT_MUTED}"
+                    else:
+                        styles[idx] = f"background-color: {BG_RED_LIGHT}; color: {TEXT_RED}"
+                except (ValueError, TypeError):
+                    pass
+            return styles
+
+        styled = rdf.style.apply(highlight_horse_race_row, axis=1)
+        st.dataframe(
+            styled,
+            use_container_width=True,
+            hide_index=True,
+            height=min(len(rdf) * 38 + 40, 600),
+        )
+    else:
+        st.info("レース履歴がありません。")
+
+    # フッター
+    st.markdown("---")
+    st.caption(
+        "keiba-ai 予想ページ | "
+        "レートはAIモデルによるパフォーマンス評価値です。"
+    )
+
+
+# ============================================================
+# 予想ページ（既存）
+# ============================================================
+
+def page_predictions():
+    """予想ページ（既存の予測表示）"""
+    # サイドバー
+    with st.sidebar:
         files = load_prediction_files()
         if not files:
             st.warning("予測データがありません")
@@ -482,9 +802,6 @@ def main():
 
         # 詳細表示切替
         show_detail = st.checkbox("詳細情報を表示", value=False)
-
-        st.markdown("---")
-        st.caption("keiba-ai 予想ページ")
 
     # データ読み込み
     data = load_prediction_data(str(selected_file["path"]))
