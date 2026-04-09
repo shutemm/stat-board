@@ -879,6 +879,12 @@ def main():
     if "horse_name" not in st.session_state:
         st.session_state["horse_name"] = ""
 
+    # query parameter による馬詳細ページ遷移
+    qp = st.query_params
+    if qp.get("page") == "horse" and qp.get("name"):
+        st.session_state["page"] = "馬詳細"
+        st.session_state["horse_name"] = qp["name"]
+
     PAGE_OPTIONS = ["予想", "レート一覧", "馬詳細", "コース分析"]
 
     # サイドバー - ページ選択
@@ -1063,10 +1069,10 @@ def page_ratings():
     df = df.sort_values("レート", ascending=False).reset_index(drop=True)
     df.insert(0, "順位", range(1, len(df) + 1))
 
-    st.markdown(f"**{len(df)}頭** (馬名クリックで詳細へ)")
+    st.markdown(f"**{len(df)}頭** (馬名クリックで詳細を別タブで表示)")
 
     # ページネーション
-    PER_PAGE = 30
+    PER_PAGE = 50
     total_pages = max(1, (len(df) + PER_PAGE - 1) // PER_PAGE)
     if "ratings_page" not in st.session_state:
         st.session_state["ratings_page"] = 0
@@ -1096,53 +1102,95 @@ def page_ratings():
     end_idx = min(start_idx + PER_PAGE, len(df))
     page_df = df.iloc[start_idx:end_idx]
 
-    # テーブルヘッダー
-    header_cols = st.columns([0.5, 2.0, 1.0, 1.0, 2.0, 1.0, 0.7, 0.8])
-    header_labels = ["#", "馬名", "レート", "クラス", "直近レース", "日付", "着順", "オッズ"]
-    for col, label in zip(header_cols, header_labels):
-        with col:
-            st.markdown(f"**{label}**")
+    # HTMLテーブルで表示（コンパクト）
+    import urllib.parse
 
-    st.markdown(
-        f"<hr style='margin:2px 0; border-color:{TEXT_MUTED};'>",
-        unsafe_allow_html=True,
-    )
-
-    # 行表示（馬名をボタンに）
+    html_rows = []
     for _, row in page_df.iterrows():
-        cols = st.columns([0.5, 2.0, 1.0, 1.0, 2.0, 1.0, 0.7, 0.8])
-        with cols[0]:
-            st.markdown(f"<span style='color:{TEXT_MUTED};'>{row['順位']}</span>", unsafe_allow_html=True)
-        with cols[1]:
-            if st.button(row["馬名"], key=f"horse_{row['horse_id']}_{start_idx}", use_container_width=True):
-                st.session_state["page"] = "馬詳細"
-                st.session_state["horse_name"] = row["馬名"]
-                st.rerun()
-        with cols[2]:
-            rate_style = _rating_color_style(row["レート"])
-            st.markdown(f"<span style='{rate_style}'>{row['レート']:.1f}</span>", unsafe_allow_html=True)
-        with cols[3]:
-            st.markdown(f"<span style='color:{TEXT_LIGHT};'>{row['クラス']}</span>", unsafe_allow_html=True)
-        with cols[4]:
-            st.markdown(f"<span style='color:{TEXT_LIGHT};'>{row['直近レース']}</span>", unsafe_allow_html=True)
-        with cols[5]:
-            st.markdown(f"<span style='color:{TEXT_MUTED};'>{row['日付']}</span>", unsafe_allow_html=True)
-        with cols[6]:
-            fo = row["着順"]
-            fo_style = f"color:{TEXT_LIGHT}"
-            if fo != "-":
-                try:
-                    fov = int(fo)
-                    if fov == 1:
-                        fo_style = f"background-color:{BG_GREEN_STRONG}; color:#ffffff; font-weight:bold; padding:2px 6px; border-radius:4px"
-                    elif fov <= 3:
-                        fo_style = f"color:{TEXT_GREEN_MED}"
-                except (ValueError, TypeError):
-                    pass
-            st.markdown(f"<span style='{fo_style}'>{fo}</span>", unsafe_allow_html=True)
-        with cols[7]:
-            odds = row["オッズ"]
-            st.markdown(f"<span style='color:{TEXT_LIGHT};'>{odds}</span>", unsafe_allow_html=True)
+        # 馬名リンク（別タブで馬詳細ページを開く）
+        encoded_name = urllib.parse.quote(row["馬名"])
+        horse_link = f'<a href="?page=horse&name={encoded_name}" target="_blank" style="color:#64b5f6; text-decoration:none; font-weight:bold;">{row["馬名"]}</a>'
+
+        # レートスタイル
+        rate_s = _rating_color_style(row["レート"])
+        rate_cell = f'<span style="{rate_s}">{row["レート"]:.1f}</span>'
+
+        # 着順スタイル
+        fo = row["着順"]
+        fo_s = f"color:{TEXT_LIGHT}"
+        if fo != "-":
+            try:
+                fov = int(fo)
+                if fov == 1:
+                    fo_s = f"background-color:{BG_GREEN_STRONG}; color:#ffffff; font-weight:bold; padding:1px 5px; border-radius:3px"
+                elif fov <= 3:
+                    fo_s = f"color:{TEXT_GREEN_MED}"
+            except (ValueError, TypeError):
+                pass
+        fo_cell = f'<span style="{fo_s}">{fo}</span>'
+
+        odds = row["オッズ"]
+
+        html_rows.append(
+            f"<tr>"
+            f'<td style="color:{TEXT_MUTED}; text-align:right; padding-right:8px;">{row["順位"]}</td>'
+            f'<td>{horse_link}</td>'
+            f'<td style="text-align:right;">{rate_cell}</td>'
+            f'<td style="color:{TEXT_LIGHT};">{row["クラス"]}</td>'
+            f'<td style="color:{TEXT_LIGHT};">{row["直近レース"]}</td>'
+            f'<td style="color:{TEXT_MUTED};">{row["日付"]}</td>'
+            f'<td style="text-align:center;">{fo_cell}</td>'
+            f'<td style="color:{TEXT_LIGHT}; text-align:right;">{odds}</td>'
+            f"</tr>"
+        )
+
+    table_html = f"""
+    <style>
+    .ratings-table {{
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9em;
+    }}
+    .ratings-table th {{
+        color: {TEXT_MUTED};
+        font-weight: bold;
+        text-align: left;
+        padding: 4px 6px;
+        border-bottom: 1px solid #444;
+    }}
+    .ratings-table td {{
+        padding: 3px 6px;
+        border-bottom: 1px solid #333;
+        white-space: nowrap;
+    }}
+    .ratings-table tr:hover {{
+        background-color: #2a2a2a;
+    }}
+    .ratings-table a:hover {{
+        color: #90caf9 !important;
+        text-decoration: underline !important;
+    }}
+    </style>
+    <table class="ratings-table">
+    <thead>
+    <tr>
+        <th style="text-align:right; padding-right:8px;">#</th>
+        <th>馬名</th>
+        <th style="text-align:right;">レート</th>
+        <th>クラス</th>
+        <th>直近レース</th>
+        <th>日付</th>
+        <th style="text-align:center;">着順</th>
+        <th style="text-align:right;">オッズ</th>
+    </tr>
+    </thead>
+    <tbody>
+    {"".join(html_rows)}
+    </tbody>
+    </table>
+    """
+
+    st.markdown(table_html, unsafe_allow_html=True)
 
 
 # ============================================================
