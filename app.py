@@ -488,8 +488,54 @@ def main():
 
 
 # ============================================================
-# レートページ
+# レートページ（v2: 芝/ダート分離、クラス補正付き絶対レート）
 # ============================================================
+
+def _is_v2_ratings(ratings_data):
+    """ratings.json が v2 形式かを判定"""
+    return ratings_data.get("version", 1) >= 2
+
+
+def _get_surface_data(hdata, surface_key):
+    """v2形式から指定surfaceのデータを取得。v1互換も保持。"""
+    if surface_key in hdata:
+        return hdata[surface_key]
+    # v1互換: cr, h がトップレベルにある
+    if "cr" in hdata and "h" in hdata:
+        return {"cr": hdata["cr"], "h": hdata["h"]}
+    return None
+
+
+def _best_rating(hdata):
+    """馬のベストレート（芝/ダートの高い方）を返す"""
+    best = 0.0
+    for key in ("turf", "dirt"):
+        sd = hdata.get(key)
+        if sd:
+            cr = sd.get("cr", 0.0)
+            if cr > best:
+                best = cr
+    # v1 fallback
+    if "cr" in hdata:
+        return hdata["cr"]
+    return best
+
+
+def _rating_color_style(v):
+    """レート値に応じたセルスタイルを返す（絶対レートスケール対応）"""
+    if v >= 75:
+        return f"background-color: {BG_GREEN_STRONG}; color: {TEXT_GREEN}; font-weight: bold"
+    elif v >= 60:
+        return f"background-color: {BG_GREEN_MEDIUM}; color: {TEXT_GREEN_MED}; font-weight: bold"
+    elif v >= 48:
+        return f"background-color: {BG_GREEN_LIGHT}; color: {TEXT_GREEN_MED}"
+    elif v >= 35:
+        return f"color: {TEXT_LIGHT}"
+    elif v >= 25:
+        return f"color: {TEXT_MUTED}"
+    else:
+        return f"background-color: {BG_RED_LIGHT}; color: {TEXT_RED}"
+
 
 def page_ratings():
     """レート一覧ページ"""
@@ -500,6 +546,7 @@ def page_ratings():
 
     ratings = ratings_data.get("ratings", {})
     exported_at = ratings_data.get("exported_at", "")
+    is_v2 = _is_v2_ratings(ratings_data)
 
     st.header("レート一覧")
     if exported_at:
@@ -510,19 +557,35 @@ def page_ratings():
             pass
 
     with st.sidebar:
-        # フィルタ
         st.markdown("### フィルタ")
-        course_filter = st.selectbox("コース", ["全て", "芝", "ダート"])
+        if is_v2:
+            surface_filter = st.selectbox("コース", ["芝", "ダート"], key="rating_surface")
+        else:
+            surface_filter = st.selectbox("コース", ["全て", "芝", "ダート"], key="rating_surface")
         dist_options = ["全て", "短距離(~1400m)", "マイル(1401~1800m)", "中距離(1801~2200m)", "長距離(2201m~)"]
         dist_filter = st.selectbox("距離帯", dist_options)
         search_query = st.text_input("馬名検索", "")
+
+    # v2: surface_key
+    if is_v2:
+        surface_key = "turf" if surface_filter == "芝" else "dirt"
+    else:
+        surface_key = None
 
     # データ構築
     rows = []
     for hid, hdata in ratings.items():
         name = hdata.get("n", "")
-        cr = hdata.get("cr", 0.0)
-        history = hdata.get("h", [])
+
+        if is_v2:
+            sdata = hdata.get(surface_key)
+            if not sdata:
+                continue
+            cr = sdata.get("cr", 0.0)
+            history = sdata.get("h", [])
+        else:
+            cr = hdata.get("cr", 0.0)
+            history = hdata.get("h", [])
 
         if not history:
             continue
@@ -535,12 +598,14 @@ def page_ratings():
         latest_dist = latest.get("dist", 0)
         latest_rn = latest.get("rn", "")
         latest_venue = latest.get("v", "")
+        latest_cls = latest.get("cls", "")
 
-        # コースフィルタ
-        if course_filter == "芝" and "芝" not in latest_ct:
-            continue
-        if course_filter == "ダート" and "ダ" not in latest_ct and "ダート" not in latest_ct:
-            continue
+        # v1互換コースフィルタ
+        if not is_v2:
+            if surface_filter == "芝" and "芝" not in latest_ct:
+                continue
+            if surface_filter == "ダート" and "ダ" not in latest_ct and "ダート" not in latest_ct:
+                continue
 
         # 距離帯フィルタ
         if dist_filter == "短距離(~1400m)" and latest_dist > 1400:
@@ -560,11 +625,11 @@ def page_ratings():
             "horse_id": hid,
             "馬名": name,
             "レート": cr,
+            "クラス": latest_cls,
             "直近レース": f"{latest_venue} {latest_rn}" if latest_rn else latest_date,
             "日付": latest_date,
             "着順": latest_fo if latest_fo else "-",
             "オッズ": latest_odds if latest_odds else "-",
-            "コース": latest_ct,
             "距離": latest_dist,
         })
 
@@ -578,8 +643,7 @@ def page_ratings():
 
     st.markdown(f"**{len(df)}頭**")
 
-    # 表示列
-    display_cols = ["順位", "馬名", "レート", "直近レース", "日付", "着順", "オッズ"]
+    display_cols = ["順位", "馬名", "レート", "クラス", "直近レース", "日付", "着順", "オッズ"]
 
     def highlight_rating_row(row):
         styles = [""] * len(row)
@@ -587,20 +651,7 @@ def page_ratings():
         if "レート" in cols:
             idx = cols.index("レート")
             v = row["レート"]
-            if v >= 1.5:
-                styles[idx] = f"background-color: {BG_GREEN_STRONG}; color: {TEXT_GREEN}; font-weight: bold"
-            elif v >= 1.0:
-                styles[idx] = f"background-color: {BG_GREEN_MEDIUM}; color: {TEXT_GREEN_MED}; font-weight: bold"
-            elif v >= 0.5:
-                styles[idx] = f"background-color: {BG_GREEN_LIGHT}; color: {TEXT_GREEN_MED}"
-            elif v >= 0.0:
-                styles[idx] = f"color: {TEXT_LIGHT}"
-            elif v >= -0.5:
-                styles[idx] = f"color: {TEXT_MUTED}"
-            elif v >= -1.0:
-                styles[idx] = f"background-color: {BG_RED_LIGHT}; color: {TEXT_RED}"
-            else:
-                styles[idx] = f"background-color: {BG_RED_STRONG}; color: {TEXT_RED_STRONG}; font-weight: bold"
+            styles[idx] = _rating_color_style(v)
         if "着順" in cols:
             idx = cols.index("着順")
             fo = row["着順"]
@@ -625,7 +676,7 @@ def page_ratings():
 
 
 # ============================================================
-# 馬詳細ページ
+# 馬詳細ページ（v2: 芝/ダート分離対応）
 # ============================================================
 
 def page_horse_detail():
@@ -636,12 +687,13 @@ def page_horse_detail():
         return
 
     ratings = ratings_data.get("ratings", {})
+    is_v2 = _is_v2_ratings(ratings_data)
 
-    # 馬名リスト（レートが高い順）
+    # 馬名リスト（ベストレートが高い順）
     horse_list = []
     for hid, hdata in ratings.items():
         name = hdata.get("n", "")
-        cr = hdata.get("cr", 0.0)
+        cr = _best_rating(hdata) if is_v2 else hdata.get("cr", 0.0)
         if name:
             horse_list.append((hid, name, cr))
     horse_list.sort(key=lambda x: x[2], reverse=True)
@@ -657,7 +709,7 @@ def page_horse_detail():
             st.info("該当する馬がいません。")
             return
 
-        options = {f"{n} (レート: {cr:.2f})": hid for hid, n, cr in filtered}
+        options = {f"{n} (レート: {cr:.1f})": hid for hid, n, cr in filtered}
         selected_label = st.selectbox(
             "馬を選択",
             list(options.keys()),
@@ -666,57 +718,120 @@ def page_horse_detail():
 
     hdata = ratings[selected_hid]
     horse_name = hdata.get("n", "")
-    current_rating = hdata.get("cr", 0.0)
-    history = hdata.get("h", [])
 
     st.header(f"{horse_name}")
 
-    # 現在レート表示
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.metric("現在レート", f"{current_rating:.2f}")
-    with col2:
+    if is_v2:
+        turf_data = hdata.get("turf")
+        dirt_data = hdata.get("dirt")
+
+        # 現在レート表示
+        cols = st.columns(4)
+        with cols[0]:
+            if turf_data:
+                st.metric("芝レート", f"{turf_data['cr']:.1f}")
+            else:
+                st.metric("芝レート", "-")
+        with cols[1]:
+            if turf_data and len(turf_data.get("h", [])) >= 2:
+                prev = turf_data["h"][-2]["r"]
+                diff = turf_data["cr"] - prev
+                st.metric("芝 前走差", f"{diff:+.1f}")
+            else:
+                st.metric("芝 前走差", "-")
+        with cols[2]:
+            if dirt_data:
+                st.metric("ダートレート", f"{dirt_data['cr']:.1f}")
+            else:
+                st.metric("ダートレート", "-")
+        with cols[3]:
+            if dirt_data and len(dirt_data.get("h", [])) >= 2:
+                prev = dirt_data["h"][-2]["r"]
+                diff = dirt_data["cr"] - prev
+                st.metric("ダート 前走差", f"{diff:+.1f}")
+            else:
+                st.metric("ダート 前走差", "-")
+
+        st.markdown("---")
+
+        # 芝レート推移
+        if turf_data and len(turf_data.get("h", [])) >= 2:
+            st.subheader("芝レート推移")
+            chart_data = pd.DataFrame([
+                {"日付": rh["d"], "レート": rh["r"]}
+                for rh in turf_data["h"]
+            ])
+            chart_data["日付"] = pd.to_datetime(chart_data["日付"])
+            chart_data = chart_data.set_index("日付")
+            st.line_chart(chart_data, y="レート", color="#4caf50")
+
+        # ダートレート推移
+        if dirt_data and len(dirt_data.get("h", [])) >= 2:
+            st.subheader("ダートレート推移")
+            chart_data = pd.DataFrame([
+                {"日付": rh["d"], "レート": rh["r"]}
+                for rh in dirt_data["h"]
+            ])
+            chart_data["日付"] = pd.to_datetime(chart_data["日付"])
+            chart_data = chart_data.set_index("日付")
+            st.line_chart(chart_data, y="レート", color="#ff9800")
+
+        # 過去レース一覧（芝+ダート統合、日付降順）
+        all_history = []
+        if turf_data:
+            all_history.extend(turf_data.get("h", []))
+        if dirt_data:
+            all_history.extend(dirt_data.get("h", []))
+        all_history.sort(key=lambda x: x.get("d", ""), reverse=True)
+
+    else:
+        # v1互換
+        current_rating = hdata.get("cr", 0.0)
+        history = hdata.get("h", [])
+
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("現在レート", f"{current_rating:.2f}")
+        with col2:
+            if len(history) >= 2:
+                prev = history[-2]["r"]
+                diff = current_rating - prev
+                st.metric("前走からの変化", f"{diff:+.2f}")
+            else:
+                st.metric("前走からの変化", "-")
+        with col3:
+            st.metric("出走数(2024~)", f"{len(history)}")
+
+        st.markdown("---")
+
         if len(history) >= 2:
-            prev = history[-2]["r"]
-            diff = current_rating - prev
-            st.metric("前走からの変化", f"{diff:+.2f}")
-        else:
-            st.metric("前走からの変化", "-")
-    with col3:
-        st.metric("出走数(2024~)", f"{len(history)}")
+            st.subheader("レート推移")
+            chart_data = pd.DataFrame([
+                {"日付": rh["d"], "レート": rh["r"]}
+                for rh in history
+            ])
+            chart_data["日付"] = pd.to_datetime(chart_data["日付"])
+            chart_data = chart_data.set_index("日付")
+            st.line_chart(chart_data, y="レート", color="#4caf50")
 
-    st.markdown("---")
-
-    # レート推移グラフ
-    if len(history) >= 2:
-        st.subheader("レート推移")
-        chart_data = pd.DataFrame([
-            {
-                "日付": rh["d"],
-                "レート": rh["r"],
-            }
-            for rh in history
-        ])
-        chart_data["日付"] = pd.to_datetime(chart_data["日付"])
-        chart_data = chart_data.set_index("日付")
-
-        st.line_chart(chart_data, y="レート", color="#4caf50")
+        all_history = list(reversed(history))
 
     # 過去レース一覧
     st.subheader("過去レース一覧")
     race_rows = []
-    for rh in reversed(history):
+    for rh in all_history:
         fo = rh.get("fo")
         odds = rh.get("o")
         race_rows.append({
             "日付": rh.get("d", ""),
             "レース名": rh.get("rn", ""),
+            "クラス": rh.get("cls", ""),
             "場所": rh.get("v", ""),
             "コース": f"{rh.get('ct', '')} {rh.get('dist', '')}m",
             "馬場": rh.get("tc", ""),
             "着順": fo if fo else "-",
             "オッズ": f"{odds:.1f}" if odds else "-",
-            "レート": f"{rh.get('r', 0):.2f}",
+            "レート": f"{rh.get('r', 0):.1f}",
         })
 
     if race_rows:
@@ -743,16 +858,7 @@ def page_horse_detail():
                 idx = cols.index("レート")
                 try:
                     v = float(row["レート"])
-                    if v >= 1.0:
-                        styles[idx] = f"background-color: {BG_GREEN_MEDIUM}; color: {TEXT_GREEN}; font-weight: bold"
-                    elif v >= 0.5:
-                        styles[idx] = f"background-color: {BG_GREEN_LIGHT}; color: {TEXT_GREEN_MED}"
-                    elif v >= 0.0:
-                        styles[idx] = f"color: {TEXT_LIGHT}"
-                    elif v >= -0.5:
-                        styles[idx] = f"color: {TEXT_MUTED}"
-                    else:
-                        styles[idx] = f"background-color: {BG_RED_LIGHT}; color: {TEXT_RED}"
+                    styles[idx] = _rating_color_style(v)
                 except (ValueError, TypeError):
                     pass
             return styles
@@ -771,7 +877,7 @@ def page_horse_detail():
     st.markdown("---")
     st.caption(
         "keiba-ai 予想ページ | "
-        "レートはAIモデルによるパフォーマンス評価値です。"
+        "レートはクラス補正付き絶対評価値です（G1=80-100, OP=55-70, 未勝利=20-35）。"
     )
 
 
