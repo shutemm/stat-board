@@ -465,26 +465,448 @@ def render_pace_prediction(pace_data: dict):
 
 
 # ============================================================
+# コース分析ページ
+# ============================================================
+
+@st.cache_data(ttl=300)
+def load_section_coefficients():
+    """section_coefficients.json を読み込む"""
+    coeff_path = DATA_DIR / "section_coefficients.json"
+    if not coeff_path.exists():
+        return None
+    with open(coeff_path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+# 係数の日本語ラベル
+COEFF_LABELS = {
+    "distance_loss": "距離ロス",
+    "position": "位置(前後)",
+    "pos_category": "位置(内外)",
+    "acceleration": "加速度",
+    "cumulative_load": "蓄積負荷",
+    "prev_speed": "前区間速度",
+    "cushion_value": "クッション値",
+    "moisture": "含水率",
+    "pace_ratio": "ペース比",
+    "dist_x_load": "距離ロスx負荷",
+    "dist_x_pace": "距離ロスxペース",
+    "cushion_x_moisture": "クッションx含水",
+    "pos_x_load": "位置x負荷",
+}
+
+# 構造タイプの日本語ラベル
+STRUCTURE_LABELS = {
+    "straight": "直線",
+    "straight_uphill": "直線(上り)",
+    "straight_downhill": "直線(下り)",
+    "corner": "コーナー",
+    "corner_uphill": "コーナー(上り)",
+    "corner_downhill": "コーナー(下り)",
+    "uphill_uphill": "急坂(上り)",
+    "unknown": "-",
+}
+
+# フラグの日本語ラベルと色
+FLAG_STYLES = {
+    "distance_loss_negative": {"label": "距離ロス負", "color": TEXT_RED},
+    "acceleration_positive": {"label": "加速度正", "color": TEXT_ORANGE},
+    "very_low_r_squared": {"label": "R2極低", "color": TEXT_RED},
+    "low_r_squared": {"label": "R2低", "color": TEXT_YELLOW},
+    "low_sample_size": {"label": "N少", "color": TEXT_MUTED},
+    "cushion_negative": {"label": "クッション負", "color": TEXT_ORANGE},
+}
+
+
+def _coeff_cell_style(value, p_value):
+    """係数値+p値に応じたセルスタイル"""
+    if p_value is not None and p_value > 0.1:
+        return f"color: {TEXT_MUTED}"
+    if value > 0:
+        return f"color: {TEXT_RED}"
+    elif value < 0:
+        return f"color: #42a5f5"
+    return f"color: {TEXT_LIGHT}"
+
+
+def _r2_style(r2):
+    """R2値に応じたスタイル"""
+    if r2 >= 0.5:
+        return f"background-color: {BG_GREEN_MEDIUM}; color: {TEXT_GREEN_MED}"
+    elif r2 >= 0.2:
+        return f"color: {TEXT_LIGHT}"
+    elif r2 >= 0.05:
+        return f"color: {TEXT_YELLOW}"
+    else:
+        return f"background-color: {BG_RED_LIGHT}; color: {TEXT_RED}"
+
+
+def page_course_analysis():
+    """コース分析ページ"""
+    coeff_data = load_section_coefficients()
+    if not coeff_data:
+        st.warning("コース分析データがありません。section_coefficient_explorer.py を実行してください。")
+        return
+
+    courses = coeff_data.get("courses", {})
+    metadata = coeff_data.get("metadata", {})
+
+    st.header("コース分析 - 区間係数")
+    if metadata.get("generated_at"):
+        try:
+            gen_dt = datetime.fromisoformat(metadata["generated_at"])
+            st.caption(f"更新: {gen_dt.strftime('%Y-%m-%d %H:%M')} / "
+                       f"{metadata.get('n_courses', 0)}コース / "
+                       f"{metadata.get('total_samples', 0):,}サンプル")
+        except ValueError:
+            pass
+
+    # サイドバーでコース選択
+    with st.sidebar:
+        st.subheader("コース分析設定")
+        course_keys = sorted(courses.keys())
+        # 芝/ダートでグループ分け
+        turf_courses = [k for k in course_keys if "_芝_" in k]
+        dirt_courses = [k for k in course_keys if "_ダート_" in k]
+
+        surface_filter = st.radio("馬場", ["全て", "芝", "ダート"], horizontal=True)
+        if surface_filter == "芝":
+            filtered_courses = turf_courses
+        elif surface_filter == "ダート":
+            filtered_courses = dirt_courses
+        else:
+            filtered_courses = course_keys
+
+        if not filtered_courses:
+            st.warning("該当コースがありません。")
+            return
+
+        selected_course = st.selectbox(
+            "コース選択",
+            filtered_courses,
+            format_func=lambda x: f"{x} ({courses[x]['n_races']}R)",
+        )
+
+        # 有意水準フィルタ
+        p_threshold = st.slider("有意水準 (p値)", 0.01, 0.50, 0.10, 0.01)
+
+        # 表示する係数の選択
+        all_feature_names = metadata.get("features", list(COEFF_LABELS.keys()))
+        show_features = st.multiselect(
+            "表示する係数",
+            all_feature_names,
+            default=["distance_loss", "position", "pos_category",
+                     "acceleration", "cumulative_load", "prev_speed",
+                     "cushion_value", "moisture", "pace_ratio"],
+            format_func=lambda x: COEFF_LABELS.get(x, x),
+        )
+
+    if not selected_course:
+        return
+
+    course_data = courses[selected_course]
+    sections = course_data.get("sections", [])
+
+    if not sections:
+        st.info("このコースのデータはありません。")
+        return
+
+    # --- コース情報ヘッダー ---
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("レース数", f"{course_data['n_races']}")
+    with col2:
+        total_n = sum(s.get("n_samples", 0) for s in sections)
+        st.metric("総サンプル数", f"{total_n:,}")
+    with col3:
+        avg_r2 = sum(s.get("r_squared", 0) for s in sections) / len(sections) if sections else 0
+        st.metric("平均R2", f"{avg_r2:.3f}")
+
+    # --- 区間一覧テーブル ---
+    st.subheader("区間一覧")
+
+    table_rows = []
+    for sec in sections:
+        row = {
+            "区間": sec.get("section_idx", ""),
+            "距離": sec.get("distance_range", ""),
+            "構造": STRUCTURE_LABELS.get(sec.get("structure", ""), sec.get("structure", "")),
+            "N": sec.get("n_samples", 0),
+            "R2": sec.get("r_squared", 0),
+        }
+
+        # OOS R2
+        oos = sec.get("oos", {})
+        row["OOS R2"] = oos.get("r_squared", "-")
+
+        # 各係数
+        coefficients = sec.get("coefficients", {})
+        for fname in show_features:
+            c = coefficients.get(fname, {})
+            val = c.get("value", 0)
+            p = c.get("p_value", 1)
+            if p <= p_threshold:
+                row[COEFF_LABELS.get(fname, fname)] = f"{val:.4f}"
+            else:
+                row[COEFF_LABELS.get(fname, fname)] = "-"
+
+        # フラグ
+        flags = sec.get("flags", [])
+        flag_labels = []
+        for f in flags:
+            fs = FLAG_STYLES.get(f, {"label": f})
+            flag_labels.append(fs["label"])
+        row["フラグ"] = ", ".join(flag_labels) if flag_labels else "-"
+
+        table_rows.append(row)
+
+    df_table = pd.DataFrame(table_rows)
+
+    # スタイリング関数
+    def style_course_table(row):
+        styles = [""] * len(row)
+        cols = list(row.index)
+
+        # R2列ハイライト
+        if "R2" in cols:
+            idx = cols.index("R2")
+            try:
+                r2_val = float(row["R2"])
+                styles[idx] = _r2_style(r2_val)
+            except (ValueError, TypeError):
+                pass
+
+        # OOS R2列ハイライト
+        if "OOS R2" in cols:
+            idx = cols.index("OOS R2")
+            try:
+                r2_val = float(row["OOS R2"])
+                styles[idx] = _r2_style(r2_val)
+            except (ValueError, TypeError):
+                styles[idx] = f"color: {TEXT_MUTED}"
+
+        # 係数列ハイライト
+        for fname in show_features:
+            label = COEFF_LABELS.get(fname, fname)
+            if label in cols:
+                idx = cols.index(label)
+                val_str = str(row[label])
+                if val_str == "-":
+                    styles[idx] = f"color: {TEXT_MUTED}"
+                else:
+                    try:
+                        val = float(val_str)
+                        if val > 0:
+                            styles[idx] = f"color: {TEXT_RED}"
+                        elif val < 0:
+                            styles[idx] = f"color: #42a5f5"
+                    except ValueError:
+                        pass
+
+        # フラグ列ハイライト
+        if "フラグ" in cols:
+            idx = cols.index("フラグ")
+            flag_str = str(row["フラグ"])
+            if "距離ロス負" in flag_str or "R2極低" in flag_str:
+                styles[idx] = f"background-color: {BG_RED_LIGHT}; color: {TEXT_RED}"
+            elif "R2低" in flag_str or "クッション負" in flag_str:
+                styles[idx] = f"color: {TEXT_YELLOW}"
+            elif "N少" in flag_str:
+                styles[idx] = f"color: {TEXT_MUTED}"
+
+        # N列ハイライト
+        if "N" in cols:
+            idx = cols.index("N")
+            try:
+                n_val = int(row["N"])
+                if n_val < 100:
+                    styles[idx] = f"color: {TEXT_MUTED}"
+            except (ValueError, TypeError):
+                pass
+
+        return styles
+
+    styled_table = df_table.style.apply(style_course_table, axis=1)
+    st.dataframe(
+        styled_table,
+        use_container_width=True,
+        hide_index=True,
+        height=min(len(df_table) * 38 + 40, 600),
+    )
+
+    # --- 係数の棒グラフ ---
+    st.subheader("区間別 係数グラフ")
+
+    # 表示する係数を選択
+    chart_feature = st.selectbox(
+        "表示する指標",
+        show_features,
+        format_func=lambda x: COEFF_LABELS.get(x, x),
+        key="chart_feature",
+    )
+
+    chart_data = []
+    for sec in sections:
+        coefficients = sec.get("coefficients", {})
+        c = coefficients.get(chart_feature, {})
+        val = c.get("value", 0)
+        p = c.get("p_value", 1)
+        structure = sec.get("structure", "unknown")
+        chart_data.append({
+            "区間": f"{sec['section_idx']}: {sec.get('distance_range', '')}",
+            "係数値": val,
+            "有意": "有意" if p <= p_threshold else "非有意",
+            "構造": STRUCTURE_LABELS.get(structure, structure),
+        })
+
+    df_chart = pd.DataFrame(chart_data)
+
+    # 色分け: 有意な正=赤, 有意な負=青, 非有意=灰
+    colors = []
+    for _, r in df_chart.iterrows():
+        if r["有意"] == "非有意":
+            colors.append(TEXT_MUTED)
+        elif r["係数値"] > 0:
+            colors.append(TEXT_RED)
+        else:
+            colors.append("#42a5f5")
+
+    # Streamlit bar chart (simple)
+    chart_df_display = df_chart.set_index("区間")[["係数値"]]
+    st.bar_chart(chart_df_display, color="#42a5f5")
+
+    # 有意性の凡例
+    st.caption(
+        f"**{COEFF_LABELS.get(chart_feature, chart_feature)}** "
+        f"({metadata.get('feature_units', {}).get(chart_feature, '秒')}) / "
+        f"p < {p_threshold} のみ有意"
+    )
+
+    # --- コース構造の表示 ---
+    st.subheader("コース構造詳細")
+
+    structure_rows = []
+    for sec in sections:
+        sd = sec.get("structure_detail", {})
+        structure_rows.append({
+            "区間": sec.get("section_idx", ""),
+            "距離": sec.get("distance_range", ""),
+            "構造": STRUCTURE_LABELS.get(sec.get("structure", ""), sec.get("structure", "")),
+            "勾配(%)": sd.get("gradient", 0.0),
+            "コーナー半径": sd.get("corner_radius", "-") or "-",
+            "備考": sd.get("notes", ""),
+        })
+
+    df_structure = pd.DataFrame(structure_rows)
+
+    def style_structure_table(row):
+        styles = [""] * len(row)
+        cols = list(row.index)
+        if "構造" in cols:
+            idx = cols.index("構造")
+            s = str(row["構造"])
+            if "上り" in s or "急坂" in s:
+                styles[idx] = f"color: {TEXT_RED}"
+            elif "下り" in s:
+                styles[idx] = f"color: #42a5f5"
+            elif "コーナー" in s:
+                styles[idx] = f"color: {TEXT_ORANGE}"
+        if "勾配(%)" in cols:
+            idx = cols.index("勾配(%)")
+            try:
+                g = float(row["勾配(%)"])
+                if g > 0:
+                    styles[idx] = f"color: {TEXT_RED}"
+                elif g < 0:
+                    styles[idx] = f"color: #42a5f5"
+            except (ValueError, TypeError):
+                pass
+        return styles
+
+    st.dataframe(
+        df_structure.style.apply(style_structure_table, axis=1),
+        use_container_width=True,
+        hide_index=True,
+    )
+
+    # --- OOS係数安定性 ---
+    with st.expander("OOS係数安定性 (LOMO-CV)", expanded=False):
+        oos_rows = []
+        for sec in sections:
+            oos = sec.get("oos", {})
+            stability = oos.get("coefficient_stability", {})
+            if not stability:
+                continue
+            row = {
+                "区間": sec.get("section_idx", ""),
+                "OOS R2": oos.get("r_squared", "-"),
+                "RMSE": oos.get("rmse", "-"),
+                "Folds": oos.get("n_folds", "-"),
+            }
+            for fname in show_features:
+                cs = stability.get(fname, {})
+                mean_val = cs.get("mean", 0)
+                std_val = cs.get("std", 0)
+                cv_val = cs.get("cv")
+                if cv_val is not None and abs(mean_val) > 1e-8:
+                    row[COEFF_LABELS.get(fname, fname)] = f"{mean_val:.4f} (CV={cv_val:.2f})"
+                else:
+                    row[COEFF_LABELS.get(fname, fname)] = f"{mean_val:.4f}"
+            oos_rows.append(row)
+
+        if oos_rows:
+            df_oos = pd.DataFrame(oos_rows)
+            st.dataframe(df_oos, use_container_width=True, hide_index=True)
+        else:
+            st.info("OOSデータがありません。")
+
+    # フッター
+    st.markdown("---")
+    st.caption(
+        "コース分析: 各区間のラップタイムを説明する回帰係数。"
+        "正=遅くなる要因、負=速くなる要因。Ridge回帰 + LOMO-CV。"
+    )
+
+
+# ============================================================
 # メインUI
 # ============================================================
 
 def main():
+    # session_state 初期化
+    if "page" not in st.session_state:
+        st.session_state["page"] = "予想"
+    if "horse_name" not in st.session_state:
+        st.session_state["horse_name"] = ""
+
+    PAGE_OPTIONS = ["予想", "レート一覧", "馬詳細", "コース分析"]
+
     # サイドバー - ページ選択
     with st.sidebar:
         st.title("keiba-ai")
+        current_idx = PAGE_OPTIONS.index(st.session_state["page"]) if st.session_state["page"] in PAGE_OPTIONS else 0
         page = st.radio(
             "ページ",
-            ["予想", "レート一覧", "馬詳細"],
-            index=0,
+            PAGE_OPTIONS,
+            index=current_idx,
+            key="page_radio",
         )
+        # ラジオ操作時に session_state を同期
+        if page != st.session_state["page"]:
+            st.session_state["page"] = page
+            # ラジオで馬詳細以外に切り替えたら馬名リセット
+            if page != "馬詳細":
+                st.session_state["horse_name"] = ""
         st.markdown("---")
 
-    if page == "予想":
+    if st.session_state["page"] == "予想":
         page_predictions()
-    elif page == "レート一覧":
+    elif st.session_state["page"] == "レート一覧":
         page_ratings()
-    elif page == "馬詳細":
+    elif st.session_state["page"] == "馬詳細":
         page_horse_detail()
+    elif st.session_state["page"] == "コース分析":
+        page_course_analysis()
 
 
 # ============================================================
@@ -641,38 +1063,86 @@ def page_ratings():
     df = df.sort_values("レート", ascending=False).reset_index(drop=True)
     df.insert(0, "順位", range(1, len(df) + 1))
 
-    st.markdown(f"**{len(df)}頭**")
+    st.markdown(f"**{len(df)}頭** (馬名クリックで詳細へ)")
 
-    display_cols = ["順位", "馬名", "レート", "クラス", "直近レース", "日付", "着順", "オッズ"]
+    # ページネーション
+    PER_PAGE = 30
+    total_pages = max(1, (len(df) + PER_PAGE - 1) // PER_PAGE)
+    if "ratings_page" not in st.session_state:
+        st.session_state["ratings_page"] = 0
+    current_page = st.session_state["ratings_page"]
+    if current_page >= total_pages:
+        current_page = 0
+        st.session_state["ratings_page"] = 0
 
-    def highlight_rating_row(row):
-        styles = [""] * len(row)
-        cols = list(row.index)
-        if "レート" in cols:
-            idx = cols.index("レート")
-            v = row["レート"]
-            styles[idx] = _rating_color_style(v)
-        if "着順" in cols:
-            idx = cols.index("着順")
+    if total_pages > 1:
+        page_cols = st.columns([1, 3, 1])
+        with page_cols[0]:
+            if st.button("<< 前", key="ratings_prev", disabled=(current_page == 0)):
+                st.session_state["ratings_page"] = current_page - 1
+                st.rerun()
+        with page_cols[1]:
+            st.markdown(
+                f"<div style='text-align:center; color:{TEXT_MUTED};'>"
+                f"{current_page + 1} / {total_pages} ページ</div>",
+                unsafe_allow_html=True,
+            )
+        with page_cols[2]:
+            if st.button("次 >>", key="ratings_next", disabled=(current_page >= total_pages - 1)):
+                st.session_state["ratings_page"] = current_page + 1
+                st.rerun()
+
+    start_idx = current_page * PER_PAGE
+    end_idx = min(start_idx + PER_PAGE, len(df))
+    page_df = df.iloc[start_idx:end_idx]
+
+    # テーブルヘッダー
+    header_cols = st.columns([0.5, 2.0, 1.0, 1.0, 2.0, 1.0, 0.7, 0.8])
+    header_labels = ["#", "馬名", "レート", "クラス", "直近レース", "日付", "着順", "オッズ"]
+    for col, label in zip(header_cols, header_labels):
+        with col:
+            st.markdown(f"**{label}**")
+
+    st.markdown(
+        f"<hr style='margin:2px 0; border-color:{TEXT_MUTED};'>",
+        unsafe_allow_html=True,
+    )
+
+    # 行表示（馬名をボタンに）
+    for _, row in page_df.iterrows():
+        cols = st.columns([0.5, 2.0, 1.0, 1.0, 2.0, 1.0, 0.7, 0.8])
+        with cols[0]:
+            st.markdown(f"<span style='color:{TEXT_MUTED};'>{row['順位']}</span>", unsafe_allow_html=True)
+        with cols[1]:
+            if st.button(row["馬名"], key=f"horse_{row['horse_id']}_{start_idx}", use_container_width=True):
+                st.session_state["page"] = "馬詳細"
+                st.session_state["horse_name"] = row["馬名"]
+                st.rerun()
+        with cols[2]:
+            rate_style = _rating_color_style(row["レート"])
+            st.markdown(f"<span style='{rate_style}'>{row['レート']:.1f}</span>", unsafe_allow_html=True)
+        with cols[3]:
+            st.markdown(f"<span style='color:{TEXT_LIGHT};'>{row['クラス']}</span>", unsafe_allow_html=True)
+        with cols[4]:
+            st.markdown(f"<span style='color:{TEXT_LIGHT};'>{row['直近レース']}</span>", unsafe_allow_html=True)
+        with cols[5]:
+            st.markdown(f"<span style='color:{TEXT_MUTED};'>{row['日付']}</span>", unsafe_allow_html=True)
+        with cols[6]:
             fo = row["着順"]
+            fo_style = f"color:{TEXT_LIGHT}"
             if fo != "-":
                 try:
                     fov = int(fo)
                     if fov == 1:
-                        styles[idx] = f"background-color: {BG_GREEN_STRONG}; color: #ffffff; font-weight: bold"
+                        fo_style = f"background-color:{BG_GREEN_STRONG}; color:#ffffff; font-weight:bold; padding:2px 6px; border-radius:4px"
                     elif fov <= 3:
-                        styles[idx] = f"background-color: {BG_GREEN_LIGHT}; color: {TEXT_GREEN_MED}"
+                        fo_style = f"color:{TEXT_GREEN_MED}"
                 except (ValueError, TypeError):
                     pass
-        return styles
-
-    styled = df[display_cols].style.apply(highlight_rating_row, axis=1)
-    st.dataframe(
-        styled,
-        use_container_width=True,
-        hide_index=True,
-        height=min(len(df) * 38 + 40, 800),
-    )
+            st.markdown(f"<span style='{fo_style}'>{fo}</span>", unsafe_allow_html=True)
+        with cols[7]:
+            odds = row["オッズ"]
+            st.markdown(f"<span style='color:{TEXT_LIGHT};'>{odds}</span>", unsafe_allow_html=True)
 
 
 # ============================================================
@@ -698,8 +1168,15 @@ def page_horse_detail():
             horse_list.append((hid, name, cr))
     horse_list.sort(key=lambda x: x[2], reverse=True)
 
+    # session_state から馬名が指定されている場合、検索欄に反映
+    preset_horse = st.session_state.get("horse_name", "")
+
     with st.sidebar:
-        search = st.text_input("馬名で検索", "", key="horse_search")
+        search = st.text_input(
+            "馬名で検索",
+            value=preset_horse,
+            key="horse_search",
+        )
         if search:
             filtered = [(hid, n, cr) for hid, n, cr in horse_list if search in n]
         else:
@@ -710,9 +1187,21 @@ def page_horse_detail():
             return
 
         options = {f"{n} (レート: {cr:.1f})": hid for hid, n, cr in filtered}
+
+        # session_state から馬名指定がある場合、その馬を初期選択
+        default_idx = 0
+        if preset_horse:
+            for i, label in enumerate(options.keys()):
+                if label.startswith(preset_horse + " "):
+                    default_idx = i
+                    break
+            # 使用後にリセット
+            st.session_state["horse_name"] = ""
+
         selected_label = st.selectbox(
             "馬を選択",
             list(options.keys()),
+            index=default_idx,
         )
         selected_hid = options[selected_label]
 
