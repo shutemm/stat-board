@@ -505,8 +505,8 @@ COEFF_LABELS = {
     "pos_x_load": "位置x負荷",
 }
 
-# 統一構造モデルの係数ラベル
-STRUCTURAL_COEFF_LABELS = {
+# 統一構造モデルの係数ラベル (旧Ridgeモデル用)
+STRUCTURAL_COEFF_LABELS_RIDGE = {
     "is_corner": "コーナー区間",
     "corner_curvature": "コーナー曲率",
     "gradient": "勾配(%)",
@@ -520,6 +520,25 @@ STRUCTURAL_COEFF_LABELS = {
     "cum_dist_x_gradient_abs": "累積距離x勾配絶対値",
     "moisture_x_gradient_abs": "含水率x勾配絶対値",
 }
+
+# 物理モデルのパラメータラベル
+STRUCTURAL_COEFF_LABELS_PHYSICS = {
+    "a": "a: コーナー遠心力スケール",
+    "b": "b: 含水率xコーナー",
+    "c": "c: 距離ロスxコーナー",
+    "d": "d: 勾配スケール",
+    "e": "e: 累積負荷x坂",
+    "f": "f: 含水率x坂",
+    "g": "g: コーナー距離ロス追加",
+    "h": "h: 含水率->馬場負荷",
+    "i": "i: 馬場状態->馬場負荷",
+    "j": "j: クッション->馬場負荷",
+    "k": "k: 勾配x馬場",
+    "l": "l: 累積距離x馬場",
+}
+
+# 互換性エイリアス (page_course_analysis で使用)
+STRUCTURAL_COEFF_LABELS = {**STRUCTURAL_COEFF_LABELS_RIDGE, **STRUCTURAL_COEFF_LABELS_PHYSICS}
 
 # 構造タイプの日本語ラベル
 STRUCTURE_LABELS = {
@@ -573,12 +592,23 @@ def page_course_analysis():
     # --- 統一構造負荷モデル表示 ---
     structural_model = load_structural_model()
     if structural_model:
-        st.header("統一構造負荷モデル")
-        st.caption(
-            f"全コース横断Ridge回帰 / "
-            f"更新: {structural_model.get('created_at', '?')[:16]} / "
-            f"v{structural_model.get('version', '?')}"
-        )
+        model_type = structural_model.get("model", "ridge")
+        is_physics = model_type == "physics"
+
+        if is_physics:
+            st.header("物理法則ベース構造負荷モデル")
+            st.caption(
+                f"非線形最小二乗法 (遠心力+位置エネルギー+距離ロス+馬場抵抗) / "
+                f"更新: {structural_model.get('created_at', '?')[:16]} / "
+                f"v{structural_model.get('version', '?')}"
+            )
+        else:
+            st.header("統一構造負荷モデル")
+            st.caption(
+                f"全コース横断Ridge回帰 / "
+                f"更新: {structural_model.get('created_at', '?')[:16]} / "
+                f"v{structural_model.get('version', '?')}"
+            )
 
         # メトリクス
         m1, m2, m3, m4 = st.columns(4)
@@ -591,98 +621,196 @@ def page_course_analysis():
         with m4:
             st.metric("N", f"{structural_model.get('n_samples', 0):,}")
 
-        # 係数テーブル
-        st.subheader("構造要素の係数")
+        if is_physics:
+            # --- 物理モデル: 数式表示 ---
+            st.subheader("数式")
+            formula_details = structural_model.get("formula_details", {})
+            st.markdown(f"**全体**: `{structural_model.get('formula', '')}`")
+            for fname, fexpr in formula_details.items():
+                st.markdown(f"- `{fname}` = `{fexpr}`")
 
-        coefficients = structural_model.get("coefficients", {})
-        interp = structural_model.get("interpretation", [])
-        interp_map = {item["feature"]: item for item in interp}
-        validity = structural_model.get("physical_validity", {})
+            # パラメータテーブル
+            st.subheader("フィットされたパラメータ")
+            params = structural_model.get("parameters", {})
+            validity = structural_model.get("physical_validity", {})
+            label_map = STRUCTURAL_COEFF_LABELS_PHYSICS
 
-        coeff_rows = []
-        for fn in structural_model.get("feature_names", []):
-            c = coefficients.get(fn, {})
-            v = validity.get(fn, {})
-            i = interp_map.get(fn, {})
-            coeff_rows.append({
-                "変数": STRUCTURAL_COEFF_LABELS.get(fn, fn),
-                "係数": c.get("value", 0),
-                "SE": c.get("se", 0),
-                "t値": c.get("t_stat", 0),
-                "p値": c.get("p_value", 1),
-                "有意": "***" if c.get("p_value", 1) < 0.001 else "**" if c.get("p_value", 1) < 0.01 else "*" if c.get("p_value", 1) < 0.05 else "",
-                "妥当性": "OK" if v.get("valid", True) else "NG",
-                "解釈": i.get("description", ""),
-            })
+            param_rows = []
+            for pname in ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"]:
+                p = params.get(pname, {})
+                param_rows.append({
+                    "パラメータ": label_map.get(pname, pname),
+                    "値": p.get("value", 0),
+                    "SE": p.get("se", 0),
+                    "t値": p.get("t_stat", 0),
+                    "p値": p.get("p_value", 1),
+                    "有意": "***" if p.get("p_value", 1) < 0.001 else "**" if p.get("p_value", 1) < 0.01 else "*" if p.get("p_value", 1) < 0.05 else "",
+                    "説明": p.get("description", ""),
+                })
 
-        df_coeff = pd.DataFrame(coeff_rows)
+            df_params = pd.DataFrame(param_rows)
 
-        def style_structural_coeff(row):
-            styles = [""] * len(row)
-            cols = list(row.index)
+            def style_physics_param(row):
+                styles = [""] * len(row)
+                cols = list(row.index)
+                if "値" in cols:
+                    idx = cols.index("値")
+                    try:
+                        val = float(row["値"])
+                        if val > 0:
+                            styles[idx] = f"color: {TEXT_RED}; font-weight: bold"
+                        elif val < 0:
+                            styles[idx] = f"color: #42a5f5; font-weight: bold"
+                    except (ValueError, TypeError):
+                        pass
+                if "p値" in cols:
+                    idx = cols.index("p値")
+                    try:
+                        pv = float(row["p値"])
+                        if pv < 0.001:
+                            styles[idx] = f"color: {TEXT_GREEN}"
+                        elif pv < 0.05:
+                            styles[idx] = f"color: {TEXT_GREEN_MED}"
+                        else:
+                            styles[idx] = f"color: {TEXT_MUTED}"
+                    except (ValueError, TypeError):
+                        pass
+                return styles
 
-            # 係数値の色分け
-            if "係数" in cols:
-                idx = cols.index("係数")
-                try:
-                    val = float(row["係数"])
-                    if val > 0:
-                        styles[idx] = f"color: {TEXT_RED}; font-weight: bold"
-                    elif val < 0:
-                        styles[idx] = f"color: #42a5f5; font-weight: bold"
-                except (ValueError, TypeError):
-                    pass
+            st.dataframe(
+                df_params.style.apply(style_physics_param, axis=1).format({
+                    "値": "{:.8f}",
+                    "SE": "{:.8f}",
+                    "t値": "{:.2f}",
+                    "p値": "{:.6f}",
+                }),
+                use_container_width=True,
+                hide_index=True,
+                height=min(len(df_params) * 38 + 40, 600),
+            )
 
-            # p値の色分け
-            if "p値" in cols:
-                idx = cols.index("p値")
-                try:
-                    p = float(row["p値"])
-                    if p < 0.001:
-                        styles[idx] = f"color: {TEXT_GREEN}"
-                    elif p < 0.05:
-                        styles[idx] = f"color: {TEXT_GREEN_MED}"
-                    else:
-                        styles[idx] = f"color: {TEXT_MUTED}"
-                except (ValueError, TypeError):
-                    pass
-
-            # 妥当性の色分け
-            if "妥当性" in cols:
-                idx = cols.index("妥当性")
-                if row["妥当性"] == "NG":
-                    styles[idx] = f"background-color: {BG_RED_LIGHT}; color: {TEXT_RED}; font-weight: bold"
-                else:
-                    styles[idx] = f"color: {TEXT_GREEN}"
-
-            return styles
-
-        st.dataframe(
-            df_coeff.style.apply(style_structural_coeff, axis=1).format({
-                "係数": "{:.6f}",
-                "SE": "{:.6f}",
-                "t値": "{:.2f}",
-                "p値": "{:.6f}",
-            }),
-            use_container_width=True,
-            hide_index=True,
-            height=min(len(df_coeff) * 38 + 40, 700),
-        )
-
-        # intercept
-        st.caption(f"intercept = {structural_model.get('intercept', 0):.4f}秒")
-
-        # 物理妥当性チェック
-        with st.expander("物理妥当性チェック", expanded=False):
-            for fn, check in validity.items():
-                status_color = TEXT_GREEN if check.get("valid") else TEXT_RED
-                status_icon = "OK" if check.get("valid") else "NG"
-                st.markdown(
-                    f"<span style='color: {status_color}; font-weight: bold'>[{status_icon}]</span> "
-                    f"**{STRUCTURAL_COEFF_LABELS.get(fn, fn)}**: {check.get('actual', '?')} "
-                    f"(expected: {check.get('expected', '?')}) - {check.get('note', '')}",
-                    unsafe_allow_html=True,
+            # 各項の寄与統計
+            contrib = structural_model.get("contribution_stats", {})
+            if contrib:
+                st.subheader("各項の寄与 (秒)")
+                contrib_rows = []
+                for cname, cdata in contrib.items():
+                    contrib_rows.append({
+                        "項": cname,
+                        "平均": cdata.get("mean", 0),
+                        "標準偏差": cdata.get("std", 0),
+                        "最小": cdata.get("min", 0),
+                        "最大": cdata.get("max", 0),
+                    })
+                df_contrib = pd.DataFrame(contrib_rows)
+                st.dataframe(
+                    df_contrib.style.format({
+                        "平均": "{:.4f}",
+                        "標準偏差": "{:.4f}",
+                        "最小": "{:.4f}",
+                        "最大": "{:.4f}",
+                    }),
+                    use_container_width=True,
+                    hide_index=True,
                 )
+
+            # 物理妥当性チェック
+            with st.expander("物理妥当性チェック", expanded=False):
+                for fn, check in validity.items():
+                    status_color = TEXT_GREEN if check.get("valid") else TEXT_RED
+                    status_icon = "OK" if check.get("valid") else "NG"
+                    st.markdown(
+                        f"<span style='color: {status_color}; font-weight: bold'>[{status_icon}]</span> "
+                        f"**{fn}**: {check.get('actual', '?')} "
+                        f"(expected: {check.get('expected', '?')}) - {check.get('note', '')}",
+                        unsafe_allow_html=True,
+                    )
+
+        else:
+            # --- 旧Ridgeモデル表示 ---
+            st.subheader("構造要素の係数")
+
+            coefficients = structural_model.get("coefficients", {})
+            interp = structural_model.get("interpretation", [])
+            interp_map = {item["feature"]: item for item in interp}
+            validity = structural_model.get("physical_validity", {})
+
+            coeff_rows = []
+            for fn in structural_model.get("feature_names", []):
+                c = coefficients.get(fn, {})
+                v = validity.get(fn, {})
+                i = interp_map.get(fn, {})
+                coeff_rows.append({
+                    "変数": STRUCTURAL_COEFF_LABELS.get(fn, fn),
+                    "係数": c.get("value", 0),
+                    "SE": c.get("se", 0),
+                    "t値": c.get("t_stat", 0),
+                    "p値": c.get("p_value", 1),
+                    "有意": "***" if c.get("p_value", 1) < 0.001 else "**" if c.get("p_value", 1) < 0.01 else "*" if c.get("p_value", 1) < 0.05 else "",
+                    "妥当性": "OK" if v.get("valid", True) else "NG",
+                    "解釈": i.get("description", ""),
+                })
+
+            df_coeff = pd.DataFrame(coeff_rows)
+
+            def style_structural_coeff(row):
+                styles = [""] * len(row)
+                cols = list(row.index)
+                if "係数" in cols:
+                    idx = cols.index("係数")
+                    try:
+                        val = float(row["係数"])
+                        if val > 0:
+                            styles[idx] = f"color: {TEXT_RED}; font-weight: bold"
+                        elif val < 0:
+                            styles[idx] = f"color: #42a5f5; font-weight: bold"
+                    except (ValueError, TypeError):
+                        pass
+                if "p値" in cols:
+                    idx = cols.index("p値")
+                    try:
+                        p = float(row["p値"])
+                        if p < 0.001:
+                            styles[idx] = f"color: {TEXT_GREEN}"
+                        elif p < 0.05:
+                            styles[idx] = f"color: {TEXT_GREEN_MED}"
+                        else:
+                            styles[idx] = f"color: {TEXT_MUTED}"
+                    except (ValueError, TypeError):
+                        pass
+                if "妥当性" in cols:
+                    idx = cols.index("妥当性")
+                    if row["妥当性"] == "NG":
+                        styles[idx] = f"background-color: {BG_RED_LIGHT}; color: {TEXT_RED}; font-weight: bold"
+                    else:
+                        styles[idx] = f"color: {TEXT_GREEN}"
+                return styles
+
+            st.dataframe(
+                df_coeff.style.apply(style_structural_coeff, axis=1).format({
+                    "係数": "{:.6f}",
+                    "SE": "{:.6f}",
+                    "t値": "{:.2f}",
+                    "p値": "{:.6f}",
+                }),
+                use_container_width=True,
+                hide_index=True,
+                height=min(len(df_coeff) * 38 + 40, 700),
+            )
+
+            st.caption(f"intercept = {structural_model.get('intercept', 0):.4f}秒")
+
+            # 物理妥当性チェック
+            with st.expander("物理妥当性チェック", expanded=False):
+                for fn, check in validity.items():
+                    status_color = TEXT_GREEN if check.get("valid") else TEXT_RED
+                    status_icon = "OK" if check.get("valid") else "NG"
+                    st.markdown(
+                        f"<span style='color: {status_color}; font-weight: bold'>[{status_icon}]</span> "
+                        f"**{STRUCTURAL_COEFF_LABELS.get(fn, fn)}**: {check.get('actual', '?')} "
+                        f"(expected: {check.get('expected', '?')}) - {check.get('note', '')}",
+                        unsafe_allow_html=True,
+                    )
 
         st.markdown("---")
 
