@@ -478,6 +478,16 @@ def load_section_coefficients():
         return json.load(f)
 
 
+@st.cache_data(ttl=300)
+def load_structural_model():
+    """structural_load_model.json を読み込む"""
+    model_path = DATA_DIR / "structural_load_model.json"
+    if not model_path.exists():
+        return None
+    with open(model_path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
 # 係数の日本語ラベル
 COEFF_LABELS = {
     "distance_loss": "距離ロス",
@@ -493,6 +503,26 @@ COEFF_LABELS = {
     "dist_x_pace": "距離ロスxペース",
     "cushion_x_moisture": "クッションx含水",
     "pos_x_load": "位置x負荷",
+}
+
+# 統一構造モデルの係数ラベル
+STRUCTURAL_COEFF_LABELS = {
+    "is_corner": "コーナー区間",
+    "corner_curvature": "コーナー曲率",
+    "gradient": "勾配(%)",
+    "gradient_abs": "勾配絶対値",
+    "distance_loss": "距離ロス(m)",
+    "prev_speed": "前区間速度(m/s)",
+    "cumulative_distance": "累積距離(m)",
+    "cushion_value": "クッション値",
+    "moisture": "含水率(%)",
+    "track_condition_code": "馬場状態",
+    "corner_x_dist_loss": "曲率x距離ロス",
+    "corner_x_prev_speed": "曲率x前速度",
+    "gradient_x_prev_speed": "勾配x前速度",
+    "dist_loss_x_prev_speed": "距離ロスx前速度",
+    "cum_dist_x_gradient_abs": "累積距離x勾配絶対値",
+    "moisture_x_gradient_abs": "含水率x勾配絶対値",
 }
 
 # 構造タイプの日本語ラベル
@@ -543,15 +573,134 @@ def _r2_style(r2):
 
 def page_course_analysis():
     """コース分析ページ"""
+
+    # --- 統一構造負荷モデル表示 ---
+    structural_model = load_structural_model()
+    if structural_model:
+        st.header("統一構造負荷モデル")
+        st.caption(
+            f"全コース横断Ridge回帰 / "
+            f"更新: {structural_model.get('created_at', '?')[:16]} / "
+            f"v{structural_model.get('version', '?')}"
+        )
+
+        # メトリクス
+        m1, m2, m3, m4 = st.columns(4)
+        with m1:
+            st.metric("R\u00b2", f"{structural_model.get('r_squared', 0):.4f}")
+        with m2:
+            st.metric("OOS R\u00b2", f"{structural_model.get('oos_r_squared', 0):.4f}")
+        with m3:
+            st.metric("OOS RMSE", f"{structural_model.get('oos_rmse', 0):.4f}s")
+        with m4:
+            st.metric("N", f"{structural_model.get('n_samples', 0):,}")
+
+        # 係数テーブル
+        st.subheader("構造要素の係数")
+
+        coefficients = structural_model.get("coefficients", {})
+        interp = structural_model.get("interpretation", [])
+        interp_map = {item["feature"]: item for item in interp}
+        validity = structural_model.get("physical_validity", {})
+
+        coeff_rows = []
+        for fn in structural_model.get("feature_names", []):
+            c = coefficients.get(fn, {})
+            v = validity.get(fn, {})
+            i = interp_map.get(fn, {})
+            coeff_rows.append({
+                "変数": STRUCTURAL_COEFF_LABELS.get(fn, fn),
+                "係数": c.get("value", 0),
+                "SE": c.get("se", 0),
+                "t値": c.get("t_stat", 0),
+                "p値": c.get("p_value", 1),
+                "有意": "***" if c.get("p_value", 1) < 0.001 else "**" if c.get("p_value", 1) < 0.01 else "*" if c.get("p_value", 1) < 0.05 else "",
+                "妥当性": "OK" if v.get("valid", True) else "NG",
+                "解釈": i.get("description", ""),
+            })
+
+        df_coeff = pd.DataFrame(coeff_rows)
+
+        def style_structural_coeff(row):
+            styles = [""] * len(row)
+            cols = list(row.index)
+
+            # 係数値の色分け
+            if "係数" in cols:
+                idx = cols.index("係数")
+                try:
+                    val = float(row["係数"])
+                    if val > 0:
+                        styles[idx] = f"color: {TEXT_RED}; font-weight: bold"
+                    elif val < 0:
+                        styles[idx] = f"color: #42a5f5; font-weight: bold"
+                except (ValueError, TypeError):
+                    pass
+
+            # p値の色分け
+            if "p値" in cols:
+                idx = cols.index("p値")
+                try:
+                    p = float(row["p値"])
+                    if p < 0.001:
+                        styles[idx] = f"color: {TEXT_GREEN}"
+                    elif p < 0.05:
+                        styles[idx] = f"color: {TEXT_GREEN_MED}"
+                    else:
+                        styles[idx] = f"color: {TEXT_MUTED}"
+                except (ValueError, TypeError):
+                    pass
+
+            # 妥当性の色分け
+            if "妥当性" in cols:
+                idx = cols.index("妥当性")
+                if row["妥当性"] == "NG":
+                    styles[idx] = f"background-color: {BG_RED_LIGHT}; color: {TEXT_RED}; font-weight: bold"
+                else:
+                    styles[idx] = f"color: {TEXT_GREEN}"
+
+            return styles
+
+        st.dataframe(
+            df_coeff.style.apply(style_structural_coeff, axis=1).format({
+                "係数": "{:.6f}",
+                "SE": "{:.6f}",
+                "t値": "{:.2f}",
+                "p値": "{:.6f}",
+            }),
+            use_container_width=True,
+            hide_index=True,
+            height=min(len(df_coeff) * 38 + 40, 700),
+        )
+
+        # intercept
+        st.caption(f"intercept = {structural_model.get('intercept', 0):.4f}秒")
+
+        # 物理妥当性チェック
+        with st.expander("物理妥当性チェック", expanded=False):
+            for fn, check in validity.items():
+                status_color = TEXT_GREEN if check.get("valid") else TEXT_RED
+                status_icon = "OK" if check.get("valid") else "NG"
+                st.markdown(
+                    f"<span style='color: {status_color}; font-weight: bold'>[{status_icon}]</span> "
+                    f"**{STRUCTURAL_COEFF_LABELS.get(fn, fn)}**: {check.get('actual', '?')} "
+                    f"(expected: {check.get('expected', '?')}) - {check.get('note', '')}",
+                    unsafe_allow_html=True,
+                )
+
+        st.markdown("---")
+
+    # --- 従来のコース別分析 ---
     coeff_data = load_section_coefficients()
     if not coeff_data:
-        st.warning("コース分析データがありません。section_coefficient_explorer.py を実行してください。")
+        if not structural_model:
+            st.warning("コース分析データがありません。")
         return
 
     courses = coeff_data.get("courses", {})
     metadata = coeff_data.get("metadata", {})
 
-    st.header("コース分析 - 区間係数")
+    st.header("コース別 区間係数")
     if metadata.get("generated_at"):
         try:
             gen_dt = datetime.fromisoformat(metadata["generated_at"])

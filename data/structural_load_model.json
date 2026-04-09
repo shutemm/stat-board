@@ -1,0 +1,330 @@
+{
+  "model": "ridge",
+  "version": "1.0.0",
+  "created_at": "2026-04-09T16:10:43.959582",
+  "description": "全コース統一構造負荷モデル。区間ラップ = f(構造要素)。正=遅くなる、負=速くなる。",
+  "n_samples": 787960,
+  "n_oos_samples": 787960,
+  "n_meetings": 336,
+  "r_squared": 0.232147,
+  "oos_r_squared": 0.231147,
+  "oos_rmse": 0.6986,
+  "oos_mae": 0.5224,
+  "alpha": 1.0,
+  "intercept": 16.970124,
+  "feature_names": [
+    "is_corner",
+    "corner_curvature",
+    "gradient",
+    "gradient_abs",
+    "distance_loss",
+    "prev_speed",
+    "cumulative_distance",
+    "cushion_value",
+    "moisture",
+    "track_condition_code",
+    "corner_x_dist_loss",
+    "corner_x_prev_speed",
+    "gradient_x_prev_speed",
+    "dist_loss_x_prev_speed",
+    "cum_dist_x_gradient_abs",
+    "moisture_x_gradient_abs"
+  ],
+  "coefficients": {
+    "is_corner": {
+      "value": -0.065671,
+      "se": 0.004983,
+      "t_stat": -13.18,
+      "p_value": 0.0,
+      "significant": true
+    },
+    "corner_curvature": {
+      "value": -39.842773,
+      "se": 2.435085,
+      "t_stat": -16.36,
+      "p_value": 0.0,
+      "significant": true
+    },
+    "gradient": {
+      "value": 2.512739,
+      "se": 0.027547,
+      "t_stat": 91.22,
+      "p_value": 0.0,
+      "significant": true
+    },
+    "gradient_abs": {
+      "value": -0.409096,
+      "se": 0.005958,
+      "t_stat": -68.66,
+      "p_value": 0.0,
+      "significant": true
+    },
+    "distance_loss": {
+      "value": 0.255808,
+      "se": 0.011963,
+      "t_stat": 21.38,
+      "p_value": 0.0,
+      "significant": true
+    },
+    "prev_speed": {
+      "value": -0.261081,
+      "se": 0.001164,
+      "t_stat": -224.23,
+      "p_value": 0.0,
+      "significant": true
+    },
+    "cumulative_distance": {
+      "value": 7.6e-05,
+      "se": 2e-06,
+      "t_stat": 42.95,
+      "p_value": 0.0,
+      "significant": true
+    },
+    "cushion_value": {
+      "value": -0.012328,
+      "se": 0.001039,
+      "t_stat": -11.86,
+      "p_value": 0.0,
+      "significant": true
+    },
+    "moisture": {
+      "value": -0.036362,
+      "se": 0.000241,
+      "t_stat": -151.16,
+      "p_value": 0.0,
+      "significant": true
+    },
+    "track_condition_code": {
+      "value": 0.106166,
+      "se": 0.001251,
+      "t_stat": 84.85,
+      "p_value": 0.0,
+      "significant": true
+    },
+    "corner_x_dist_loss": {
+      "value": -0.062845,
+      "se": 0.08087,
+      "t_stat": -0.78,
+      "p_value": 0.437097,
+      "significant": false
+    },
+    "corner_x_prev_speed": {
+      "value": 2.536204,
+      "se": 0.144844,
+      "t_stat": 17.51,
+      "p_value": 0.0,
+      "significant": true
+    },
+    "gradient_x_prev_speed": {
+      "value": -0.143347,
+      "se": 0.001675,
+      "t_stat": -85.6,
+      "p_value": 0.0,
+      "significant": true
+    },
+    "dist_loss_x_prev_speed": {
+      "value": -0.013617,
+      "se": 0.000719,
+      "t_stat": -18.94,
+      "p_value": 0.0,
+      "significant": true
+    },
+    "cum_dist_x_gradient_abs": {
+      "value": 0.00022,
+      "se": 4e-06,
+      "t_stat": 55.46,
+      "p_value": 0.0,
+      "significant": true
+    },
+    "moisture_x_gradient_abs": {
+      "value": -0.004097,
+      "se": 0.000421,
+      "t_stat": -9.74,
+      "p_value": 0.0,
+      "significant": true
+    }
+  },
+  "physical_validity": {
+    "distance_loss": {
+      "expected": "positive, ~0.06 s/m",
+      "actual": "0.2558",
+      "valid": false,
+      "note": "WARNING: 物理値(~0.06)から乖離"
+    },
+    "is_corner": {
+      "expected": "positive",
+      "actual": "-0.0657",
+      "valid": false,
+      "note": "WARNING: コーナーが速いのは不自然"
+    },
+    "corner_curvature": {
+      "expected": "positive",
+      "actual": "-39.8428",
+      "valid": false,
+      "note": "WARNING: きついコーナーが速いのは不自然"
+    },
+    "gradient": {
+      "expected": "positive (uphill = slow)",
+      "actual": "2.5127",
+      "valid": true,
+      "note": "OK"
+    },
+    "gradient_abs": {
+      "expected": "positive (slope = more load)",
+      "actual": "-0.4091",
+      "valid": false,
+      "note": "MINOR: 下りの加速効果が上回る可能性"
+    },
+    "prev_speed": {
+      "expected": "negative (fast horse stays fast) or positive (fatigue)",
+      "actual": "-0.2611",
+      "valid": true,
+      "note": "馬の走力効果 > 疲労効果"
+    },
+    "track_condition_code": {
+      "expected": "positive (wet = slow)",
+      "actual": "0.1062",
+      "valid": true,
+      "note": "OK"
+    }
+  },
+  "interpretation": [
+    {
+      "feature": "is_corner",
+      "description": "コーナー区間 → +-0.066秒/区間",
+      "significant": true
+    },
+    {
+      "feature": "corner_curvature",
+      "description": "コーナー曲率(1/半径) → 曲率+0.001で+-0.0398秒",
+      "significant": true
+    },
+    {
+      "feature": "gradient",
+      "description": "勾配% → 上り1%で+2.513秒",
+      "significant": true
+    },
+    {
+      "feature": "gradient_abs",
+      "description": "勾配の絶対値 → 坂1%で+-0.409秒追加",
+      "significant": true
+    },
+    {
+      "feature": "distance_loss",
+      "description": "距離ロス → 1m余分に走ると+0.2558秒",
+      "significant": true
+    },
+    {
+      "feature": "prev_speed",
+      "description": "前区間速度(m/s) → 1m/s速いと-0.261秒",
+      "significant": true
+    },
+    {
+      "feature": "cumulative_distance",
+      "description": "累積距離 → 200m進むごとに+0.0153秒",
+      "significant": true
+    },
+    {
+      "feature": "cushion_value",
+      "description": "クッション値 → +1で-0.0123秒",
+      "significant": true
+    },
+    {
+      "feature": "moisture",
+      "description": "含水率 → +1%で-0.0364秒",
+      "significant": true
+    },
+    {
+      "feature": "track_condition_code",
+      "description": "馬場状態 → 1段階重くなると+0.106秒",
+      "significant": true
+    },
+    {
+      "feature": "corner_x_dist_loss",
+      "description": "コーナー曲率x距離ロス → 相互効果-0.0628",
+      "significant": false
+    },
+    {
+      "feature": "corner_x_prev_speed",
+      "description": "コーナー曲率x前区間速度 → 相互効果+2.5362",
+      "significant": true
+    },
+    {
+      "feature": "gradient_x_prev_speed",
+      "description": "勾配x前区間速度 → 相互効果-0.1433",
+      "significant": true
+    },
+    {
+      "feature": "dist_loss_x_prev_speed",
+      "description": "距離ロスx前区間速度 → 相互効果-0.0136",
+      "significant": true
+    },
+    {
+      "feature": "cum_dist_x_gradient_abs",
+      "description": "累積距離x勾配絶対値 → 相互効果+0.000220",
+      "significant": true
+    },
+    {
+      "feature": "moisture_x_gradient_abs",
+      "description": "含水率x勾配絶対値 → 相互効果-0.0041",
+      "significant": true
+    }
+  ],
+  "scaler": {
+    "mean": [
+      0.3582402660033504,
+      0.00401402304779294,
+      0.08759018224255602,
+      0.3001286359701658,
+      0.5576068582156785,
+      16.442406187951466,
+      759.407584141327,
+      9.3726507690773,
+      8.844828671511006,
+      0.3484072795573379,
+      0.004053791235593021,
+      0.06667061807010662,
+      1.4026000125102662,
+      9.198016635458437,
+      280.98966952637187,
+      2.734383105741288
+    ],
+    "scale": [
+      0.47948324038924056,
+      0.00563700419747704,
+      0.5496605122168242,
+      0.4687446219296854,
+      2.2472704690825287,
+      0.969328492307575,
+      523.5875479090374,
+      0.8392704306447961,
+      4.4422974364770615,
+      0.6933637855948137,
+      0.012078662460555292,
+      0.09402216167459651,
+      9.0120271861355,
+      37.38947873319515,
+      633.7356932776331,
+      4.8653946566346935
+    ]
+  },
+  "coef_scaled": [
+    -0.03148804770681887,
+    -0.22459387881789783,
+    1.3811533618426197,
+    -0.1917614736502301,
+    0.5748708294996039,
+    -0.25307315273371234,
+    0.04005078877152435,
+    -0.010346784265022236,
+    -0.1615293410178227,
+    0.07361169084078054,
+    -0.0007590812967666286,
+    0.23845934907433838,
+    -1.291844892966926,
+    -0.5091484812124587,
+    0.139117330077814,
+    -0.01993442217442784
+  ],
+  "intercept_scaled": 12.284741103618058
+}
