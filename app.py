@@ -8,10 +8,12 @@
 """
 
 import json
+import math
 from datetime import datetime
 from pathlib import Path
 
 import pandas as pd
+import plotly.graph_objects as go
 import streamlit as st
 
 # ============================================================
@@ -1142,6 +1144,921 @@ def page_course_analysis():
 
 
 # ============================================================
+# コースマップページ
+# ============================================================
+
+# --- 競馬場の形状パラメータ ---
+# 各競馬場のコース形状を定義する。
+# back_straight: バックストレッチの長さ (m)
+# home_straight: ホームストレッチの長さ (m)
+# corner_radius: コーナー平均半径 (m) — 描画用
+# direction: "右" or "左" or "直線"
+# perimeter: 1周の距離 (m) — 芝コースの外周
+# shape: "ellipse" (標準楕円) / "pear" (洋梨型=中山) / "straight_only" (新潟直線)
+
+VENUE_SHAPES = {
+    "札幌": {
+        "back_straight": 350, "home_straight": 266,
+        "corner_radius": 120, "direction": "右",
+        "perimeter": 1640, "shape": "ellipse",
+    },
+    "函館": {
+        "back_straight": 350, "home_straight": 262,
+        "corner_radius": 110, "direction": "右",
+        "perimeter": 1626, "shape": "ellipse",
+    },
+    "福島": {
+        "back_straight": 380, "home_straight": 292,
+        "corner_radius": 100, "direction": "右",
+        "perimeter": 1600, "shape": "ellipse",
+    },
+    "新潟": {
+        "back_straight": 380, "home_straight": 359,
+        "corner_radius": 130, "direction": "左",
+        "perimeter": 1623, "shape": "ellipse",
+    },
+    "東京": {
+        "back_straight": 500, "home_straight": 526,
+        "corner_radius": 150, "direction": "左",
+        "perimeter": 2083, "shape": "ellipse",
+    },
+    "中山": {
+        "back_straight": 380, "home_straight": 310,
+        "corner_radius_34": 80, "corner_radius_12": 100,
+        "direction": "右",
+        "perimeter": 1667, "shape": "pear",
+    },
+    "中京": {
+        "back_straight": 400, "home_straight": 413,
+        "corner_radius": 130, "direction": "左",
+        "perimeter": 1705, "shape": "ellipse",
+    },
+    "京都": {
+        "back_straight": 400, "home_straight": 328,
+        "corner_radius": 100, "direction": "右",
+        "perimeter": 1783, "shape": "ellipse",
+    },
+    "阪神": {
+        "back_straight": 430, "home_straight": 357,
+        "corner_radius": 130, "direction": "右",
+        "perimeter": 1689, "shape": "ellipse",
+    },
+    "小倉": {
+        "back_straight": 370, "home_straight": 293,
+        "corner_radius": 100, "direction": "右",
+        "perimeter": 1616, "shape": "ellipse",
+    },
+}
+
+
+def _generate_track_path(venue_name: str, n_points: int = 500) -> list[tuple[float, float]]:
+    """競馬場の形状を (x, y) 座標列として生成する。
+
+    ゴール位置はホームストレッチの右端(12時方向の右側)。
+    座標は反時計回りで生成し、direction=="右" なら反転する。
+
+    戻り値: [(x, y), ...] 等間隔のn_points個の点（1周分）
+    ゴール(=スタート基準)が先頭。走行方向順に並ぶ。
+    """
+    shape_info = VENUE_SHAPES.get(venue_name)
+    if not shape_info:
+        return []
+
+    shape = shape_info["shape"]
+
+    if shape == "ellipse":
+        return _generate_ellipse_track(shape_info, n_points)
+    elif shape == "pear":
+        return _generate_pear_track(shape_info, n_points)
+    return []
+
+
+def _generate_ellipse_track(info: dict, n_points: int) -> list[tuple[float, float]]:
+    """標準楕円型コース (2つの半円 + 2つの直線) を生成する。
+
+    レイアウト (ゴールは下の直線の右端):
+        ┌─────────────────────┐  <- バックストレッチ (上)
+        │     コーナー1,2      │
+        │                     │
+        │     コーナー3,4      │
+        └─────────────────────┘  <- ホームストレッチ (下)
+                           ^ゴール
+
+    座標系: x右正, y上正
+    右回り: 時計回り走行 (ゴールから左に走りコーナーを回る)
+    左回り: 反時計回り走行 (ゴールから右に走りコーナーを回る)
+    """
+    hs = info["home_straight"]
+    bs = info["back_straight"]
+    r = info["corner_radius"]
+    direction = info["direction"]
+
+    # 半直線の長さ (中心からの距離)
+    half_hs = hs / 2
+    half_bs = bs / 2
+
+    # コーナーの中心座標
+    cx_right = max(half_hs, half_bs)
+    cx_left = -cx_right
+    cy = r  # コーナー中心のy座標 (コース中心はy=0ではなく、上下にrずれる)
+
+    # パスセグメントを定義:
+    # ゴール(右下)からスタートし、走行方向に進む
+    # 右回り: ゴール→左(ホーム)→左コーナー(3C,4C)→上(バック)→右コーナー(1C,2C)→ゴール
+    # 左回り: ゴール→右(ホーム)→右コーナー→上(バック)→左コーナー→ゴール
+
+    # 各セグメントの長さを計算
+    half_circle = math.pi * r
+    total = hs + bs + 2 * half_circle
+
+    # 等距離でn_points個の点を生成
+    points = []
+    for i in range(n_points):
+        dist = (i / n_points) * total
+
+        if dist < hs:
+            # ホームストレッチ (下の直線)
+            # ゴールは右端、左に向かって走る(右回り)
+            t = dist / hs
+            x = half_hs - t * hs  # 右から左へ
+            y = 0
+        elif dist < hs + half_circle:
+            # 左コーナー (3C → 4C 相当、右回りの場合)
+            angle_progress = (dist - hs) / half_circle
+            angle = math.pi / 2 + angle_progress * math.pi  # 270度→90度
+            x = cx_left + r * math.cos(angle)
+            y = r + r * math.sin(angle)
+        elif dist < hs + half_circle + bs:
+            # バックストレッチ (上の直線)
+            t = (dist - hs - half_circle) / bs
+            x = -half_bs + t * bs  # 左から右へ
+            y = 2 * r
+        else:
+            # 右コーナー (1C → 2C 相当)
+            angle_progress = (dist - hs - half_circle - bs) / half_circle
+            angle = math.pi / 2 - angle_progress * math.pi  # 90度→-90度
+            x = cx_right + r * math.cos(angle)
+            y = r + r * math.sin(angle)
+
+        points.append((x, y))
+
+    # 左回り: x座標を反転
+    if direction == "左":
+        points = [(-x, y) for x, y in points]
+
+    return points
+
+
+def _generate_pear_track(info: dict, n_points: int) -> list[tuple[float, float]]:
+    """洋梨型コース (中山) を生成する。
+
+    3C-4Cのコーナー半径が小さく、1C-2Cが大きい独特の形状。
+    """
+    hs = info["home_straight"]
+    bs = info["back_straight"]
+    r34 = info["corner_radius_34"]
+    r12 = info.get("corner_radius_12", 100)
+    direction = info["direction"]
+
+    half_hs = hs / 2
+    half_bs = bs / 2
+
+    # セグメント長
+    half_circle_34 = math.pi * r34
+    half_circle_12 = math.pi * r12
+    total = hs + bs + half_circle_34 + half_circle_12
+
+    # 高さを合わせるために、コーナーの中心y座標を調整
+    # 下のコーナー(3C-4C)は半径r34、上のコーナー(1C-2C)は半径r12
+    height_34 = r34
+    height_12 = r12
+    total_height = height_34 + height_12
+
+    # コーナーの中心x
+    cx_left = -half_hs
+    cx_right = half_hs
+
+    points = []
+    for i in range(n_points):
+        dist = (i / n_points) * total
+
+        if dist < hs:
+            # ホームストレッチ (下)
+            t = dist / hs
+            x = half_hs - t * hs
+            y = 0
+        elif dist < hs + half_circle_34:
+            # 左コーナー (3C-4C, 小半径)
+            angle_progress = (dist - hs) / half_circle_34
+            angle = math.pi / 2 + angle_progress * math.pi
+            x = cx_left + r34 * math.cos(angle)
+            y = r34 + r34 * math.sin(angle)
+        elif dist < hs + half_circle_34 + bs:
+            # バックストレッチ (上)
+            t = (dist - hs - half_circle_34) / bs
+            x = -half_bs + t * bs
+            y = 2 * r34  # 3C-4Cの高さ
+        else:
+            # 右コーナー (1C-2C, 大半径)
+            angle_progress = (dist - hs - half_circle_34 - bs) / half_circle_12
+            angle = math.pi / 2 - angle_progress * math.pi
+            # 中心をバックストレッチの高さに合わせる
+            cx = cx_right
+            cy_center = 2 * r34 - r12  # コーナー頂点を合わせる
+            x = cx + r12 * math.cos(angle)
+            y = cy_center + r12 * math.sin(angle)
+
+        points.append((x, y))
+
+    # 右回り: そのまま (すでに右回り方向で生成)
+    if direction == "左":
+        points = [(-x, y) for x, y in points]
+
+    return points
+
+
+def _map_sections_to_path(
+    sections: list[dict],
+    track_path: list[tuple[float, float]],
+    total_distance: int,
+    perimeter: float,
+) -> list[dict]:
+    """course_structure.json の区間情報をトラック座標にマッピングする。
+
+    各区間 (200m) に対応するトラックパス上の座標範囲を返す。
+    複数周回のコースでは、パス座標を繰り返し使う。
+
+    戻り値: [{"section": {...}, "coords": [(x,y),...], "start_idx": int, "end_idx": int}, ...]
+    """
+    n_points = len(track_path)
+    result = []
+
+    for sec in sections:
+        start_m = sec["start_m"]
+        end_m = sec["end_m"]
+        sec_len = end_m - start_m
+
+        # ゴールからの距離に変換
+        # sections のstart_mはスタートからの距離
+        # トラックパスはゴール(=次レースのスタート位置ではない)からの距離
+        # → start_m が 0 のときゴール前 total_distance m 地点
+
+        # ゴールからの逆算: パス上での位置
+        # スタート位置 = ゴールから total_distance m 手前
+        goal_dist_start = total_distance - start_m  # ゴールまでの残り距離
+        goal_dist_end = total_distance - end_m
+
+        # パス上のインデックス (ゴールが0)
+        # スタートからの距離をパス上に変換
+        # パスは走行方向順なので、start_m=0 はパス上で
+        # (perimeter - total_distance % perimeter) の位置に相当
+
+        start_on_path = start_m % perimeter  # スタート地点はゴールから距離total_distance手前
+        end_on_path = end_m % perimeter if end_m <= perimeter else end_m % perimeter
+
+        # スタート位置のオフセット (ゴールは idx=0, スタートはどこか)
+        # ゴールが idx=0 で走行方向に進む
+        # スタートはゴールから (perimeter - total_distance % perimeter) 進んだ位置
+        start_offset = (perimeter - (total_distance % perimeter)) % perimeter
+
+        # 各区間のパス上での開始・終了距離
+        sec_path_start = (start_offset + start_m) % perimeter
+        sec_path_end = (start_offset + end_m) % perimeter
+
+        # インデックスに変換
+        idx_start = int((sec_path_start / perimeter) * n_points) % n_points
+        idx_end = int((sec_path_end / perimeter) * n_points) % n_points
+
+        # 座標を抽出
+        if idx_start <= idx_end:
+            coords = track_path[idx_start:idx_end + 1]
+        else:
+            # 周回をまたぐ場合
+            coords = track_path[idx_start:] + track_path[:idx_end + 1]
+
+        if len(coords) < 2:
+            # 最低2点は必要
+            coords = [track_path[idx_start], track_path[(idx_start + 1) % n_points]]
+
+        result.append({
+            "section": sec,
+            "coords": coords,
+            "start_idx": idx_start,
+            "end_idx": idx_end,
+        })
+
+    return result
+
+
+def _section_difficulty(section: dict) -> float:
+    """区間の厳しさスコアを 0.0 (楽) ~ 1.0 (厳しい) で返す。
+
+    要素:
+    - 勾配の絶対値 (上りは特に厳しい)
+    - コーナーの曲率 (半径が小さいほど厳しい)
+    """
+    gradient = section.get("gradient", 0.0)
+    corner_radius = section.get("corner_radius")
+    sec_type = section.get("type", "straight")
+
+    score = 0.0
+
+    # 勾配スコア: 上りは厳しい、下りはやや楽だが急下りは足への負担
+    abs_grad = abs(gradient)
+    if gradient > 0:
+        # 上り: 特に厳しい
+        score += min(abs_grad / 2.5, 1.0) * 0.7  # 2.5%で最大0.7
+    elif gradient < 0:
+        # 下り: 少し負担
+        score += min(abs_grad / 3.0, 0.3) * 0.3
+
+    # コーナースコア: 半径が小さいほど厳しい
+    if corner_radius is not None and corner_radius > 0:
+        # 半径55m(小倉ダ)=厳しい, 170m(阪神外)=楽
+        curvature_score = max(0, 1.0 - (corner_radius - 50) / 150)
+        score += curvature_score * 0.3
+
+    # uphill タイプは追加ボーナス
+    if sec_type == "uphill":
+        score = min(score + 0.2, 1.0)
+
+    return min(score, 1.0)
+
+
+def _difficulty_color(score: float) -> str:
+    """厳しさスコアを色に変換する (緑→黄→赤)。
+
+    0.0 = 緑 (#2d8a4e)
+    0.5 = 黄 (#d4a017)
+    1.0 = 赤 (#c62828)
+    """
+    if score <= 0.5:
+        t = score / 0.5
+        r = int(45 + t * (212 - 45))
+        g = int(138 + t * (160 - 138))
+        b = int(78 + t * (23 - 78))
+    else:
+        t = (score - 0.5) / 0.5
+        r = int(212 + t * (198 - 212))
+        g = int(160 - t * (160 - 40))
+        b = int(23 + t * (40 - 23))
+    return f"rgb({r},{g},{b})"
+
+
+def _difficulty_color_fill(score: float) -> str:
+    """塗りつぶし用の半透明色"""
+    if score <= 0.5:
+        t = score / 0.5
+        r = int(45 + t * (212 - 45))
+        g = int(138 + t * (160 - 138))
+        b = int(78 + t * (23 - 78))
+    else:
+        t = (score - 0.5) / 0.5
+        r = int(212 + t * (198 - 212))
+        g = int(160 - t * (160 - 40))
+        b = int(23 + t * (40 - 23))
+    return f"rgba({r},{g},{b},0.4)"
+
+
+def _make_thick_segment(coords: list[tuple[float, float]], width: float = 12.0) -> tuple[list[float], list[float]]:
+    """座標列からコースの幅を持ったポリゴン座標を生成する。
+
+    中心線の両側にwidth/2だけオフセットしたポリゴンを返す。
+    """
+    if len(coords) < 2:
+        return [], []
+
+    n = len(coords)
+    # 法線ベクトルを計算
+    normals = []
+    for i in range(n):
+        if i == 0:
+            dx = coords[1][0] - coords[0][0]
+            dy = coords[1][1] - coords[0][1]
+        elif i == n - 1:
+            dx = coords[n - 1][0] - coords[n - 2][0]
+            dy = coords[n - 1][1] - coords[n - 2][1]
+        else:
+            dx = coords[i + 1][0] - coords[i - 1][0]
+            dy = coords[i + 1][1] - coords[i - 1][1]
+
+        length = math.sqrt(dx * dx + dy * dy)
+        if length < 1e-10:
+            normals.append((0, 1))
+        else:
+            # 法線は走行方向の左90度回転
+            normals.append((-dy / length, dx / length))
+
+    half_w = width / 2
+
+    # 外側の点列 (法線方向)
+    outer_x = [coords[i][0] + normals[i][0] * half_w for i in range(n)]
+    outer_y = [coords[i][1] + normals[i][1] * half_w for i in range(n)]
+
+    # 内側の点列 (法線の逆方向) — 逆順
+    inner_x = [coords[i][0] - normals[i][0] * half_w for i in range(n - 1, -1, -1)]
+    inner_y = [coords[i][1] - normals[i][1] * half_w for i in range(n - 1, -1, -1)]
+
+    # ポリゴンとして閉じる
+    poly_x = outer_x + inner_x + [outer_x[0]]
+    poly_y = outer_y + inner_y + [outer_y[0]]
+
+    return poly_x, poly_y
+
+
+def _identify_corners(sections: list[dict], total_distance: int) -> list[dict]:
+    """連続するcorner区間をまとめてコーナー番号を割り当てる。
+
+    戻り値: [{"corner_number": "1C", "start_m": 400, "end_m": 800, "mid_m": 600}, ...]
+    """
+    corners = []
+    current_corner_start = None
+    corner_count = 0
+
+    for sec in sections:
+        if sec["type"] == "corner":
+            if current_corner_start is None:
+                current_corner_start = sec["start_m"]
+                corner_count += 1
+            current_corner_end = sec["end_m"]
+        else:
+            if current_corner_start is not None:
+                mid = (current_corner_start + current_corner_end) / 2
+                corners.append({
+                    "corner_number": f"{corner_count}C",
+                    "start_m": current_corner_start,
+                    "end_m": current_corner_end,
+                    "mid_m": mid,
+                })
+                current_corner_start = None
+
+    # 最後のコーナー
+    if current_corner_start is not None:
+        mid = (current_corner_start + current_corner_end) / 2
+        corners.append({
+            "corner_number": f"{corner_count}C",
+            "start_m": current_corner_start,
+            "end_m": current_corner_end,
+            "mid_m": mid,
+        })
+
+    # コーナー番号を走行順でリナンバリング
+    # course_structure.jsonの慣例に合わせる
+    # turnsが2の場合: 3C, 4C (短距離) のように後ろのコーナーだけ
+    # turnsが4の場合: 1C, 2C, 3C, 4C
+    n_corners = len(corners)
+    if n_corners <= 2:
+        # 3C, 4Cとして扱う
+        labels = [f"{3 + i}C" for i in range(n_corners)]
+    elif n_corners <= 4:
+        labels = [f"{i + 1}C" for i in range(n_corners)]
+    else:
+        # 6コーナー等 (2周以上)
+        labels = [f"{i + 1}C" for i in range(n_corners)]
+
+    for i, corner in enumerate(corners):
+        corner["label"] = labels[i] if i < len(labels) else f"{i + 1}C"
+
+    return corners
+
+
+@st.cache_data(ttl=3600)
+def load_course_structure():
+    """course_structure.json を読み込む"""
+    # ローカル開発用パス
+    local_path = Path("C:/Users/okusa/Desktop/keiba-ai/config/course_structure.json")
+    # デプロイ用: data/ディレクトリにもコピーしておく
+    deploy_path = DATA_DIR / "course_structure.json"
+
+    for p in [local_path, deploy_path]:
+        if p.exists():
+            with open(p, "r", encoding="utf-8") as f:
+                return json.load(f)
+    return None
+
+
+def page_course_map():
+    """コースマップページ — 競馬場を上から見た図で区間ごとの厳しさを色付き表示"""
+
+    st.header("コースマップ")
+    st.caption("競馬場のコース形状と各区間の厳しさを上空図で表示")
+
+    course_data = load_course_structure()
+    if not course_data:
+        st.warning("コース構造データがありません。")
+        return
+
+    # コースキー一覧 (_metadata除外)
+    all_keys = [k for k in course_data if k != "_metadata"]
+
+    # 競馬場一覧
+    venues_in_data = sorted(set(course_data[k]["venue"] for k in all_keys))
+
+    # サイドバーでフィルタ
+    with st.sidebar:
+        st.subheader("コースマップ設定")
+        selected_venue = st.selectbox("競馬場", venues_in_data, key="map_venue")
+
+        # 選択した競馬場のコース一覧
+        venue_courses = [k for k in all_keys if course_data[k]["venue"] == selected_venue]
+
+        # 芝/ダートフィルタ
+        surfaces = sorted(set(course_data[k]["surface"] for k in venue_courses))
+        selected_surface = st.radio("馬場", surfaces, horizontal=True, key="map_surface")
+
+        filtered = [k for k in venue_courses if course_data[k]["surface"] == selected_surface]
+        filtered.sort(key=lambda k: course_data[k]["distance"])
+
+        if not filtered:
+            st.warning("該当コースがありません。")
+            return
+
+        selected_course_key = st.selectbox(
+            "距離",
+            filtered,
+            format_func=lambda k: f"{course_data[k]['distance']}m" + (
+                f" ({k.split('_')[-1]})" if len(k.split('_')) > 3 else ""
+            ),
+            key="map_distance",
+        )
+
+    if not selected_course_key:
+        return
+
+    course = course_data[selected_course_key]
+    sections = course.get("sections", [])
+    venue = course["venue"]
+    distance = course["distance"]
+    direction = course["direction"]
+    straight_length = course.get("straight_length", 0)
+    elevation_diff = course.get("elevation_diff", 0)
+    hill_height = course.get("hill_height", 0)
+
+    # コース情報表示
+    info_cols = st.columns(5)
+    with info_cols[0]:
+        st.metric("距離", f"{distance}m")
+    with info_cols[1]:
+        st.metric("回り", direction)
+    with info_cols[2]:
+        st.metric("直線", f"{straight_length}m")
+    with info_cols[3]:
+        st.metric("高低差", f"{elevation_diff}m")
+    with info_cols[4]:
+        st.metric("坂高さ", f"{hill_height}m" if hill_height > 0 else "-")
+
+    # 直線コース (新潟1000m) は特別扱い
+    if direction == "直線":
+        _render_straight_course(sections, distance, venue)
+        return
+
+    # トラック形状を生成
+    shape_info = VENUE_SHAPES.get(venue)
+    if not shape_info:
+        st.warning(f"{venue} の形状データが未定義です。")
+        return
+
+    perimeter = shape_info["perimeter"]
+    track_path = _generate_track_path(venue, n_points=1000)
+
+    if not track_path:
+        st.warning("トラック形状の生成に失敗しました。")
+        return
+
+    # 区間をトラック上にマッピング
+    mapped = _map_sections_to_path(sections, track_path, distance, perimeter)
+
+    # コーナー識別
+    corners = _identify_corners(sections, distance)
+
+    # --- Plotlyで描画 ---
+    fig = go.Figure()
+
+    # トラックの幅 (描画上のスケール)
+    track_width = 15.0
+
+    # まずコース全体のアウトラインを描画 (薄いグレー)
+    all_x = [p[0] for p in track_path]
+    all_y = [p[1] for p in track_path]
+    fig.add_trace(go.Scatter(
+        x=all_x + [all_x[0]],
+        y=all_y + [all_y[0]],
+        mode="lines",
+        line=dict(color="rgba(100,100,100,0.3)", width=track_width * 1.5),
+        hoverinfo="skip",
+        showlegend=False,
+    ))
+
+    # 各区間を色付きで描画
+    for m in mapped:
+        sec = m["section"]
+        coords = m["coords"]
+        difficulty = _section_difficulty(sec)
+        color = _difficulty_color(difficulty)
+        fill_color = _difficulty_color_fill(difficulty)
+
+        sec_x = [c[0] for c in coords]
+        sec_y = [c[1] for c in coords]
+
+        # 区間タイプの日本語化
+        type_label = {
+            "straight": "直線",
+            "corner": "コーナー",
+            "uphill": "急坂(上り)",
+            "straight_uphill": "直線(上り)",
+            "straight_downhill": "直線(下り)",
+            "corner_uphill": "コーナー(上り)",
+            "corner_downhill": "コーナー(下り)",
+        }.get(sec.get("type", ""), sec.get("type", ""))
+
+        gradient = sec.get("gradient", 0.0)
+        corner_radius = sec.get("corner_radius")
+        notes = sec.get("notes", "")
+
+        # ホバーテキスト
+        hover_parts = [
+            f"<b>{sec['start_m']}m - {sec['end_m']}m</b>",
+            f"区間タイプ: {type_label}",
+            f"勾配: {gradient:+.1f}%",
+        ]
+        if corner_radius:
+            hover_parts.append(f"コーナー半径: {corner_radius}m")
+        hover_parts.append(f"厳しさ: {difficulty:.0%}")
+        if notes:
+            hover_parts.append(f"<i>{notes}</i>")
+        hover_text = "<br>".join(hover_parts)
+
+        # 太い線で区間を描画
+        fig.add_trace(go.Scatter(
+            x=sec_x,
+            y=sec_y,
+            mode="lines",
+            line=dict(color=color, width=track_width),
+            hovertemplate=hover_text + "<extra></extra>",
+            showlegend=False,
+        ))
+
+    # ゴール位置マーカー
+    goal_x, goal_y = track_path[0]
+    fig.add_trace(go.Scatter(
+        x=[goal_x],
+        y=[goal_y],
+        mode="markers+text",
+        marker=dict(color="#ffffff", size=12, symbol="x", line=dict(width=2, color="#ffffff")),
+        text=["GOAL"],
+        textposition="bottom center",
+        textfont=dict(color="#ffffff", size=12, family="Arial Black"),
+        hovertemplate="ゴール<extra></extra>",
+        showlegend=False,
+    ))
+
+    # スタート位置マーカー
+    # スタートはゴールから total_distance 手前
+    start_offset_on_path = (perimeter - (distance % perimeter)) % perimeter
+    start_idx = int((start_offset_on_path / perimeter) * len(track_path)) % len(track_path)
+    start_x, start_y = track_path[start_idx]
+    fig.add_trace(go.Scatter(
+        x=[start_x],
+        y=[start_y],
+        mode="markers+text",
+        marker=dict(color="#64b5f6", size=10, symbol="triangle-right" if direction == "右" else "triangle-left",
+                    line=dict(width=1, color="#64b5f6")),
+        text=["START"],
+        textposition="top center",
+        textfont=dict(color="#64b5f6", size=11, family="Arial Black"),
+        hovertemplate=f"スタート ({distance}m)<extra></extra>",
+        showlegend=False,
+    ))
+
+    # コーナー番号ラベル
+    for corner in corners:
+        # コーナー中間地点のパス上の座標を計算
+        mid_m = corner["mid_m"]
+        mid_offset = (start_offset_on_path + mid_m) % perimeter
+        mid_idx = int((mid_offset / perimeter) * len(track_path)) % len(track_path)
+        cx, cy = track_path[mid_idx]
+
+        # ラベルをコース内側に配置するためオフセット
+        # 法線方向を計算して内側にずらす
+        prev_idx = (mid_idx - 5) % len(track_path)
+        next_idx = (mid_idx + 5) % len(track_path)
+        dx = track_path[next_idx][0] - track_path[prev_idx][0]
+        dy = track_path[next_idx][1] - track_path[prev_idx][1]
+        length = math.sqrt(dx * dx + dy * dy)
+        if length > 0:
+            # 内側方向 (コーナーの内側)
+            nx, ny = -dy / length, dx / length
+            offset_dist = 30
+            label_x = cx + nx * offset_dist
+            label_y = cy + ny * offset_dist
+        else:
+            label_x, label_y = cx, cy
+
+        fig.add_annotation(
+            x=label_x,
+            y=label_y,
+            text=f"<b>{corner['label']}</b>",
+            showarrow=False,
+            font=dict(color="#ffa726", size=13, family="Arial Black"),
+        )
+
+    # 走行方向の矢印 (コース途中に数か所)
+    arrow_positions = [0.15, 0.4, 0.65, 0.85]
+    for pos in arrow_positions:
+        idx = int(pos * len(track_path)) % len(track_path)
+        next_idx_arrow = (idx + 3) % len(track_path)
+        ax, ay = track_path[idx]
+        bx, by = track_path[next_idx_arrow]
+        fig.add_annotation(
+            x=bx, y=by, ax=ax, ay=ay,
+            arrowhead=3, arrowsize=1.2, arrowwidth=2,
+            arrowcolor="rgba(255,255,255,0.4)",
+            showarrow=True,
+            text="",
+        )
+
+    # レイアウト設定 (ダークモード)
+    fig.update_layout(
+        plot_bgcolor="#0e1117",
+        paper_bgcolor="#0e1117",
+        font_color="white",
+        title=dict(
+            text=f"{venue} {selected_surface}{distance}m ({direction}回り)",
+            font=dict(size=18, color="#e0e0e0"),
+        ),
+        xaxis=dict(
+            showgrid=False,
+            zeroline=False,
+            showticklabels=False,
+            scaleanchor="y",
+            scaleratio=1,
+        ),
+        yaxis=dict(
+            showgrid=False,
+            zeroline=False,
+            showticklabels=False,
+        ),
+        margin=dict(l=20, r=20, t=50, b=20),
+        height=550,
+        hoverlabel=dict(
+            bgcolor="#1e1e2e",
+            font_size=13,
+            font_color="white",
+            bordercolor="#555",
+        ),
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
+
+    # --- 凡例 ---
+    st.markdown("#### 色の凡例")
+    legend_cols = st.columns(5)
+    legend_items = [
+        ("平坦直線", 0.0),
+        ("緩いコーナー/微傾斜", 0.2),
+        ("きついコーナー/中傾斜", 0.5),
+        ("急坂/小半径コーナー", 0.75),
+        ("最急坂区間", 1.0),
+    ]
+    for col, (label, score) in zip(legend_cols, legend_items):
+        color = _difficulty_color(score)
+        with col:
+            st.markdown(
+                f"<div style='text-align:center;'>"
+                f"<div style='width:40px;height:16px;background:{color};margin:0 auto;border-radius:3px;'></div>"
+                f"<span style='color:#b0b0b0;font-size:0.8em;'>{label}</span></div>",
+                unsafe_allow_html=True,
+            )
+
+    # --- 区間詳細テーブル ---
+    with st.expander("区間詳細データ", expanded=False):
+        detail_rows = []
+        for sec in sections:
+            difficulty = _section_difficulty(sec)
+            type_label = STRUCTURE_LABELS.get(sec.get("type", ""), sec.get("type", ""))
+            detail_rows.append({
+                "区間": f"{sec['start_m']}m - {sec['end_m']}m",
+                "タイプ": type_label,
+                "勾配(%)": sec.get("gradient", 0.0),
+                "コーナー半径(m)": sec.get("corner_radius") or "-",
+                "厳しさ": f"{difficulty:.0%}",
+                "備考": sec.get("notes", ""),
+            })
+
+        df_detail = pd.DataFrame(detail_rows)
+
+        def style_map_detail(row):
+            styles = [""] * len(row)
+            cols = list(row.index)
+            if "勾配(%)" in cols:
+                idx = cols.index("勾配(%)")
+                try:
+                    g = float(row["勾配(%)"])
+                    if g > 0.5:
+                        styles[idx] = f"color: {TEXT_RED}; font-weight: bold"
+                    elif g > 0:
+                        styles[idx] = f"color: {TEXT_ORANGE}"
+                    elif g < -0.3:
+                        styles[idx] = f"color: #42a5f5"
+                    elif g < 0:
+                        styles[idx] = f"color: #64b5f6"
+                except (ValueError, TypeError):
+                    pass
+            if "厳しさ" in cols:
+                idx = cols.index("厳しさ")
+                try:
+                    v = float(row["厳しさ"].replace("%", "")) / 100
+                    if v >= 0.7:
+                        styles[idx] = f"background-color: {BG_RED_STRONG}; color: {TEXT_RED}; font-weight: bold"
+                    elif v >= 0.4:
+                        styles[idx] = f"background-color: {BG_ORANGE_LIGHT}; color: {TEXT_ORANGE}"
+                    elif v > 0:
+                        styles[idx] = f"color: {TEXT_YELLOW}"
+                    else:
+                        styles[idx] = f"color: {TEXT_GREEN_MED}"
+                except (ValueError, TypeError):
+                    pass
+            return styles
+
+        st.dataframe(
+            df_detail.style.apply(style_map_detail, axis=1),
+            use_container_width=True,
+            hide_index=True,
+        )
+
+
+def _render_straight_course(sections: list[dict], distance: int, venue: str):
+    """直線コース (新潟芝1000m) を水平バーで描画する"""
+    fig = go.Figure()
+
+    total_len = distance
+    bar_height = 30
+
+    for sec in sections:
+        difficulty = _section_difficulty(sec)
+        color = _difficulty_color(difficulty)
+        fill_color = _difficulty_color_fill(difficulty)
+
+        x0 = sec["start_m"]
+        x1 = sec["end_m"]
+
+        type_label = STRUCTURE_LABELS.get(sec.get("type", ""), sec.get("type", ""))
+        gradient = sec.get("gradient", 0.0)
+        notes = sec.get("notes", "")
+
+        hover_parts = [
+            f"<b>{x0}m - {x1}m</b>",
+            f"区間タイプ: {type_label}",
+            f"勾配: {gradient:+.1f}%",
+            f"厳しさ: {difficulty:.0%}",
+        ]
+        if notes:
+            hover_parts.append(f"<i>{notes}</i>")
+
+        fig.add_trace(go.Scatter(
+            x=[x0, x1, x1, x0, x0],
+            y=[-bar_height / 2, -bar_height / 2, bar_height / 2, bar_height / 2, -bar_height / 2],
+            fill="toself",
+            fillcolor=fill_color,
+            line=dict(color=color, width=2),
+            hovertemplate="<br>".join(hover_parts) + "<extra></extra>",
+            showlegend=False,
+        ))
+
+        # 距離ラベル
+        fig.add_annotation(
+            x=(x0 + x1) / 2,
+            y=0,
+            text=f"{x0}-{x1}m",
+            showarrow=False,
+            font=dict(color="white", size=10),
+        )
+
+    # スタート・ゴール
+    fig.add_annotation(x=0, y=-bar_height, text="START", showarrow=False,
+                       font=dict(color="#64b5f6", size=12, family="Arial Black"))
+    fig.add_annotation(x=total_len, y=-bar_height, text="GOAL", showarrow=False,
+                       font=dict(color="#ffffff", size=12, family="Arial Black"))
+
+    fig.update_layout(
+        plot_bgcolor="#0e1117",
+        paper_bgcolor="#0e1117",
+        font_color="white",
+        title=dict(
+            text=f"{venue} 芝{distance}m (直線)",
+            font=dict(size=18, color="#e0e0e0"),
+        ),
+        xaxis=dict(showgrid=False, zeroline=False, title="距離 (m)"),
+        yaxis=dict(showgrid=False, zeroline=False, showticklabels=False, range=[-50, 50]),
+        margin=dict(l=20, r=20, t=50, b=40),
+        height=250,
+        hoverlabel=dict(bgcolor="#1e1e2e", font_size=13, font_color="white", bordercolor="#555"),
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
+
+
+# ============================================================
 # メインUI
 # ============================================================
 
@@ -1158,7 +2075,7 @@ def main():
         st.session_state["page"] = "馬詳細"
         st.session_state["horse_name"] = qp["name"]
 
-    PAGE_OPTIONS = ["予想", "レート一覧", "馬詳細", "コース分析"]
+    PAGE_OPTIONS = ["予想", "レート一覧", "馬詳細", "コース分析", "コースマップ"]
 
     # サイドバー - ページ選択
     with st.sidebar:
@@ -1186,6 +2103,8 @@ def main():
         page_horse_detail()
     elif st.session_state["page"] == "コース分析":
         page_course_analysis()
+    elif st.session_state["page"] == "コースマップ":
+        page_course_map()
 
 
 # ============================================================

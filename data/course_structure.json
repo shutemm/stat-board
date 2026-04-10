@@ -1,0 +1,1768 @@
+{
+  "_metadata": {
+    "version": "1.0.0",
+    "created": "2026-04-07",
+    "description": "JRA全10場のコース構造マスターデータ。各コースの坂・コーナー・直線・高低差等の物理構造を200m区間単位で記録。",
+    "sources": [
+      "JRA公式サイト (jra.go.jp/facilities/race/)",
+      "JRA-VAN コース解説 (sugo.jra-van.jp/sugotoku/crs/)",
+      "bakendo.com コース比較データ"
+    ],
+    "notes": "sectionsのstart_m/end_mはスタート地点からの距離。gradientは正=上り、負=下り（%単位）。corner_radiusは推定値含む。"
+  },
+
+  "札幌_芝_1200": {
+    "venue": "札幌", "venue_code": "01", "surface": "芝", "distance": 1200,
+    "direction": "右", "course_detail": null,
+    "turns": 2, "straight_length": 266.1, "elevation_diff": 0.7,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "洋芝",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ途中スタート、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "3コーナー、大きく緩やかなカーブ"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "4コーナー、大きく緩やかなカーブ"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、ほぼ平坦"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、ほぼ平坦"}
+    ]
+  },
+
+  "札幌_芝_1500": {
+    "venue": "札幌", "venue_code": "01", "surface": "芝", "distance": 1500,
+    "direction": "右", "course_detail": null,
+    "turns": 2, "straight_length": 266.1, "elevation_diff": 0.7,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "洋芝",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "2コーナー出口付近スタート、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "3コーナー、緩やかな大カーブ"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "4コーナー、緩やかな大カーブ"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、ほぼ平坦"},
+      {"start_m": 1200, "end_m": 1500, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、ほぼ平坦"}
+    ]
+  },
+
+  "札幌_芝_1800": {
+    "venue": "札幌", "venue_code": "01", "surface": "芝", "distance": 1800,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 266.1, "elevation_diff": 0.7,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "洋芝",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "1コーナー、緩やかな大カーブ"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "2コーナー、緩やかな大カーブ"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "3コーナー、緩やかな大カーブ"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "4コーナー、緩やかな大カーブ"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、ほぼ平坦"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、ほぼ平坦"}
+    ]
+  },
+
+  "札幌_芝_2000": {
+    "venue": "札幌", "venue_code": "01", "surface": "芝", "distance": 2000,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 266.1, "elevation_diff": 0.7,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "洋芝",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "4コーナー出口スタート、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "ホームストレッチ、ほぼ平坦"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "1コーナー"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "2コーナー"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "3コーナー"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "4コーナー"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、ほぼ平坦"},
+      {"start_m": 1800, "end_m": 2000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、ほぼ平坦"}
+    ]
+  },
+
+  "札幌_芝_2600": {
+    "venue": "札幌", "venue_code": "01", "surface": "芝", "distance": 2600,
+    "direction": "右", "course_detail": null,
+    "turns": 6, "straight_length": 266.1, "elevation_diff": 0.7,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "洋芝",
+    "lap_count": 1.5,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "2コーナー手前スタート"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "3コーナー(1周目)"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "4コーナー(1周目)"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "ホームストレッチ通過"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "1コーナー(2周目)"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "2コーナー(2周目)"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ(2周目)"},
+      {"start_m": 1800, "end_m": 2000, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "3コーナー(2周目)"},
+      {"start_m": 2000, "end_m": 2200, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "4コーナー(2周目)"},
+      {"start_m": 2200, "end_m": 2400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半"},
+      {"start_m": 2400, "end_m": 2600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール"}
+    ]
+  },
+
+  "札幌_ダート_1000": {
+    "venue": "札幌", "venue_code": "01", "surface": "ダート", "distance": 1000,
+    "direction": "右", "course_detail": null,
+    "turns": 2, "straight_length": 264.3, "elevation_diff": 0.9,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ途中スタート、ほぼ平坦"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "3コーナー"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "4コーナー"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、ほぼ平坦"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、ほぼ平坦"}
+    ]
+  },
+
+  "札幌_ダート_1700": {
+    "venue": "札幌", "venue_code": "01", "surface": "ダート", "distance": 1700,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 264.3, "elevation_diff": 0.9,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート、ほぼ平坦"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "1コーナー"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "2コーナー"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "3コーナー"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "4コーナー"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、ほぼ平坦"},
+      {"start_m": 1600, "end_m": 1700, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、ほぼ平坦"}
+    ]
+  },
+
+  "札幌_ダート_2400": {
+    "venue": "札幌", "venue_code": "01", "surface": "ダート", "distance": 2400,
+    "direction": "右", "course_detail": null,
+    "turns": 6, "straight_length": 264.3, "elevation_diff": 0.9,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": null,
+    "lap_count": 1.5,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチスタート"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "3コーナー(1周目)"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "4コーナー(1周目)"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "ホームストレッチ通過"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "1コーナー"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "2コーナー"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ(2周目)"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半"},
+      {"start_m": 1600, "end_m": 1800, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "3コーナー(2周目)"},
+      {"start_m": 1800, "end_m": 2000, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "4コーナー(2周目)"},
+      {"start_m": 2000, "end_m": 2200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半"},
+      {"start_m": 2200, "end_m": 2400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール"}
+    ]
+  },
+
+  "函館_芝_1200": {
+    "venue": "函館", "venue_code": "02", "surface": "芝", "distance": 1200,
+    "direction": "右", "course_detail": null,
+    "turns": 2, "straight_length": 262.1, "elevation_diff": 3.5,
+    "hill_height": 0.8, "hill_gradient": 0.7,
+    "turf_type": "洋芝",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "バックストレッチ途中スタート、緩い上り"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、緩い上り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 90, "notes": "3コーナー、スパイラルカーブ"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.5, "corner_radius": 90, "notes": "4コーナー、スパイラルカーブ、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "最終直線前半、なだらかな下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、平坦"}
+    ]
+  },
+
+  "函館_芝_1800": {
+    "venue": "函館", "venue_code": "02", "surface": "芝", "distance": 1800,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 262.1, "elevation_diff": 3.5,
+    "hill_height": 0.8, "hill_gradient": 0.7,
+    "turf_type": "洋芝",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "正面スタンド前スタート、緩い下り"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": -0.5, "corner_radius": 90, "notes": "1コーナー、下り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.3, "corner_radius": 90, "notes": "2コーナー、下り"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ前半、緩い上り"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "バックストレッチ後半、上り"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": 0.0, "corner_radius": 90, "notes": "3コーナー、スパイラルカーブ"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.5, "corner_radius": 90, "notes": "4コーナー、スパイラルカーブ、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "最終直線前半、なだらかな下り"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、平坦"}
+    ]
+  },
+
+  "函館_芝_2000": {
+    "venue": "函館", "venue_code": "02", "surface": "芝", "distance": 2000,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 262.1, "elevation_diff": 3.5,
+    "hill_height": 0.8, "hill_gradient": 0.7,
+    "turf_type": "洋芝",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "4コーナー出口付近スタート"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "ホームストレッチ通過、緩い下り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.5, "corner_radius": 90, "notes": "1コーナー、下り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 90, "notes": "2コーナー、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ前半、上り"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "バックストレッチ後半、上り"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": 0.0, "corner_radius": 90, "notes": "3コーナー、スパイラルカーブ"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": -0.5, "corner_radius": 90, "notes": "4コーナー、スパイラルカーブ、下り"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "最終直線前半、なだらかな下り"},
+      {"start_m": 1800, "end_m": 2000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、平坦"}
+    ]
+  },
+
+  "函館_芝_2600": {
+    "venue": "函館", "venue_code": "02", "surface": "芝", "distance": 2600,
+    "direction": "右", "course_detail": null,
+    "turns": 6, "straight_length": 262.1, "elevation_diff": 3.5,
+    "hill_height": 0.8, "hill_gradient": 0.7,
+    "turf_type": "洋芝",
+    "lap_count": 1.5,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチスタート、上り"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.0, "corner_radius": 90, "notes": "3コーナー(1周目)"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.5, "corner_radius": 90, "notes": "4コーナー(1周目)、下り"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "ホームストレッチ通過"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": -0.5, "corner_radius": 90, "notes": "1コーナー、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": -0.3, "corner_radius": 90, "notes": "2コーナー"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ(2周目)前半、上り"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "バックストレッチ後半、上り"},
+      {"start_m": 1600, "end_m": 1800, "type": "corner", "gradient": 0.0, "corner_radius": 90, "notes": "3コーナー(2周目)"},
+      {"start_m": 1800, "end_m": 2000, "type": "corner", "gradient": -0.5, "corner_radius": 90, "notes": "4コーナー(2周目)、下り"},
+      {"start_m": 2000, "end_m": 2200, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "最終直線前半"},
+      {"start_m": 2200, "end_m": 2400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線中盤"},
+      {"start_m": 2400, "end_m": 2600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール"}
+    ]
+  },
+
+  "函館_ダート_1000": {
+    "venue": "函館", "venue_code": "02", "surface": "ダート", "distance": 1000,
+    "direction": "右", "course_detail": null,
+    "turns": 2, "straight_length": 260.3, "elevation_diff": 3.5,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ途中スタート、緩い上り"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.0, "corner_radius": 80, "notes": "3コーナー"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "4コーナー、やや下り"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール"}
+    ]
+  },
+
+  "函館_ダート_1700": {
+    "venue": "函館", "venue_code": "02", "surface": "ダート", "distance": 1700,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 260.3, "elevation_diff": 3.5,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "1コーナー、下り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "2コーナー、下り"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ前半、上り"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、上り"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": 0.0, "corner_radius": 80, "notes": "3コーナー"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "4コーナー、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半"},
+      {"start_m": 1600, "end_m": 1700, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール"}
+    ]
+  },
+
+  "福島_芝_1200": {
+    "venue": "福島", "venue_code": "03", "surface": "芝", "distance": 1200,
+    "direction": "右", "course_detail": null,
+    "turns": 2, "straight_length": 292.0, "elevation_diff": 1.9,
+    "hill_height": 1.2, "hill_gradient": 1.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "バックストレッチ途中スタート、上り"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、上り区間終盤"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "3コーナー、スパイラルカーブ、下り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "4コーナー、スパイラルカーブ、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "uphill", "gradient": 1.0, "corner_radius": null, "notes": "最終直線前半、高低差1.2mの上り坂(残り170m~50m)"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、平坦"}
+    ]
+  },
+
+  "福島_芝_1800": {
+    "venue": "福島", "venue_code": "03", "surface": "芝", "distance": 1800,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 292.0, "elevation_diff": 1.9,
+    "hill_height": 1.2, "hill_gradient": 1.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": -0.5, "corner_radius": null, "notes": "正面スタンド前スタート、下り"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": -0.5, "corner_radius": 80, "notes": "1コーナー、下り(高低差1.7m区間)"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "2コーナー、下り"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "バックストレッチ前半、上り(高低差1.3m区間)"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、上り"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "3コーナー、スパイラルカーブ、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "4コーナー、スパイラルカーブ、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "uphill", "gradient": 1.0, "corner_radius": null, "notes": "最終直線前半、高低差1.2mの上り坂"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、平坦"}
+    ]
+  },
+
+  "福島_芝_2000": {
+    "venue": "福島", "venue_code": "03", "surface": "芝", "distance": 2000,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 292.0, "elevation_diff": 1.9,
+    "hill_height": 1.2, "hill_gradient": 1.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "4コーナー出口付近スタート"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "ホームストレッチ通過、緩い下り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.5, "corner_radius": 80, "notes": "1コーナー、下り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "2コーナー、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "バックストレッチ前半、上り"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、上り"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "3コーナー、スパイラルカーブ、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "4コーナー、スパイラルカーブ、下り"},
+      {"start_m": 1600, "end_m": 1800, "type": "uphill", "gradient": 1.0, "corner_radius": null, "notes": "最終直線前半、高低差1.2mの上り坂"},
+      {"start_m": 1800, "end_m": 2000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、平坦"}
+    ]
+  },
+
+  "福島_芝_2600": {
+    "venue": "福島", "venue_code": "03", "surface": "芝", "distance": 2600,
+    "direction": "右", "course_detail": null,
+    "turns": 6, "straight_length": 292.0, "elevation_diff": 1.9,
+    "hill_height": 1.2, "hill_gradient": 1.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1.5,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチスタート、上り"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、上り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "3コーナー(1周目)、下り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "4コーナー(1周目)、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "ホームストレッチ通過"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": -0.5, "corner_radius": 80, "notes": "1コーナー、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "2コーナー"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "バックストレッチ(2周目)前半、上り"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、上り"},
+      {"start_m": 1800, "end_m": 2000, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "3コーナー(2周目)、下り"},
+      {"start_m": 2000, "end_m": 2200, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "4コーナー(2周目)、下り"},
+      {"start_m": 2200, "end_m": 2400, "type": "uphill", "gradient": 1.0, "corner_radius": null, "notes": "最終直線前半、上り坂"},
+      {"start_m": 2400, "end_m": 2600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール"}
+    ]
+  },
+
+  "福島_ダート_1150": {
+    "venue": "福島", "venue_code": "03", "surface": "ダート", "distance": 1150,
+    "direction": "右", "course_detail": null,
+    "turns": 2, "straight_length": 295.7, "elevation_diff": 2.1,
+    "hill_height": 1.0, "hill_gradient": 0.8,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ途中スタート、緩い上り"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、上り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.3, "corner_radius": 65, "notes": "3コーナー、下り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 65, "notes": "4コーナー、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "uphill", "gradient": 0.8, "corner_radius": null, "notes": "最終直線前半、上り坂"},
+      {"start_m": 1000, "end_m": 1150, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール"}
+    ]
+  },
+
+  "福島_ダート_1700": {
+    "venue": "福島", "venue_code": "03", "surface": "ダート", "distance": 1700,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 295.7, "elevation_diff": 2.1,
+    "hill_height": 1.0, "hill_gradient": 0.8,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": -0.3, "corner_radius": 65, "notes": "1コーナー、下り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.3, "corner_radius": 65, "notes": "2コーナー、下り"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ前半、上り"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、上り"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": -0.3, "corner_radius": 65, "notes": "3コーナー、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.3, "corner_radius": 65, "notes": "4コーナー、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "uphill", "gradient": 0.8, "corner_radius": null, "notes": "最終直線前半、上り坂"},
+      {"start_m": 1600, "end_m": 1700, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール"}
+    ]
+  },
+
+  "新潟_芝_1000": {
+    "venue": "新潟", "venue_code": "04", "surface": "芝", "distance": 1000,
+    "direction": "直線", "course_detail": null,
+    "turns": 0, "straight_length": 1000.0, "elevation_diff": 0.8,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "uphill", "gradient": 0.5, "corner_radius": null, "notes": "スタート直後、約1mの上り坂"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "平坦"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "平坦"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "平坦"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "平坦→ゴール"}
+    ]
+  },
+
+  "新潟_芝_1200": {
+    "venue": "新潟", "venue_code": "04", "surface": "芝", "distance": 1200,
+    "direction": "左", "course_detail": null,
+    "turns": 2, "straight_length": 358.7, "elevation_diff": 0.8,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ途中スタート、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "3コーナー"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "4コーナー"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、平坦"}
+    ]
+  },
+
+  "新潟_芝_1400": {
+    "venue": "新潟", "venue_code": "04", "surface": "芝", "distance": 1400,
+    "direction": "左", "course_detail": null,
+    "turns": 2, "straight_length": 358.7, "elevation_diff": 0.8,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチスタート、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ終盤、平坦"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "3コーナー"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "4コーナー"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、平坦"}
+    ]
+  },
+
+  "新潟_芝_1600": {
+    "venue": "新潟", "venue_code": "04", "surface": "芝", "distance": 1600,
+    "direction": "左", "course_detail": "外回り",
+    "turns": 2, "straight_length": 658.7, "elevation_diff": 2.2,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチスタート(外回り)、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 150, "notes": "3コーナー(外回り)、非常に緩やかなカーブ"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 150, "notes": "4コーナー(外回り)、緩やかなカーブ"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線中盤、平坦"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半、平坦"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線末尾→ゴール、平坦"}
+    ]
+  },
+
+  "新潟_芝_1800": {
+    "venue": "新潟", "venue_code": "04", "surface": "芝", "distance": 1800,
+    "direction": "左", "course_detail": "外回り",
+    "turns": 2, "straight_length": 658.7, "elevation_diff": 2.2,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "2コーナー付近スタート(外回り)"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 150, "notes": "3コーナー(外回り)、緩やかなカーブ"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": 0.0, "corner_radius": 150, "notes": "4コーナー(外回り)、緩やかなカーブ"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線中盤、平坦"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半、平坦"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線末尾→ゴール、平坦"}
+    ]
+  },
+
+  "新潟_芝_2000_内回り": {
+    "venue": "新潟", "venue_code": "04", "surface": "芝", "distance": 2000,
+    "direction": "左", "course_detail": "内回り",
+    "turns": 4, "straight_length": 358.7, "elevation_diff": 0.8,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "1コーナー(内回り)"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "2コーナー(内回り)"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "3コーナー(内回り)"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "4コーナー(内回り)"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半、平坦"},
+      {"start_m": 1800, "end_m": 2000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線末尾→ゴール、平坦"}
+    ]
+  },
+
+  "新潟_芝_2000_外回り": {
+    "venue": "新潟", "venue_code": "04", "surface": "芝", "distance": 2000,
+    "direction": "左", "course_detail": "外回り",
+    "turns": 2, "straight_length": 658.7, "elevation_diff": 2.2,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "1コーナー奥ポケットスタート(外回り)"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチへ合流"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": 0.0, "corner_radius": 150, "notes": "3コーナー(外回り)"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": 0.0, "corner_radius": 150, "notes": "4コーナー(外回り)"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線中盤、平坦"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半、平坦"},
+      {"start_m": 1800, "end_m": 2000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線末尾→ゴール"}
+    ]
+  },
+
+  "新潟_芝_2200": {
+    "venue": "新潟", "venue_code": "04", "surface": "芝", "distance": 2200,
+    "direction": "左", "course_detail": "内回り",
+    "turns": 4, "straight_length": 358.7, "elevation_diff": 0.8,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "4コーナー奥スタート"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "ホームストレッチ通過"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "1コーナー(内回り)"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "2コーナー(内回り)"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "3コーナー(内回り)"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "4コーナー(内回り)"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1800, "end_m": 2000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半、平坦"},
+      {"start_m": 2000, "end_m": 2200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線末尾→ゴール"}
+    ]
+  },
+
+  "新潟_芝_2400": {
+    "venue": "新潟", "venue_code": "04", "surface": "芝", "distance": 2400,
+    "direction": "左", "course_detail": null,
+    "turns": 4, "straight_length": 358.7, "elevation_diff": 0.8,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート(内回り)"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "ホームストレッチ後半"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "1コーナー(内回り)"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "2コーナー(内回り)"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "3コーナー(内回り)"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "4コーナー(内回り)"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1800, "end_m": 2000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線中盤、平坦"},
+      {"start_m": 2000, "end_m": 2200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半、平坦"},
+      {"start_m": 2200, "end_m": 2400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "新潟_ダート_1200": {
+    "venue": "新潟", "venue_code": "04", "surface": "ダート", "distance": 1200,
+    "direction": "左", "course_detail": null,
+    "turns": 2, "straight_length": 353.9, "elevation_diff": 0.6,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ途中スタート、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 85, "notes": "3コーナー"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 85, "notes": "4コーナー"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、平坦"}
+    ]
+  },
+
+  "新潟_ダート_1800": {
+    "venue": "新潟", "venue_code": "04", "surface": "ダート", "distance": 1800,
+    "direction": "左", "course_detail": null,
+    "turns": 4, "straight_length": 353.9, "elevation_diff": 0.6,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.0, "corner_radius": 85, "notes": "1コーナー"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 85, "notes": "2コーナー"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": 0.0, "corner_radius": 85, "notes": "3コーナー"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": 0.0, "corner_radius": 85, "notes": "4コーナー"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、平坦"}
+    ]
+  },
+
+  "東京_芝_1400": {
+    "venue": "東京", "venue_code": "05", "surface": "芝", "distance": 1400,
+    "direction": "左", "course_detail": null,
+    "turns": 1, "straight_length": 525.9, "elevation_diff": 2.7,
+    "hill_height": 2.1, "hill_gradient": 1.3,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "向正面奥のポケットスタート、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "3コーナー手前、緩い上り(高低差1.5m区間)"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.5, "corner_radius": 150, "notes": "3-4コーナー、下り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 150, "notes": "4コーナー出口、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1000, "end_m": 1200, "type": "uphill", "gradient": 1.3, "corner_radius": null, "notes": "最終直線坂区間、高低差2.1m(残り460m~300m)"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、坂を上り切り平坦"}
+    ]
+  },
+
+  "東京_芝_1600": {
+    "venue": "東京", "venue_code": "05", "surface": "芝", "distance": 1600,
+    "direction": "左", "course_detail": null,
+    "turns": 1, "straight_length": 525.9, "elevation_diff": 2.7,
+    "hill_height": 2.1, "hill_gradient": 1.3,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "向正面直線右奥スタート(1コーナーまで約542m)、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "向正面後半、3コーナー手前で緩い上り(高低差1.5m)"},
+      {"start_m": 400, "end_m": 600, "type": "uphill", "gradient": 0.5, "corner_radius": null, "notes": "3コーナー手前の上り坂"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.5, "corner_radius": 150, "notes": "3-4コーナー、下り坂"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": -0.3, "corner_radius": 150, "notes": "4コーナー出口、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1200, "end_m": 1400, "type": "uphill", "gradient": 1.3, "corner_radius": null, "notes": "最終直線坂区間、高低差2.1m(残り460m~300m)"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、坂を上り切り平坦"}
+    ]
+  },
+
+  "東京_芝_1800": {
+    "venue": "東京", "venue_code": "05", "surface": "芝", "distance": 1800,
+    "direction": "左", "course_detail": null,
+    "turns": 2, "straight_length": 525.9, "elevation_diff": 2.7,
+    "hill_height": 2.1, "hill_gradient": 1.3,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "2コーナー出口ポケットスタート"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、緩い上り"},
+      {"start_m": 600, "end_m": 800, "type": "uphill", "gradient": 0.5, "corner_radius": null, "notes": "3コーナー手前の上り坂(高低差1.5m)"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": -0.5, "corner_radius": 150, "notes": "3-4コーナー、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": -0.3, "corner_radius": 150, "notes": "4コーナー出口、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1400, "end_m": 1600, "type": "uphill", "gradient": 1.3, "corner_radius": null, "notes": "最終直線坂区間、高低差2.1m"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、平坦"}
+    ]
+  },
+
+  "東京_芝_2000": {
+    "venue": "東京", "venue_code": "05", "surface": "芝", "distance": 2000,
+    "direction": "左", "course_detail": null,
+    "turns": 4, "straight_length": 525.9, "elevation_diff": 2.7,
+    "hill_height": 2.1, "hill_gradient": 1.3,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": -0.5, "corner_radius": null, "notes": "1コーナー奥ポケットスタート、下り(高低差1.9m区間)"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": -0.3, "corner_radius": 150, "notes": "1-2コーナー、下り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 150, "notes": "2コーナー出口"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、緩い上り"},
+      {"start_m": 1000, "end_m": 1200, "type": "uphill", "gradient": 0.5, "corner_radius": null, "notes": "3コーナー手前の上り坂(高低差1.5m)"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.5, "corner_radius": 150, "notes": "3-4コーナー、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1600, "end_m": 1800, "type": "uphill", "gradient": 1.3, "corner_radius": null, "notes": "最終直線坂区間、高低差2.1m"},
+      {"start_m": 1800, "end_m": 2000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、平坦"}
+    ]
+  },
+
+  "東京_芝_2400": {
+    "venue": "東京", "venue_code": "05", "surface": "芝", "distance": 2400,
+    "direction": "左", "course_detail": null,
+    "turns": 4, "straight_length": 525.9, "elevation_diff": 2.7,
+    "hill_height": 2.1, "hill_gradient": 1.3,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "1コーナーまでの直線、緩い下り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.5, "corner_radius": 150, "notes": "1コーナー、下り(高低差1.9m区間)"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 150, "notes": "2コーナー"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半(約450m)、平坦"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、緩い上り"},
+      {"start_m": 1200, "end_m": 1400, "type": "uphill", "gradient": 0.5, "corner_radius": null, "notes": "3コーナー手前の上り坂(高低差1.5m)"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": -0.5, "corner_radius": 150, "notes": "3-4コーナー、下り"},
+      {"start_m": 1600, "end_m": 1800, "type": "corner", "gradient": -0.3, "corner_radius": 150, "notes": "4コーナー出口、下り"},
+      {"start_m": 1800, "end_m": 2000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 2000, "end_m": 2200, "type": "uphill", "gradient": 1.3, "corner_radius": null, "notes": "最終直線坂区間、高低差2.1m"},
+      {"start_m": 2200, "end_m": 2400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、平坦"}
+    ]
+  },
+
+  "東京_芝_2500": {
+    "venue": "東京", "venue_code": "05", "surface": "芝", "distance": 2500,
+    "direction": "左", "course_detail": null,
+    "turns": 4, "straight_length": 525.9, "elevation_diff": 2.7,
+    "hill_height": 2.1, "hill_gradient": 1.3,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "下り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.5, "corner_radius": 150, "notes": "1コーナー、下り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 150, "notes": "2コーナー"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ中盤"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、緩い上り"},
+      {"start_m": 1400, "end_m": 1600, "type": "uphill", "gradient": 0.5, "corner_radius": null, "notes": "3コーナー手前、上り"},
+      {"start_m": 1600, "end_m": 1800, "type": "corner", "gradient": -0.5, "corner_radius": 150, "notes": "3-4コーナー、下り"},
+      {"start_m": 1800, "end_m": 2000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半"},
+      {"start_m": 2000, "end_m": 2200, "type": "uphill", "gradient": 1.3, "corner_radius": null, "notes": "最終直線坂区間"},
+      {"start_m": 2200, "end_m": 2400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半"},
+      {"start_m": 2400, "end_m": 2500, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール"}
+    ]
+  },
+
+  "東京_ダート_1300": {
+    "venue": "東京", "venue_code": "05", "surface": "ダート", "distance": 1300,
+    "direction": "左", "course_detail": null,
+    "turns": 1, "straight_length": 501.6, "elevation_diff": 2.5,
+    "hill_height": 2.4, "hill_gradient": 1.5,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "芝スタート→ダート合流、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.3, "corner_radius": 130, "notes": "3-4コーナー、下り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 130, "notes": "4コーナー出口、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1000, "end_m": 1200, "type": "uphill", "gradient": 1.5, "corner_radius": null, "notes": "最終直線坂区間、高低差2.4m"},
+      {"start_m": 1200, "end_m": 1300, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "東京_ダート_1400": {
+    "venue": "東京", "venue_code": "05", "surface": "ダート", "distance": 1400,
+    "direction": "左", "course_detail": null,
+    "turns": 1, "straight_length": 501.6, "elevation_diff": 2.5,
+    "hill_height": 2.4, "hill_gradient": 1.5,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "向正面ポケットスタート(芝→ダート合流)"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "向正面後半、緩い上り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.3, "corner_radius": 130, "notes": "3-4コーナー、下り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 130, "notes": "4コーナー出口"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1000, "end_m": 1200, "type": "uphill", "gradient": 1.5, "corner_radius": null, "notes": "最終直線坂区間、高低差2.4m"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "東京_ダート_1600": {
+    "venue": "東京", "venue_code": "05", "surface": "ダート", "distance": 1600,
+    "direction": "左", "course_detail": null,
+    "turns": 2, "straight_length": 501.6, "elevation_diff": 2.5,
+    "hill_height": 2.4, "hill_gradient": 1.5,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "2コーナー出口付近スタート(芝→ダート合流)"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、向正面の上り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 130, "notes": "3コーナー、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": -0.3, "corner_radius": 130, "notes": "4コーナー出口、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1200, "end_m": 1400, "type": "uphill", "gradient": 1.5, "corner_radius": null, "notes": "最終直線坂区間、高低差2.4m"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "東京_ダート_2100": {
+    "venue": "東京", "venue_code": "05", "surface": "ダート", "distance": 2100,
+    "direction": "左", "course_detail": null,
+    "turns": 4, "straight_length": 501.6, "elevation_diff": 2.5,
+    "hill_height": 2.4, "hill_gradient": 1.5,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート(芝→ダート合流)"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": -0.3, "corner_radius": 130, "notes": "1コーナー、下り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.3, "corner_radius": 130, "notes": "2コーナー"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、向正面の上り"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": -0.3, "corner_radius": 130, "notes": "3コーナー、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.3, "corner_radius": 130, "notes": "4コーナー出口"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1600, "end_m": 1800, "type": "uphill", "gradient": 1.5, "corner_radius": null, "notes": "最終直線坂区間、高低差2.4m"},
+      {"start_m": 1800, "end_m": 2000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半、平坦"},
+      {"start_m": 2000, "end_m": 2100, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール"}
+    ]
+  },
+
+  "中山_芝_1200": {
+    "venue": "中山", "venue_code": "06", "surface": "芝", "distance": 1200,
+    "direction": "右", "course_detail": "外回り",
+    "turns": 2, "straight_length": 310.0, "elevation_diff": 5.3,
+    "hill_height": 2.2, "hill_gradient": 2.24,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": -0.5, "corner_radius": null, "notes": "バックストレッチ途中スタート(外回り)、下り"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.5, "corner_radius": 100, "notes": "3コーナー(外回り)、下り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 100, "notes": "4コーナー、下り→最低点"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "最終直線前半、緩い上り"},
+      {"start_m": 1000, "end_m": 1200, "type": "uphill", "gradient": 2.24, "corner_radius": null, "notes": "最終直線急坂、高低差2.2m(残り180m~70m)、JRA最大勾配"}
+    ]
+  },
+
+  "中山_芝_1600": {
+    "venue": "中山", "venue_code": "06", "surface": "芝", "distance": 1600,
+    "direction": "右", "course_detail": "外回り",
+    "turns": 2, "straight_length": 310.0, "elevation_diff": 5.3,
+    "hill_height": 2.2, "hill_gradient": 2.24,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "1-2コーナー中間スタート(外回り)、上り"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.3, "corner_radius": 130, "notes": "2コーナー(外回り)、やや上り→最高点"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ前半(外回り)、下り"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": -0.5, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": -0.5, "corner_radius": 100, "notes": "3コーナー(外回り)、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": -0.3, "corner_radius": 100, "notes": "4コーナー、下り→最低点"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "最終直線前半、上り"},
+      {"start_m": 1400, "end_m": 1600, "type": "uphill", "gradient": 2.24, "corner_radius": null, "notes": "最終直線急坂、高低差2.2m(残り180m~70m)"}
+    ]
+  },
+
+  "中山_芝_1800": {
+    "venue": "中山", "venue_code": "06", "surface": "芝", "distance": 1800,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 310.0, "elevation_diff": 5.3,
+    "hill_height": 2.2, "hill_gradient": 2.24,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "スタンド前スタート(内回り)、上り"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.5, "corner_radius": 80, "notes": "1コーナー、上り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.3, "corner_radius": 80, "notes": "2コーナー、上り→最高点"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ前半、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": -0.5, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": -0.5, "corner_radius": 80, "notes": "3コーナー、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "4コーナー、下り→最低点"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "最終直線前半、上り"},
+      {"start_m": 1600, "end_m": 1800, "type": "uphill", "gradient": 2.24, "corner_radius": null, "notes": "最終直線急坂、高低差2.2m"}
+    ]
+  },
+
+  "中山_芝_2000": {
+    "venue": "中山", "venue_code": "06", "surface": "芝", "distance": 2000,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 310.0, "elevation_diff": 5.3,
+    "hill_height": 2.2, "hill_gradient": 2.24,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "4コーナー後方スタート(内回り)"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "ホームストレッチ通過、上り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.5, "corner_radius": 80, "notes": "1コーナー、上り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.3, "corner_radius": 80, "notes": "2コーナー、上り→最高点"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ前半、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": -0.5, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.5, "corner_radius": 80, "notes": "3コーナー、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "4コーナー、下り→最低点"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "最終直線前半、上り"},
+      {"start_m": 1800, "end_m": 2000, "type": "uphill", "gradient": 2.24, "corner_radius": null, "notes": "最終直線急坂、高低差2.2m"}
+    ]
+  },
+
+  "中山_芝_2200": {
+    "venue": "中山", "venue_code": "06", "surface": "芝", "distance": 2200,
+    "direction": "右", "course_detail": "外回り",
+    "turns": 4, "straight_length": 310.0, "elevation_diff": 5.3,
+    "hill_height": 2.2, "hill_gradient": 2.24,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート(外回り)"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "上り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.5, "corner_radius": 130, "notes": "1コーナー(外回り)、上り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.3, "corner_radius": 130, "notes": "2コーナー(外回り)、上り→最高点"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ前半、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": -0.5, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.5, "corner_radius": 100, "notes": "3コーナー(外回り)、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": -0.3, "corner_radius": 100, "notes": "4コーナー、下り→最低点"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "最終直線前半、上り"},
+      {"start_m": 1800, "end_m": 2000, "type": "uphill", "gradient": 2.24, "corner_radius": null, "notes": "最終直線急坂、高低差2.2m"},
+      {"start_m": 2000, "end_m": 2200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール"}
+    ]
+  },
+
+  "中山_芝_2500": {
+    "venue": "中山", "venue_code": "06", "surface": "芝", "distance": 2500,
+    "direction": "右", "course_detail": null,
+    "turns": 5, "straight_length": 310.0, "elevation_diff": 5.3,
+    "hill_height": 2.2, "hill_gradient": 2.24,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "corner", "gradient": -0.3, "corner_radius": 100, "notes": "3コーナー手前スタート(外回り)、下り"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": -0.5, "corner_radius": 100, "notes": "4コーナー、下り→最低点"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "ホームストレッチ通過、上り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.5, "corner_radius": 80, "notes": "1コーナー、上り"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": 0.3, "corner_radius": 80, "notes": "2コーナー、上り→最高点"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ前半、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": -0.5, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": -0.5, "corner_radius": 80, "notes": "3コーナー(内回り)、下り"},
+      {"start_m": 1600, "end_m": 1800, "type": "corner", "gradient": -0.3, "corner_radius": 80, "notes": "4コーナー(内回り)、下り→最低点"},
+      {"start_m": 1800, "end_m": 2000, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "最終直線前半、上り"},
+      {"start_m": 2000, "end_m": 2200, "type": "uphill", "gradient": 2.24, "corner_radius": null, "notes": "最終直線急坂、高低差2.2m"},
+      {"start_m": 2200, "end_m": 2400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半"},
+      {"start_m": 2400, "end_m": 2500, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール"}
+    ]
+  },
+
+  "中山_ダート_1200": {
+    "venue": "中山", "venue_code": "06", "surface": "ダート", "distance": 1200,
+    "direction": "右", "course_detail": null,
+    "turns": 2, "straight_length": 308.0, "elevation_diff": 4.5,
+    "hill_height": 2.2, "hill_gradient": 2.24,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ途中スタート、下り"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": -0.5, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.5, "corner_radius": 65, "notes": "3コーナー、急カーブ、下り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 65, "notes": "4コーナー、急カーブ、下り→最低点"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "最終直線前半、上り"},
+      {"start_m": 1000, "end_m": 1200, "type": "uphill", "gradient": 2.24, "corner_radius": null, "notes": "最終直線急坂、高低差2.2m"}
+    ]
+  },
+
+  "中山_ダート_1800": {
+    "venue": "中山", "venue_code": "06", "surface": "ダート", "distance": 1800,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 308.0, "elevation_diff": 4.5,
+    "hill_height": 2.2, "hill_gradient": 2.24,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "正面スタンド前スタート、上り"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.5, "corner_radius": 65, "notes": "1コーナー、急カーブ、上り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.3, "corner_radius": 65, "notes": "2コーナー、上り→最高点"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ前半、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": -0.5, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": -0.5, "corner_radius": 65, "notes": "3コーナー、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.3, "corner_radius": 65, "notes": "4コーナー、下り→最低点"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "最終直線前半、上り"},
+      {"start_m": 1600, "end_m": 1800, "type": "uphill", "gradient": 2.24, "corner_radius": null, "notes": "最終直線急坂、高低差2.2m"}
+    ]
+  },
+
+  "中山_ダート_2400": {
+    "venue": "中山", "venue_code": "06", "surface": "ダート", "distance": 2400,
+    "direction": "右", "course_detail": null,
+    "turns": 6, "straight_length": 308.0, "elevation_diff": 4.5,
+    "hill_height": 2.2, "hill_gradient": 2.24,
+    "turf_type": null,
+    "lap_count": 1.5,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチスタート、下り"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": -0.5, "corner_radius": 65, "notes": "3コーナー(1周目)、下り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.3, "corner_radius": 65, "notes": "4コーナー(1周目)"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "ホームストレッチ通過、上り"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": 0.5, "corner_radius": 65, "notes": "1コーナー、上り"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": 0.3, "corner_radius": 65, "notes": "2コーナー、上り→最高点"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ(2周目)、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": -0.5, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 1600, "end_m": 1800, "type": "corner", "gradient": -0.5, "corner_radius": 65, "notes": "3コーナー(2周目)、下り"},
+      {"start_m": 1800, "end_m": 2000, "type": "corner", "gradient": -0.3, "corner_radius": 65, "notes": "4コーナー(2周目)、下り→最低点"},
+      {"start_m": 2000, "end_m": 2200, "type": "straight", "gradient": 0.5, "corner_radius": null, "notes": "最終直線前半、上り"},
+      {"start_m": 2200, "end_m": 2400, "type": "uphill", "gradient": 2.24, "corner_radius": null, "notes": "最終直線急坂、高低差2.2m"}
+    ]
+  },
+
+  "中京_芝_1200": {
+    "venue": "中京", "venue_code": "07", "surface": "芝", "distance": 1200,
+    "direction": "左", "course_detail": null,
+    "turns": 2, "straight_length": 412.5, "elevation_diff": 3.5,
+    "hill_height": 2.0, "hill_gradient": 2.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ途中スタート、下り"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.3, "corner_radius": 120, "notes": "3コーナー、スパイラルカーブ、下り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 120, "notes": "4コーナー、スパイラルカーブ、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "uphill", "gradient": 2.0, "corner_radius": null, "notes": "最終直線、直線入口すぐに急坂(高低差約2m)"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、坂上り切り後平坦"}
+    ]
+  },
+
+  "中京_芝_1400": {
+    "venue": "中京", "venue_code": "07", "surface": "芝", "distance": 1400,
+    "direction": "左", "course_detail": null,
+    "turns": 2, "straight_length": 412.5, "elevation_diff": 3.5,
+    "hill_height": 2.0, "hill_gradient": 2.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチスタート、最高点付近"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "3コーナー手前、下り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 120, "notes": "3コーナー、スパイラルカーブ、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": -0.3, "corner_radius": 120, "notes": "4コーナー、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "uphill", "gradient": 2.0, "corner_radius": null, "notes": "最終直線、急坂(高低差約2m)"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "中京_芝_1600": {
+    "venue": "中京", "venue_code": "07", "surface": "芝", "distance": 1600,
+    "direction": "左", "course_detail": null,
+    "turns": 2, "straight_length": 412.5, "elevation_diff": 3.5,
+    "hill_height": 2.0, "hill_gradient": 2.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "2コーナー出口スタート、上り"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ前半、上り→最高点"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "3コーナー手前、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": -0.3, "corner_radius": 120, "notes": "3コーナー、スパイラルカーブ、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": -0.3, "corner_radius": 120, "notes": "4コーナー、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "uphill", "gradient": 2.0, "corner_radius": null, "notes": "最終直線、急坂(高低差約2m)"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "中京_芝_2000": {
+    "venue": "中京", "venue_code": "07", "surface": "芝", "distance": 2000,
+    "direction": "左", "course_detail": null,
+    "turns": 4, "straight_length": 412.5, "elevation_diff": 3.5,
+    "hill_height": 2.0, "hill_gradient": 2.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.3, "corner_radius": 120, "notes": "1コーナー、上り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.3, "corner_radius": 120, "notes": "2コーナー、上り"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ前半、上り→最高点"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "3コーナー手前、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.3, "corner_radius": 120, "notes": "3コーナー、スパイラルカーブ、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": -0.3, "corner_radius": 120, "notes": "4コーナー、下り"},
+      {"start_m": 1600, "end_m": 1800, "type": "uphill", "gradient": 2.0, "corner_radius": null, "notes": "最終直線、急坂(高低差約2m)"},
+      {"start_m": 1800, "end_m": 2000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "中京_芝_2200": {
+    "venue": "中京", "venue_code": "07", "surface": "芝", "distance": 2200,
+    "direction": "左", "course_detail": null,
+    "turns": 4, "straight_length": 412.5, "elevation_diff": 3.5,
+    "hill_height": 2.0, "hill_gradient": 2.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "4コーナー出口スタート"},
+      {"start_m": 200, "end_m": 400, "type": "uphill", "gradient": 2.0, "corner_radius": null, "notes": "ホームストレッチ通過、急坂"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "ゴール板通過後"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.3, "corner_radius": 120, "notes": "1コーナー、上り"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": 0.3, "corner_radius": 120, "notes": "2コーナー"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半→最高点"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": -0.3, "corner_radius": 120, "notes": "3コーナー、下り"},
+      {"start_m": 1600, "end_m": 1800, "type": "corner", "gradient": -0.3, "corner_radius": 120, "notes": "4コーナー、下り"},
+      {"start_m": 1800, "end_m": 2000, "type": "uphill", "gradient": 2.0, "corner_radius": null, "notes": "最終直線、急坂(高低差約2m)"},
+      {"start_m": 2000, "end_m": 2200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール"}
+    ]
+  },
+
+  "中京_ダート_1200": {
+    "venue": "中京", "venue_code": "07", "surface": "ダート", "distance": 1200,
+    "direction": "左", "course_detail": null,
+    "turns": 2, "straight_length": 410.7, "elevation_diff": 3.4,
+    "hill_height": 2.0, "hill_gradient": 2.0,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ途中スタート、下り"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.3, "corner_radius": 95, "notes": "3コーナー、スパイラルカーブ、下り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 95, "notes": "4コーナー、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "uphill", "gradient": 2.0, "corner_radius": null, "notes": "最終直線、急坂(高低差約2m)"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "中京_ダート_1400": {
+    "venue": "中京", "venue_code": "07", "surface": "ダート", "distance": 1400,
+    "direction": "左", "course_detail": null,
+    "turns": 2, "straight_length": 410.7, "elevation_diff": 3.4,
+    "hill_height": 2.0, "hill_gradient": 2.0,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチスタート、最高点付近"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ、下り"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "3コーナー手前、下り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 95, "notes": "3コーナー、スパイラルカーブ、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": -0.3, "corner_radius": 95, "notes": "4コーナー、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "uphill", "gradient": 2.0, "corner_radius": null, "notes": "最終直線、急坂(高低差約2m)"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール"}
+    ]
+  },
+
+  "中京_ダート_1800": {
+    "venue": "中京", "venue_code": "07", "surface": "ダート", "distance": 1800,
+    "direction": "左", "course_detail": null,
+    "turns": 4, "straight_length": 410.7, "elevation_diff": 3.4,
+    "hill_height": 2.0, "hill_gradient": 2.0,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.3, "corner_radius": 95, "notes": "1コーナー、上り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.3, "corner_radius": 95, "notes": "2コーナー"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半→最高点"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": -0.3, "corner_radius": 95, "notes": "3コーナー、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.3, "corner_radius": 95, "notes": "4コーナー、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "uphill", "gradient": 2.0, "corner_radius": null, "notes": "最終直線、急坂(高低差約2m)"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール"}
+    ]
+  },
+
+  "中京_ダート_1900": {
+    "venue": "中京", "venue_code": "07", "surface": "ダート", "distance": 1900,
+    "direction": "左", "course_detail": null,
+    "turns": 4, "straight_length": 410.7, "elevation_diff": 3.4,
+    "hill_height": 2.0, "hill_gradient": 2.0,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート(1800mより100m手前)"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.3, "corner_radius": 95, "notes": "1コーナー、上り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.3, "corner_radius": 95, "notes": "2コーナー"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半→最高点"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.3, "corner_radius": 95, "notes": "3コーナー、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": -0.3, "corner_radius": 95, "notes": "4コーナー、下り"},
+      {"start_m": 1600, "end_m": 1800, "type": "uphill", "gradient": 2.0, "corner_radius": null, "notes": "最終直線、急坂"},
+      {"start_m": 1800, "end_m": 1900, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール"}
+    ]
+  },
+
+  "京都_芝_1200": {
+    "venue": "京都", "venue_code": "08", "surface": "芝", "distance": 1200,
+    "direction": "右", "course_detail": null,
+    "turns": 2, "straight_length": 328.4, "elevation_diff": 3.1,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ途中スタート(内回り)、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "3コーナー(内回り)"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "4コーナー(内回り)"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦(ゴール前坂なし)"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、平坦"}
+    ]
+  },
+
+  "京都_芝_1400_内回り": {
+    "venue": "京都", "venue_code": "08", "surface": "芝", "distance": 1400,
+    "direction": "右", "course_detail": null,
+    "turns": 2, "straight_length": 328.4, "elevation_diff": 3.1,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチスタート(内回り)、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ中盤、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "3コーナー(内回り)"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "4コーナー(内回り)"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "京都_芝_1400_外回り": {
+    "venue": "京都", "venue_code": "08", "surface": "芝", "distance": 1400,
+    "direction": "右", "course_detail": "外回り",
+    "turns": 2, "straight_length": 403.7, "elevation_diff": 4.3,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチスタート(外回り)、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "uphill", "gradient": 1.0, "corner_radius": null, "notes": "向正面半ば〜3コーナー手前、淀の坂上り区間"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.5, "corner_radius": 120, "notes": "3コーナー(外回り)、坂の頂上付近"},
+      {"start_m": 600, "end_m": 800, "type": "downhill", "gradient": -1.5, "corner_radius": 120, "notes": "3-4コーナー(外回り)、淀の坂下り(高低差4.3m)"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": -0.5, "corner_radius": 120, "notes": "4コーナー出口(外回り)、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦(坂なし)"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "京都_芝_1600_内回り": {
+    "venue": "京都", "venue_code": "08", "surface": "芝", "distance": 1600,
+    "direction": "右", "course_detail": null,
+    "turns": 2, "straight_length": 328.4, "elevation_diff": 3.1,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "2コーナー出口スタート(内回り)"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 600, "end_m": 800, "type": "uphill", "gradient": 0.5, "corner_radius": null, "notes": "向正面後半、淀の坂への上り"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": -0.5, "corner_radius": 100, "notes": "3コーナー(内回り)、坂の頂上→下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": -0.3, "corner_radius": 100, "notes": "4コーナー(内回り)、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "京都_芝_1600_外回り": {
+    "venue": "京都", "venue_code": "08", "surface": "芝", "distance": 1600,
+    "direction": "右", "course_detail": "外回り",
+    "turns": 2, "straight_length": 403.7, "elevation_diff": 4.3,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "2コーナー出口スタート(外回り)"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、上り始め"},
+      {"start_m": 600, "end_m": 800, "type": "uphill", "gradient": 1.0, "corner_radius": null, "notes": "向正面後半〜3コーナー手前、淀の坂上り区間"},
+      {"start_m": 800, "end_m": 1000, "type": "downhill", "gradient": -1.5, "corner_radius": 120, "notes": "3コーナー(外回り)、淀の坂下り(高低差4.3m)"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": -0.3, "corner_radius": 120, "notes": "4コーナー(外回り)、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "京都_芝_1800": {
+    "venue": "京都", "venue_code": "08", "surface": "芝", "distance": 1800,
+    "direction": "右", "course_detail": "外回り",
+    "turns": 2, "straight_length": 403.7, "elevation_diff": 4.3,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "1コーナー奥ポケットスタート(外回り)"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ中盤、平坦"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、上り始め"},
+      {"start_m": 800, "end_m": 1000, "type": "uphill", "gradient": 1.0, "corner_radius": null, "notes": "淀の坂上り区間"},
+      {"start_m": 1000, "end_m": 1200, "type": "downhill", "gradient": -1.5, "corner_radius": 120, "notes": "3コーナー(外回り)、淀の坂下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.3, "corner_radius": 120, "notes": "4コーナー(外回り)、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "京都_芝_2000": {
+    "venue": "京都", "venue_code": "08", "surface": "芝", "distance": 2000,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 328.4, "elevation_diff": 3.1,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート(内回り)"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "1コーナー(内回り)"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 100, "notes": "2コーナー(内回り)"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、上り始め"},
+      {"start_m": 1000, "end_m": 1200, "type": "uphill", "gradient": 0.8, "corner_radius": null, "notes": "淀の坂上り区間(内回りは高低差3.1m)"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.8, "corner_radius": 100, "notes": "3コーナー(内回り)、坂下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": -0.3, "corner_radius": 100, "notes": "4コーナー(内回り)、下り"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1800, "end_m": 2000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "京都_芝_2200": {
+    "venue": "京都", "venue_code": "08", "surface": "芝", "distance": 2200,
+    "direction": "右", "course_detail": "外回り",
+    "turns": 4, "straight_length": 403.7, "elevation_diff": 4.3,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート(外回り)"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "1コーナー(外回り)"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "2コーナー(外回り)"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、上り始め"},
+      {"start_m": 1000, "end_m": 1200, "type": "uphill", "gradient": 1.0, "corner_radius": null, "notes": "淀の坂上り区間"},
+      {"start_m": 1200, "end_m": 1400, "type": "downhill", "gradient": -1.5, "corner_radius": 120, "notes": "3コーナー(外回り)、淀の坂下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": -0.3, "corner_radius": 120, "notes": "4コーナー(外回り)、下り"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1800, "end_m": 2000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半"},
+      {"start_m": 2000, "end_m": 2200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール"}
+    ]
+  },
+
+  "京都_芝_2400": {
+    "venue": "京都", "venue_code": "08", "surface": "芝", "distance": 2400,
+    "direction": "右", "course_detail": "外回り",
+    "turns": 4, "straight_length": 403.7, "elevation_diff": 4.3,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "4コーナー出口スタート(外回り)"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "ホームストレッチ通過"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "1コーナー(外回り)"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 120, "notes": "2コーナー(外回り)"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.3, "corner_radius": null, "notes": "バックストレッチ後半、上り始め"},
+      {"start_m": 1200, "end_m": 1400, "type": "uphill", "gradient": 1.0, "corner_radius": null, "notes": "淀の坂上り区間"},
+      {"start_m": 1400, "end_m": 1600, "type": "downhill", "gradient": -1.5, "corner_radius": 120, "notes": "3コーナー(外回り)、淀の坂下り"},
+      {"start_m": 1600, "end_m": 1800, "type": "corner", "gradient": -0.3, "corner_radius": 120, "notes": "4コーナー(外回り)、下り"},
+      {"start_m": 1800, "end_m": 2000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 2000, "end_m": 2200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半"},
+      {"start_m": 2200, "end_m": 2400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール"}
+    ]
+  },
+
+  "京都_ダート_1200": {
+    "venue": "京都", "venue_code": "08", "surface": "ダート", "distance": 1200,
+    "direction": "右", "course_detail": null,
+    "turns": 2, "straight_length": 329.1, "elevation_diff": 3.0,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ途中スタート、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 85, "notes": "3コーナー"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 85, "notes": "4コーナー"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦(坂なし)"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "京都_ダート_1400": {
+    "venue": "京都", "venue_code": "08", "surface": "ダート", "distance": 1400,
+    "direction": "右", "course_detail": null,
+    "turns": 2, "straight_length": 329.1, "elevation_diff": 3.0,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "芝スタート→ダート合流、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 85, "notes": "3コーナー"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": 0.0, "corner_radius": 85, "notes": "4コーナー"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "京都_ダート_1800": {
+    "venue": "京都", "venue_code": "08", "surface": "ダート", "distance": 1800,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 329.1, "elevation_diff": 3.0,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.0, "corner_radius": 85, "notes": "1コーナー"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 85, "notes": "2コーナー"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": 0.0, "corner_radius": 85, "notes": "3コーナー"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": 0.0, "corner_radius": 85, "notes": "4コーナー"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "京都_ダート_1900": {
+    "venue": "京都", "venue_code": "08", "surface": "ダート", "distance": 1900,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 329.1, "elevation_diff": 3.0,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート(1800mより100m手前)"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "ホームストレッチ"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 85, "notes": "1コーナー"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 85, "notes": "2コーナー"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": 0.0, "corner_radius": 85, "notes": "3コーナー"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": 0.0, "corner_radius": 85, "notes": "4コーナー"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1800, "end_m": 1900, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール"}
+    ]
+  },
+
+  "阪神_芝_1200": {
+    "venue": "阪神", "venue_code": "09", "surface": "芝", "distance": 1200,
+    "direction": "右", "course_detail": null,
+    "turns": 2, "straight_length": 356.5, "elevation_diff": 1.9,
+    "hill_height": 1.8, "hill_gradient": 1.5,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ途中スタート(内回り)、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.3, "corner_radius": 130, "notes": "3コーナー(内回り)、下り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 130, "notes": "4コーナー(内回り)、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1000, "end_m": 1200, "type": "uphill", "gradient": 1.5, "corner_radius": null, "notes": "最終直線急坂、高低差1.8m"}
+    ]
+  },
+
+  "阪神_芝_1400": {
+    "venue": "阪神", "venue_code": "09", "surface": "芝", "distance": 1400,
+    "direction": "右", "course_detail": null,
+    "turns": 2, "straight_length": 356.5, "elevation_diff": 1.9,
+    "hill_height": 1.8, "hill_gradient": 1.5,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチスタート(内回り)、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ中盤、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 130, "notes": "3コーナー(内回り)、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": -0.3, "corner_radius": 130, "notes": "4コーナー(内回り)、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1200, "end_m": 1400, "type": "uphill", "gradient": 1.5, "corner_radius": null, "notes": "最終直線急坂、高低差1.8m"}
+    ]
+  },
+
+  "阪神_芝_1600": {
+    "venue": "阪神", "venue_code": "09", "surface": "芝", "distance": 1600,
+    "direction": "右", "course_detail": "外回り",
+    "turns": 2, "straight_length": 473.6, "elevation_diff": 2.4,
+    "hill_height": 1.8, "hill_gradient": 1.5,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "2コーナー出口スタート(外回り)"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 170, "notes": "3コーナー(外回り)、非常に緩やかなカーブ、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": -0.3, "corner_radius": 170, "notes": "4コーナー(外回り)、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1200, "end_m": 1400, "type": "uphill", "gradient": 1.5, "corner_radius": null, "notes": "最終直線急坂、高低差1.8m"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、坂上り切り後平坦"}
+    ]
+  },
+
+  "阪神_芝_1800": {
+    "venue": "阪神", "venue_code": "09", "surface": "芝", "distance": 1800,
+    "direction": "右", "course_detail": "外回り",
+    "turns": 2, "straight_length": 473.6, "elevation_diff": 2.4,
+    "hill_height": 1.8, "hill_gradient": 1.5,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "1コーナー奥スタート(外回り)"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ中盤、平坦"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": -0.3, "corner_radius": 170, "notes": "3コーナー(外回り)、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": -0.3, "corner_radius": 170, "notes": "4コーナー(外回り)、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1400, "end_m": 1600, "type": "uphill", "gradient": 1.5, "corner_radius": null, "notes": "最終直線急坂、高低差1.8m"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "阪神_芝_2000": {
+    "venue": "阪神", "venue_code": "09", "surface": "芝", "distance": 2000,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 356.5, "elevation_diff": 1.9,
+    "hill_height": 1.8, "hill_gradient": 1.5,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート(内回り)"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.0, "corner_radius": 130, "notes": "1コーナー(内回り)"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 130, "notes": "2コーナー(内回り)"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": -0.3, "corner_radius": 130, "notes": "3コーナー(内回り)、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.3, "corner_radius": 130, "notes": "4コーナー(内回り)、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1600, "end_m": 1800, "type": "uphill", "gradient": 1.5, "corner_radius": null, "notes": "最終直線急坂、高低差1.8m"},
+      {"start_m": 1800, "end_m": 2000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "阪神_芝_2200": {
+    "venue": "阪神", "venue_code": "09", "surface": "芝", "distance": 2200,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 356.5, "elevation_diff": 1.9,
+    "hill_height": 1.8, "hill_gradient": 1.5,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "4コーナー出口スタート(内回り)"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "ホームストレッチ通過"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 130, "notes": "1コーナー(内回り)"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 130, "notes": "2コーナー(内回り)"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.3, "corner_radius": 130, "notes": "3コーナー(内回り)、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": -0.3, "corner_radius": 130, "notes": "4コーナー(内回り)、下り"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半"},
+      {"start_m": 1800, "end_m": 2000, "type": "uphill", "gradient": 1.5, "corner_radius": null, "notes": "最終直線急坂、高低差1.8m"},
+      {"start_m": 2000, "end_m": 2200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール"}
+    ]
+  },
+
+  "阪神_芝_2400": {
+    "venue": "阪神", "venue_code": "09", "surface": "芝", "distance": 2400,
+    "direction": "右", "course_detail": "外回り",
+    "turns": 4, "straight_length": 473.6, "elevation_diff": 2.4,
+    "hill_height": 1.8, "hill_gradient": 1.5,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート(外回り)"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.0, "corner_radius": 170, "notes": "1コーナー(外回り)"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 170, "notes": "2コーナー(外回り)"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ中盤"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.3, "corner_radius": 170, "notes": "3コーナー(外回り)、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": -0.3, "corner_radius": 170, "notes": "4コーナー(外回り)、下り"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1800, "end_m": 2000, "type": "uphill", "gradient": 1.5, "corner_radius": null, "notes": "最終直線急坂、高低差1.8m"},
+      {"start_m": 2000, "end_m": 2200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半"},
+      {"start_m": 2200, "end_m": 2400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール"}
+    ]
+  },
+
+  "阪神_ダート_1200": {
+    "venue": "阪神", "venue_code": "09", "surface": "ダート", "distance": 1200,
+    "direction": "右", "course_detail": null,
+    "turns": 2, "straight_length": 352.7, "elevation_diff": 1.6,
+    "hill_height": 1.6, "hill_gradient": 1.2,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ途中スタート、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 110, "notes": "3コーナー"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 110, "notes": "4コーナー"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1000, "end_m": 1200, "type": "uphill", "gradient": 1.2, "corner_radius": null, "notes": "最終直線坂、高低差1.6m"}
+    ]
+  },
+
+  "阪神_ダート_1400": {
+    "venue": "阪神", "venue_code": "09", "surface": "ダート", "distance": 1400,
+    "direction": "右", "course_detail": null,
+    "turns": 2, "straight_length": 352.7, "elevation_diff": 1.6,
+    "hill_height": 1.6, "hill_gradient": 1.2,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチスタート、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ中盤、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 110, "notes": "3コーナー"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": 0.0, "corner_radius": 110, "notes": "4コーナー"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1200, "end_m": 1400, "type": "uphill", "gradient": 1.2, "corner_radius": null, "notes": "最終直線坂、高低差1.6m"}
+    ]
+  },
+
+  "阪神_ダート_1800": {
+    "venue": "阪神", "venue_code": "09", "surface": "ダート", "distance": 1800,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 352.7, "elevation_diff": 1.6,
+    "hill_height": 1.6, "hill_gradient": 1.2,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.0, "corner_radius": 110, "notes": "1コーナー"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 110, "notes": "2コーナー"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半、平坦"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半、平坦"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": 0.0, "corner_radius": 110, "notes": "3コーナー"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": 0.0, "corner_radius": 110, "notes": "4コーナー"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1600, "end_m": 1800, "type": "uphill", "gradient": 1.2, "corner_radius": null, "notes": "最終直線坂、高低差1.6m"}
+    ]
+  },
+
+  "阪神_ダート_2000": {
+    "venue": "阪神", "venue_code": "09", "surface": "ダート", "distance": 2000,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 352.7, "elevation_diff": 1.6,
+    "hill_height": 1.6, "hill_gradient": 1.2,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "4コーナー出口スタート"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "ホームストレッチ通過"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.0, "corner_radius": 110, "notes": "1コーナー"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.0, "corner_radius": 110, "notes": "2コーナー"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ前半"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "バックストレッチ後半"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": 0.0, "corner_radius": 110, "notes": "3コーナー"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": 0.0, "corner_radius": 110, "notes": "4コーナー"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半"},
+      {"start_m": 1800, "end_m": 2000, "type": "uphill", "gradient": 1.2, "corner_radius": null, "notes": "最終直線坂、高低差1.6m"}
+    ]
+  },
+
+  "小倉_芝_1200": {
+    "venue": "小倉", "venue_code": "10", "surface": "芝", "distance": 1200,
+    "direction": "右", "course_detail": null,
+    "turns": 2, "straight_length": 293.0, "elevation_diff": 3.0,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ途中スタート、やや下り"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.3, "corner_radius": 70, "notes": "3コーナー、スパイラルカーブ、下り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": -0.3, "corner_radius": 70, "notes": "4コーナー、スパイラルカーブ、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦(坂なし)"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、平坦"}
+    ]
+  },
+
+  "小倉_芝_1800": {
+    "venue": "小倉", "venue_code": "10", "surface": "芝", "distance": 1800,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 293.0, "elevation_diff": 3.0,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.5, "corner_radius": 70, "notes": "1コーナー、急カーブ、上り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.5, "corner_radius": 70, "notes": "2コーナー、上り(最高点へ)"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ前半、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": -0.3, "corner_radius": 70, "notes": "3コーナー、スパイラルカーブ、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.3, "corner_radius": 70, "notes": "4コーナー、スパイラルカーブ、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半→ゴール、平坦"}
+    ]
+  },
+
+  "小倉_芝_2000": {
+    "venue": "小倉", "venue_code": "10", "surface": "芝", "distance": 2000,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 293.0, "elevation_diff": 3.0,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "4コーナー出口スタート"},
+      {"start_m": 200, "end_m": 400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "ホームストレッチ通過、平坦"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.5, "corner_radius": 70, "notes": "1コーナー、上り"},
+      {"start_m": 600, "end_m": 800, "type": "corner", "gradient": 0.5, "corner_radius": 70, "notes": "2コーナー、上り(最高点へ)"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ前半、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.3, "corner_radius": 70, "notes": "3コーナー、スパイラルカーブ、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "corner", "gradient": -0.3, "corner_radius": 70, "notes": "4コーナー、スパイラルカーブ、下り"},
+      {"start_m": 1600, "end_m": 1800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1800, "end_m": 2000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "小倉_芝_2600": {
+    "venue": "小倉", "venue_code": "10", "surface": "芝", "distance": 2600,
+    "direction": "右", "course_detail": null,
+    "turns": 6, "straight_length": 293.0, "elevation_diff": 3.0,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": "野芝+洋芝オーバーシード",
+    "lap_count": 1.5,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチスタート、下り"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": -0.3, "corner_radius": 70, "notes": "3コーナー(1周目)、下り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.3, "corner_radius": 70, "notes": "4コーナー(1周目)、下り"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "ホームストレッチ通過、平坦"},
+      {"start_m": 800, "end_m": 1000, "type": "corner", "gradient": 0.5, "corner_radius": 70, "notes": "1コーナー、上り"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": 0.5, "corner_radius": 70, "notes": "2コーナー、上り"},
+      {"start_m": 1200, "end_m": 1400, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ(2周目)前半、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 1600, "end_m": 1800, "type": "corner", "gradient": -0.3, "corner_radius": 70, "notes": "3コーナー(2周目)、下り"},
+      {"start_m": 1800, "end_m": 2000, "type": "corner", "gradient": -0.3, "corner_radius": 70, "notes": "4コーナー(2周目)、下り"},
+      {"start_m": 2000, "end_m": 2200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 2200, "end_m": 2400, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線後半"},
+      {"start_m": 2400, "end_m": 2600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール"}
+    ]
+  },
+
+  "小倉_ダート_1000": {
+    "venue": "小倉", "venue_code": "10", "surface": "ダート", "distance": 1000,
+    "direction": "右", "course_detail": null,
+    "turns": 2, "straight_length": 291.3, "elevation_diff": 2.9,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ途中スタート、下り"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": -0.3, "corner_radius": 55, "notes": "3コーナー、非常に急なカーブ、下り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": -0.3, "corner_radius": 55, "notes": "4コーナー、急カーブ、下り"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  },
+
+  "小倉_ダート_1700": {
+    "venue": "小倉", "venue_code": "10", "surface": "ダート", "distance": 1700,
+    "direction": "右", "course_detail": null,
+    "turns": 4, "straight_length": 291.3, "elevation_diff": 2.9,
+    "hill_height": 0.0, "hill_gradient": 0.0,
+    "turf_type": null,
+    "lap_count": 1,
+    "sections": [
+      {"start_m": 0, "end_m": 200, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "正面スタンド前スタート、平坦"},
+      {"start_m": 200, "end_m": 400, "type": "corner", "gradient": 0.5, "corner_radius": 55, "notes": "1コーナー、急カーブ、上り"},
+      {"start_m": 400, "end_m": 600, "type": "corner", "gradient": 0.5, "corner_radius": 55, "notes": "2コーナー、急カーブ、上り"},
+      {"start_m": 600, "end_m": 800, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ前半、下り"},
+      {"start_m": 800, "end_m": 1000, "type": "straight", "gradient": -0.3, "corner_radius": null, "notes": "バックストレッチ後半、下り"},
+      {"start_m": 1000, "end_m": 1200, "type": "corner", "gradient": -0.3, "corner_radius": 55, "notes": "3コーナー、急カーブ、下り"},
+      {"start_m": 1200, "end_m": 1400, "type": "corner", "gradient": -0.3, "corner_radius": 55, "notes": "4コーナー、急カーブ、下り"},
+      {"start_m": 1400, "end_m": 1600, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "最終直線前半、平坦"},
+      {"start_m": 1600, "end_m": 1700, "type": "straight", "gradient": 0.0, "corner_radius": null, "notes": "→ゴール、平坦"}
+    ]
+  }
+}
