@@ -1369,6 +1369,19 @@ def _generate_track_path(venue_name: str, n_points: int = 1000) -> list[tuple[fl
     return points
 
 
+def _geometric_perimeter(venue_name: str) -> float:
+    """VENUE_SHAPES から描画用の幾何学的周長を計算する。
+    パスの点数配分もこの長さに基づくため、マッピングにはこちらを使用する。
+    """
+    shape = VENUE_SHAPES.get(venue_name)
+    if not shape:
+        return 1600.0  # fallback
+    return (shape["home_straight"]
+            + math.pi * shape["corner_radius_34"]
+            + shape["back_straight"]
+            + math.pi * shape["corner_radius_12"])
+
+
 def _map_sections_to_path(
     sections: list[dict],
     track_path: list[tuple[float, float]],
@@ -1642,14 +1655,14 @@ def page_course_map():
         st.warning(f"{venue} の形状データが未定義です。")
         return
 
-    perimeter = shape_info["perimeter"]
+    perimeter = _geometric_perimeter(venue)
     track_path = _generate_track_path(venue, n_points=1000)
 
     if not track_path:
         st.warning("トラック形状の生成に失敗しました。")
         return
 
-    # 区間をトラック上にマッピング
+    # 区間をトラック上にマッピング (幾何学的周長を使用)
     mapped = _map_sections_to_path(sections, track_path, distance, perimeter)
 
     # コーナー識別
