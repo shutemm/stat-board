@@ -1149,17 +1149,20 @@ def page_course_analysis():
 
 # --- 競馬場の形状パラメータ ---
 # 各競馬場のコース形状を実際の構造で再現する。
-# home_straight: ホームストレッチ(直線)の長さ (m)
-# back_straight: バックストレッチ(向正面)の長さ (m)
-# corner_radius_12: 1C-2Cの半径 (m)
-# corner_radius_34: 3C-4Cの半径 (m)
+# home_straight: ホームストレッチ(直線)の長さ (m) -- JRA公式値
+# back_straight: バックストレッチ(向正面)の長さ (m) -- 視覚的にバランスの取れた推定値
+# corner_radius_12: 1C-2Cの半径 (m)  -- ゴール側
+# corner_radius_34: 3C-4Cの半径 (m)  -- 向正面側
 # direction: "右" or "左" or "直線"
-# perimeter: 1周の距離 (m, 芝外回り基準)
+# perimeter: 1周の距離 (m, 芝外回り基準) -- JRA公式値
+#
+# 描画には home/back/r12/r34 の幾何学的形状を使用。
+# 区間マッピングには perimeter を使用（パス点は均等弧長配分のためスケーリングで対応）。
 
 VENUE_SHAPES = {
     "東京": {
         "home_straight": 525,
-        "back_straight": 450,
+        "back_straight": 500,
         "corner_radius_12": 130,
         "corner_radius_34": 130,
         "direction": "左",
@@ -1167,7 +1170,7 @@ VENUE_SHAPES = {
     },
     "中山": {
         "home_straight": 310,
-        "back_straight": 240,
+        "back_straight": 350,
         "corner_radius_12": 100,
         "corner_radius_34": 80,
         "direction": "右",
@@ -1175,7 +1178,7 @@ VENUE_SHAPES = {
     },
     "阪神": {
         "home_straight": 473,
-        "back_straight": 380,
+        "back_straight": 430,
         "corner_radius_12": 130,
         "corner_radius_34": 120,
         "direction": "右",
@@ -1183,7 +1186,7 @@ VENUE_SHAPES = {
     },
     "京都": {
         "home_straight": 404,
-        "back_straight": 380,
+        "back_straight": 400,
         "corner_radius_12": 120,
         "corner_radius_34": 120,
         "direction": "右",
@@ -1191,7 +1194,7 @@ VENUE_SHAPES = {
     },
     "中京": {
         "home_straight": 412,
-        "back_straight": 340,
+        "back_straight": 380,
         "corner_radius_12": 110,
         "corner_radius_34": 110,
         "direction": "左",
@@ -1199,7 +1202,7 @@ VENUE_SHAPES = {
     },
     "新潟": {
         "home_straight": 659,
-        "back_straight": 350,
+        "back_straight": 400,
         "corner_radius_12": 110,
         "corner_radius_34": 110,
         "direction": "左",
@@ -1207,7 +1210,7 @@ VENUE_SHAPES = {
     },
     "札幌": {
         "home_straight": 266,
-        "back_straight": 260,
+        "back_straight": 310,
         "corner_radius_12": 105,
         "corner_radius_34": 105,
         "direction": "右",
@@ -1215,7 +1218,7 @@ VENUE_SHAPES = {
     },
     "函館": {
         "home_straight": 262,
-        "back_straight": 260,
+        "back_straight": 300,
         "corner_radius_12": 100,
         "corner_radius_34": 100,
         "direction": "右",
@@ -1223,7 +1226,7 @@ VENUE_SHAPES = {
     },
     "福島": {
         "home_straight": 292,
-        "back_straight": 270,
+        "back_straight": 310,
         "corner_radius_12": 100,
         "corner_radius_34": 100,
         "direction": "右",
@@ -1231,7 +1234,7 @@ VENUE_SHAPES = {
     },
     "小倉": {
         "home_straight": 293,
-        "back_straight": 270,
+        "back_straight": 300,
         "corner_radius_12": 90,
         "corner_radius_34": 85,
         "direction": "右",
@@ -1367,19 +1370,6 @@ def _generate_track_path(venue_name: str, n_points: int = 1000) -> list[tuple[fl
             points.append((home_left + t * home, 0.0))
 
     return points
-
-
-def _geometric_perimeter(venue_name: str) -> float:
-    """VENUE_SHAPES から描画用の幾何学的周長を計算する。
-    パスの点数配分もこの長さに基づくため、マッピングにはこちらを使用する。
-    """
-    shape = VENUE_SHAPES.get(venue_name)
-    if not shape:
-        return 1600.0  # fallback
-    return (shape["home_straight"]
-            + math.pi * shape["corner_radius_34"]
-            + shape["back_straight"]
-            + math.pi * shape["corner_radius_12"])
 
 
 def _map_sections_to_path(
@@ -1655,14 +1645,16 @@ def page_course_map():
         st.warning(f"{venue} の形状データが未定義です。")
         return
 
-    perimeter = _geometric_perimeter(venue)
+    perimeter = shape_info["perimeter"]
     track_path = _generate_track_path(venue, n_points=1000)
 
     if not track_path:
         st.warning("トラック形状の生成に失敗しました。")
         return
 
-    # 区間をトラック上にマッピング (幾何学的周長を使用)
+    # 区間をトラック上にマッピング
+    # パス上の点は弧長に比例して配分されるため、
+    # 距離/perimeterの比率でパスインデックスにマッピングできる。
     mapped = _map_sections_to_path(sections, track_path, distance, perimeter)
 
     # コーナー識別
