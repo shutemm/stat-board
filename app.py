@@ -1148,231 +1148,55 @@ def page_course_analysis():
 # ============================================================
 
 # --- 競馬場の形状パラメータ ---
-# 各競馬場のコース形状を定義する。
-# back_straight: バックストレッチの長さ (m)
-# home_straight: ホームストレッチの長さ (m)
-# corner_radius: コーナー平均半径 (m) — 描画用
+# 各競馬場のコース形状を楕円で近似する。
+# a: 楕円の長軸半径 (横幅の半分)
+# b: 楕円の短軸半径 (縦幅の半分)
 # direction: "右" or "左" or "直線"
-# perimeter: 1周の距離 (m) — 芝コースの外周
-# shape: "ellipse" (標準楕円) / "pear" (洋梨型=中山) / "straight_only" (新潟直線)
+# perimeter: 1周の距離 (m)
 
 VENUE_SHAPES = {
-    "札幌": {
-        "back_straight": 350, "home_straight": 266,
-        "corner_radius": 120, "direction": "右",
-        "perimeter": 1640, "shape": "ellipse",
-    },
-    "函館": {
-        "back_straight": 350, "home_straight": 262,
-        "corner_radius": 110, "direction": "右",
-        "perimeter": 1626, "shape": "ellipse",
-    },
-    "福島": {
-        "back_straight": 380, "home_straight": 292,
-        "corner_radius": 100, "direction": "右",
-        "perimeter": 1600, "shape": "ellipse",
-    },
-    "新潟": {
-        "back_straight": 380, "home_straight": 359,
-        "corner_radius": 130, "direction": "左",
-        "perimeter": 1623, "shape": "ellipse",
-    },
-    "東京": {
-        "back_straight": 500, "home_straight": 526,
-        "corner_radius": 150, "direction": "左",
-        "perimeter": 2083, "shape": "ellipse",
-    },
-    "中山": {
-        "back_straight": 380, "home_straight": 310,
-        "corner_radius_34": 80, "corner_radius_12": 100,
-        "direction": "右",
-        "perimeter": 1667, "shape": "pear",
-    },
-    "中京": {
-        "back_straight": 400, "home_straight": 413,
-        "corner_radius": 130, "direction": "左",
-        "perimeter": 1705, "shape": "ellipse",
-    },
-    "京都": {
-        "back_straight": 400, "home_straight": 328,
-        "corner_radius": 100, "direction": "右",
-        "perimeter": 1783, "shape": "ellipse",
-    },
-    "阪神": {
-        "back_straight": 430, "home_straight": 357,
-        "corner_radius": 130, "direction": "右",
-        "perimeter": 1689, "shape": "ellipse",
-    },
-    "小倉": {
-        "back_straight": 370, "home_straight": 293,
-        "corner_radius": 100, "direction": "右",
-        "perimeter": 1616, "shape": "ellipse",
-    },
+    "札幌": {"a": 295, "b": 120, "direction": "右", "perimeter": 1640},
+    "函館": {"a": 285, "b": 110, "direction": "右", "perimeter": 1626},
+    "福島": {"a": 290, "b": 100, "direction": "右", "perimeter": 1600},
+    "新潟": {"a": 310, "b": 130, "direction": "左", "perimeter": 1623},
+    "東京": {"a": 413, "b": 150, "direction": "左", "perimeter": 2083},
+    "中山": {"a": 290, "b": 100, "direction": "右", "perimeter": 1667},
+    "中京": {"a": 337, "b": 130, "direction": "左", "perimeter": 1705},
+    "京都": {"a": 300, "b": 100, "direction": "右", "perimeter": 1783},
+    "阪神": {"a": 330, "b": 130, "direction": "右", "perimeter": 1689},
+    "小倉": {"a": 285, "b": 100, "direction": "右", "perimeter": 1616},
 }
 
 
-def _generate_track_path(venue_name: str, n_points: int = 500) -> list[tuple[float, float]]:
-    """競馬場の形状を (x, y) 座標列として生成する。
+def _generate_track_path(venue_name: str, n_points: int = 1000) -> list[tuple[float, float]]:
+    """競馬場の楕円コースを (x, y) 座標列として生成する。
 
-    ゴール位置はホームストレッチの右端(12時方向の右側)。
-    座標は反時計回りで生成し、direction=="右" なら反転する。
+    ゴール位置は楕円の右端 (theta=0)。
+    右回り: 時計回り (theta が減少方向=下向きに進む)
+    左回り: 反時計回り (theta が増加方向=上向きに進む)
 
-    戻り値: [(x, y), ...] 等間隔のn_points個の点（1周分）
-    ゴール(=スタート基準)が先頭。走行方向順に並ぶ。
+    戻り値: [(x, y), ...] n_points個の点 (1周分、走行方向順)
     """
     shape_info = VENUE_SHAPES.get(venue_name)
     if not shape_info:
         return []
 
-    shape = shape_info["shape"]
-
-    if shape == "ellipse":
-        return _generate_ellipse_track(shape_info, n_points)
-    elif shape == "pear":
-        return _generate_pear_track(shape_info, n_points)
-    return []
-
-
-def _generate_ellipse_track(info: dict, n_points: int) -> list[tuple[float, float]]:
-    """標準楕円型コース (2つの半円 + 2つの直線) を生成する。
-
-    レイアウト (ゴールは下の直線の右端):
-        ┌─────────────────────┐  <- バックストレッチ (上)
-        │     コーナー1,2      │
-        │                     │
-        │     コーナー3,4      │
-        └─────────────────────┘  <- ホームストレッチ (下)
-                           ^ゴール
-
-    座標系: x右正, y上正
-    右回り: 時計回り走行 (ゴールから左に走りコーナーを回る)
-    左回り: 反時計回り走行 (ゴールから右に走りコーナーを回る)
-    """
-    hs = info["home_straight"]
-    bs = info["back_straight"]
-    r = info["corner_radius"]
-    direction = info["direction"]
-
-    # 半直線の長さ (中心からの距離)
-    half_hs = hs / 2
-    half_bs = bs / 2
-
-    # コーナーの中心座標
-    cx_right = max(half_hs, half_bs)
-    cx_left = -cx_right
-    cy = r  # コーナー中心のy座標 (コース中心はy=0ではなく、上下にrずれる)
-
-    # パスセグメントを定義:
-    # ゴール(右下)からスタートし、走行方向に進む
-    # 右回り: ゴール→左(ホーム)→左コーナー(3C,4C)→上(バック)→右コーナー(1C,2C)→ゴール
-    # 左回り: ゴール→右(ホーム)→右コーナー→上(バック)→左コーナー→ゴール
-
-    # 各セグメントの長さを計算
-    half_circle = math.pi * r
-    total = hs + bs + 2 * half_circle
-
-    # 等距離でn_points個の点を生成
-    points = []
-    for i in range(n_points):
-        dist = (i / n_points) * total
-
-        if dist < hs:
-            # ホームストレッチ (下の直線)
-            # ゴールは右端、左に向かって走る(右回り)
-            t = dist / hs
-            x = half_hs - t * hs  # 右から左へ
-            y = 0
-        elif dist < hs + half_circle:
-            # 左コーナー (3C → 4C 相当、右回りの場合)
-            angle_progress = (dist - hs) / half_circle
-            angle = math.pi / 2 + angle_progress * math.pi  # 270度→90度
-            x = cx_left + r * math.cos(angle)
-            y = r + r * math.sin(angle)
-        elif dist < hs + half_circle + bs:
-            # バックストレッチ (上の直線)
-            t = (dist - hs - half_circle) / bs
-            x = -half_bs + t * bs  # 左から右へ
-            y = 2 * r
-        else:
-            # 右コーナー (1C → 2C 相当)
-            angle_progress = (dist - hs - half_circle - bs) / half_circle
-            angle = math.pi / 2 - angle_progress * math.pi  # 90度→-90度
-            x = cx_right + r * math.cos(angle)
-            y = r + r * math.sin(angle)
-
-        points.append((x, y))
-
-    # 左回り: x座標を反転
-    if direction == "左":
-        points = [(-x, y) for x, y in points]
-
-    return points
-
-
-def _generate_pear_track(info: dict, n_points: int) -> list[tuple[float, float]]:
-    """洋梨型コース (中山) を生成する。
-
-    3C-4Cのコーナー半径が小さく、1C-2Cが大きい独特の形状。
-    """
-    hs = info["home_straight"]
-    bs = info["back_straight"]
-    r34 = info["corner_radius_34"]
-    r12 = info.get("corner_radius_12", 100)
-    direction = info["direction"]
-
-    half_hs = hs / 2
-    half_bs = bs / 2
-
-    # セグメント長
-    half_circle_34 = math.pi * r34
-    half_circle_12 = math.pi * r12
-    total = hs + bs + half_circle_34 + half_circle_12
-
-    # 高さを合わせるために、コーナーの中心y座標を調整
-    # 下のコーナー(3C-4C)は半径r34、上のコーナー(1C-2C)は半径r12
-    height_34 = r34
-    height_12 = r12
-    total_height = height_34 + height_12
-
-    # コーナーの中心x
-    cx_left = -half_hs
-    cx_right = half_hs
+    a = shape_info["a"]
+    b = shape_info["b"]
+    direction = shape_info["direction"]
 
     points = []
     for i in range(n_points):
-        dist = (i / n_points) * total
-
-        if dist < hs:
-            # ホームストレッチ (下)
-            t = dist / hs
-            x = half_hs - t * hs
-            y = 0
-        elif dist < hs + half_circle_34:
-            # 左コーナー (3C-4C, 小半径)
-            angle_progress = (dist - hs) / half_circle_34
-            angle = math.pi / 2 + angle_progress * math.pi
-            x = cx_left + r34 * math.cos(angle)
-            y = r34 + r34 * math.sin(angle)
-        elif dist < hs + half_circle_34 + bs:
-            # バックストレッチ (上)
-            t = (dist - hs - half_circle_34) / bs
-            x = -half_bs + t * bs
-            y = 2 * r34  # 3C-4Cの高さ
+        t = i / n_points
+        if direction == "右":
+            # 時計回り: theta = 0 → -2π (右端から下へ)
+            theta = -t * 2 * math.pi
         else:
-            # 右コーナー (1C-2C, 大半径)
-            angle_progress = (dist - hs - half_circle_34 - bs) / half_circle_12
-            angle = math.pi / 2 - angle_progress * math.pi
-            # 中心をバックストレッチの高さに合わせる
-            cx = cx_right
-            cy_center = 2 * r34 - r12  # コーナー頂点を合わせる
-            x = cx + r12 * math.cos(angle)
-            y = cy_center + r12 * math.sin(angle)
-
+            # 反時計回り: theta = 0 → 2π (右端から上へ)
+            theta = t * 2 * math.pi
+        x = a * math.cos(theta)
+        y = b * math.sin(theta)
         points.append((x, y))
-
-    # 右回り: そのまま (すでに右回り方向で生成)
-    if direction == "左":
-        points = [(-x, y) for x, y in points]
 
     return points
 
@@ -1383,45 +1207,26 @@ def _map_sections_to_path(
     total_distance: int,
     perimeter: float,
 ) -> list[dict]:
-    """course_structure.json の区間情報をトラック座標にマッピングする。
+    """区間情報をトラック座標にマッピングする。
 
-    各区間 (200m) に対応するトラックパス上の座標範囲を返す。
-    複数周回のコースでは、パス座標を繰り返し使う。
+    スタート位置はゴールから total_distance m 手前。
+    各区間 (200m) をパス上の等距離区間に割り当てる。
+    複数周回のコースではパス座標を繰り返す。
 
-    戻り値: [{"section": {...}, "coords": [(x,y),...], "start_idx": int, "end_idx": int}, ...]
+    戻り値: [{"section": {...}, "coords": [(x,y),...]}, ...]
     """
     n_points = len(track_path)
     result = []
 
+    # ゴールは idx=0。スタートはゴールから距離 total_distance 手前。
+    # パスは走行方向順なので、スタートの idx を求める。
+    start_offset = (perimeter - (total_distance % perimeter)) % perimeter
+
     for sec in sections:
         start_m = sec["start_m"]
         end_m = sec["end_m"]
-        sec_len = end_m - start_m
 
-        # ゴールからの距離に変換
-        # sections のstart_mはスタートからの距離
-        # トラックパスはゴール(=次レースのスタート位置ではない)からの距離
-        # → start_m が 0 のときゴール前 total_distance m 地点
-
-        # ゴールからの逆算: パス上での位置
-        # スタート位置 = ゴールから total_distance m 手前
-        goal_dist_start = total_distance - start_m  # ゴールまでの残り距離
-        goal_dist_end = total_distance - end_m
-
-        # パス上のインデックス (ゴールが0)
-        # スタートからの距離をパス上に変換
-        # パスは走行方向順なので、start_m=0 はパス上で
-        # (perimeter - total_distance % perimeter) の位置に相当
-
-        start_on_path = start_m % perimeter  # スタート地点はゴールから距離total_distance手前
-        end_on_path = end_m % perimeter if end_m <= perimeter else end_m % perimeter
-
-        # スタート位置のオフセット (ゴールは idx=0, スタートはどこか)
-        # ゴールが idx=0 で走行方向に進む
-        # スタートはゴールから (perimeter - total_distance % perimeter) 進んだ位置
-        start_offset = (perimeter - (total_distance % perimeter)) % perimeter
-
-        # 各区間のパス上での開始・終了距離
+        # パス上の距離 (ゴール=0 基準、走行方向)
         sec_path_start = (start_offset + start_m) % perimeter
         sec_path_end = (start_offset + end_m) % perimeter
 
@@ -1437,14 +1242,11 @@ def _map_sections_to_path(
             coords = track_path[idx_start:] + track_path[:idx_end + 1]
 
         if len(coords) < 2:
-            # 最低2点は必要
             coords = [track_path[idx_start], track_path[(idx_start + 1) % n_points]]
 
         result.append({
             "section": sec,
             "coords": coords,
-            "start_idx": idx_start,
-            "end_idx": idx_end,
         })
 
     return result
@@ -1518,52 +1320,6 @@ def _difficulty_color_fill(score: float) -> str:
         g = int(160 - t * (160 - 40))
         b = int(23 + t * (40 - 23))
     return f"rgba({r},{g},{b},0.4)"
-
-
-def _make_thick_segment(coords: list[tuple[float, float]], width: float = 12.0) -> tuple[list[float], list[float]]:
-    """座標列からコースの幅を持ったポリゴン座標を生成する。
-
-    中心線の両側にwidth/2だけオフセットしたポリゴンを返す。
-    """
-    if len(coords) < 2:
-        return [], []
-
-    n = len(coords)
-    # 法線ベクトルを計算
-    normals = []
-    for i in range(n):
-        if i == 0:
-            dx = coords[1][0] - coords[0][0]
-            dy = coords[1][1] - coords[0][1]
-        elif i == n - 1:
-            dx = coords[n - 1][0] - coords[n - 2][0]
-            dy = coords[n - 1][1] - coords[n - 2][1]
-        else:
-            dx = coords[i + 1][0] - coords[i - 1][0]
-            dy = coords[i + 1][1] - coords[i - 1][1]
-
-        length = math.sqrt(dx * dx + dy * dy)
-        if length < 1e-10:
-            normals.append((0, 1))
-        else:
-            # 法線は走行方向の左90度回転
-            normals.append((-dy / length, dx / length))
-
-    half_w = width / 2
-
-    # 外側の点列 (法線方向)
-    outer_x = [coords[i][0] + normals[i][0] * half_w for i in range(n)]
-    outer_y = [coords[i][1] + normals[i][1] * half_w for i in range(n)]
-
-    # 内側の点列 (法線の逆方向) — 逆順
-    inner_x = [coords[i][0] - normals[i][0] * half_w for i in range(n - 1, -1, -1)]
-    inner_y = [coords[i][1] - normals[i][1] * half_w for i in range(n - 1, -1, -1)]
-
-    # ポリゴンとして閉じる
-    poly_x = outer_x + inner_x + [outer_x[0]]
-    poly_y = outer_y + inner_y + [outer_y[0]]
-
-    return poly_x, poly_y
 
 
 def _identify_corners(sections: list[dict], total_distance: int) -> list[dict]:
@@ -1734,48 +1490,37 @@ def page_course_map():
     # --- Plotlyで描画 ---
     fig = go.Figure()
 
-    # トラックの幅 (描画上のスケール)
     track_width = 15.0
 
-    # まずコース全体のアウトラインを描画 (薄いグレー)
-    all_x = [p[0] for p in track_path]
-    all_y = [p[1] for p in track_path]
+    # コース全体のアウトライン (薄いグレー)
+    all_x = [p[0] for p in track_path] + [track_path[0][0]]
+    all_y = [p[1] for p in track_path] + [track_path[0][1]]
     fig.add_trace(go.Scatter(
-        x=all_x + [all_x[0]],
-        y=all_y + [all_y[0]],
+        x=all_x, y=all_y,
         mode="lines",
         line=dict(color="rgba(100,100,100,0.3)", width=track_width * 1.5),
         hoverinfo="skip",
         showlegend=False,
     ))
 
-    # 各区間を色付きで描画
+    # 各区間を色付き太線で描画
+    type_labels = {
+        "straight": "直線", "corner": "コーナー",
+        "uphill": "急坂(上り)", "straight_uphill": "直線(上り)",
+        "straight_downhill": "直線(下り)", "corner_uphill": "コーナー(上り)",
+        "corner_downhill": "コーナー(下り)",
+    }
     for m in mapped:
         sec = m["section"]
         coords = m["coords"]
         difficulty = _section_difficulty(sec)
         color = _difficulty_color(difficulty)
-        fill_color = _difficulty_color_fill(difficulty)
 
-        sec_x = [c[0] for c in coords]
-        sec_y = [c[1] for c in coords]
-
-        # 区間タイプの日本語化
-        type_label = {
-            "straight": "直線",
-            "corner": "コーナー",
-            "uphill": "急坂(上り)",
-            "straight_uphill": "直線(上り)",
-            "straight_downhill": "直線(下り)",
-            "corner_uphill": "コーナー(上り)",
-            "corner_downhill": "コーナー(下り)",
-        }.get(sec.get("type", ""), sec.get("type", ""))
-
+        type_label = type_labels.get(sec.get("type", ""), sec.get("type", ""))
         gradient = sec.get("gradient", 0.0)
         corner_radius = sec.get("corner_radius")
         notes = sec.get("notes", "")
 
-        # ホバーテキスト
         hover_parts = [
             f"<b>{sec['start_m']}m - {sec['end_m']}m</b>",
             f"区間タイプ: {type_label}",
@@ -1786,25 +1531,23 @@ def page_course_map():
         hover_parts.append(f"厳しさ: {difficulty:.0%}")
         if notes:
             hover_parts.append(f"<i>{notes}</i>")
-        hover_text = "<br>".join(hover_parts)
 
-        # 太い線で区間を描画
         fig.add_trace(go.Scatter(
-            x=sec_x,
-            y=sec_y,
+            x=[c[0] for c in coords],
+            y=[c[1] for c in coords],
             mode="lines",
             line=dict(color=color, width=track_width),
-            hovertemplate=hover_text + "<extra></extra>",
+            hovertemplate="<br>".join(hover_parts) + "<extra></extra>",
             showlegend=False,
         ))
 
     # ゴール位置マーカー
     goal_x, goal_y = track_path[0]
     fig.add_trace(go.Scatter(
-        x=[goal_x],
-        y=[goal_y],
+        x=[goal_x], y=[goal_y],
         mode="markers+text",
-        marker=dict(color="#ffffff", size=12, symbol="x", line=dict(width=2, color="#ffffff")),
+        marker=dict(color="#ffffff", size=12, symbol="x",
+                    line=dict(width=2, color="#ffffff")),
         text=["GOAL"],
         textposition="bottom center",
         textfont=dict(color="#ffffff", size=12, family="Arial Black"),
@@ -1813,15 +1556,14 @@ def page_course_map():
     ))
 
     # スタート位置マーカー
-    # スタートはゴールから total_distance 手前
     start_offset_on_path = (perimeter - (distance % perimeter)) % perimeter
     start_idx = int((start_offset_on_path / perimeter) * len(track_path)) % len(track_path)
     start_x, start_y = track_path[start_idx]
     fig.add_trace(go.Scatter(
-        x=[start_x],
-        y=[start_y],
+        x=[start_x], y=[start_y],
         mode="markers+text",
-        marker=dict(color="#64b5f6", size=10, symbol="triangle-right" if direction == "右" else "triangle-left",
+        marker=dict(color="#64b5f6", size=10,
+                    symbol="triangle-right" if direction == "右" else "triangle-left",
                     line=dict(width=1, color="#64b5f6")),
         text=["START"],
         textposition="top center",
@@ -1830,54 +1572,41 @@ def page_course_map():
         showlegend=False,
     ))
 
-    # コーナー番号ラベル
+    # コーナー番号ラベル (コース内側にオフセット)
     for corner in corners:
-        # コーナー中間地点のパス上の座標を計算
         mid_m = corner["mid_m"]
         mid_offset = (start_offset_on_path + mid_m) % perimeter
         mid_idx = int((mid_offset / perimeter) * len(track_path)) % len(track_path)
         cx, cy = track_path[mid_idx]
 
-        # ラベルをコース内側に配置するためオフセット
-        # 法線方向を計算して内側にずらす
-        prev_idx = (mid_idx - 5) % len(track_path)
-        next_idx = (mid_idx + 5) % len(track_path)
-        dx = track_path[next_idx][0] - track_path[prev_idx][0]
-        dy = track_path[next_idx][1] - track_path[prev_idx][1]
-        length = math.sqrt(dx * dx + dy * dy)
-        if length > 0:
-            # 内側方向 (コーナーの内側)
-            nx, ny = -dy / length, dx / length
-            offset_dist = 30
-            label_x = cx + nx * offset_dist
-            label_y = cy + ny * offset_dist
+        # 楕円の中心(0,0)方向に向かってオフセット
+        dist_to_center = math.sqrt(cx * cx + cy * cy)
+        if dist_to_center > 0:
+            label_x = cx - (cx / dist_to_center) * 30
+            label_y = cy - (cy / dist_to_center) * 30
         else:
             label_x, label_y = cx, cy
 
         fig.add_annotation(
-            x=label_x,
-            y=label_y,
+            x=label_x, y=label_y,
             text=f"<b>{corner['label']}</b>",
             showarrow=False,
             font=dict(color="#ffa726", size=13, family="Arial Black"),
         )
 
-    # 走行方向の矢印 (コース途中に数か所)
-    arrow_positions = [0.15, 0.4, 0.65, 0.85]
-    for pos in arrow_positions:
+    # 走行方向の矢印
+    for pos in [0.15, 0.4, 0.65, 0.85]:
         idx = int(pos * len(track_path)) % len(track_path)
-        next_idx_arrow = (idx + 3) % len(track_path)
-        ax, ay = track_path[idx]
-        bx, by = track_path[next_idx_arrow]
+        next_idx = (idx + 5) % len(track_path)
         fig.add_annotation(
-            x=bx, y=by, ax=ax, ay=ay,
+            x=track_path[next_idx][0], y=track_path[next_idx][1],
+            ax=track_path[idx][0], ay=track_path[idx][1],
             arrowhead=3, arrowsize=1.2, arrowwidth=2,
             arrowcolor="rgba(255,255,255,0.4)",
-            showarrow=True,
-            text="",
+            showarrow=True, text="",
         )
 
-    # レイアウト設定 (ダークモード)
+    # レイアウト設定 (ダークモード、横長楕円)
     fig.update_layout(
         plot_bgcolor="#0e1117",
         paper_bgcolor="#0e1117",
@@ -1887,24 +1616,17 @@ def page_course_map():
             font=dict(size=18, color="#e0e0e0"),
         ),
         xaxis=dict(
-            showgrid=False,
-            zeroline=False,
-            showticklabels=False,
-            scaleanchor="y",
-            scaleratio=1,
+            showgrid=False, zeroline=False, showticklabels=False,
         ),
         yaxis=dict(
-            showgrid=False,
-            zeroline=False,
-            showticklabels=False,
+            showgrid=False, zeroline=False, showticklabels=False,
+            scaleanchor="x", scaleratio=1,
         ),
         margin=dict(l=20, r=20, t=50, b=20),
-        height=550,
+        height=500,
         hoverlabel=dict(
-            bgcolor="#1e1e2e",
-            font_size=13,
-            font_color="white",
-            bordercolor="#555",
+            bgcolor="#1e1e2e", font_size=13,
+            font_color="white", bordercolor="#555",
         ),
     )
 
