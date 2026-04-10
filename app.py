@@ -1148,32 +1148,113 @@ def page_course_analysis():
 # ============================================================
 
 # --- 競馬場の形状パラメータ ---
-# 各競馬場のコース形状を楕円で近似する。
-# a: 楕円の長軸半径 (横幅の半分)
-# b: 楕円の短軸半径 (縦幅の半分)
+# 各競馬場のコース形状を実際の構造で再現する。
+# home_straight: ホームストレッチ(直線)の長さ (m)
+# back_straight: バックストレッチ(向正面)の長さ (m)
+# corner_radius_12: 1C-2Cの半径 (m)
+# corner_radius_34: 3C-4Cの半径 (m)
 # direction: "右" or "左" or "直線"
-# perimeter: 1周の距離 (m)
+# perimeter: 1周の距離 (m, 芝外回り基準)
 
 VENUE_SHAPES = {
-    "札幌": {"a": 295, "b": 120, "direction": "右", "perimeter": 1640},
-    "函館": {"a": 285, "b": 110, "direction": "右", "perimeter": 1626},
-    "福島": {"a": 290, "b": 100, "direction": "右", "perimeter": 1600},
-    "新潟": {"a": 310, "b": 130, "direction": "左", "perimeter": 1623},
-    "東京": {"a": 413, "b": 150, "direction": "左", "perimeter": 2083},
-    "中山": {"a": 290, "b": 100, "direction": "右", "perimeter": 1667},
-    "中京": {"a": 337, "b": 130, "direction": "左", "perimeter": 1705},
-    "京都": {"a": 300, "b": 100, "direction": "右", "perimeter": 1783},
-    "阪神": {"a": 330, "b": 130, "direction": "右", "perimeter": 1689},
-    "小倉": {"a": 285, "b": 100, "direction": "右", "perimeter": 1616},
+    "東京": {
+        "home_straight": 525,
+        "back_straight": 450,
+        "corner_radius_12": 130,
+        "corner_radius_34": 130,
+        "direction": "左",
+        "perimeter": 2083,
+    },
+    "中山": {
+        "home_straight": 310,
+        "back_straight": 240,
+        "corner_radius_12": 100,
+        "corner_radius_34": 80,
+        "direction": "右",
+        "perimeter": 1840,
+    },
+    "阪神": {
+        "home_straight": 473,
+        "back_straight": 380,
+        "corner_radius_12": 130,
+        "corner_radius_34": 120,
+        "direction": "右",
+        "perimeter": 2089,
+    },
+    "京都": {
+        "home_straight": 404,
+        "back_straight": 380,
+        "corner_radius_12": 120,
+        "corner_radius_34": 120,
+        "direction": "右",
+        "perimeter": 1894,
+    },
+    "中京": {
+        "home_straight": 412,
+        "back_straight": 340,
+        "corner_radius_12": 110,
+        "corner_radius_34": 110,
+        "direction": "左",
+        "perimeter": 1705,
+    },
+    "新潟": {
+        "home_straight": 659,
+        "back_straight": 350,
+        "corner_radius_12": 110,
+        "corner_radius_34": 110,
+        "direction": "左",
+        "perimeter": 2223,
+    },
+    "札幌": {
+        "home_straight": 266,
+        "back_straight": 260,
+        "corner_radius_12": 105,
+        "corner_radius_34": 105,
+        "direction": "右",
+        "perimeter": 1640,
+    },
+    "函館": {
+        "home_straight": 262,
+        "back_straight": 260,
+        "corner_radius_12": 100,
+        "corner_radius_34": 100,
+        "direction": "右",
+        "perimeter": 1626,
+    },
+    "福島": {
+        "home_straight": 292,
+        "back_straight": 270,
+        "corner_radius_12": 100,
+        "corner_radius_34": 100,
+        "direction": "右",
+        "perimeter": 1600,
+    },
+    "小倉": {
+        "home_straight": 293,
+        "back_straight": 270,
+        "corner_radius_12": 90,
+        "corner_radius_34": 85,
+        "direction": "右",
+        "perimeter": 1616,
+    },
 }
 
 
 def _generate_track_path(venue_name: str, n_points: int = 1000) -> list[tuple[float, float]]:
-    """競馬場の楕円コースを (x, y) 座標列として生成する。
+    """競馬場のコースを実際の形状に忠実に (x, y) 座標列として生成する。
 
-    ゴール位置は楕円の右端 (theta=0)。
-    右回り: 時計回り (theta が減少方向=下向きに進む)
-    左回り: 反時計回り (theta が増加方向=上向きに進む)
+    コース構成 (上から見た図):
+      ホームストレッチ(下側, y=0) ─ 左右のコーナー(半円) ─ バックストレッチ(上側)
+
+    path[0] = ゴール位置 = ホームストレッチ右端 (home/2, 0)
+    走行方向に沿って1周分の座標を返す。
+
+    右回り(時計回り):
+      ゴール → ホーム(右→左) → 4C-3C(左側半円) → バック(左→右) → 2C-1C(右側半円) → ゴール
+    左回り(反時計回り):
+      ゴール → 1C-2C(右側半円) → バック(右→左) → 3C-4C(左側半円) → ホーム(左→右) → ゴール
+
+    半径の異なる左右コーナーにより、中山のような洋梨型を再現。
 
     戻り値: [(x, y), ...] n_points個の点 (1周分、走行方向順)
     """
@@ -1181,22 +1262,109 @@ def _generate_track_path(venue_name: str, n_points: int = 1000) -> list[tuple[fl
     if not shape_info:
         return []
 
-    a = shape_info["a"]
-    b = shape_info["b"]
+    home = shape_info["home_straight"]
+    back = shape_info["back_straight"]
+    r12 = shape_info["corner_radius_12"]
+    r34 = shape_info["corner_radius_34"]
     direction = shape_info["direction"]
 
+    # 各パートの弧長
+    arc_34 = math.pi * r34
+    arc_12 = math.pi * r12
+    total_len = home + arc_34 + back + arc_12
+
+    # 点数配分
+    n_home = max(2, round(n_points * home / total_len))
+    n_c34 = max(2, round(n_points * arc_34 / total_len))
+    n_back = max(2, round(n_points * back / total_len))
+    n_c12 = max(2, n_points - n_home - n_c34 - n_back)
+
+    # 基準座標
+    home_left = -home / 2.0
+    home_right = home / 2.0
+
+    # 左コーナー(3C-4C側): 中心=(-home/2, r34)
+    c34_cx, c34_cy = home_left, r34
+    top_left_y = 2.0 * r34
+
+    # 右コーナー(1C-2C側): 中心=(+home/2, r12)
+    c12_cx, c12_cy = home_right, r12
+    top_right_y = 2.0 * r12
+
     points = []
-    for i in range(n_points):
-        t = i / n_points
-        if direction == "右":
-            # 時計回り: theta = 0 → -2π (右端から下へ)
-            theta = -t * 2 * math.pi
-        else:
-            # 反時計回り: theta = 0 → 2π (右端から上へ)
-            theta = t * 2 * math.pi
-        x = a * math.cos(theta)
-        y = b * math.sin(theta)
-        points.append((x, y))
+
+    if direction == "右":
+        # 右回り(時計回り): path[0]=(home/2, 0) ゴール
+
+        # Part 1: ホームストレッチ (右→左)
+        for i in range(n_home):
+            t = i / n_home
+            points.append((home_right - t * home, 0.0))
+
+        # Part 2: 4C→3C 左側半円 (底→頂, 時計回り)
+        # 中心(c34_cx, c34_cy)から: 底θ=3π/2 → 頂θ=π/2 (θ減少)
+        for i in range(n_c34):
+            t = i / n_c34
+            theta = (3 * math.pi / 2) - t * math.pi
+            points.append((
+                c34_cx + r34 * math.cos(theta),
+                c34_cy + r34 * math.sin(theta),
+            ))
+
+        # Part 3: バックストレッチ (左→右)
+        for i in range(n_back):
+            t = i / n_back
+            points.append((
+                home_left + t * (home_right - home_left),
+                top_left_y + t * (top_right_y - top_left_y),
+            ))
+
+        # Part 4: 2C→1C 右側半円 (頂→底, 時計回り)
+        # 中心(c12_cx, c12_cy)から: 頂θ=π/2 → 底θ=-π/2 (θ減少)
+        for i in range(n_c12):
+            t = i / n_c12
+            theta = (math.pi / 2) - t * math.pi
+            points.append((
+                c12_cx + r12 * math.cos(theta),
+                c12_cy + r12 * math.sin(theta),
+            ))
+
+    else:
+        # 左回り(反時計回り): path[0]=(home/2, 0) ゴール
+        # ゴール → 1C(右コーナー底→頂) → バック(右→左) → 4C(左コーナー頂→底) → ホーム(左→右) → ゴール
+
+        # Part 1: 1C→2C 右側半円 (底→頂, 反時計回り)
+        # 中心(c12_cx, c12_cy)から: 底θ=-π/2 → 頂θ=π/2 (θ増加)
+        for i in range(n_c12):
+            t = i / n_c12
+            theta = (-math.pi / 2) + t * math.pi
+            points.append((
+                c12_cx + r12 * math.cos(theta),
+                c12_cy + r12 * math.sin(theta),
+            ))
+
+        # Part 2: バックストレッチ (右→左)
+        for i in range(n_back):
+            t = i / n_back
+            points.append((
+                home_right + t * (home_left - home_right),
+                top_right_y + t * (top_left_y - top_right_y),
+            ))
+
+        # Part 3: 3C→4C 左側半円 (頂→底, 反時計回り)
+        # 中心(c34_cx, c34_cy)から: 頂θ=π/2 → 底θ=3π/2 (θ増加)
+        for i in range(n_c34):
+            t = i / n_c34
+            theta = (math.pi / 2) + t * math.pi
+            points.append((
+                c34_cx + r34 * math.cos(theta),
+                c34_cy + r34 * math.sin(theta),
+            ))
+
+        # Part 4: ホームストレッチ (左→右)
+        for i in range(n_home):
+            t = i / n_home
+            points.append((home_left + t * home, 0.0))
 
     return points
 
@@ -1579,11 +1747,17 @@ def page_course_map():
         mid_idx = int((mid_offset / perimeter) * len(track_path)) % len(track_path)
         cx, cy = track_path[mid_idx]
 
-        # 楕円の中心(0,0)方向に向かってオフセット
-        dist_to_center = math.sqrt(cx * cx + cy * cy)
+        # コース中心方向に向かってオフセット（ラベルをコース内側に配置）
+        _r34 = shape_info.get("corner_radius_34", 100)
+        _r12 = shape_info.get("corner_radius_12", 100)
+        track_center_x = 0.0
+        track_center_y = (_r34 + _r12) / 2.0
+        dx_lbl = cx - track_center_x
+        dy_lbl = cy - track_center_y
+        dist_to_center = math.sqrt(dx_lbl * dx_lbl + dy_lbl * dy_lbl)
         if dist_to_center > 0:
-            label_x = cx - (cx / dist_to_center) * 30
-            label_y = cy - (cy / dist_to_center) * 30
+            label_x = cx - (dx_lbl / dist_to_center) * 40
+            label_y = cy - (dy_lbl / dist_to_center) * 40
         else:
             label_x, label_y = cx, cy
 
