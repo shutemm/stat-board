@@ -1,195 +1,392 @@
 {
   "model": "physics",
-  "version": "3.1.0",
-  "created_at": "2026-04-10T11:53:35.524952",
-  "description": "物理法則ベース構造負荷モデル。corner_load(遠心力) + slope_load(位置エネルギー) + dist_loss_time + track_load(馬場抵抗)。",
+  "version": "4.0.0",
+  "created_at": "2026-04-10T12:48:26.596828",
+  "description": "芝/ダート分離 物理法則ベース構造負荷モデル。芝はクッション値あり(12パラメータ)、ダートはクッション値なし(11パラメータ)。",
   "formula": "environmental_load = corner_load + slope_load + dist_loss_time + track_load",
-  "formula_details": {
-    "corner_load": "a * speed^2/radius * (1 + b*moisture) * (1 + c*dist_loss)",
-    "slope_load": "d * gradient * 200 * (1 + e*cum_load) * (1 + f*moisture)",
-    "dist_loss_time": "dist_loss/speed + g * dist_loss * speed/radius",
-    "track_load": "(h*moisture + i*track_cond + j*cushion) * (1 + k*grad_abs) * (1 + l*cum_dist/1000)"
-  },
-  "n_samples": 787960,
-  "n_oos_samples": 787960,
-  "n_meetings": 336,
-  "n_course_sections": 752,
-  "r_squared": 0.653337,
-  "r_squared_deviation": -0.040271,
-  "oos_r_squared": 0.64827,
-  "oos_r_squared_deviation": -0.055477,
-  "rmse": 0.4691,
-  "oos_rmse": 0.4725,
-  "mae": 0.3433,
-  "oos_mae": 0.3464,
-  "parameters": {
-    "a": {
-      "value": 0.00135971,
-      "se": 0.00042091,
-      "t_stat": 3.23,
-      "p_value": 0.001236,
-      "significant": true,
-      "description": "コーナー遠心力スケール: a * v^2/r"
+  "models": {
+    "turf": {
+      "parameters": {
+        "a": {
+          "value": 0.00099591,
+          "se": 0.00071974,
+          "t_stat": 1.38,
+          "p_value": 0.166447,
+          "significant": false,
+          "description": "コーナー遠心力スケール: a * v^2/r"
+        },
+        "b": {
+          "value": -0.01629338,
+          "se": 0.00389608,
+          "t_stat": -4.18,
+          "p_value": 2.9e-05,
+          "significant": true,
+          "description": "含水率xコーナー相互作用: (1 + b*moisture)"
+        },
+        "c": {
+          "value": -20.0,
+          "se": 14.71453416,
+          "t_stat": -1.36,
+          "p_value": 0.174084,
+          "significant": false,
+          "description": "距離ロスxコーナー相互作用: (1 + c*dist_loss)"
+        },
+        "d": {
+          "value": 6.38e-06,
+          "se": 7.824e-05,
+          "t_stat": 0.08,
+          "p_value": 0.934977,
+          "significant": false,
+          "description": "勾配スケール: d * gradient * 200"
+        },
+        "e": {
+          "value": -0.5,
+          "se": 6.00836667,
+          "t_stat": -0.08,
+          "p_value": 0.933679,
+          "significant": false,
+          "description": "累積負荷x坂相互作用: (1 + e*cum_load)"
+        },
+        "f": {
+          "value": -0.08843948,
+          "se": 0.00226634,
+          "t_stat": -39.02,
+          "p_value": 0.0,
+          "significant": true,
+          "description": "含水率x坂相互作用: (1 + f*moisture)"
+        },
+        "g": {
+          "value": -0.01,
+          "se": 0.02642114,
+          "t_stat": -0.38,
+          "p_value": 0.705071,
+          "significant": false,
+          "description": "コーナー距離ロス追加: g * dist_loss * v/r"
+        },
+        "h": {
+          "value": 0.00100239,
+          "se": 0.00012047,
+          "t_stat": 8.32,
+          "p_value": 0.0,
+          "significant": true,
+          "description": "含水率->馬場負荷: h * moisture"
+        },
+        "i": {
+          "value": 0.05827186,
+          "se": 0.00185544,
+          "t_stat": 31.41,
+          "p_value": 0.0,
+          "significant": true,
+          "description": "馬場状態->馬場負荷: i * track_condition"
+        },
+        "j": {
+          "value": -0.00397414,
+          "se": 0.00019336,
+          "t_stat": -20.55,
+          "p_value": 0.0,
+          "significant": true,
+          "description": "クッション->馬場負荷: j * cushion_value"
+        },
+        "k": {
+          "value": 0.16534197,
+          "se": 0.01802741,
+          "t_stat": 9.17,
+          "p_value": 0.0,
+          "significant": true,
+          "description": "勾配x馬場相互作用: (1 + k*grad_abs)"
+        },
+        "l": {
+          "value": 1.19092301,
+          "se": 0.06734663,
+          "t_stat": 17.68,
+          "p_value": 0.0,
+          "significant": true,
+          "description": "累積距離x馬場相互作用: (1 + l*cum_dist/1000)"
+        }
+      },
+      "formula_details": {
+        "corner_load": "a * speed^2/radius * (1 + b*moisture) * (1 + c*dist_loss)",
+        "slope_load": "d * gradient * 200 * (1 + e*cum_load) * (1 + f*moisture)",
+        "dist_loss_time": "dist_loss/speed + g * dist_loss * speed/radius",
+        "track_load": "(h*moisture + i*track_cond + j*cushion) * (1 + k*grad_abs) * (1 + l*cum_dist/1000)"
+      },
+      "r_squared": 0.638515,
+      "r_squared_deviation": 0.016582,
+      "oos_r_squared": 0.630023,
+      "oos_r_squared_deviation": -0.006523,
+      "rmse": 0.4193,
+      "oos_rmse": 0.4242,
+      "mae": 0.3154,
+      "oos_mae": 0.3195,
+      "n_samples": 392994,
+      "n_oos_samples": 392994,
+      "n_meetings": 334,
+      "n_course_sections": 512,
+      "contribution_stats": {
+        "corner_load": {
+          "mean": -0.014134,
+          "std": 0.054331,
+          "min": -0.657505,
+          "max": 9.645583
+        },
+        "slope_load": {
+          "mean": 0.001039,
+          "std": 0.006947,
+          "min": -0.032796,
+          "max": 0.097085
+        },
+        "dist_loss_time": {
+          "mean": 0.036532,
+          "std": 0.075105,
+          "min": -4.245726,
+          "max": 0.856798
+        },
+        "track_load": {
+          "mean": -0.022592,
+          "std": 0.07514,
+          "min": -0.142534,
+          "max": 0.670778
+        }
+      },
+      "physical_validity": {
+        "a_corner_force": {
+          "expected": "positive (centrifugal force slows)",
+          "actual": "0.000996",
+          "valid": true,
+          "note": "OK"
+        },
+        "d_slope": {
+          "expected": "positive (uphill slows)",
+          "actual": "0.000006",
+          "valid": true,
+          "note": "OK"
+        },
+        "g_dist_loss_extra": {
+          "expected": "non-negative",
+          "actual": "-0.010000",
+          "valid": false,
+          "note": "WARNING"
+        },
+        "h_moisture": {
+          "expected": "positive (芝: 含水率UP=遅い)",
+          "actual": "0.001002",
+          "valid": true,
+          "note": "OK"
+        },
+        "i_track_condition": {
+          "expected": "positive (芝: 悪化=遅い)",
+          "actual": "0.058272",
+          "valid": true,
+          "note": "OK"
+        },
+        "j_cushion": {
+          "expected": "negative (芝: クッション値UP=硬い=速い)",
+          "actual": "-0.003974",
+          "valid": true,
+          "note": "cushion effect: -0.003974"
+        }
+      },
+      "optimization": {
+        "cost": 34546.43336852736,
+        "nfev": 61,
+        "status": 2,
+        "message": "`ftol` termination condition is satisfied."
+      },
+      "feature_names": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l"
+      ]
     },
-    "b": {
-      "value": -0.00929775,
-      "se": 0.00122049,
-      "t_stat": -7.62,
-      "p_value": 0.0,
-      "significant": true,
-      "description": "含水率xコーナー相互作用: (1 + b*moisture)"
-    },
-    "c": {
-      "value": -20.0,
-      "se": 6.37497066,
-      "t_stat": -3.14,
-      "p_value": 0.001705,
-      "significant": true,
-      "description": "距離ロスxコーナー相互作用: (1 + c*dist_loss)"
-    },
-    "d": {
-      "value": 0.00037297,
-      "se": 3.152e-05,
-      "t_stat": 11.83,
-      "p_value": 0.0,
-      "significant": true,
-      "description": "勾配スケール: d * gradient * 200"
-    },
-    "e": {
-      "value": -0.01090873,
-      "se": 0.00029744,
-      "t_stat": -36.68,
-      "p_value": 0.0,
-      "significant": true,
-      "description": "累積負荷x坂相互作用: (1 + e*cum_load)"
-    },
-    "f": {
-      "value": -0.07239467,
-      "se": 0.00352014,
-      "t_stat": -20.57,
-      "p_value": 0.0,
-      "significant": true,
-      "description": "含水率x坂相互作用: (1 + f*moisture)"
-    },
-    "g": {
-      "value": 0.1,
-      "se": 0.02368665,
-      "t_stat": 4.22,
-      "p_value": 2.4e-05,
-      "significant": true,
-      "description": "コーナー距離ロス追加: g * dist_loss * v/r"
-    },
-    "h": {
-      "value": -0.00478584,
-      "se": 0.00019497,
-      "t_stat": -24.55,
-      "p_value": 0.0,
-      "significant": true,
-      "description": "含水率->馬場負荷: h * moisture"
-    },
-    "i": {
-      "value": 0.00110284,
-      "se": 0.00084565,
-      "t_stat": 1.3,
-      "p_value": 0.192189,
-      "significant": false,
-      "description": "馬場状態->馬場負荷: i * track_condition"
-    },
-    "j": {
-      "value": 0.00258411,
-      "se": 0.00015811,
-      "t_stat": 16.34,
-      "p_value": 0.0,
-      "significant": true,
-      "description": "クッション->馬場負荷: j * cushion_value"
-    },
-    "k": {
-      "value": -0.23400507,
-      "se": 0.03997175,
-      "t_stat": -5.85,
-      "p_value": 0.0,
-      "significant": true,
-      "description": "勾配x馬場相互作用: (1 + k*grad_abs)"
-    },
-    "l": {
-      "value": 0.03226779,
-      "se": 0.03886013,
-      "t_stat": 0.83,
-      "p_value": 0.406337,
-      "significant": false,
-      "description": "累積距離x馬場相互作用: (1 + l*cum_dist/1000)"
+    "dirt": {
+      "parameters": {
+        "a": {
+          "value": 0.00113982,
+          "se": 0.00045675,
+          "t_stat": 2.5,
+          "p_value": 0.012579,
+          "significant": true,
+          "description": "コーナー遠心力スケール: a * v^2/r"
+        },
+        "b": {
+          "value": 0.02843176,
+          "se": 0.00725941,
+          "t_stat": 3.92,
+          "p_value": 9e-05,
+          "significant": true,
+          "description": "含水率xコーナー相互作用: (1 + b*moisture)"
+        },
+        "c": {
+          "value": -20.0,
+          "se": 8.27697016,
+          "t_stat": -2.42,
+          "p_value": 0.015678,
+          "significant": true,
+          "description": "距離ロスxコーナー相互作用: (1 + c*dist_loss)"
+        },
+        "d": {
+          "value": 0.00038648,
+          "se": 3.916e-05,
+          "t_stat": 9.87,
+          "p_value": 0.0,
+          "significant": true,
+          "description": "勾配スケール: d * gradient * 200"
+        },
+        "e": {
+          "value": -0.00915666,
+          "se": 0.00033007,
+          "t_stat": -27.74,
+          "p_value": 0.0,
+          "significant": true,
+          "description": "累積負荷x坂相互作用: (1 + e*cum_load)"
+        },
+        "f": {
+          "value": -0.08481636,
+          "se": 0.00900119,
+          "t_stat": -9.42,
+          "p_value": 0.0,
+          "significant": true,
+          "description": "含水率x坂相互作用: (1 + f*moisture)"
+        },
+        "g": {
+          "value": 0.1,
+          "se": 0.07940763,
+          "t_stat": 1.26,
+          "p_value": 0.207914,
+          "significant": false,
+          "description": "コーナー距離ロス追加: g * dist_loss * v/r"
+        },
+        "h": {
+          "value": 0.00160301,
+          "se": 0.00017418,
+          "t_stat": 9.2,
+          "p_value": 0.0,
+          "significant": true,
+          "description": "含水率->馬場負荷: h * moisture"
+        },
+        "i": {
+          "value": -0.0572103,
+          "se": 0.00210833,
+          "t_stat": -27.14,
+          "p_value": 0.0,
+          "significant": true,
+          "description": "馬場状態->馬場負荷: i * track_condition"
+        },
+        "k": {
+          "value": -0.19526026,
+          "se": 0.0232351,
+          "t_stat": -8.4,
+          "p_value": 0.0,
+          "significant": true,
+          "description": "勾配x馬場相互作用: (1 + k*grad_abs)"
+        },
+        "l": {
+          "value": 0.45385924,
+          "se": 0.05376578,
+          "t_stat": 8.44,
+          "p_value": 0.0,
+          "significant": true,
+          "description": "累積距離x馬場相互作用: (1 + l*cum_dist/1000)"
+        }
+      },
+      "formula_details": {
+        "corner_load": "a * speed^2/radius * (1 + b*moisture) * (1 + c*dist_loss)",
+        "slope_load": "d * gradient * 200 * (1 + e*cum_load) * (1 + f*moisture)",
+        "dist_loss_time": "dist_loss/speed + g * dist_loss * speed/radius",
+        "track_load": "(h*moisture + i*track_cond) * (1 + k*grad_abs) * (1 + l*cum_dist/1000)"
+      },
+      "r_squared": 0.605194,
+      "r_squared_deviation": -0.047454,
+      "oos_r_squared": 0.60222,
+      "oos_r_squared_deviation": -0.055345,
+      "rmse": 0.5056,
+      "oos_rmse": 0.5075,
+      "mae": 0.3626,
+      "oos_mae": 0.3643,
+      "n_samples": 394966,
+      "n_oos_samples": 394966,
+      "n_meetings": 336,
+      "n_course_sections": 240,
+      "contribution_stats": {
+        "corner_load": {
+          "mean": -0.030875,
+          "std": 0.088919,
+          "min": -1.81774,
+          "max": 0.011038
+        },
+        "slope_load": {
+          "mean": -0.00011,
+          "std": 0.008859,
+          "min": -0.086515,
+          "max": 0.060676
+        },
+        "dist_loss_time": {
+          "mean": 0.040476,
+          "std": 0.154933,
+          "min": -4.54567,
+          "max": 3.102347
+        },
+        "track_load": {
+          "mean": -0.021119,
+          "std": 0.052125,
+          "min": -0.290421,
+          "max": 0.036844
+        }
+      },
+      "physical_validity": {
+        "a_corner_force": {
+          "expected": "positive (centrifugal force slows)",
+          "actual": "0.001140",
+          "valid": true,
+          "note": "OK"
+        },
+        "d_slope": {
+          "expected": "positive (uphill slows)",
+          "actual": "0.000386",
+          "valid": true,
+          "note": "OK"
+        },
+        "h_moisture": {
+          "expected": "negative (ダート: 含水率UP=速い)",
+          "actual": "0.001603",
+          "valid": false,
+          "note": "NOTE: ダートで含水率UPが遅い"
+        },
+        "i_track_condition": {
+          "expected": "negative (ダート: 悪化=速い)",
+          "actual": "-0.057210",
+          "valid": true,
+          "note": "OK"
+        }
+      },
+      "optimization": {
+        "cost": 50490.71408977813,
+        "nfev": 36,
+        "status": 2,
+        "message": "`ftol` termination condition is satisfied."
+      },
+      "feature_names": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "k",
+        "l"
+      ]
     }
-  },
-  "contribution_stats": {
-    "corner_load": {
-      "mean": -0.025812,
-      "std": 0.084622,
-      "min": -2.028326,
-      "max": 14.629723
-    },
-    "slope_load": {
-      "mean": -0.000551,
-      "std": 0.006923,
-      "min": -0.130198,
-      "max": 0.043153
-    },
-    "dist_loss_time": {
-      "mean": 0.041504,
-      "std": 0.126489,
-      "min": -6.574371,
-      "max": 3.102347
-    },
-    "track_load": {
-      "mean": -0.016824,
-      "std": 0.020955,
-      "min": -0.080856,
-      "max": 0.024719
-    }
-  },
-  "physical_validity": {
-    "a_corner_force": {
-      "expected": "positive (centrifugal force slows)",
-      "actual": "0.001360",
-      "valid": true,
-      "note": "OK"
-    },
-    "d_slope": {
-      "expected": "positive (uphill slows)",
-      "actual": "0.000373",
-      "valid": true,
-      "note": "OK"
-    },
-    "g_dist_loss_extra": {
-      "expected": "non-negative (extra distance costs more at corners)",
-      "actual": "0.100000",
-      "valid": true,
-      "note": "OK"
-    },
-    "i_track_condition": {
-      "expected": "positive (wet track = slower)",
-      "actual": "0.001103",
-      "valid": true,
-      "note": "OK"
-    }
-  },
-  "optimization": {
-    "cost": 86688.15013990417,
-    "nfev": 43,
-    "status": 2,
-    "message": "`ftol` termination condition is satisfied."
-  },
-  "feature_names": [
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l"
-  ]
+  }
 }
