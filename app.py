@@ -2111,6 +2111,11 @@ def page_ratings():
         if not history:
             continue
 
+        # 2025年以降にこのコースで出走した馬のみ表示
+        recent_races = [h for h in history if h.get("d", "") >= "2025-01-01"]
+        if not recent_races:
+            continue
+
         latest = history[-1]
         latest_date = latest.get("d", "")
         latest_fo = latest.get("fo")
